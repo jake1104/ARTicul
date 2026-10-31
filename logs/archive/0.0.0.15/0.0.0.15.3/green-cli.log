@@ -1,0 +1,11 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.65s
+     Running tests\fricative.rs (target\debug\deps\fricative-c075cc645a94081f.exe)
+
+running 2 tests
+test rendered_sibilant_exceeds_weak_fricative_up_high ... ok
+test rendered_voiced_pair_splits_up_high ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

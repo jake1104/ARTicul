@@ -1,0 +1,4 @@
+wrote 9792 samples to demo/hello.wav
+samples 9792 rate 22050 ch 1 mono 16-bit (X-SAMPA hE "loU stressed, config/default-voice.toml)
+sha256 745258174f710e919c33470dd7842948bb8dc18dc731b93ed014f65b053c2446
+lateral zero audible in file: pinned 170-210ms interior notch 15.86dB (>= 6dB pin from 0.0.0.20.2)

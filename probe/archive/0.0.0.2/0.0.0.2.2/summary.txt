@@ -1,0 +1,5 @@
+Task 0.0.0.2.2 MIT license and ignore rules
+Outputs: LICENSE, probe/0.0.0.2.2/, logs/0.0.0.2.2/
+Done: MIT License present, 21 lines, AS IS clause verified
+Git exclusion check: AGENTS.md, todo.md, CHANGELOG.md, .superpowers/ not staged (no git repo yet, no .gitignore entry added)
+Logs: logs/0.0.0.2.2/validation.log

@@ -1,0 +1,42 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.08s
+     Running tests\prosody.rs (target\debug\deps\prosody-794f4189c96b22bd.exe)
+
+running 22 tests
+test accent_attack_starts_before_the_vowel ... ok
+test bare_input_defaults_nucleus_to_last_vowel ... ok
+test intrinsic_fricatives_longer_than_stops ... ok
+test f0_end_matches_next_start ... ok
+test nuclear_accent_adds_5st_on_last_primary_vowel ... ok
+test f0_declines_across_utterance ... ok
+test faster_rate_shortens_durations ... ok
+test accent_tail_decays_after_nucleus ... ok
+test mindur_floor_holds ... ok
+test baseline_initial_holds_plus_2st ... FAILED
+test long_vowel_gets_more_time ... ok
+test downstep_lowers_each_following_accent_by_1_5st ... ok
+test plan_length_matches_input ... ok
+test phrase_reset_at_pipe_boundary ... ok
+test post_nuclear_falls_to_minus_7st ... ok
+test phrase_decay_is_convex_not_linear ... ok
+test prenuclear_primary_adds_3st ... ok
+test secondary_accent_adds_1_5st ... ok
+test pre_voiceless_obstruent_shortens_sonorant ... ok
+test space_keeps_single_phrase ... ok
+test sublinear_cap_limits_combined_shortening ... ok
+test unstressed_segments_shorten ... ok
+
+failures:
+
+---- baseline_initial_holds_plus_2st stdout ----
+
+thread 'baseline_initial_holds_plus_2st' (7236) panicked at crates\articul-front\tests\prosody.rs:143:5:
+first f0=146.88641 want ~134.69545
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    baseline_initial_holds_plus_2st
+
+test result: FAILED. 21 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-front --test prosody`

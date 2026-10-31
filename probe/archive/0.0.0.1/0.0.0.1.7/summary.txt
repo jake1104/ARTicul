@@ -1,0 +1,5 @@
+Task 0.0.0.1.7 mechanical lookup table
+Tests: lookup.rs 7 passed (pulmonic 60, vowels 28, non-pulmonic clicks/implosives/ejectives, extIPA percussive, unknown None)
+Gates: cargo test workspace green
+Logs: logs/0.0.0.1.7/red.log (missing lookup), green.log (7 passed)
+Coverage: pulmonic 60 + vowels 28 + non-pulmonic 14 + extIPA 14 entries

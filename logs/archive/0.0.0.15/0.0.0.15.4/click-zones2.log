@@ -1,0 +1,3 @@
+onset          maxjump=0.001 @176
+I1-s boundary  maxjump=0.016 @2408
+tail+fade      maxjump=0.002 @7020

@@ -1,0 +1,5 @@
+Task 0.0.0.4.3 nasal and frication branches
+Tests: nasal_frication.rs 5 passed (BW x1.5, noise silence/noisy, nasal_branch_needed m true p false, frication boost s over m)
+APIs read features only: is_nasal(), manner()+is_voiced(), no symbol compare
+Files: crates/articul-dsp/src/parallel.rs (nasal_branch_needed, frication_level_for)
+Logs: logs/0.0.0.4.3/

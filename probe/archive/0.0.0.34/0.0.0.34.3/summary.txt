@@ -1,0 +1,76 @@
+0.0.0.34.3 Korean demo regeneration and close-out - summary (DONE)
+
+Inputs (de-stressed; stress marks parsed but ignored on the Korean path)
+--------------------------------------------------------------------------
+Korean voice renders use de-stressed inputs (no `"` marks, `%` kept):
+  annyeong: `%an njVN h\asejo` -> probe/0.0.0.34.3/demo_ko_annyeong.wav
+  yeobo:    `%jVbosejo`         -> probe/0.0.0.34.3/demo_ko_yeobo.wav
+CLI recipe (PowerShell 5.1, single quotes keep backslash literal):
+  .\target\release\articul.exe synthesize --text '%an njVN h\asejo' --voice config/korean-voice.toml --out probe\0.0.0.34.3\demo_ko_annyeong.wav
+  .\target\release\articul.exe synthesize --text '%jVbosejo' --voice config/korean-voice.toml --out probe\0.0.0.34.3\demo_ko_yeobo.wav
+Voice: config/korean-voice.toml ([korean] enabled, final_boundary H).
+No production code changes in this task (render + verify only).
+
+Step-2 verification (logs/0.0.0.34.3/render.log, certutil hashes)
+-----------------------------------------------------------------
+- annyeong 28693 samples, sha256 96F9352836F044CDB2701361B962BEF1948B4F6E7DB4FE38AEFF1A902F148254
+  == 0.0.0.34.2 probe hash (verify, not assumed).
+- yeobo 18878 samples, sha256 86390F85FBFE160C54FB6FF8DDF990F56B3B2081D695720E452D7B5AD20D6D08
+  == 0.0.0.34.2 probe hash.
+- Shipped (stressed) strings rendered with Korean voice are fc /b byte-identical
+  to the de-stressed renders (both demos) - P1 stress-ignored re-proved at CLI level.
+- TIs TIN default voice twice: 8822 samples each, sha256
+  CFBA9EF28A1A17EEE0BA2626B64BB3877F66A51C93FCBDB9ECEA3BF99B5B455A both,
+  determinism True, expected-hash MATCH (== 0.0.0.28.3 baseline).
+- hello `h@ "loU` default voice: 9219 samples, fc /b byte-identical to
+  demo/hello.wav (sha256 0D45CC72...); demo/hello.wav NOT re-rendered, NOT overwritten.
+
+Per-demo numbers (logs/0.0.0.34.3/measure.log via probe/0.0.0.34.3/measure_ko.py;
+0.0.0.33.2 default-voice baselines in parens: annyeong 17446/+1.99/0.1170/4199.5;
+yeobo 14666/-4.86/0.1300/5676.7)
+--------------------------------------------------------------------------------
+annyeong Korean voice:
+  samples 28693 (17446); halves -26.33/-22.05 diff +4.28 (+1.99; |diff|<=5 PASS; 2nd > -32 PASS);
+  RMS 0.0654 / -23.69dBFS (0.1170; low ~-23.5dBFS as expected per 34.2 - flagged, NOT gated, user ear decides);
+  centroid 5551.5Hz (4199.5); trough -16.09dB (report-only);
+  o F2 727Hz -1.8% vs V1 norm (pred -1.8%); V F2 1077Hz -0.8% (pred -0.8%);
+  all 5 vowels within 3.5% of spec-predicted (pulled) targets; drift 0.
+yeobo Korean voice:
+  samples 18878 (14666); halves -24.78/-22.42 diff +2.36 (-4.86; |diff|<=5 PASS; 2nd > -32 PASS);
+  RMS 0.0673 / -23.44dBFS (0.1300; same loudness note);
+  centroid 6118.7Hz (5676.7); trough -16.03dB (report-only);
+  o-final F2 727Hz -1.8%; V F2 1012Hz -6.7% (pred -4.5%); worst cell pre-s o +73.1% vs norm
+  but -3.1% vs spec-predicted pulled target (spec-kept alveolar pull); drift -1.
+spark windows (clamped peak in [start,start+10ms] per engine segment, report-only):
+  annyeong max 0.1439, yeobo max 0.1657, zero clamped samples in any window;
+  3 isolated clamp>=0.985 samples globally in each demo sit inside /s/ (phonetic
+  sibilant body, cf. s5-pin precedent - same finding as 34.2).
+F0 centers hold G4-style bounds (non-final excursion 2.20/2.58st, final +3.06st H%).
+
+Demo write (logs/0.0.0.34.3/demo-sha.log; AFTER step-2 verification passed)
+-----------------------------------------------------------------------------
+demo/annyeonghaseyo.wav: 717EF01D... (0.0.0.33.2) -> 96F93528... (== probe render)
+demo/yeoboseyo.wav:      2DA3BC30... (0.0.0.33.2) -> 86390F85... (== probe render)
+demo/hello.wav:          0D45CC72... unchanged (before == after).
+
+Gates (logs in logs/0.0.0.34.3/)
+--------------------------------
+- korean_voice 8/8 green (precondition; config/korean-voice.toml loads).
+- cargo fmt --check -> fmt-check.log, clean (exit 0).
+- cargo clippy --workspace --all-targets -- -D warnings -> clippy.log, clean.
+- cargo test --workspace -> test-workspace.log, 63 suites, 0 failed, incl. korean_voice 8/8.
+- cargo build --release -> release.log, Finished release profile.
+- TIs TIN pair re-rendered post-rebuild into probe/0.0.0.34.3/regression-a.wav and -b.wav:
+  8822 samples each, hash CFBA... MATCH (cli-regression.log).
+- python/validation/eval_reference.py --self-test -> eval-selftest.log, PASS (non-gating).
+  Ran with Python312 (has librosa); default python3 lacks it (recorded).
+- python/validation/check_parity.py -> parity.log, 4/4 PASS (lookup-p, lookup-unknown,
+  synthesize len=3242, vowel-a f2/f1=0.110). Ran with Python312 + PYTHONPATH=python
+  (prebuilt python/articul/_articul.pyd).
+
+Archive note
+------------
+Live probe/0.0.0.34.1, probe/0.0.0.34.2, probe/0.0.0.34.3 moved to
+probe/archive/0.0.0.34/; same for logs/0.0.0.34.{1,2,3} to logs/archive/0.0.0.34/.
+todo.md: 0.0.0.34.3 Done; cascade 0.0.0.34 Closed, Open: none. CHANGELOG Unreleased +3 lines.
+No source-code comments; no .gitignore/.git created; README untouched.

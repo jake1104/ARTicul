@@ -1,0 +1,12 @@
+[package]
+name = "f32dump"
+version = "0.0.0"
+edition = "2021"
+
+[workspace]
+
+[dependencies]
+articul-front = { path = "../../../crates/articul-front" }
+articul-phon = { path = "../../../crates/articul-phon" }
+articul-cli = { path = "../../../crates/articul-cli" }
+articul-dsp = { path = "../../../crates/articul-dsp" }

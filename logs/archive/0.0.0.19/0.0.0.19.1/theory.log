@@ -1,0 +1,14 @@
+PS E:\01_coding\ARTicul> Get-ChildItem crates/articul-dsp/src
+cascade.rs cpp_bridge.rs lib.rs parallel.rs radiation.rs source.rs spectrum.rs vowels.rs
+PS E:\01_coding\ARTicul> Get-Content todo.md | Select-String 'Done:' | Measure-Object | Select-Object -ExpandProperty Count
+28
+PS E:\01_coding\ARTicul> websearch 'Klatt 1980 cascade parallel tracheal poles zeros nasal' -> Qlatt notes (param tables, routing, A2COR/A3COR, PLSTEP), sail.usc.edu PDF
+PS E:\01_coding\ARTicul> websearch 'Klatt F1 damping glottal opening aspiration spectral tilt open quotient' -> Berkeley Phonlab params, Barney 2005 (+13% F1), Klatt&Klatt 1990 Fig.1
+PS E:\01_coding\ARTicul> websearch 'mixed excitation STRAIGHT WORLD aperiodicity' -> Kawahara 2001 MAVEBA, Morise 2016 WORLD, Allen+Jamieson 1985
+PS E:\01_coding\ARTicul> websearch 'postfiltering formant enhancement' -> G.729 A(z/beta)/A(z/alpha), US7124077
+PS E:\01_coding\ARTicul> websearch 'Klatt 1979 duration / VOT / Fujisaki alpha beta gamma / AB bypass' -> Klatt 1975 JSHR VOT, Fujisaki alpha=3 beta=20 gamma=0.9, Sawusch Klatt VOT recipe, KlattGrid Praat
+PS E:\01_coding\ARTicul> verified source.rs: OQ=0.6/asym=0.7 fixed, jitter 0.8 pct, white aspiration gated by flow
+PS E:\01_coding\ARTicul> verified synth.rs render_unit: frication path = pure white noise, no AV/AVS; no AH cascade route; no AB bypass; normalize_peak 0.9
+PS E:\01_coding\ARTicul> verified parallel.rs: single 1000 Hz notch nasal, white frication_noise, no bypass; cascade.rs fixed BWs; prosody.rs additive phrase+accent, not Gp/Ga convolution
+PS E:\01_coding\ARTicul> wrote probe/0.0.0.19.1/theory/gaps.md (10 ranked gaps, each with mechanism + theory + perceptual + file + size)
+DONE

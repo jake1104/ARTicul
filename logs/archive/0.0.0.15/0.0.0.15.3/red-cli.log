@@ -1,0 +1,30 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.38s
+     Running tests\fricative.rs (target\debug\deps\fricative-c075cc645a94081f.exe)
+
+running 2 tests
+test rendered_sibilant_exceeds_weak_fricative_up_high ... FAILED
+test rendered_voiced_pair_splits_up_high ... FAILED
+
+failures:
+
+---- rendered_sibilant_exceeds_weak_fricative_up_high stdout ----
+
+thread 'rendered_sibilant_exceeds_weak_fricative_up_high' (10688) panicked at crates\articul-cli\tests\fricative.rs:16:5:
+assertion failed: hp_rms(&s) > 1.5 * hp_rms(&f)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- rendered_voiced_pair_splits_up_high stdout ----
+
+thread 'rendered_voiced_pair_splits_up_high' (11276) panicked at crates\articul-cli\tests\fricative.rs:23:5:
+assertion failed: hp_rms(&z) > 1.5 * hp_rms(&v)
+
+
+failures:
+    rendered_sibilant_exceeds_weak_fricative_up_high
+    rendered_voiced_pair_splits_up_high
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-cli --test fricative`

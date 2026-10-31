@@ -1,0 +1,24 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.99s
+     Running tests\cascade.rs (target\debug\deps\cascade-8e631d6db6b325cb.exe)
+
+running 3 tests
+test cascade_preserves_length_and_stays_finite ... ok
+test single_resonator_prefers_its_formant ... ok
+test impulse_response_decays ... FAILED
+
+failures:
+
+---- impulse_response_decays stdout ----
+
+thread 'impulse_response_decays' (5304) panicked at crates\articul-dsp\tests\cascade.rs:25:5:
+tail=1483443.9
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    impulse_response_decays
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-dsp --test cascade`

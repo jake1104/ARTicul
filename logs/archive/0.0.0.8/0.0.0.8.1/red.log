@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "E:\01_coding\ARTicul\python\validation\check_parity.py", line 6, in <module>
+    from articul import lookup, synthesize
+  File "E:\01_coding\ARTicul\python\articul\__init__.py", line 3, in <module>
+    from articul._articul import lookup_features as _lookup
+ModuleNotFoundError: No module named 'articul._articul'

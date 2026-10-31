@@ -1,0 +1,44 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+error[E0308]: mismatched types
+  --> crates\articul-cli\tests\cf0.rs:44:38
+   |
+44 |     let tail_iv = crossing_intervals(tail, 0.3);
+   |                   ------------------ ^^^^ expected `&[f32]`, found `Vec<f32>`
+   |                   |
+   |                   arguments to this function are incorrect
+   |
+   = note: expected reference `&[f32]`
+                 found struct `Vec<f32>`
+note: function defined here
+  --> crates\articul-cli\tests\cf0.rs:13:4
+   |
+13 | fn crossing_intervals(x: &[f32], thr: f32) -> Vec<usize> {
+   |    ^^^^^^^^^^^^^^^^^^ ---------
+help: consider borrowing here
+   |
+44 |     let tail_iv = crossing_intervals(&tail, 0.3);
+   |                                      +
+
+error[E0308]: mismatched types
+  --> crates\articul-cli\tests\cf0.rs:45:39
+   |
+45 |     let early_iv = crossing_intervals(early, 0.3);
+   |                    ------------------ ^^^^^ expected `&[f32]`, found `Vec<f32>`
+   |                    |
+   |                    arguments to this function are incorrect
+   |
+   = note: expected reference `&[f32]`
+                 found struct `Vec<f32>`
+note: function defined here
+  --> crates\articul-cli\tests\cf0.rs:13:4
+   |
+13 | fn crossing_intervals(x: &[f32], thr: f32) -> Vec<usize> {
+   |    ^^^^^^^^^^^^^^^^^^ ---------
+help: consider borrowing here
+   |
+45 |     let early_iv = crossing_intervals(&early, 0.3);
+   |                                       +
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `articul-cli` (test "cf0") due to 2 previous errors

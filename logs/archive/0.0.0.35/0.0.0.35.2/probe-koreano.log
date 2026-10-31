@@ -1,0 +1,11 @@
+== korean-o: rc=0 stdout='wrote 8886 samples to probe/0.0.0.35.2/korean_o.wav' stderr=''
+samples 8886
+band 600-900 peak 718.7Hz mag 9339.6817 pwratio 19.505
+band 703-777 peak 718.7Hz mag 9339.6817 pwratio 19.505
+ref-median 0.38215790390634413
+cand 718.7Hz mag 9339.6817 ratio 24439.326
+cand 721.4Hz mag 8326.5651 ratio 21788.285
+cand 716.0Hz mag 6531.8937 ratio 17092.133
+cand 724.1Hz mag 6109.9163 ratio 15987.937
+cand 726.7Hz mag 4234.0419 ratio 11079.299
+ALL OK

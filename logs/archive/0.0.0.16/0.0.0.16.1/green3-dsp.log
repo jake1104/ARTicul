@@ -1,0 +1,47 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+warning: unused variable: `t`
+  --> crates\articul-dsp\src\source.rs:38:17
+   |
+38 |             let t = i as f32 / sample_rate as f32;
+   |                 ^
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+help: if this is intentional, prefix it with an underscore
+   |
+38 |             let _t = i as f32 / sample_rate as f32;
+   |                 +
+help: you might have meant to pattern match on the similarly named constant `SHIMMER_DEPTH`
+   |
+38 -             let t = i as f32 / sample_rate as f32;
+38 +             let source::SHIMMER_DEPTH = i as f32 / sample_rate as f32;
+   |
+
+warning: unused variable: `secs`
+   --> crates\articul-dsp\src\source.rs:126:17
+    |
+126 |             let secs = i as f32 / sample_rate as f32;
+    |                 ^^^^
+    |
+help: if this is intentional, prefix it with an underscore
+    |
+126 |             let _secs = i as f32 / sample_rate as f32;
+    |                 +
+help: you might have meant to pattern match on the similarly named constant `SHIMMER_DEPTH`
+    |
+126 -             let secs = i as f32 / sample_rate as f32;
+126 +             let source::SHIMMER_DEPTH = i as f32 / sample_rate as f32;
+    |
+
+warning: `articul-dsp` (lib) generated 2 warnings (run `cargo fix --lib -p articul-dsp` to apply 2 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.79s
+     Running tests\voice_quality.rs (target\debug\deps\voice_quality-7b4ff30f2410d0d1.exe)
+
+running 5 tests
+test creak_alternates_periods ... ok
+test output_stays_deterministic ... ok
+test jitter_adds_period_variance ... ok
+test shimmer_varies_peak_amplitude ... ok
+test breathiness_follows_glottal_cycle ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

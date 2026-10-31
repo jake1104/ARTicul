@@ -1,0 +1,10 @@
+a 17688 3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93 samples 8822
+b 17688 3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93 samples 8822
+deterministic True
+hello bytes 18746 sha256 bfb1b440ba8e33264326dadc5167fed74851d72d2e9bea648e88bff51b635856
+hello samples 9351 sr 22050
+h duration_ms 78 h_len samples 1720
+h-window [200:1344] peak -13.13 dBFS rms -25.06 dBFS
+halves db0 -23.97 db1 -28.39 diff -4.42
+h-window peak near 576: 538.3 Hz
+h-window peak near 1624: 1644.6 Hz

@@ -1,0 +1,6 @@
+TIs TIN CLI regression 0.0.0.35.3
+regression-a.wav: 8822 samples, sha256 9385ab30c7a9c46f0de2ba533e40b2a94bd9d163732f438bb47c5825dfac41d4
+regression-b.wav: 8822 samples, sha256 9385ab30c7a9c46f0de2ba533e40b2a94bd9d163732f438bb47c5825dfac41d4
+determinism: fc.exe /b no differences (exit 0)
+expected-hash: MATCH 9385AB30... (0.0.0.35.2, no code change since - verified, not assumed)
+rate 22050Hz mono 16-bit

@@ -1,0 +1,127 @@
+0.0.0.18.1 DSP gain-path audit (READ-ONLY, no source changes)
+Goal: where speech could turn into static in the synth->wav path.
+
+STAGE-BY-STAGE TRACE (end to end)
+1. Excitation (crates/articul-dsp/src/source.rs)
+   - generate / generate_cf0_onset / generate_glide / generate_cf0_glide /
+     generate_creak all emit `s.clamp(-1.0, 1.0)` per sample, e.g.
+     source.rs:53: `out.push(s.clamp(-1.0, 1.0));`
+     Voiced path peak is bounded by construction (v/peak in ~[0,1],
+     plus aspiration term below). No overflow here.
+   - Aspiration term (source.rs:52,92,139,193):
+     `let s = v / peak * shim + uniform * self.aspiration_noise * 0.5 * (0.3 + 0.7 * flow);`
+     With aspiration_noise<=1.0 the noise add is <=0.5. Bounded, then clamped.
+   - Jitter/shimmer (source.rs:11-12): JITTER_DEPTH 0.008, SHIMMER_DEPTH 0.03,
+     seeded LCG, white per-period. Audibly roughness only, not static.
+2. Frication branch select (crates/articul-cli/src/synth.rs:353)
+   - `let frication = frication_level_for(&unit.phoneme, params.aspiration_noise) > 0.1;`
+   - crates/articul-dsp/src/parallel.rs:108-120: non-boosted phonemes return
+     `base` unchanged; boosted (VOICELESS fricative/lateral-fricative) return
+     `(base + 0.4).min(1.0)`. So ANY voice with base aspiration_noise > 0.1
+     makes frication true for EVERY segment incl. vowels.
+   - Fricative raw (synth.rs:357): `frication_noise(n, 0.3)` =
+     parallel.rs:63-72 uniform white noise *0.3, clamped to [-1,1].
+     Voiced excitation is then completely discarded for that segment.
+3. Filters (crates/articul-dsp/src/cascade.rs, parallel.rs)
+   - Resonator::new (cascade.rs:11-26): a = 1-b-c gives unity DC gain;
+     poles inside unit circle for bw>=10 Hz. f32 headroom, state init y1=y2=0.
+     Per-segment `filter.process` (cascade.rs:117-128, parallel.rs:18-29)
+     clones fresh zero-state filters each segment: causes per-segment onset
+     transients (click territory, cf. 0.0.0.15.4), not broadband static.
+   - retune (cascade.rs:138-149) preserves y1/y2 across glide: state OK.
+   - Parallel amps from fricative_shaping (parallel.rs:78-102): sibilant
+     (5200,600,1.0)+(7000,1000,0.5); non-sibilant weak (parallel.rs:100)
+     `vec![(1200.0, 1200.0, 0.5), (2800.0, 1500.0, 0.3)]` Q~1, nearly white
+     passthrough of white input.
+4. Per-class gain + declination (synth.rs:188-228)
+   - All class gains <= 0 dB (0.0 max for stressed vowel / default plosive;
+     min -28 dB voiced weak fricative). Declination `g -= index.min(12)`
+     (synth.rs:223) plus final-segment -4 dB (synth.rs:224-226).
+     Worst case ~ -28-12-4 = -44 dB (0.0063 linear). No gain >> 1 anywhere
+     in this stage. Applied post-filter (synth.rs:386-389).
+5. Crossfade (synth.rs:419-451)
+   - Cascade<->Cascade and Parallel<->Parallel use filter_glide
+     (synth.rs:109-161): re-filters mixed RAW through interpolated filter.
+     NOTE: mix input is `cooked` = raw*gain unfiltered, so the glide band is
+     filtered once, the rest was filtered per-segment: consistent.
+   - Cascade<->Parallel (vowel<->fricative) can_glide false ->
+     else branch (synth.rs:442-448): linear crossfade of two already-shaped
+     segments over 8 ms (`short`, synth.rs:464). Continuous amplitude, but
+     uncorrelated-noise timbre switch; 3 dB mid-fade power dip for noise.
+     Click-ish/choppy, not full static.
+6. Radiation (crates/articul-dsp/src/radiation.rs:1-9): `x - 0.97*prev`,
+   HF lift <= +5.7 dB at Nyquist. Mild, standard.
+7. Final fade (synth.rs:326-339): floor 10^(-12/20)=0.251 over last 150 ms.
+   Quiets ending, cannot create static.
+8. normalize_peak (synth.rs:578-587):
+     `let peak = x.iter().map(|v| v.abs()).fold(0.0, f32::max);`
+     `if peak > 1e-6 { let g = 0.9 / peak; ... }`
+   - ONLY stage with gain > 1. Boost cap is 0.9/1e-6 = 900000 (119 dB).
+     Global over whole utterance: one loud noise burst sets gain for all
+     speech, or one quiet utterance boosts its noise floor to 0.9.
+9. WAV writer (crates/articul-cli/src/main.rs:39-53):
+     `let v = (s.clamp(-1.0, 1.0) * 32767.0).round() as i16;`
+     Clamp-then-scale-then-cast: NO int16 wraparound possible; hound writes
+     LE i16 mono 22050 Hz. Byte-order/wraparound ruled OUT.
+   - Sample rate fixed 22050 in both shipped voices
+     (config/default-voice.toml:2, config/klatt-voice.toml:2).
+
+CROSS-CHECK vs ARCHIVE SUMMARIES
+- 0.0.0.15.4 (zone click audit): global clickmax 1.586 on TIs TIN is
+  legitimate HF sibilant energy, not an amplitude click; concat crossfade is
+  continuous by construction; zone-relative gate adopted. Consistent with
+  stage-5 finding: boundaries are amplitude-continuous; any harshness there
+  is spectral (white-noise timbre), matching suspect 3.
+- 0.0.0.16.1 (excitation notes): white jitter 0.8%/shimmer 3.0% pass gates;
+  coherent slow FM removed (analysis artifact); creak alternates period
+  multipliers only on final voiced segments; aspiration is flow-gated
+  (0.3+0.7*flow). None of these produce broadband static at default
+  aspiration 0.05/0.08 (both < 0.1 threshold). Consistent with suspect 1
+  triggering only when aspiration_noise > 0.1.
+
+MEASURED (read-only, see logs/0.0.0.18.1/dsp.log)
+- Both archived regression wavs peak at EXACTLY 0.9 -> normalize_peak is the
+  peak-setter; rms ~0.088, zc_rate 0.24-0.25 (high, sibilant-heavy input +
+  radiation lift, legitimate per 15.4). No flat-top/wraparound signature.
+
+RANKED SUSPECTS (static = broadband noise-like output)
+1. Frication-threshold flip swamps voiced path.
+   Files: crates/articul-cli/src/synth.rs:353 ;
+          crates/articul-dsp/src/parallel.rs:108-120 ;
+          crates/articul-config/src/lib.rs:84 (`0.0..=1.0` allows > 0.1).
+   Lines: `let frication = frication_level_for(&unit.phoneme, params.aspiration_noise) > 0.1;`
+          `frication_noise(n, 0.3)` (synth.rs:357)
+   Mechanism: any voice with aspiration_noise > 0.1 renders EVERY segment
+   (vowels included) as raw white noise through formant filters; harmonic
+   source discarded. Output is literally filtered static with speech rhythm.
+   Single confirming measurement: render one vowel with aspiration_noise
+   0.05 vs 0.15 and compare zero-crossing rate / spectral flatness
+   (expect ZC ~0.05-0.1 voiced vs ~0.4-0.5 noise) or autocorrelation peak.
+2. Uncapped global normalize_peak boosts noise floor to full scale.
+   File: crates/articul-cli/src/synth.rs:578-587.
+   Lines: `if peak > 1e-6 { let g = 0.9 / peak;`
+   Mechanism: worst-case chain (-28 dB class, -12 dB declination, -4 dB
+   final = -44 dB on +/-0.3 white input) leaves pre-peak ~0.01, so g ~90x
+   lifts shaped broadband noise to 0.9; likewise a single loud burst/sibilant
+   peak forces speech down while noise rides at full scale. No limiter,
+   no cap, full-utterance scope.
+   Single confirming measurement: log pre-normalize peak and applied gain g
+   for the failing input; if g >> 1 (e.g. > 3) and bypassing normalize_peak
+   removes the hiss, confirmed.
+3. Weak-fricative wideband shaping + noise crossfades = choppy white texture.
+   Files: crates/articul-dsp/src/parallel.rs:100 ;
+          crates/articul-cli/src/synth.rs:442-448.
+   Lines: `vec![(1200.0, 1200.0, 0.5), (2800.0, 1500.0, 0.3)]`
+          `out[at] = out[at] * (1.0 - t) + s * t;`
+   Mechanism: non-sibilant fricatives pass near-white noise (Q~1 branches);
+   every vowel<->fricative boundary falls back to raw linear crossfade of
+   uncorrelated shaped noise (Cascade vs Parallel length/type mismatch),
+   giving abrupt white-timbre switching plus mid-fade power dip each
+   boundary; after suspect-2 boost this reads as static bursts.
+   Single confirming measurement: render "f" alone, compute spectral
+   flatness pre-normalize (expect near 1.0 = white) and boundary-band
+   ZC-rate discontinuity at V/F joints.
+CLEARED: int16 wraparound/byte order (clamp + hound, main.rs:48);
+resonator instability (stable coeffs, zero init, f32 headroom);
+radiation (+6 dB max); final fade (attenuates only); jitter/shimmer/creak
+at defaults (per 16.1 gates).

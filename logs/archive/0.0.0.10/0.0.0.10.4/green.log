@@ -1,0 +1,23 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.42s
+     Running tests\radiation.rs (target\debug\deps\radiation-801283f931f0a296.exe)
+
+running 2 tests
+test radiation_preserves_length_and_finiteness ... ok
+test radiation_lifts_highs_about_6db_per_oct ... FAILED
+
+failures:
+
+---- radiation_lifts_highs_about_6db_per_oct stdout ----
+
+thread 'radiation_lifts_highs_about_6db_per_oct' (8384) panicked at crates\articul-dsp\tests\radiation.rs:41:5:
+expected about +6dB/oct, got 11.7dB
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    radiation_lifts_highs_about_6db_per_oct
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-dsp --test radiation`

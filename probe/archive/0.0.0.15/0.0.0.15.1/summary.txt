@@ -1,0 +1,7 @@
+Task 0.0.0.15.1 word-balance gate
+TDD RED: new cli test old_input_violates_word_balance written expecting the gate to pass on `"hE l@U` failed with word balance -31.6dB vs -11.7dB (gap -19.9dB), proving the gate detects the "he" defect. New-input tests passed immediately (no engine change).
+GREEN: fixed the violation test to pin old-input failure (gap < -6dB); `crates/articul-cli/tests/balance.rs` now holds 3 tests (demo balance >= -6dB on `hE "loU` via parse_utterance word bounds with VV 1102 / other 176 fades and 300-sample edge trim; stressed-nucleus vowel >= 100ms; old input pinned violating). Clippy explicit-counter-loop fixed.
+Gates: fmt clean, clippy -D warnings clean, test workspace green, release build green.
+Measured CLI regression: synthesize TIs TIN default voice: 8536 samples, sha256 3255c3a5c465470273dd0ff2dc356a837ffe396f9d748e8d27261414a3dda314, deterministic (identical to 12.4: test-only change). Python parity 4/4 PASS (synthesize len=3043, vowel-a f2/f1=0.127).
+Probe: probe/0.0.0.15.1/regression-a.wav, regression-b.wav (identical). No demo change.
+Logs: logs/0.0.0.15.1/ (red, green, fmt-check, clippy, test-workspace, release, cli-regression-a, cli-regression-b, cli-regression, py-build, py-copy, parity).

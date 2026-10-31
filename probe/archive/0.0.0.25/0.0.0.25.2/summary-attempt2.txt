@@ -1,0 +1,74 @@
+
+=====================================================
+Attempt 2 - excitation phase continuity (NEEDS_CONTEXT)
+=====================================================
+Preconditions (clean tree, before changing anything): grep warmup|WARMUP
+over crates/ = zero; leveling 3/3 + junction_smooth green
+(logs/0.0.0.25.2/test-precondition-attempt2.txt). TDD gate restored in-tree
+from probe and confirmed failing on the clean tree
+(logs/0.0.0.25.2/test-attempt2-red.txt): hello start1 pos=1544 peak=0.9890.
+
+Change (SINGLE variable): glottal phase is carried across segments instead
+of restarting at phase 0. The six non-creak GlottalSource methods in
+crates/articul-dsp/src/source.rs (generate, generate_cf0_onset,
+generate_glide, generate_exp_glide, generate_cf0_exp_glide,
+generate_cf0_glide) take start_phase: f64 and return (Vec<f32>, f64) end
+phase, with prev_cyc seeded from start_phase to avoid a spurious shimmer
+wrap on the first sample. Creak is untouched (final-unit-only, returns Vec).
+Callers thread one running voice_phase through render_units in
+crates/articul-cli/src/synth.rs: render_unit gained a phase: &mut f64
+parameter (plus one clippy allow attribute for 8 args), DiphthongJob gained
+a phase field, merged and single arms store each render's end phase; no
+resets across unvoiced gaps (pure carry, utterance starts at 0.0).
+Frication noise, gains, filters, fades, crossfade, leveler, tamer, ceiling,
+envelopes, creak all untouched. dsp test call sites updated to pass 0.0.
+
+Result: TDD gate STILL FAILS on the identical assert
+(logs/0.0.0.25.2/test-attempt2-green.txt):
+spark at non-initial segment start 1 of hE "loU: peak 0.9890 >= 0.9.
+
+Per-boundary window peaks, clean tree (attempt-1 probe) vs attempt-2
+(logs/0.0.0.25.2/tmp-probe-attempt2.txt), blend-start +10 ms windows:
+hello b1 0.989000 -> 0.989000 (argmax d 1.77 -> 3.08 ms);
+b2 0.989000 -> 0.905835 at d=0;
+b3 0.989000 -> 0.989000 at d=0; b4 0.305583 -> 0.265837.
+annyeong b1 0.602477 -> 0.612169; b2 0.221342 -> 0.318950;
+b3 0.230496 -> 0.296959; b4 0.208742 -> 0.285735; b5 0.210513 -> 0.270904;
+b6 0.433428 -> 0.126027; b7 0.345131 -> 0.364812; b8 0.200340 -> 0.199661;
+b9 0.989000 -> 0.989000; b10 0.165950 -> 0.151936; b11 0.761139 -> 0.594699.
+yeobo b1 0.459417 -> 0.483981; b2 0.378978 -> 0.729056;
+b3 0.570451 -> 0.861141; b4 0.224920 -> 0.223784; b5 0.989000 -> 0.989000;
+b6 0.485536 -> 0.495557; b7 0.729182 -> 0.602416.
+Phase carry moved peaks substantially (hello b2 0.989 -> 0.906, annyeong
+b6 0.433 -> 0.126, b11 0.761 -> 0.595, yeobo b7 0.729 -> 0.602) but also
+raised some (yeobo b2/b3 up to 0.729/0.861); clamped 0.989 peaks did not move.
+
+Judgment (overshoot-vs-truncation): CROSSFADE-OVERSHOOT-INTO-CLAMP. The
+blocking failure (hello b1) peaks at exactly 0.9890, as do hello b3,
+annyeong b9 and yeobo b5. b1's E onset is locally bit-identical pre/post
+(E is the first voiced segment, still starts at phase 0.0; only the global
+rescale shifted its argmax) - no onset-phase change can reach it, and the
+phonetic /s/ bodies (b9/b5) sit inside their windows by design. The lone
+sub-clamp residue, hello b2 at 0.905835 with argmax exactly d=0, is E's
+vowel-end sample (crossfade weight 0 on the new segment), not an onset
+truncation - immune to onset phase by the attempt-1 weight-0 proof.
+
+Other gates: fmt clean, clippy -D warnings clean
+(logs/0.0.0.25.2/fmt-attempt2.txt, clippy-attempt2.txt). Full workspace:
+13 suites green, then cargo halted at the TDD gate; rerun with the TDD test
+skipped shows exactly ONE other failure:
+nasal::alveolar_context_lifts_f2_over_labial -
+f2_band(ada) > 1.05 * f2_band(aba) violated (ada/aba middle-half 1500 Hz
+energy ratio fell to <= 1.05; the test was green on the clean tree, so the
+phase change caused it - shifted harmonic alignment in a fixed DFT window,
+formants/filters untouched). Per task rule this is STOP / NEEDS_CONTEXT.
+logs: test-workspace-attempt2.txt (13 ok + TDD fail),
+test-workspace-attempt2-rest.txt (skip-TDD rerun), test-nasal-attempt2.txt.
+
+Hash: TIs TIN 8822 samples sha256
+983128093e89c303c516d1b31d6b57db14736924316d1eda4050bab736982211 x2,
+deterministic, rotated vs 2AD4F841 baseline as expected
+(logs/0.0.0.25.2/cli-regression-attempt2.log, wavs
+probe/0.0.0.25.2/regression-attempt2-a/b.wav).
+State kept in-tree (implementation + TDD gate) for coordinator decision;
+attempt-1 artifacts untouched.

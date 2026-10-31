@@ -1,0 +1,226 @@
+0.0.0.26.1 utterance-continuous filtering with per-segment retune - summary.txt
+==============================================================================
+Verdict: NEEDS_CONTEXT. The prescribed carry is implemented exactly as specified
+and verified active, but the junction_nospark gate still FAILS on the identical
+assert with bit-identical clamped peaks. No further fixes attempted per task
+STOP rule. Tree retains the carry implementation; temp probe tests were deleted;
+cargo fmt is clean.
+
+Carry design (crates/articul-cli/src/synth.rs, no source comments added)
+--------------------------------------------------------------------------
+Two persistent filter objects live across the whole utterance inside
+render_units, one per stream:
+- cascade_live: Option<CascadeFilter> (synth.rs:865), parallel_live:
+  Option<ParallelFilter> (synth.rs:866).
+Per-segment retune INSTEAD of fresh construction, extending the filter_glide
+retune pattern (synth.rs:200-252, CascadeFilter::retune at
+crates/articul-dsp/src/cascade.rs:138, ParallelFilter::retune at
+crates/articul-dsp/src/parallel.rs:39):
+- Single Cascade (synth.rs:927-936): first segment constructs from spec pairs;
+  every later Cascade segment calls cascade_live.retune(pairs, sr), which keeps
+  y1/y2 resonator state and only swaps coefficients. Filtering steps sample by
+  sample through the live object via an FnMut closure into render_unit
+  (render_unit signature changed synth.rs:443-451 from &dyn Fn to
+  &mut dyn FnMut; no excitation/gain/envelope change).
+- Single Parallel (synth.rs:938-948): same pattern on parallel_live with
+  triples. Same-length retune preserves branch state; differing branch count
+  (1 vs 2 across fricative places) takes ParallelFilter::retune's fresh-branch
+  path, i.e. a scoped reset only where arities differ.
+- Merged GOAT diphthong (DiphthongJob.live field synth.rs:541; pre-create
+  synth.rs:883-885; pass-through synth.rs:886-897; consume synth.rs:576-592):
+  live cascade is pre-created from start when absent, retuned to start on entry
+  (state kept), then per-sample lerp_pairs(start, end, t) + step exactly as
+  before. Post-diphthong state (end coefficients + rung-up y1/y2) is retained
+  in cascade_live for the following segment.
+Stream switching cascade<->parallel: each stream keeps its own independent
+continuous state; switching streams retunes the target stream's live object but
+never touches the other stream's stored state. Pause units: carried through
+(zero input steps the live filter, yielding a short natural decay tail, then
+silence); pause/gain/fade/leveler/tamer/ceiling/crossfade/envelope logic
+untouched. Excitation phase-0 restarts KEPT (no source.rs change).
+Notch/lateral-zero post-filters: LEFT UNTOUCHED (fresh NotchFilter::new per
+segment, synth.rs:950-957 and diphthong synth.rs:593-600). NotchFilter exposes
+no retune API, so carry does not fall out of the same pattern trivially; per
+task allowance they stay fresh. Stated here explicitly.
+
+Red / green refs (logs/0.0.0.26.1/)
+------------------------------------
+- red-junction-nospark.log: TDD gate FIRST, pre-fix - FAILS as required:
+  spark at non-initial segment start 1 of hE "loU: peak 0.9890 >= 0.9
+  (pos=1544). This is the red.
+- post-junction-nospark.log: post-carry rerun - STILL FAILS on the identical
+  assert: spark at non-initial segment start 1 of hE "loU: peak 0.9890 >= 0.9
+  (pos=1544). Same position, same 0.9890. No green; STOP per task rule.
+- pre-peaks.log / post-peaks.log: full 21-window per-boundary peaks pre/post
+  (work-group convention identical to the gate: GOAT-merged groups, short fade
+  176, VV glide 1102, 10 ms window). Temp probe tests deleted after capture.
+- clamp-probe.log: post-carry global-clamp census (positions of |x| >= 0.9889).
+- check-carry.log: cargo check clean. fmt-check.log: initial fmt diff (probe
+  closure layout); cargo fmt applied; fmt-recheck.log: fmt --check clean
+  (empty output, exit 0).
+
+Per-boundary peaks pre vs post (10 ms window from blend start, gate convention)
+--------------------------------------------------------------------------------
+hello hE "loU:
+  start1 pos=1544 d=1.8ms  pre 0.989000  post 0.989000  (clamped, unmoved)
+  start2 pos=3330 d=0.0ms  pre 0.989000  post 0.989000  (clamped, unmoved)
+  start3 pos=4698 d=0.0ms  pre 0.989000  post 0.989000  (clamped, unmoved)
+annyeong %an njVN "hasejo:
+  start1  pos=3771  d=0.0ms  pre 0.602794  post 0.602380
+  start2  pos=4742  d=8.0ms  pre 0.218745  post 0.226427
+  start3  pos=5558  d=0.0ms  pre 0.230811  post 0.229800
+  start4  pos=6286  d=3.3ms  pre 0.208309  post 0.208566
+  start5  pos=8050  d=2.3ms  pre 0.210507  post 0.210766
+  start6  pos=8866  d=0.0ms  pre 0.433500  post 0.434108
+  start7  pos=9837  d=3.9ms  pre 0.345154  post 0.344502
+  start8  pos=12263 d=9.4ms  pre 0.200346  post 0.200319
+  start9  pos=13366 d=1.3ms  pre 0.989000  post 0.989000  (phonetic /s/ body)
+  start10 pos=14645 d=8.0/0.4ms pre 0.215661 post 0.142092 (carry moved it)
+  start11 pos=15373 d=0.0ms  pre 0.760818  post 0.761902
+yeobo %jV"bo%se%jo:
+  start1 pos=772   d=0.0ms  pre 0.457673  post 0.458320
+  start2 pos=3463  d=0.0ms  pre 0.380259  post 0.378106
+  start3 pos=4191  d=1.3ms  pre 0.563234  post 0.569886
+  start4 pos=6286  d=9.4ms  pre 0.224208  post 0.224060
+  start5 pos=7411  d=0.3ms  pre 0.989000  post 0.989000  (phonetic /s/ body)
+  start6 pos=10079 d=0.0ms  pre 0.483978  post 0.483691
+  start7 pos=10807 d=0.0ms  pre 0.726408  post 0.726769
+Every clamped 0.989 peak is unchanged to all 6 decimals; every unclamped peak
+moves (up to 0.07 on annyeong start10), proving the live state is genuinely
+carrying and reshaping content. The gate fails on hello start1 before reaching
+later windows, but the full table shows start2/start3 would fail identically.
+
+What the residue looks like (why the gate cannot pass under frozen mechanisms)
+--------------------------------------------------------------------------------
+Post-carry clamp census (clamp-probe.log, |x| >= 0.9889):
+- hello len 9792, gpeak 0.989000, 6 clamped samples at [1583, 1587, 1612, 1616,
+  3330, 4698]. Window start1 covers 1544..1764: contains 1583/1587/1612/1616
+  (argmax 1583, d=1.8ms). Window start2 starts exactly at 3330 (d=0.0), window
+  start3 exactly at 4698 (d=0.0). Each failing window holds a clamped
+  global-maximum sample.
+- annyeong start9 window (pos 13366) holds clamped /s/-body samples incl. 13395
+  (d=1.3ms); yeobo start5 window (pos 7411) holds 7418 (d=0.3ms) among 11
+  clamped /s/ samples. Broad 8-10 ms full-scale /s/ bodies, phonetic by design
+  (smoothing contraindicated per 0.0.0.24.1).
+The final leveler (synth.rs:1118-1122: g = 1.25*0.989/maxv, then
+clamp(-0.989, 0.989)) pins every global-maximum sample to exactly 0.989 BY
+CONSTRUCTION. Any 10 ms boundary window containing a global-max sample reads
+0.989 under ANY linear filtering change that preserves which samples are
+maximal, which is what happened: carry audibly reshaped unclamped content
+(start10 -34%) yet the maximal samples stayed maximal and re-clamped to
+0.989. d=0 peaks are additionally 100% previous-segment content under the
+untouched crossfade (0.0.0.25.2 blend-weight proof, still in force). Leveler,
+tamer, ceiling, gains, crossfade are all frozen by this task, so no in-scope
+mechanism remains to move a clamped global maximum out of a boundary window.
+Phonetic /s/ bodies at s->e boundaries are legitimately full-scale by design.
+This matches the 0.0.0.25.2 standing finding; carry fixed the architecture
+(state now truly continuous) but the metric is dominated by the frozen
+leveler ceiling, not by filter state.
+
+Gates and hash (prior round record, kept)
+------------------------------------------
+- cargo fmt --check: CLEAN after one cargo fmt (layout only).
+- cargo clippy / cargo test --workspace / release build / TIs TIN regression:
+  NOT RUN to green: the in-tree junction_nospark gate is red both pre and post
+  by design of this task (red gate), and the task STOP rule forbids further
+  tuning once carry is verified inert against clamped peaks. No new TIs TIN
+  hash is recorded here for the same reason; the coordinator decides whether
+  to re-baseline the gate bound, adjust the leveler-exempt metric, or accept
+  the carry as architecture with the gate parked.
+- Prior-gate collateral from carry is expected to be small (unclamped windows
+  move <= 0.07; pause interior still silent after ~54 ms since live-filter
+  ringing decays in ms) but is NOT claimed green without a workspace run.
+- Production code changed (synth.rs only: render_unit signature, DiphthongJob
+  live field, render_units live-state loop); excitation, gains, fades, pause
+  logic, leveler, tamer, ceiling, crossfade, envelopes untouched; no comments
+  added (grep // in synth.rs: zero matches); no doc/todo/changelog/demo edits.
+
+Gate-rebaseline fix-round (coordinator ruling, same test file, metric only)
+--------------------------------------------------------------------------------
+Ruling (recorded, precedent 0.0.0.19.3 halves / 0.0.0.23.2 trough /
+0.0.0.24.2 junction): the junction_nospark gate as specified measures the
+LEVELER CEILING, not join quality. The final stage (g = 1.25 * 0.989 / maxv +
+clamp +-0.989) pins global maxima to exactly 0.989 by construction, so any
+boundary window holding a maximal sample reads 0.989 under ANY linear
+filtering, and no join fix can ever pass it. The gate is confounded, not
+strict. Re-baseline: per non-initial start window [start, start+10ms], max
+over samples with |x| < 0.985 (CLAMP_CUTOFF, ceiling-pinned samples excluded);
+assert unclamped max < 0.9; clamped-sample count per window REPORTED, not
+asserted. Rationale: intent preserved (no join transients), confound removed
+(ceiling doing its documented job), phonetic /s/ bodies still legitimately hot
+but now attributable.
+In-tree gate change (crates/articul-cli/tests/junction_nospark.rs, assert +
+message only, no comments added): window_peak replaced by
+window_unclamped_peak returning (unclamped_peak, clamped_count); report lines
+now carry unclamped + clamped; assert bound 0.9 unchanged, applied to the
+unclamped peak. cargo fmt applied to the gate file; fmt --check clean afterwards (empty output,
+exit 0; pre-fix diff in logs/0.0.0.26.1/fmt-rebaseline-check.log).
+Result: re-baselined gate STILL FAILS (logs/0.0.0.26.1/
+gate-rebaseline-junction-nospark.log):
+  join transient at non-initial segment start 1 of hE "loU:
+  unclamped peak 0.9480 >= 0.9 (clamped=4)
+Full unclamped table post-carry (logs/0.0.0.26.1/unclamped-table.log):
+  hello s1 pos=1544 d=1.0ms unclamped=0.948030 clamped=4 FAIL
+  hello s2 pos=3330 d=0.3ms unclamped=0.937320 clamped=1 FAIL
+  hello s3 pos=4698 d=9.2ms unclamped=0.527244 clamped=1 pass
+  annyeong s1 0.602380 (0), s2 0.226427 (0), s3 0.229800 (0), s4 0.208566 (0),
+    s5 0.210766 (0), s6 0.434108 (0), s7 0.344502 (0), s8 0.200319 (0),
+    s9 0.917583 clamped=2 FAIL, s10 0.142092 (0), s11 0.761902 (0)
+  yeobo s1 0.458320 (0), s2 0.378106 (0), s3 0.569886 (0), s4 0.224060 (0),
+    s5 0.889679 clamped=2 pass (0.010 margin), s6 0.483691 (0), s7 0.726769 (0)
+Three windows fail on the UNCLAMPED metric: hello s1 (0.9480), hello s2
+(0.9373), annyeong s9 (0.9176, /s/-body edge). Per task STOP rule this is a
+genuine join transient beyond the clamp, a different problem from the ceiling
+confound, so: STOP, no full workspace suite, no release build, no TIs TIN
+regression, no new hash. Full suite / release / CLI regression explicitly NOT
+RUN in this round; prior-round pre/post clamped tables and carry design above
+remain the record. Carry implementation stays in-tree (not reverted); temp
+probe deleted; forbidden files untouched; eval_reference.py not re-run.
+
+Revert section (recovery round, coordinator decision recorded)
+------------------------------------------------------------------------------
+Decision: the carry is reverted. It proved filter reset is NOT the spark
+mechanism (valuable negative result: clamped peaks bit-identical pre/post,
+unclamped content moved but maxima re-clamped), and the residual is
+blend-arithmetic overshoot into the clamp, which belongs to a blend-redesign
+cascade (0.0.0.27), not this one. No further fix attempted here.
+Removed from crates/articul-cli/src/synth.rs: persistent cascade_live /
+parallel_live across render_units, per-segment retune-not-reconstruct
+(incl. GOAT diphthong pre-create + live pass-through + per-sample retune
+entry), DiphthongJob live field, render_unit &mut FnMut signature. Restored:
+single fresh CascadeFilter / ParallelFilter per work unit with
+filter.process(x) zero-state filtering, render_unit &dyn Fn, fresh
+CascadeFilter in render_diphthong. Verified: grep cascade_live|parallel_live|
+FnMut|live in synth.rs returns zero matches. Notch/lateral post-filters were
+never carried (fresh throughout) so no change there. No source comments added
+or removed (none exist in synth.rs).
+Gate relocation: crates/articul-cli/tests/junction_nospark.rs moved OUT of
+tree to probe/0.0.0.26.1/junction_nospark_red.rs, preserved as the TDD
+starting point for 0.0.0.27 (it FAILS on current code by design: unclamped
+0.9480 at hello s1). The relocated copy keeps both the byte-exact ʊ escape
+fix (genuine bug fix, 21 windows) and the unclamped CLAMP_CUTOFF metric. The
+in-tree suite has NO failing gate after this move.
+Verification, all green:
+- cargo fmt --check: CLEAN (logs/0.0.0.26.1/revert-fmt-check.log, empty,
+  exit 0).
+- cargo clippy --workspace --all-targets -- -D warnings: CLEAN
+  (logs/0.0.0.26.1/revert-clippy.log, exit 0).
+- cargo test --workspace: ALL GREEN, zero failures
+  (logs/0.0.0.26.1/revert-test-workspace.log, exit 0; incl. leveling 3/3 with
+  14dB trough, junction_smooth vs 5dB, lateral_zero 4/4, balance, diphthong,
+  h_onset, clear_l + coda, voiced_fricative_mix, gain; junction_nospark absent
+  from the run by relocation).
+- Release build: ok (logs/0.0.0.26.1/revert-build-release.log, exit 0).
+- TIs TIN pair into probe/0.0.0.26.1/verify-revert/regression-{a,b}.wav:
+  8822 samples each, bytes 17688, sha256
+  2ad4f8413c9182f0be39b9ac836aae06233272c3367256a6f859fa0ae44ad141 BOTH,
+  deterministic True, EQUALS the 0.0.0.24.3 hash (logs/0.0.0.26.1/
+  verify-revert-cli-regression.log). Byte-identical restoration PROVEN.
+Handoff for 0.0.0.27: residual = blend-arithmetic overshoot into the clamp
+(d=0 peaks are 100% previous-segment content under the untouched linear
+crossfade; leveler then clamps maxima to 0.989). Baseline to beat: the
+unclamped table in logs/0.0.0.26.1/unclamped-table.log (carry-round numbers:
+hello s1 0.948030 clamped=4, s2 0.937320 clamped=1, annyeong s9 0.917583
+clamped=2 as the three windows >= 0.9; yeobo s5 0.889679 clamped=2 marginal
+pass). Forbidden files untouched (todo/CHANGELOG/README/docs/demo);
+eval_reference.py not re-run.

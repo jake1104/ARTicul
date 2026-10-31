@@ -1,0 +1,17 @@
+BEFORE (0.0.0.33.2 default-voice demos):
+SHA256의 demo\annyeonghaseyo.wav 해시:
+717ef01df8cc195bd3bbe948a4beb9f8b9d917aaf71fbfb21bc64e55dd31506b
+CertUtil: -hashfile 명령이 성공적으로 완료되었습니다.
+SHA256의 demo\yeoboseyo.wav 해시:
+2da3bc3044fb1da47f3d98e3aeab78bc683451b53c43dd395fcdfb1a1ef3a830
+CertUtil: -hashfile 명령이 성공적으로 완료되었습니다.
+AFTER (0.0.0.34.3 Korean-voice demos):
+SHA256의 demo\annyeonghaseyo.wav 해시:
+96f9352836f044cdb2701361b962bef1948b4f6e7db4fe38aeff1a902f148254
+CertUtil: -hashfile 명령이 성공적으로 완료되었습니다.
+SHA256의 demo\yeoboseyo.wav 해시:
+86390f85fbfe160c54fb6ff8ddf990f56b3b2081d695720e452d7b5ad20d6d08
+CertUtil: -hashfile 명령이 성공적으로 완료되었습니다.
+SHA256의 demo\hello.wav 해시:
+0d45cc72d157177d63a29111ca6f290a1a9f05aedd3e7ffc0705fc4b8a1191b7
+CertUtil: -hashfile 명령이 성공적으로 완료되었습니다.

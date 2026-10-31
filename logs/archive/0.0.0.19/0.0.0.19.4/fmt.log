@@ -1,0 +1,37 @@
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\src\synth.rs:48:
+ }
+ 
+ fn is_lateral_onset(unit: &ProsodicPhoneme) -> bool {
+[31m-    !unit.is_pause && matches!(
+[0m[31m-        unit.phoneme.manner(),
+[0m[31m-        Some(Manner::LateralApproximant)
+[0m[31m-    )
+[0m[32m+    !unit.is_pause && matches!(unit.phoneme.manner(), Some(Manner::LateralApproximant))
+[0m }
+ 
+ fn spec_for(
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\tests\clear_l.rs:18:
+     let planned = plan_utterance(&parsed, 1.0, 1.0, 120.0);
+     let lens: Vec<usize> = planned
+         .iter()
+[31m-        .map(|u| ((u.duration_ms as f32 / 1000.0) * SR as f32).round().max(1.0) as usize)
+[0m[32m+        .map(|u| {
+[0m[32m+            ((u.duration_ms as f32 / 1000.0) * SR as f32)
+[0m[32m+                .round()
+[0m[32m+                .max(1.0) as usize
+[0m[32m+        })
+[0m         .collect();
+     let l_len = lens[0];
+     let lo = 110usize.min(l_len);
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-front\src\prosody.rs:123:
+ }
+ 
+ fn next_is_stressed_vowel(seq: &[Phoneme], stress: &[Stress], i: usize) -> bool {
+[31m-    match (seq.get(i + 1), stress.get(i + 1).copied().unwrap_or(Stress::Unstressed)) {
+[0m[32m+    match (
+[0m[32m+        seq.get(i + 1),
+[0m[32m+        stress.get(i + 1).copied().unwrap_or(Stress::Unstressed),
+[0m[32m+    ) {
+[0m         (Some(nxt), Stress::Primary | Stress::Secondary) if is_full_vowel(nxt) => true,
+         _ => false,
+     }

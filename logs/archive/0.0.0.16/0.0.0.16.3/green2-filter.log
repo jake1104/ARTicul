@@ -1,0 +1,30 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+warning: variable does not need to be mutable
+  --> crates\articul-dsp\tests\filter_interp.rs:29:9
+   |
+29 |     let mut f = CascadeFilter::from_pairs(&[(500.0, 120.0)], 22050);
+   |         ----^
+   |         |
+   |         help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+  --> crates\articul-dsp\tests\filter_interp.rs:40:9
+   |
+40 |     let mut f = ParallelFilter::from_pairs(&[(1500.0, 800.0, 0.5)], 22050);
+   |         ----^
+   |         |
+   |         help: remove this `mut`
+
+warning: `articul-dsp` (test "filter_interp") generated 2 warnings (run `cargo fix --test "filter_interp"` to apply 2 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.73s
+     Running tests\filter_interp.rs (target\debug\deps\filter_interp-d335dcbcf09d6dc4.exe)
+
+running 3 tests
+test retune_moves_resonance ... ok
+test parallel_retune_moves_resonance ... ok
+test step_matches_batched_process ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

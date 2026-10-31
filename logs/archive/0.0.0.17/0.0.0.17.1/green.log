@@ -1,0 +1,15 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.48s
+     Running tests\locus.rs (target\debug\deps\locus-b7d16302cf350291.exe)
+
+running 7 tests
+test alveolar_pulls_f2_up ... ok
+test velar_slope_is_middle ... ok
+test non_neighbor_leaves_targets_alone ... ok
+test velar_raises_f2_and_pinches_f3 ... ok
+test labial_pulls_f2_down ... ok
+test alveolar_slope_is_flat ... ok
+test labial_slope_is_steep ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

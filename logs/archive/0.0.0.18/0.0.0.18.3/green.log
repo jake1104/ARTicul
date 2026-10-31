@@ -1,0 +1,9 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.26s
+     Running tests\nonsibilant_bandlimit.rs (target\debug\deps\nonsibilant_bandlimit-e32d9570f5621aeb.exe)
+
+running 2 tests
+test solo_h_above_4k_fraction_drops_vs_baseline ... ok
+test solo_s_above_4k_fraction_unchanged ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+

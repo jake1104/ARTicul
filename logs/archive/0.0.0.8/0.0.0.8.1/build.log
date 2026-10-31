@@ -1,0 +1,37 @@
+    Updating crates.io index
+     Locking 10 packages to latest compatible versions
+      Adding indoc v2.0.8
+      Adding memoffset v0.9.1
+      Adding portable-atomic v1.15.0
+      Adding pyo3 v0.22.6 (available: v0.30.1)
+      Adding pyo3-build-config v0.22.6
+      Adding pyo3-ffi v0.22.6
+      Adding pyo3-macros v0.22.6
+      Adding pyo3-macros-backend v0.22.6
+      Adding target-lexicon v0.12.16
+      Adding unindent v0.2.4
+ Downloading crates ...
+  Downloaded indoc v2.0.8
+  Downloaded libc v0.2.191
+   Compiling target-lexicon v0.12.16
+   Compiling pyo3-build-config v0.22.6
+   Compiling once_cell v1.21.4
+   Compiling pyo3-ffi v0.22.6
+   Compiling pyo3-macros-backend v0.22.6
+   Compiling libc v0.2.191
+   Compiling memoffset v0.9.1
+   Compiling syn v2.0.119
+   Compiling pyo3 v0.22.6
+   Compiling pyo3-macros v0.22.6
+   Compiling cfg-if v1.0.5
+   Compiling indoc v2.0.8
+   Compiling unindent v0.2.4
+   Compiling articul-py v0.0.0 (E:\01_coding\ARTicul\crates\articul-py)
+error[E0599]: no function or associated item named `new` found for struct `PyDict` in the current scope
+  --> crates\articul-py\src\lib.rs:12:21
+   |
+12 |     let d = PyDict::new(py);
+   |                     ^^^ function or associated item not found in `PyDict`
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `articul-py` (lib) due to 1 previous error

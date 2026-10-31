@@ -1,0 +1,118 @@
+0.0.0.35.3 regression re-baseline and close-out - summary (DONE)
+
+No production code changes in this task (render + verify only).
+Lifelike source (0.0.0.35.2) is the only sound change since 0.0.0.34.3.
+
+Gates (logs in logs/0.0.0.35.3/)
+-------------------------------
+- cargo fmt --check -> fmt-check.log, clean (exit 0, re-run on disk).
+- cargo clippy --workspace --all-targets -- -D warnings -> clippy.log, clean (exit 0).
+- cargo test --workspace -> test-workspace.log, exit 101 with EXACTLY ONE red:
+  hello_unchanged_default_voice (render of `h@ "loU` vs stale demo/hello.wav
+  bytes 0D45CC72...: byte mismatch from the mandated lifelike sound change;
+  demo regen owned by this task, file untouched here). Verified the red is
+  exactly the named stale-bytes one, then continued per instruction.
+  Everything else green, incl. tis_tin_unchanged_default_voice (9385AB30
+  re-derived pin holds), junction_nospark 1/1 (with the 0.93 annyeong-s1 pin),
+  lifelike_source 3/3, korean_voice otherwise 7/7.
+- cargo build --release -> release.log, Finished release profile.
+- Post-demo FULL re-run -> test-workspace-postdemo.log, exit 0, zero failures:
+  korean_voice 8/8, hello_unchanged_default_voice ok (HEALED by regen, proof).
+  No other red before or after; no fix needed.
+
+Fixed-sentence CLI regression (TIs TIN, default voice)
+------------------------------------------------------
+- probe/0.0.0.35.3/regression-a.wav + -b.wav: 8822 samples each, 22050Hz mono
+  16-bit, sha256 9385AB30C7A9C46F0DE2BA533E40B2A94BD9D163732F438BB47C5825DFAC41D4
+  both, fc.exe /b no differences (deterministic True).
+- Expected-hash MATCH 9385AB30... (0.0.0.35.2): no code change since 35.2,
+  verified not assumed. Samples/sha/determinism in cli-regression.log.
+
+Demo regeneration (CLI recipe per 0.0.0.34.2 summary; stressed inputs,
+stress ignored on the Korean path, byte-identical to de-stressed)
+---------------------------------------------------------------------------
+- `h@ "loU` default voice -> probe/0.0.0.35.3/demo_hello.wav, 9219 samples,
+  sha256 E7DAC81264390236BBAAC4FEF757D230CA913F26098FCCCA55852EEDEA623E7E.
+- `%an "njVN "h\asejo` korean voice -> demo_ko_annyeong.wav, 28693 samples,
+  sha256 7CEEC7DFC84E9B572A23A0D6506AA58133767C47E142549D2743C1F26C63B200.
+- `%jV"bo%se%jo` korean voice -> demo_ko_yeobo.wav, 18878 samples,
+  sha256 BEF5DA97FD661DF974A41D8AD87178505ADA043DCFB06B405E7567E9212DB1CB.
+- Sample counts identical to 34.3 (durations untouched by the source-only
+  lifelike change, as designed).
+- Copied to demo/hello.wav, demo/annyeonghaseyo.wav, demo/yeoboseyo.wav;
+  demo hashes re-verified equal to probe renders (demo.log header + hashes).
+  demo sha moves: hello 0D45CC72... -> E7DAC812...;
+  annyeong 96F93528... -> 7CEEC7DF...; yeobo 86390F85... -> BEF5DA97....
+
+Per-demo numbers (logs/0.0.0.35.3/demo.log via probe/0.0.0.35.3/measure_35_3.py;
+34.3/33.2 baselines in parens; report-only deltas, no new thresholds)
+--------------------------------------------------------------------------------
+- hello: samples 9219 (9219); halves -16.91/-18.37 diff -1.47 (-1.45; |diff|
+  <= 5 PASS, 2nd -18.37 > -32 PASS); RMS 0.1321 / -17.58dBFS (0.1680; -2.1dB,
+  passes committed >= 0.10); peak 0.9890 (<= 0.99 PASS); clamp>=0.985: 1
+  isolated sample (GOAT junction transient, same seat as before); trough
+  -1.33dB (-1.40; >= -14 PASS); tail-third RMS 0.1017; centroid 2274.7Hz
+  (2133.0; +141.7, lifelike tilt shift, report-only).
+  GOAT F2 trajectory (33.2 span: o_start=1720+1389+1544-3*176):
+  [908.4, 963.5, 1018.5, 1018.5, 1018.5, 1128.7], rise +220.2
+  (baseline [908.4, 936.0, 936.0, 1046.1, 1018.5, 1073.6] +165.2; first bin
+  pinned, interior bins re-quantized by the wander/microtremor, end bin +55;
+  monotonic within 50Hz PASS, >= 100 PASS, report-only).
+- annyeong (Korean voice): samples 28693 (28693); halves -26.41/-22.07 diff
+  +4.34 (+4.28; |diff| <= 5 PASS, 2nd -22.07 > -32 PASS); RMS 0.0652
+  / -23.72dBFS (0.0654; -0.03dB — report-only per 34.2 design note: every
+  Korean vowel carries the unstressed -1.75dB gain, no gate applies);
+  centroid 5536.5Hz (5551.5; -15.0); trough -15.89dB (-16.09; +0.20,
+  report-only — committed -14 trough gate covers old-input default-voice
+  renders, which pass; Korean-voice tails stand as in 34.3); peak 0.9890
+  with 3 isolated clamp>=0.985 samples inside /s/ (phonetic sibilant body,
+  cf. s5-pin precedent, unchanged seat).
+- yeobo (Korean voice): samples 18878 (18878); halves -24.86/-22.46 diff
+  +2.39 (+2.36; |diff| <= 5 PASS, 2nd > -32 PASS); RMS 0.0669 / -23.50dBFS
+  (0.0673; -0.05dB, same report-only standing); centroid 6125.8Hz (6118.7;
+  +7.1); trough -15.94dB (-16.03; +0.09, same standing); tail-third RMS
+  0.0364 (>= 0.03 PASS); peak 0.9890 with 3 isolated /s/ clamps (same note).
+
+Lifelike spot-check (sustained-vowel CLI render `a:a:`, 5844 samples)
+---------------------------------------------------------------------
+- jitter (T1-method port, interior [441,3087], fixed-template correlation):
+  0.0129 on the rendered vowel vs 0.5-1.0% band. Committed source-level T1
+  is 0.0090 in-band and green in-suite; the render adds prosody glide +
+  microtremor + aspiration that inflate adjacent-period differences.
+  Report-only; committed gate stands.
+- k1 residual (T2-method port, 441-sample no-overlap frames, 16384 FFT):
+  0.297 rad circular std, above both the 0.12 floor and the 0.14 gate PASS.
+- microtremor (T3-method port, 23 windows hop 100, detrended rel std):
+  0.0076, >= 0.004 PASS (reproduces the in-suite value exactly).
+- Committed lifelike_source 3/3 green in test-workspace-postdemo.log
+  (jitter_in_natural_band, pulse_shape_varies, microtremor_present).
+
+Eval + parity (non-gating)
+--------------------------
+- python/validation/eval_reference.py --self-test -> eval-selftest.log:
+  SELF-TEST PASS (deterministic renders identical, distinct items separated).
+- python/validation/check_parity.py -> parity.log, 4/4 PASS with PYTHONPATH=python
+  (prebuilt pyd, same as 34.3): lookup-p, lookup-unknown, synthesize len=3242,
+  vowel-a f2/f1=0.110 (identical values to 34.3).
+
+Spot table (probe/0.0.0.35.3/spot/, six eval corpus items, report-only)
+-----------------------------------------------------------------------
+- Inputs per python/validation/eval_reference.py ITEMS (default voice).
+  Sample counts identical to every prior table (8822/9792/6439/5072/7785/8535):
+  fixed_sentence 8822 rms -20.59dBFS centroid 6215.6Hz sha 9385ab30c7a9c46f
+  demo_hello 9792 rms -16.75dBFS centroid 2289.6Hz (old input `hE "loU`;
+  spot-vs-live byte-identical False, expected: live uses `h@ "loU`)
+  creak_probe 6439 rms -10.03dBFS centroid 1280.8Hz
+  gain_probe 5072 rms -12.98dBFS centroid 2027.9Hz
+  cluster_probe 7785 rms -18.82dBFS centroid 5161.1Hz
+  pause_probe 8535 rms -13.68dBFS centroid 1892.7Hz
+  (per-item RMS/centroid in logs/0.0.0.35.3/spot.log; lifelike shifts levels
+  a few dB vs 24.3, report-only, no gate).
+
+Archive note
+------------
+Live probe/0.0.0.35.1, probe/0.0.0.35.2, probe/0.0.0.35.3 moved to
+probe/archive/0.0.0.35/; same for logs/0.0.0.35.{1,2,3} to logs/archive/0.0.0.35/.
+todo.md: 0.0.0.35.3 Done; cascade 0.0.0.35 Closed, Open: none.
+CHANGELOG Unreleased +3 lines. No source-code comments; no .gitignore/.git;
+README untouched.

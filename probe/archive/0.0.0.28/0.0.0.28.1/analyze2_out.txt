@@ -1,0 +1,53 @@
+=== SPARK WINDOWS (10ms from non-initial segment starts, gate mirror) ===
+demo_hello groups=4 lens=[1720, 1962, 1544, 5093]
+   start1 pos= 1544 seg=? makeup= -0.76dB lift=1.13x uncl=0.9480 pre_est=0.8374 clamp_n=4 SPARK
+   start2 pos= 3330 seg=l makeup=  1.10dB lift=1.40x uncl=0.9360 pre_est=0.6676 clamp_n=1 SPARK
+   start3 pos= 4698 seg=o makeup=  1.33dB lift=1.44x uncl=0.5098 pre_est=0.3541 clamp_n=1 SPARK
+annyeong groups=12 lens=[3947, 1147, 992, 904, 1940, 992, 1147, 2602, 1279, 1455, 904, 2073]
+   start1 pos= 3771 seg=n makeup=  2.98dB lift=1.29x uncl=0.6028 pre_est=0.4670 clamp_n=0 ok
+   start2 pos= 4742 seg=n makeup= 10.45dB lift=3.05x uncl=0.2188 pre_est=0.0717 clamp_n=0 ok
+   start3 pos= 5558 seg=j makeup= 11.22dB lift=3.33x uncl=0.2308 pre_est=0.0692 clamp_n=0 ok
+   start4 pos= 6286 seg=? makeup= 10.25dB lift=2.98x uncl=0.2083 pre_est=0.0699 clamp_n=0 ok
+   start5 pos= 8050 seg=\ud76f makeup= 11.60dB lift=3.48x uncl=0.2105 pre_est=0.0605 clamp_n=0 ok
+   start6 pos= 8866 seg=h makeup= 13.39dB lift=4.28x uncl=0.4335 pre_est=0.1013 clamp_n=0 ok
+   start7 pos= 9837 seg=a makeup=  5.32dB lift=1.69x uncl=0.3452 pre_est=0.2043 clamp_n=0 ok
+   start8 pos=12263 seg=s makeup=  7.98dB lift=2.30x uncl=0.2003 pre_est=0.0872 clamp_n=0 ok
+   start9 pos=13366 seg=e makeup= -0.87dB lift=0.83x uncl=0.9805 pre_est=1.1828 clamp_n=1 SPARK
+   start10 pos=14645 seg=j makeup= 13.29dB lift=4.23x uncl=0.2157 pre_est=0.0510 clamp_n=0 ok
+   start11 pos=15373 seg=o makeup= 10.86dB lift=3.20x uncl=0.7608 pre_est=0.2379 clamp_n=0 ok
+yeobo groups=8 lens=[948, 2867, 904, 2271, 1301, 2844, 904, 3859]
+   start1 pos=  772 seg=? makeup= 10.80dB lift=3.50x uncl=0.4577 pre_est=0.1309 clamp_n=0 ok
+   start2 pos= 3463 seg=b makeup=  4.41dB lift=1.68x uncl=0.3802 pre_est=0.2269 clamp_n=0 ok
+   start3 pos= 4191 seg=o makeup=  5.07dB lift=1.81x uncl=0.5632 pre_est=0.3115 clamp_n=0 ok
+   start4 pos= 6286 seg=s makeup=  6.26dB lift=2.07x uncl=0.2242 pre_est=0.1081 clamp_n=0 ok
+   start5 pos= 7411 seg=e makeup= -0.36dB lift=0.97x uncl=0.8953 pre_est=0.9248 clamp_n=2 SPARK
+   start6 pos=10079 seg=j makeup= 12.27dB lift=4.14x uncl=0.4839 pre_est=0.1168 clamp_n=0 ok
+   start7 pos=10807 seg=o makeup= 13.43dB lift=4.74x uncl=0.7264 pre_est=0.1533 clamp_n=0 ok
+=== TROUGH-GATE WINDOWS (k with dip < -6dB, makeup there) ===
+demo_hello deep-dip windows (n=0):
+annyeong deep-dip windows (n=2):
+   k= 62 t=0.619s dip=-12.21dB makeup= -0.87dB lift=0.83x
+   k= 63 t=0.629s dip= -8.93dB makeup=  6.60dB lift=1.96x
+yeobo deep-dip windows (n=4):
+   k= 28 t=0.279s dip= -6.56dB makeup=  8.65dB lift=2.73x
+   k= 35 t=0.349s dip= -9.73dB makeup=  2.14dB lift=1.29x
+   k= 36 t=0.359s dip= -6.39dB makeup=  2.14dB lift=1.29x
+   k= 48 t=0.479s dip= -6.11dB makeup= 15.58dB lift=6.07x
+fixed_sentence deep-dip windows (n=5):
+   k= 20 t=0.200s dip=-21.17dB makeup= -1.17dB lift=0.46x
+   k= 21 t=0.210s dip=-20.78dB makeup=  8.83dB lift=1.44x
+   k= 22 t=0.220s dip=-14.38dB makeup=  8.83dB lift=1.44x
+   k= 23 t=0.229s dip=-13.09dB makeup= 15.31dB lift=3.04x
+   k= 24 t=0.239s dip=-10.60dB makeup= 15.31dB lift=3.04x
+cluster_probe deep-dip windows (n=4):
+   k= 10 t=0.100s dip=-12.58dB makeup=  7.44dB lift=1.64x
+   k= 11 t=0.110s dip= -9.43dB makeup= 14.96dB lift=3.90x
+   k= 12 t=0.120s dip= -9.78dB makeup= 14.96dB lift=3.90x
+   k= 13 t=0.130s dip= -7.08dB makeup= 14.42dB lift=3.66x
+=== PER-WINDOW TRAJECTORIES (demos: edb/gdb/lift) ===
+demo_hello inw=23 G=1.2356
+   gdb:   6.3   2.6   1.0  -0.8   0.5   0.7   0.8   1.1   1.5   1.5   1.3   0.8   0.9   1.2   1.5   1.7   1.8   2.0   2.2   3.4   6.0  10.8  12.8
+annyeong inw=40 G=0.9160
+   gdb:   1.7   1.8   1.8   1.8   1.8   1.8   1.9   1.9   3.0   8.3  10.4  11.4  11.2  10.5  10.3   9.7   9.7   9.7  11.6  12.7  13.4   9.3   5.3   4.8   5.7   5.9   5.9   8.0   2.9  -0.1  -0.9   6.6  11.9  13.3  10.9  13.5  15.7  16.0  16.0  16.0
+yeobo inw=34 G=1.0090
+   gdb:  11.7  10.8   6.9   5.3   4.8   4.6   4.6   4.4   6.2   5.1   6.2   6.6   7.3   8.7   6.3   2.2  -0.4   2.1   9.6  11.5  12.2  11.8  12.3  15.6  13.4  15.7  16.0  16.0  16.0  16.0  16.0  16.0  16.0  16.0

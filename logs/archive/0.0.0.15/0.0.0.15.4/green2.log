@@ -1,0 +1,9 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.06s
+     Running tests\click.rs (target\debug\deps\click-ff8bd785598a2bfd.exe)
+
+running 1 test
+test fricative_plosive_junction_stays_within_content ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

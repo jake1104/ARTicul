@@ -1,0 +1,6 @@
+ Downloading crates ...
+  Downloaded getrandom v0.4.3
+  Downloaded jobserver v0.1.35
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Checking articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.21s

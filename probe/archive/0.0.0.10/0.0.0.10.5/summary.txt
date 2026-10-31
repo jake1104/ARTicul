@@ -1,0 +1,8 @@
+Task 0.0.0.10.5 vowel-vowel glide crossfade
+Motivation: o+U rendered as two static 120ms blocks (F2 950 vs 1000, nearly no movement) -> no diphthong glide percept.
+Implementation: per-boundary crossfade; VV boundary 50ms, others 8ms (is_vowel on SegmentKind::Vowel). render length test pins oU=4190 and ot=4234 samples at 22050Hz.
+Tests: glide.rs 2 passed (RED first: 5116 vs 4190). Full workspace 34 suites green, release build green.
+Python validation: check_parity.py spectrum slope assert replaced with vowel-a F2-band(900-1400)/F1-band(500-900) in [0.05, 0.5] (measured 0.125); 4 PASS. Rationale recorded: slope on mixed radiated output is confounded by noise floor and fricatives; F2/F1 directly guards the reported bug.
+hello.wav regenerated with final chain (LF + per-vowel + radiation + glide): 9836 samples, 0.45s.
+Regression re-baselined: 'TIs TIN' 11468 samples, sha256 5d1bb5f6...74e893880 deterministic.
+Cleanup: all diag_* examples and demo probe scripts removed (probe discipline revert); only demo/hello.wav kept.

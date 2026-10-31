@@ -1,0 +1,13 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.13s
+     Running tests\nasal_frication.rs (target\debug\deps\nasal_frication-13e299039d560612.exe)
+
+running 5 tests
+test frication_level_boosted_for_voiceless_fricative ... ok
+test frication_noisy_at_positive_level ... ok
+test frication_silence_at_zero_level ... ok
+test nasal_widens_bandwidth ... ok
+test nasal_branch_needed_for_m_not_p ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -1,0 +1,6 @@
+rows=60
+unique_symbols=60
+places=['Alveolar', 'Bilabial', 'Dental', 'Glottal', 'Labiodental', 'Palatal', 'Pharyngeal', 'Postalveolar', 'Retroflex', 'Uvular', 'Velar']
+manners=['Approximant', 'Fricative', 'LateralApproximant', 'LateralFricative', 'Nasal', 'Plosive', 'TapFlap', 'Trill']
+voiceless=20
+voiced=40

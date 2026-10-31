@@ -1,0 +1,25 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 10.46s
+     Running tests\lifelike_source.rs (target\debug\deps\lifelike_source-38bbc809da5eb81a.exe)
+
+running 3 tests
+test jitter_in_natural_band ... ok
+test microtremor_present ... ok
+test pulse_shape_varies ... FAILED
+
+failures:
+
+---- pulse_shape_varies stdout ----
+
+thread 'pulse_shape_varies' (22096) panicked at crates\articul-cli\tests\lifelike_source.rs:215:5:
+k1 phase residual 0.122 rad must be clearly above the 0.12 rad locked-pulse floor
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    pulse_shape_varies
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+error: test failed, to rerun pass `-p articul-cli --test lifelike_source`

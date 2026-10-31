@@ -1,0 +1,9 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.13s
+     Running tests\voiced_fricative_mix.rs (target\debug\deps\voiced_fricative_mix-a7be44936707dd8f.exe)
+
+running 1 test
+test voiced_fricative_keeps_periodicity ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+

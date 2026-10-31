@@ -1,0 +1,4 @@
+Task 0.0.0.2.4 README and CHANGELOG skeleton
+Files: README.md (overview, install, usage, architecture Mermaid, License), CHANGELOG.md ([0.1.0] Unreleased)
+Gates: fmt clean, clippy clean, test workspace 16 passed, release build ok
+Logs: logs/0.0.0.2.4/

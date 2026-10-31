@@ -1,0 +1,35 @@
+inversion check done
+hello deltas V7: [0.0, 2.25, 4.5, 1.5, 3.75]
+hello deltas V8: [-2.0, 2.25, 4.5, 1.5, 3.75]
+annyeong tail deltas V7: [5.5, 0.0, 3.5, 5.5, 5.75, 3.5, 4.75]
+annyeong u6 h V7/V8: 0.0 0.0
+=== V2 cap=12.0 pre=1.10 ===
+  demo_hello     rms=0.2037 halves=-2.98 trough=-2.91 tail=0.1335 spark=0.9406 cl=5 maxgdb=12.0 maxpos=1583
+  annyeong       rms=0.1039 halves=+2.97 trough=-12.35 tail=0.1338 spark=0.8628 cl=3 maxgdb=12.0 maxpos=13356
+  yeobo          rms=0.1145 halves=-3.28 trough=-10.35 tail=0.0481 spark=0.7627 cl=10 maxgdb=12.0 maxpos=7260
+  fixed_sentence rms=0.0861 halves=-11.55 trough=-21.79 tail=0.0328 spark=nan cl=1 maxgdb=12.0 maxpos=4325
+  cluster_probe  rms=0.1264 halves=-10.02 trough=-14.14 tail=0.0442 spark=nan cl=13 maxgdb=12.0 maxpos=1476 s1=0.8939/cl7
+  pause_probe    rms=0.2049 halves=-0.38 trough=-13.88 tail=0.2241 spark=nan cl=1 maxgdb=12.0 maxpos=1169
+  creak_probe    rms=0.3461 halves=-1.77 trough=+0.00 tail=0.2262 spark=nan cl=13 maxgdb=7.4 maxpos=3755
+  gain_probe     rms=0.1267 halves=-1.54 trough=+0.00 tail=0.0904 spark=nan cl=1 maxgdb=6.2 maxpos=1588
+  old_input      rms=0.2150 halves=-4.43 trough=-3.35 tail=0.1172 spark=nan cl=3 maxgdb=12.0 maxpos=1587
+=== V7_floor12 cap=12.0 pre=1.10 ===
+  demo_hello     rms=0.1944 halves=-2.32 trough=-2.25 tail=0.1307 spark=0.9647 cl=3 maxgdb=12.0 maxpos=1612
+  annyeong       rms=0.1024 halves=+2.76 trough=-12.20 tail=0.1318 spark=0.8660 cl=3 maxgdb=12.0 maxpos=13356
+  yeobo          rms=0.1144 halves=-3.31 trough=-10.35 tail=0.0473 spark=0.7627 cl=10 maxgdb=12.0 maxpos=7260
+  fixed_sentence rms=0.1057 halves=-11.52 trough=-25.60 tail=0.0417 spark=nan cl=6 maxgdb=12.0 maxpos=4172
+  cluster_probe  rms=0.1264 halves=-10.02 trough=-14.14 tail=0.0442 spark=nan cl=13 maxgdb=12.0 maxpos=1476 s1=0.8939/cl7
+  pause_probe    rms=0.2049 halves=-0.38 trough=-13.88 tail=0.2241 spark=nan cl=1 maxgdb=12.0 maxpos=1169
+  creak_probe    rms=0.3461 halves=-1.77 trough=+0.00 tail=0.2262 spark=nan cl=13 maxgdb=7.4 maxpos=3755
+  gain_probe     rms=0.1267 halves=-1.54 trough=+0.00 tail=0.0904 spark=nan cl=1 maxgdb=6.2 maxpos=1588
+  old_input      rms=0.2069 halves=-3.57 trough=-2.08 tail=0.1151 spark=nan cl=3 maxgdb=12.0 maxpos=1616
+=== V8_h-12_floor12 cap=12.0 pre=1.10 ===
+  demo_hello     rms=0.2014 halves=-2.03 trough=-2.12 tail=0.1383 spark=0.9843 cl=4 maxgdb=11.5 maxpos=1612
+  annyeong       rms=0.1024 halves=+2.76 trough=-12.20 tail=0.1318 spark=0.8660 cl=3 maxgdb=12.0 maxpos=13356
+  yeobo          rms=0.1144 halves=-3.31 trough=-10.35 tail=0.0473 spark=0.7627 cl=10 maxgdb=12.0 maxpos=7260
+  fixed_sentence rms=0.1057 halves=-11.52 trough=-25.60 tail=0.0417 spark=nan cl=6 maxgdb=12.0 maxpos=4172
+  cluster_probe  rms=0.1264 halves=-10.02 trough=-14.14 tail=0.0442 spark=nan cl=13 maxgdb=12.0 maxpos=1476 s1=0.8939/cl7
+  pause_probe    rms=0.2049 halves=-0.38 trough=-13.88 tail=0.2241 spark=nan cl=1 maxgdb=12.0 maxpos=1169
+  creak_probe    rms=0.3461 halves=-1.77 trough=+0.00 tail=0.2262 spark=nan cl=13 maxgdb=7.4 maxpos=3755
+  gain_probe     rms=0.1267 halves=-1.54 trough=+0.00 tail=0.0904 spark=nan cl=1 maxgdb=6.2 maxpos=1588
+  old_input      rms=0.2133 halves=-3.30 trough=-1.61 tail=0.1195 spark=nan cl=3 maxgdb=12.0 maxpos=1616

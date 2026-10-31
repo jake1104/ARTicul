@@ -1,0 +1,10 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.87s
+     Running tests\lateral_zero.rs (target\debug\deps\lateral_zero-efc8bd84b3de84cd.exe)
+
+running 2 tests
+test coda_lateral_has_no_notch ... ok
+test lateral_window_has_notch ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.49s
+

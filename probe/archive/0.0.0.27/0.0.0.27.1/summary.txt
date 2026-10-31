@@ -1,0 +1,188 @@
+0.0.0.27.1 blend-region energy normalization - summary.txt
+==============================================================
+Verdict: NEEDS_CONTEXT. The prescribed single mechanism is implemented
+exactly as specified and verified active, but the junction_nospark gate
+still FAILS on the first assert, and two of three failing windows got
+HOTTER post-fix. No further mechanisms attempted per task STOP rule. The
+tree retained the normalization implementation at close of the attempt
+round; temp probe tests were deleted; cargo fmt was clean. See Revert
+section below for the recovery round.
+
+Normalization design (crates/articul-cli/src/synth.rs, no source comments)
+--------------------------------------------------------------------------
+One new function, applied at both blend assembly sites (one mechanism):
+- normalize_blend_energy(side_a, side_b, mixed) (synth.rs:717): for each
+  mixed sample out = (1-t)*a + t*b with t = k/n, compute a cap-only slow
+  gain g[k] = min(1, target[k]/local[k]). target[k] = ra^(1-t)*rb^t, the
+  geometric interpolation of the two sides' full-blend-window RMS
+  (ra, rb; 1e-12 floor inside sqrt). local[k] = RMS of mixed over a
+  centered boxcar of width w = clamp(n/4, 32, 220) (44 samples / 2ms for
+  the n=176 short blends; 220 for n=1102 VV glides). If either side RMS
+  is below 1e-6 (pause/silence side), the blend is returned untouched.
+  Pure attenuation, deterministic, no state.
+- Glide path (filter_glide re-filter output, synth.rs:772): side A is the
+  truncated-away out tail captured BEFORE truncate (side_a to_vec,
+  synth.rs:769-771), side B is seg head; the glide output vector is
+  normalized, then extended. Bug found during implementation: indexing
+  side A after truncate reads the wrong (pre-blend) content and panics
+  when the truncated tail is shorter than n (determinism
+  glide_regions_stay_finite caught it on "oU asa"); fixed by capturing
+  side A before truncate; determinism re-passes.
+- Linear path (in-place crossfade of shaped outputs, synth.rs:786): sides
+  via split_at_mut around the blend region, normalized in place.
+- Untouched: gains/gain track, filter tables, F0, excitation, leveler,
+  tamer, ceiling/final 1.25x/clamp, fades, pause logic, envelopes.
+  GOAT merge internal interpolation (render_diphthong per-sample retune)
+  is NOT served by the blend function and is untouched. The VV glide path
+  (filter_glide, n=1102) IS served by concat_formant_glide and is covered
+  by the same mechanism. None of the three gate utterances contain a VV
+  glide (all blends n=176; GOAT pairs are pre-merged).
+
+Red / green refs (logs/0.0.0.27.1/)
+------------------------------------
+- red-junction-nospark.log: TDD gate FIRST, pre-fix - FAILS as required:
+  hello s1 unclamped 0.9480 >= 0.9 (clamped=4).
+- post-junction-nospark.log: post-fix rerun - STILL FAILS on the first
+  assert: hello s1 unclamped 0.9812 >= 0.9 (clamped=3). No green; STOP.
+- prefilter-probe.log / gain-probe.log: pre-fix stage analysis (mixed vs
+  radiated vs final per window; implied leveler gain per failing peak).
+- post-table.log: full 21-window post-fix table (temp test, deleted after).
+- blend-debug.log / stage-compare.log: pre-fix instrumentation (note: the
+  glide-path side-A columns in blend-debug.log are INVALID - they were
+  sampled post-truncate; discovered and fixed during implementation; the
+  M columns and all final-domain numbers are valid).
+- fmt-check.log / fmt-final.log, clippy.log, test-workspace.log,
+  test-workspace-nogate.log, determinism-recheck.log, build-release.log,
+  cli-regression.log.
+
+Per-window unclamped peaks pre vs post (10ms window, gate convention)
+--------------------------------------------------------------------------
+hello hE "loU:
+  start1 pos=1544  pre 0.9480 d=1.0ms cl=4  post 0.9812 d=1.7ms cl=3  FAIL (hotter)
+  start2 pos=3330  pre 0.9360 d=0.3ms cl=1  post 0.9749 d=0.3ms cl=1  FAIL (hotter)
+  start3 pos=4698  pre 0.5098 d=8.0ms cl=1  post 0.5138 d=8.0ms cl=1  pass
+annyeong %an njVN "hasejo:
+  start1  0.6028 -> 0.6027 (0) pass
+  start2  0.2187 -> 0.2211 (0) pass
+  start3  0.2308 -> 0.2358 (0) pass
+  start4  0.2083 -> 0.3070 (0) pass (+47%, leveler recompute, see residue)
+  start5  0.2105 -> 0.1528 (0) pass (-27%, mechanism fired here)
+  start6  0.4335 -> 0.4399 (0) pass
+  start7  0.3452 -> 0.3380 (0) pass
+  start8  0.2003 -> 0.1985 (0) pass
+  start9  0.9806 d=2.4ms cl=1 -> 0.9805 d=2.4ms cl=1 FAIL (unmoved)
+  start10 0.2157 -> 0.2448 (0) pass
+  start11 0.7608 -> 0.7779 (0) pass
+yeobo %jV"bo%se%jo:
+  start1 0.4577 -> 0.4712 (0) pass
+  start2 0.3803 -> 0.3848 (0) pass
+  start3 0.5632 -> 0.5701 (0) pass
+  start4 0.2242 -> 0.1980 (0) pass
+  start5 0.8953 d=1.0ms cl=2 -> 0.8953 d=1.0ms cl=2 pass (0.005 margin)
+  start6 0.4840 -> 0.4838 (0) pass
+  start7 0.7264 -> 0.7433 (0) pass
+Note: pre-fix numbers on this tree (carry reverted) differ from the
+0.0.0.27 handoff table (carry-round: hello s1 0.948030/4, s2 0.937320/1,
+annyeong s9 0.917583/2); current-tree pre-fix s9 is 0.9806/1 and s2 is
+0.9360/1. Post-fix failing set: hello s1 (0.9812/3), hello s2
+(0.9749/1), annyeong s9 (0.9805/1).
+
+What the residue looks like (why the gate cannot pass under frozen mechanisms)
+--------------------------------------------------------------------------------
+Stage analysis pre-fix (stage-compare.log, gain-probe.log): the failing
+final peaks sit on 8-10x leveler makeup (hello s1 radiated 0.1159 ->
+final 0.9480, gain 8.18x; s2 radiated 0.0949 -> 0.9360, gain 9.87x;
+annyeong s9 radiated 0.3306 -> 0.9806, gain 2.97x). Two structural facts
+make slow RMS normalization inert against this, both confirmed by
+measurement rather than theory alone:
+(a) At the failing peak positions (d = 0.3/1.7/2.4 ms, i.e. t = 0.04-0.3
+into the 8 ms blend) the mixed content is side-dominated, so local mixed
+RMS approximately equals the geometric target there and g ~= 1 BY
+CONSTRUCTION. The peaks are crest (peak/RMS), not energy: slow gain
+scaling preserves crest, and the frozen leveler converts crest back into
+absolute peaks.
+(b) The frozen leveler owns slow energy end to end: quiet-window blends
+sit in its upward-expansion region (0.85 slope below the -12 dB knee),
+which recompense attenuation, and the final 1.25*0.989/maxv peak pinning
+globally rescales everything whenever a clamped maximum is removed
+(whack-a-mole: post-fix s1 clamped 4->3 and s2 unclamped ROSE
+0.9360->0.9749; annyeong s4 rose 0.2083->0.3070 purely through leveler
+recompute, its own blend gain being 1). Any slow-gain blend fix is fought
+by these two frozen stages; fixing the metric needs leveler-scope
+authority, which this task explicitly freezes.
+Phonetic /s/-body edges (annyeong s9, yeobo s5) remain hot by design and
+are untouched in crest terms by this mechanism.
+
+Gates and hash
+--------------
+- cargo fmt --check: CLEAN (fmt-check.log, fmt-final.log; cargo fmt
+  applied once for the new function layout).
+- cargo clippy --workspace --all-targets -- -D warnings: CLEAN
+  (clippy.log, exit 0).
+- cargo test --workspace: ALL GREEN except the TDD gate itself
+  (test-workspace.log stops at the red junction_nospark assert;
+  test-workspace-nogate.log with the gate file temporarily moved aside:
+  exit 0, every suite ok - incl. leveling, junction_smooth, lateral_zero,
+  balance, diphthong, h_onset, clear_l + coda, voiced_fricative_mix,
+  gain, determinism 2/2 after the truncate fix).
+- Release build: ok (build-release.log, exit 0).
+- TIs TIN pair into probe/0.0.0.27.1/regression-{a,b}.wav: 8822 samples
+  each, bytes 17688, sha256
+  1735739980715683d54989cb7c245c08d0b4899458b5e954d057e839645c42ce BOTH,
+  deterministic True. Hash CHANGED vs 2AD4 (blend math changes output),
+  new hash recorded in logs/0.0.0.27.1/cli-regression.log.
+- Forbidden files untouched: todo.md, CHANGELOG.md, README.md, docs/,
+  demo/*.wav unmodified; eval_reference.py not re-run; no source-code
+  comments added (grep // in synth.rs: zero matches); no colons in log
+  filenames. Temp probe tests and stage .f32 dumps deleted after capture.
+
+Revert section (recovery round, coordinator decision recorded)
+--------------------------------------------------------------
+Decision: the blend normalization is reverted. It proved the residual
+lives in leveler scope, not in blend arithmetic: the failing peaks ride
+8-10x frozen leveler makeup on side-dominated content (gain-probe.log:
+hello s1 8.18x, s2 9.87x), the cap-only slow gain is ~=1 at every failing
+peak by construction (local mixed RMS already at the geometric target
+there), and the frozen peak-pinning final stage (1.25*0.989/maxv) turns
+any local attenuation into global rescale whack-a-mole (post-fix hello s2
+0.9360->0.9749, annyeong s4 0.2083->0.3070 purely through leveler
+recompute). Residual ownership = leveler slow-gain expander + global
+peak-pinning clamp; both frozen this task, so no fix belongs here.
+Removed from crates/articul-cli/src/synth.rs: normalize_blend_energy in
+full plus both call sites (glide-path side_a capture + normalize call,
+linear-path split_at_mut + normalize call); concat_formant_glide restored
+to direct truncate + filter_glide extend / in-place linear crossfade.
+Verified: grep normalize_blend_energy|blend_window|target_rms|side_a in
+synth.rs returns zero matches; no source comments added or removed (grep
+// in synth.rs: zero matches).
+Gate relocation: crates/articul-cli/tests/junction_nospark.rs moved OUT
+of tree to probe/0.0.0.27.1/junction_nospark_red2.rs, preserved as the TDD
+seed for the next cascade. It FAILS on current code by design: hello s1
+unclamped 0.9480 (clamped=4), s2 0.9360 (1), annyeong s9 0.9806 (1) on the
+unclamped max < 0.9 metric over all 21 non-initial start windows. The
+in-tree suite has NO failing gate after this move.
+Verification, all green:
+- cargo fmt --check: CLEAN (logs/0.0.0.27.1/revert-fmt-check.log, empty,
+  exit 0).
+- Key gates pre-check (leveling 3/3, junction_smooth, nasal):
+  all green BEFORE anything else (logs/0.0.0.27.1/revert-key-gates.log).
+- cargo clippy --workspace --all-targets -- -D warnings: CLEAN
+  (logs/0.0.0.27.1/revert-clippy.log, exit 0).
+- cargo test --workspace: ALL GREEN, zero failures
+  (logs/0.0.0.27.1/revert-test-workspace.log, exit 0; junction_nospark
+  absent from the run by relocation).
+- Release build: ok (logs/0.0.0.27.1/revert-build-release.log, exit 0).
+- TIs TIN pair into probe/0.0.0.27.1/verify-revert/regression-{a,b}.wav:
+  8822 samples each, bytes 17688, sha256
+  2ad4f8413c9182f0be39b9ac836aae06233272c3367256a6f859fa0ae44ad141 BOTH,
+  deterministic True, EQUALS the 0.0.0.24.3 hash
+  (logs/0.0.0.27.1/verify-revert-cli-regression.log). Byte-identical
+  restoration PROVEN.
+Handoff for the next cascade: the unclamped-boundary-spark residual is a
+leveler-makeup + peak-pinning problem, not a blend problem. Any fix must
+operate in leveler scope (slow-gain curve around quiet-window blends,
+tamer threshold, or the global max pinning) - all frozen in 0.0.0.27 and
+requiring coordinator sign-off to touch. Baseline to beat: hello s1
+0.9480/4, s2 0.9360/1, annyeong s9 0.9806/1 (this tree, carry reverted).
+Forbidden files untouched (todo/CHANGELOG/README/docs/demo);
+eval_reference.py not re-run.

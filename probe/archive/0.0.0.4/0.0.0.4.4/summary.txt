@@ -1,0 +1,4 @@
+Task 0.0.0.4.4 filter stability suite
+Tests: stability.rs 2 passed (24-combo grid finite+decay, rustfft peak within 15 percent of 1000Hz)
+Gates: fmt clean, clippy clean (needless_range_loop fixed in test), test workspace 18 suites ok, release build ok
+Logs: logs/0.0.0.4.4/

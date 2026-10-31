@@ -1,0 +1,26 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.91s
+     Running tests\voice_quality.rs (target\debug\deps\voice_quality-7b4ff30f2410d0d1.exe)
+
+running 5 tests
+test shimmer_varies_peak_amplitude ... ok
+test output_stays_deterministic ... ok
+test jitter_adds_period_variance ... ok
+test breathiness_follows_glottal_cycle ... ok
+test creak_alternates_periods ... FAILED
+
+failures:
+
+---- creak_alternates_periods stdout ----
+
+thread 'creak_alternates_periods' (2992) panicked at crates\articul-dsp\tests\voice_quality.rs:102:5:
+even=237.75 odd=214.75
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    creak_alternates_periods
+
+test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-dsp --test voice_quality`

@@ -1,0 +1,183 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+error[E0061]: this function takes 0 arguments but 4 arguments were supplied
+  --> crates\articul-front\tests\prosody.rs:11:15
+   |
+11 |     let out = plan(&s, 1.0, 1.0, 120.0);
+   |               ^^^^ --  ---  ---  ----- unexpected argument #4 of type `{float}`
+   |                    |   |    |
+   |                    |   |    unexpected argument #3 of type `{float}`
+   |                    |   unexpected argument #2 of type `{float}`
+   |                    unexpected argument #1 of type `&Vec<Phoneme>`
+   |
+note: function defined here
+  --> E:\01_coding\ARTicul\crates\articul-front\src\prosody.rs:1:8
+   |
+ 1 | pub fn plan() {}
+   |        ^^^^
+help: remove the extra arguments
+   |
+11 -     let out = plan(&s, 1.0, 1.0, 120.0);
+11 +     let out = plan();
+   |
+
+error[E0599]: no method named `len` found for unit type `()` in the current scope
+  --> crates\articul-front\tests\prosody.rs:12:20
+   |
+12 |     assert_eq!(out.len(), 3);
+   |                    ^^^
+   |
+help: there is a method `le` with a similar name, but with different arguments
+  --> /rustc/ed61e7d7e242494fb7057f2657300d9e77bb4fcb\library\core\src\cmp.rs:1417:5
+
+error[E0061]: this function takes 0 arguments but 4 arguments were supplied
+  --> crates\articul-front\tests\prosody.rs:20:13
+   |
+20 |     let a = plan(std::slice::from_ref(&short), 1.0, 1.0, 120.0);
+   |             ^^^^ ----------------------------  ---  ---  ----- unexpected argument #4 of type `{float}`
+   |                  |                             |    |
+   |                  |                             |    unexpected argument #3 of type `{float}`
+   |                  |                             unexpected argument #2 of type `{float}`
+   |                  unexpected argument #1 of type `&[Phoneme]`
+   |
+note: function defined here
+  --> E:\01_coding\ARTicul\crates\articul-front\src\prosody.rs:1:8
+   |
+ 1 | pub fn plan() {}
+   |        ^^^^
+help: remove the extra arguments
+   |
+20 -     let a = plan(std::slice::from_ref(&short), 1.0, 1.0, 120.0);
+20 +     let a = plan();
+   |
+
+error[E0061]: this function takes 0 arguments but 4 arguments were supplied
+  --> crates\articul-front\tests\prosody.rs:21:13
+   |
+21 |     let b = plan(std::slice::from_ref(&long), 1.0, 1.0, 120.0);
+   |             ^^^^ ---------------------------  ---  ---  ----- unexpected argument #4 of type `{float}`
+   |                  |                            |    |
+   |                  |                            |    unexpected argument #3 of type `{float}`
+   |                  |                            unexpected argument #2 of type `{float}`
+   |                  unexpected argument #1 of type `&[Phoneme]`
+   |
+note: function defined here
+  --> E:\01_coding\ARTicul\crates\articul-front\src\prosody.rs:1:8
+   |
+ 1 | pub fn plan() {}
+   |        ^^^^
+help: remove the extra arguments
+   |
+21 -     let b = plan(std::slice::from_ref(&long), 1.0, 1.0, 120.0);
+21 +     let b = plan();
+   |
+
+error[E0608]: cannot index into a value of type `()`
+  --> crates\articul-front\tests\prosody.rs:22:14
+   |
+22 |     assert!(b[0].duration_ms > a[0].duration_ms);
+   |              ^^^
+   |
+   = help: to access tuple elements, use tuple indexing syntax (e.g., `tuple.0`)
+
+error[E0608]: cannot index into a value of type `()`
+  --> crates\articul-front\tests\prosody.rs:22:33
+   |
+22 |     assert!(b[0].duration_ms > a[0].duration_ms);
+   |                                 ^^^
+   |
+   = help: to access tuple elements, use tuple indexing syntax (e.g., `tuple.0`)
+
+error[E0061]: this function takes 0 arguments but 4 arguments were supplied
+  --> crates\articul-front\tests\prosody.rs:28:15
+   |
+28 |     let out = plan(&s, 1.0, 1.0, 120.0);
+   |               ^^^^ --  ---  ---  ----- unexpected argument #4 of type `{float}`
+   |                    |   |    |
+   |                    |   |    unexpected argument #3 of type `{float}`
+   |                    |   unexpected argument #2 of type `{float}`
+   |                    unexpected argument #1 of type `&Vec<Phoneme>`
+   |
+note: function defined here
+  --> E:\01_coding\ARTicul\crates\articul-front\src\prosody.rs:1:8
+   |
+ 1 | pub fn plan() {}
+   |        ^^^^
+help: remove the extra arguments
+   |
+28 -     let out = plan(&s, 1.0, 1.0, 120.0);
+28 +     let out = plan();
+   |
+
+error[E0599]: no method named `first` found for unit type `()` in the current scope
+  --> crates\articul-front\tests\prosody.rs:29:17
+   |
+29 |     assert!(out.first().expect("nonempty").f0_hz > out.last().expect("nonempty").f0_hz);
+   |                 ^^^^^ method not found in `()`
+
+error[E0599]: `()` is not an iterator
+  --> crates\articul-front\tests\prosody.rs:29:56
+   |
+29 |     assert!(out.first().expect("nonempty").f0_hz > out.last().expect("nonempty").f0_hz);
+   |                                                        ^^^^ `()` is not an iterator
+   |
+   = note: the following trait bounds were not satisfied:
+           `(): Iterator`
+           which is required by `&mut (): Iterator`
+
+error[E0061]: this function takes 0 arguments but 4 arguments were supplied
+  --> crates\articul-front\tests\prosody.rs:35:16
+   |
+35 |     let slow = plan(&s, 1.0, 1.0, 120.0);
+   |                ^^^^ --  ---  ---  ----- unexpected argument #4 of type `{float}`
+   |                     |   |    |
+   |                     |   |    unexpected argument #3 of type `{float}`
+   |                     |   unexpected argument #2 of type `{float}`
+   |                     unexpected argument #1 of type `&Vec<Phoneme>`
+   |
+note: function defined here
+  --> E:\01_coding\ARTicul\crates\articul-front\src\prosody.rs:1:8
+   |
+ 1 | pub fn plan() {}
+   |        ^^^^
+help: remove the extra arguments
+   |
+35 -     let slow = plan(&s, 1.0, 1.0, 120.0);
+35 +     let slow = plan();
+   |
+
+error[E0061]: this function takes 0 arguments but 4 arguments were supplied
+  --> crates\articul-front\tests\prosody.rs:36:16
+   |
+36 |     let fast = plan(&s, 2.0, 1.0, 120.0);
+   |                ^^^^ --  ---  ---  ----- unexpected argument #4 of type `{float}`
+   |                     |   |    |
+   |                     |   |    unexpected argument #3 of type `{float}`
+   |                     |   unexpected argument #2 of type `{float}`
+   |                     unexpected argument #1 of type `&Vec<Phoneme>`
+   |
+note: function defined here
+  --> E:\01_coding\ARTicul\crates\articul-front\src\prosody.rs:1:8
+   |
+ 1 | pub fn plan() {}
+   |        ^^^^
+help: remove the extra arguments
+   |
+36 -     let fast = plan(&s, 2.0, 1.0, 120.0);
+36 +     let fast = plan();
+   |
+
+error[E0599]: no method named `iter` found for unit type `()` in the current scope
+  --> crates\articul-front\tests\prosody.rs:37:24
+   |
+37 |     for (a, b) in slow.iter().zip(fast.iter()) {
+   |                        ^^^^ method not found in `()`
+
+error[E0599]: no method named `iter` found for unit type `()` in the current scope
+  --> crates\articul-front\tests\prosody.rs:37:40
+   |
+37 |     for (a, b) in slow.iter().zip(fast.iter()) {
+   |                                        ^^^^ method not found in `()`
+
+Some errors have detailed explanations: E0061, E0599, E0608.
+For more information about an error, try `rustc --explain E0061`.
+error: could not compile `articul-front` (test "prosody") due to 13 previous errors

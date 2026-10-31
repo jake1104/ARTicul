@@ -1,0 +1,9 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+error[E0432]: unresolved import `articul_dsp::effective_aspiration`
+ --> crates\articul-dsp\tests\aspiration.rs:1:5
+  |
+1 | use articul_dsp::effective_aspiration;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `effective_aspiration` in the root
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `articul-dsp` (test "aspiration") due to 1 previous error

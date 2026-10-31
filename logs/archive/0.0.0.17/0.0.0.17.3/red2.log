@@ -1,0 +1,22 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.76s
+     Running tests\utterance.rs (target\debug\deps\utterance-0f2bba251dd69a70.exe)
+
+running 1 test
+test word_initial_consonant_lengthened ... FAILED
+
+failures:
+
+---- word_initial_consonant_lengthened stdout ----
+
+thread 'word_initial_consonant_lengthened' (2208) panicked at crates\articul-front\tests\utterance.rs:48:5:
+assertion failed: out[0].duration_ms >= 52 && out[0].duration_ms <= 58
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    word_initial_consonant_lengthened
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-front --test utterance`

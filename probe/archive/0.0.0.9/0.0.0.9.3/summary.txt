@@ -1,0 +1,9 @@
+Task 0.0.0.9.3 regression re-baseline
+Fixed input unchanged: X-SAMPA 'TIs TIN' + config/default-voice.toml
+New baseline: 11468 samples (was 12348; crossfade overlap shortens total), sha256 c5767f82...3925ba both runs, deterministic True
+hello.wav regenerated: 10762 samples (was 11466)
+Python validation re-run after pyd rebuild: 4 PASS, slope -6.68 in [-20,-4]
+Gates: fmt clean, clippy clean, test workspace 31 suites ok, release build ok
+Logs: logs/archive/0.0.0.9/0.0.0.9.3/ (hash.log)
+Probe: probe/archive/0.0.0.9/0.0.0.9.3/regression-a.wav, regression-b.wav
+Filenames contain no colons.

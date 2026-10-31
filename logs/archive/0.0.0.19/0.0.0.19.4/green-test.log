@@ -1,0 +1,10 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.28s
+     Running tests\clear_l.rs (target\debug\deps\clear_l-244fc05f749adf48.exe)
+
+running 1 test
+test lateral_has_low_f1_mid_f2 ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.45s
+

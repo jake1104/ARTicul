@@ -1,0 +1,14 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.71s
+     Running tests\dbg_test.rs (target\debug\deps\dbg_test-7c8dfe66018f9ba9.exe)
+
+running 1 test
+kind=Consonant { place: Dental, manner: Fricative } voiced=true stress=Unstressed
+kind=Vowel { height: Mid, backness: Central, rounded: false } voiced=true stress=Unstressed
+n=2
+dur=50 f0=134.69545
+dur=48 f0=151.19052
+test dbg_d ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

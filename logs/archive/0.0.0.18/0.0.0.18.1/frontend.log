@@ -1,0 +1,124 @@
+FRONTEND PROBE LOG 0.0.0.18.1
+cmd1: cargo run -p articul-front --example probe_dump_0018 (temporary example, reverted after run)
+--- probe output begin ---
+WORD "hE"
+  [0] base="h" kind=Consonant { place: Glottal, manner: Fricative } voicing=Voiceless stress=Unstressed
+  [1] base="ɛ" kind=Vowel { height: OpenMid, backness: Front, rounded: false } voicing=Voiced stress=Unstressed
+  len=2 stress_len=2
+WORD "\"loU"
+  [0] base="l" kind=Consonant { place: Alveolar, manner: LateralApproximant } voicing=Voiced stress=Unstressed
+  [1] base="o" kind=Vowel { height: CloseMid, backness: Back, rounded: true } voicing=Voiced stress=Primary
+  [2] base="ʊ" kind=Vowel { height: NearClose, backness: Back, rounded: true } voicing=Voiced stress=Unstressed
+  len=3 stress_len=3
+WORD "TIs"
+  [0] base="θ" kind=Consonant { place: Dental, manner: Fricative } voicing=Voiceless stress=Unstressed
+  [1] base="ɪ" kind=Vowel { height: NearClose, backness: Front, rounded: false } voicing=Voiced stress=Unstressed
+  [2] base="s" kind=Consonant { place: Alveolar, manner: Fricative } voicing=Voiceless stress=Unstressed
+  len=3 stress_len=3
+WORD "TIN"
+  [0] base="θ" kind=Consonant { place: Dental, manner: Fricative } voicing=Voiceless stress=Unstressed
+  [1] base="ɪ" kind=Vowel { height: NearClose, backness: Front, rounded: false } voicing=Voiced stress=Unstressed
+  [2] base="ŋ" kind=Consonant { place: Velar, manner: Nasal } voicing=Voiced stress=Unstressed
+  len=3 stress_len=3
+PLAN hE+"loU flat
+  [0] h stress=Unstressed dur=71ms f0=134.70 f0end=131.94 pause=false
+  [1] ɛ stress=Unstressed dur=89ms f0=131.94 f0end=133.18 pause=false
+  [2] l stress=Unstressed dur=51ms f0=133.18 f0end=155.55 pause=false
+  [3] o stress=Primary dur=165ms f0=155.55 f0end=80.09 pause=false
+  [4] ʊ stress=Unstressed dur=71ms f0=80.09 f0end=80.09 pause=false
+  total_ms=447
+PLAN TIs+TIN flat
+  [0] θ stress=Unstressed dur=71ms f0=134.70 f0end=134.70 pause=false
+  [1] ɪ stress=Unstressed dur=66ms f0=134.70 f0end=125.39 pause=false
+  [2] s stress=Unstressed dur=74ms f0=125.39 f0end=130.33 pause=false
+  [3] θ stress=Unstressed dur=74ms f0=130.33 f0end=154.49 pause=false
+  [4] ɪ stress=Unstressed dur=71ms f0=154.49 f0end=80.09 pause=false
+  [5] ŋ stress=Unstressed dur=50ms f0=80.09 f0end=80.09 pause=false
+  total_ms=406
+UTTERANCE "hello" words=["hE", "\"loU"]
+  word0 syms=["h", "ɛ"] stress=[Unstressed, Unstressed] boundary=0 func=false emph=false
+  word1 syms=["l", "o", "ʊ"] stress=[Unstressed, Primary, Unstressed] boundary=1 func=false emph=true
+PLAN_UTTERANCE hello
+  [0] h stress=Unstressed dur=78ms f0=134.70 f0end=131.94 pause=false
+  [1] ɛ stress=Unstressed dur=89ms f0=131.94 f0end=133.18 pause=false
+  [2] l stress=Unstressed dur=50ms f0=133.18 f0end=155.55 pause=false
+  [3] o stress=Primary dur=148ms f0=155.55 f0end=80.09 pause=false
+  [4] ʊ stress=Unstressed dur=83ms f0=80.09 f0end=80.09 pause=false
+  total_ms=448 nseg=5
+UTTERANCE "tistin" words=["TIs", "TIN"]
+  word0 syms=["θ", "ɪ", "s"] stress=[Unstressed, Unstressed, Unstressed] boundary=0 func=false emph=false
+  word1 syms=["θ", "ɪ", "ŋ"] stress=[Unstressed, Unstressed, Unstressed] boundary=1 func=false emph=false
+PLAN_UTTERANCE tistin
+  [0] θ stress=Unstressed dur=78ms f0=134.70 f0end=134.70 pause=false
+  [1] ɪ stress=Unstressed dur=66ms f0=134.70 f0end=125.39 pause=false
+  [2] s stress=Unstressed dur=74ms f0=125.39 f0end=130.33 pause=false
+  [3] θ stress=Unstressed dur=65ms f0=130.33 f0end=154.49 pause=false
+  [4] ɪ stress=Unstressed dur=92ms f0=154.49 f0end=80.09 pause=false
+  [5] ŋ stress=Unstressed dur=65ms f0=80.09 f0end=80.09 pause=false
+  total_ms=440 nseg=6
+--- probe output end ---
+cmd2: cargo test -p articul-front
+--- test tail begin ---
+.. ok
+test marker_after_base_attaches_to_later_vowel ... ok
+test plan_carries_stress_through ... ok
+test primary_stress_attaches_to_following_vowel ... ok
+test trailing_marker_without_vowel_is_dropped ... ok
+test each_marker_attaches_to_its_own_vowel ... ok
+test last_marker_wins ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 15 tests
+test comma_inserts_160ms_pause ... ok
+test comma_rhyme_uses_weak_tier ... ok
+test word_initial_consonant_lengthened ... ok
+test trisyllabic_word_gets_0_8 ... ok
+test cluster_shortens_non_initial_consonants ... ok
+test final_rhyme_uses_strong_tier ... ok
+test no_lengthening_without_boundary ... ok
+test rate_compresses_sublinearly ... ok
+test slow_rate_compresses_sublinearly ... ok
+test disyllabic_word_gets_0_9 ... ok
+test variance_stays_within_six_percent ... ok
+test durations_are_deterministic ... ok
+test utterance_f0_matches_flat_plan ... ok
+test function_word_shortens_unless_emphasized ... ok
+test single_onset_keeps_full_duration ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 12 tests
+test aspiration_suffix_sets_flag ... ok
+test backslash_forms_resolve ... ok
+test ejective_suffix_resolves ... ok
+test length_mark_sets_long ... ok
+test lower_letters_match_ipa ... ok
+test nasal_suffix_marks_nasal ... ok
+test question_mark_is_glottal_stop ... ok
+test implosive_suffix_resolves ... ok
+test table_is_replaceable ... ok
+test upper_letters_are_distinct_phonemes ... ok
+test skips_unknown_chars ... ok
+test dental_suffix_shifts_place ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.09s
+     Running unittests src\lib.rs (target\debug\deps\articul_front-f5c3b4887d233ab0.exe)
+     Running tests\integration.rs (target\debug\deps\integration-a473cdf337513b39.exe)
+     Running tests\normalize.rs (target\debug\deps\normalize-8c80ea6a9b088e38.exe)
+     Running tests\prosody.rs (target\debug\deps\prosody-794f4189c96b22bd.exe)
+     Running tests\stress.rs (target\debug\deps\stress-a52db44136c9a22d.exe)
+     Running tests\utterance.rs (target\debug\deps\utterance-0f2bba251dd69a70.exe)
+     Running tests\xsampa.rs (target\debug\deps\xsampa-6ed8007bf6312db7.exe)
+   Doc-tests articul_front
+--- test tail end ---
+artifacts: probe/0.0.0.18.1/frontend/plan.txt, raw_utf8.txt, probe_dump_0018.rs.txt (probe-only copy of reverted example)

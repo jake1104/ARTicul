@@ -1,0 +1,9 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+error[E0432]: unresolved import `articul_dsp::CascadeFilter`
+ --> crates\articul-dsp\tests\cascade.rs:1:5
+  |
+1 | use articul_dsp::CascadeFilter;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^ no `CascadeFilter` in the root
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `articul-dsp` (test "cascade") due to 1 previous error

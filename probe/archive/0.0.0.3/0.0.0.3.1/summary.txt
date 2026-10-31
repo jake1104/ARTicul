@@ -1,0 +1,5 @@
+Task 0.0.0.3.1 glottal pulse generator
+Tests: source.rs 3 passed (length 2205, peak count 8-12 for 100Hz/0.1s, aspiration changes output)
+Files: crates/articul-dsp/src/source.rs, crates/articul-dsp/src/lib.rs
+dasp linkage fixed: default features enabled (no_std nightly issue resolved)
+Logs: logs/0.0.0.3.1/red2.log (missing GlottalSource), green.log (3 passed)

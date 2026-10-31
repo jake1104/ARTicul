@@ -1,0 +1,7 @@
+fixed sentence TIs TIN default voice 22050Hz config/default-voice.toml
+regression-a: samples=8822 bytes=17688 sha256=CFBA9EF28A1A17EEE0BA2626B64BB3877F66A51C93FCBDB9ECEA3BF99B5B455A
+regression-b: samples=8822 bytes=17688 sha256=CFBA9EF28A1A17EEE0BA2626B64BB3877F66A51C93FCBDB9ECEA3BF99B5B455A
+determinism byte-identical: True (fc /b no differences)
+expected 8822 samples: True
+expected hash 2AD4F8413C9182F0BE39B9AC836AAE06233272C3367256A6F859FA0AE44AD141 match: False (hash ROTATED by source rebalance, recorded here)
+engine renders (release binary, default voice): hello 9792 samples, annyeong 17446 samples, yeobo 14666 samples (counts unchanged vs 0.0.0.24.3)

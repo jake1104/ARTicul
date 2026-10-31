@@ -1,0 +1,52 @@
+warning: function `is_fricative_path` is never used
+  --> crates\articul-cli\tests\junction_smooth.rs:75:4
+   |
+75 | fn is_fricative_path(u: &ProsodicPhoneme) -> bool {
+   |    ^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `articul-cli` (test "junction_smooth") generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.21s
+     Running tests\junction_smooth.rs (target\debug\deps\junction_smooth-680d212e54048953.exe)
+
+running 1 test
+test boundary_gain_step_bounded ... FAILED
+
+failures:
+
+---- boundary_gain_step_bounded stdout ----
+
+thread 'boundary_gain_step_bounded' (10124) panicked at crates\articul-cli\tests\junction_smooth.rs:190:5:
+max gated-boundary gain step 8.88dB at %jV"bo%se%jo boundary 20 exceeds 3.0dB
+hE "loU b1 center=1632 step=-3.05dB gated
+hE "loU b2 center=3418 step=-5.10dB gated
+hE "loU b3 center=4786 step=3.20dB gated
+%an njVN "hasejo b4 center=3859 step=-7.67dB gated
+%an njVN "hasejo b5 center=4830 step=-1.69dB gated
+%an njVN "hasejo b6 center=5646 step=1.24dB gated
+%an njVN "hasejo b7 center=6374 step=-0.35dB gated
+%an njVN "hasejo b8 center=8138 step=-3.87dB gated
+%an njVN "hasejo b9 center=8954 step=-4.01dB gated
+%an njVN "hasejo b10 center=9925 step=0.17dB gated
+%an njVN "hasejo b11 center=12351 step=4.41dB MIXED-LINEAR fricative junction: phonetic contrast per 0.0.0.24.1, filter-reset runner-up out of scope, excluded from 3dB gate
+%an njVN "hasejo b12 center=13454 step=-10.72dB MIXED-LINEAR fricative junction: phonetic contrast per 0.0.0.24.1, filter-reset runner-up out of scope, excluded from 3dB gate
+%an njVN "hasejo b13 center=14733 step=-1.94dB gated
+%an njVN "hasejo b14 center=15461 step=-6.50dB gated
+%jV"bo%se%jo b15 center=860 step=4.88dB gated
+%jV"bo%se%jo b16 center=3551 step=-2.10dB gated
+%jV"bo%se%jo b17 center=4279 step=-4.57dB gated
+%jV"bo%se%jo b18 center=6374 step=4.31dB MIXED-LINEAR fricative junction: phonetic contrast per 0.0.0.24.1, filter-reset runner-up out of scope, excluded from 3dB gate
+%jV"bo%se%jo b19 center=7499 step=-10.96dB MIXED-LINEAR fricative junction: phonetic contrast per 0.0.0.24.1, filter-reset runner-up out of scope, excluded from 3dB gate
+%jV"bo%se%jo b20 center=10167 step=-8.88dB gated
+%jV"bo%se%jo b21 center=10895 step=-3.37dB gated
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    boundary_gain_step_bounded
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+error: test failed, to rerun pass `-p articul-cli --test junction_smooth`

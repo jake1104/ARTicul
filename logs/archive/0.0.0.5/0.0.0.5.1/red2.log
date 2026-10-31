@@ -1,0 +1,43 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.25s
+     Running tests\normalize.rs (target\debug\deps\normalize-8c80ea6a9b088e38.exe)
+
+running 4 tests
+test empty_input_gives_empty ... ok
+test lowercases_and_strips_punctuation ... FAILED
+test expands_common_abbreviations ... FAILED
+test keeps_numbers_as_tokens ... FAILED
+
+failures:
+
+---- lowercases_and_strips_punctuation stdout ----
+
+thread 'lowercases_and_strips_punctuation' (26672) panicked at crates\articul-front\tests\normalize.rs:5:5:
+assertion `left == right` failed
+  left: []
+ right: ["hello", "world"]
+
+---- expands_common_abbreviations stdout ----
+
+thread 'expands_common_abbreviations' (25204) panicked at crates\articul-front\tests\normalize.rs:10:5:
+assertion `left == right` failed
+  left: []
+ right: ["mister", "smith", "and", "doctor", "jones"]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- keeps_numbers_as_tokens stdout ----
+
+thread 'keeps_numbers_as_tokens' (26448) panicked at crates\articul-front\tests\normalize.rs:15:5:
+assertion `left == right` failed
+  left: []
+ right: ["2", "apples", "10", "oranges"]
+
+
+failures:
+    expands_common_abbreviations
+    keeps_numbers_as_tokens
+    lowercases_and_strips_punctuation
+
+test result: FAILED. 1 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-front --test normalize`

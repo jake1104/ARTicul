@@ -1,0 +1,64 @@
+    Checking articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Checking articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+error: this `if` has identical blocks
+   --> crates\articul-front\src\xsampa.rs:100:47
+    |
+100 |           } else if starts_with(chars, i, "_G") {
+    |  _______________________________________________^
+101 | |             phon.secondary.velarized = true;
+102 | |             i += 2;
+103 | |         } else if starts_with(chars, i, "_e") {
+    | |_________^
+    |
+note: same as this
+   --> crates\articul-front\src\xsampa.rs:103:47
+    |
+103 |           } else if starts_with(chars, i, "_e") {
+    |  _______________________________________________^
+104 | |             phon.secondary.velarized = true;
+105 | |             i += 2;
+106 | |         } else if starts_with(chars, i, "_d") {
+    | |_________^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.91.0/index.html#if_same_then_else
+    = note: `-D clippy::if-same-then-else` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::if_same_then_else)]`
+
+error: this `if` has identical blocks
+   --> crates\articul-front\src\xsampa.rs:134:47
+    |
+134 |           } else if starts_with(chars, i, "_=") {
+    |  _______________________________________________^
+135 | |             i += 2;
+136 | |         } else if starts_with(chars, i, "_^") {
+    | |_________^
+    |
+note: same as this
+   --> crates\articul-front\src\xsampa.rs:136:47
+    |
+136 |           } else if starts_with(chars, i, "_^") {
+    |  _______________________________________________^
+137 | |             i += 2;
+138 | |         } else if starts_with(chars, i, "_}") {
+    | |_________^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.91.0/index.html#if_same_then_else
+
+error: this `if` has identical blocks
+   --> crates\articul-front\src\xsampa.rs:136:47
+    |
+136 |           } else if starts_with(chars, i, "_^") {
+    |  _______________________________________________^
+137 | |             i += 2;
+138 | |         } else if starts_with(chars, i, "_}") {
+    | |_________^
+    |
+note: same as this
+   --> crates\articul-front\src\xsampa.rs:138:47
+    |
+138 |           } else if starts_with(chars, i, "_}") {
+    |  _______________________________________________^
+139 | |             i += 2;
+140 | |         } else if i < chars.len() && chars[i] == '_' {
+    | |_________^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.91.0/index.html#if_same_then_else
+
+error: could not compile `articul-front` (lib) due to 3 previous errors

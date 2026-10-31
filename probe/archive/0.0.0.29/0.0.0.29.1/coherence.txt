@@ -1,0 +1,82 @@
+== hello wavlen=9792 (plan predicted 9792: EXACT)
+   seg work[0]=h stress=Unstressed spec=Cascade span=[0,1720) interior_n=1280 F1=534 F2=2673 F3=3366 rms=-13.41dBFS FRICATIVE
+   seg work[1]=E stress=Unstressed spec=Cascade span=[1544,3506) interior_n=1522 F1=575 F2=1592 F3=2672 rms=-13.53dBFS
+   seg work[2]=l stress=Unstressed spec=Cascade span=[3330,4874) interior_n=1104 F1=288 F2=1384 F3=2858 rms=-14.61dBFS
+   seg work[3]=o+U stress=Primary+Unstressed spec=Cascade+Cascade span=[4698,9792) interior_n=4654 F1=460 F2=943 F3=2308 rms=-16.51dBFS
+   centroid series: 43 frames(20ms/10ms-hop) global max adjacent jump=1511Hz
+   -- boundaries (interior-to-interior) --
+   b1 h->E pos=70.0ms |dF1|=40Hz |dF2|=1081Hz |dF3|=694Hz RMSstep=-0.12dB centroid-localmax=1511Hz globalmax=1511Hz FRIC
+   b2 E->l pos=151.0ms |dF1|=287Hz |dF2|=208Hz |dF3|=186Hz RMSstep=-1.07dB centroid-localmax=833Hz globalmax=1511Hz
+   b3 l->o+U pos=213.1ms |dF1|=173Hz |dF2|=441Hz |dF3|=551Hz RMSstep=-1.91dB centroid-localmax=344Hz globalmax=1511Hz
+== annyeong wavlen=17446 (plan predicted 17446: EXACT)
+   seg work[0]=a stress=Secondary spec=Cascade span=[0,3947) interior_n=3507 F1=721 F2=860 F3=2616 rms=-20.52dBFS
+   seg work[1]=n stress=Unstressed spec=Cascade span=[3771,4918) interior_n=707 F1=416 F2=1536 F3=2518 rms=-22.07dBFS
+   seg work[2]=n stress=Unstressed spec=Cascade span=[4742,5734) interior_n=552 F1=544 F2=1496 F3=2508 rms=-22.38dBFS
+   seg work[3]=j stress=Unstressed spec=Cascade span=[5558,6462) interior_n=464 F1=521 F2=1438 F3=2501 rms=-21.38dBFS
+   seg work[4]=V stress=Unstressed spec=Cascade span=[6286,8226) interior_n=1500 F1=504 F2=2374 F3=2482 rms=-21.81dBFS
+   seg work[5]=N stress=Unstressed spec=Cascade span=[8050,9042) interior_n=552 F1=504 F2=1514 F3=2250 rms=-22.93dBFS
+   seg work[6]=h stress=Unstressed spec=Cascade span=[8866,10013) interior_n=707 F1=717 F2=2663 F3=3285 rms=-22.18dBFS FRICATIVE
+   seg work[7]=a stress=Primary spec=Cascade span=[9837,12439) interior_n=2162 F1=702 F2=813 F3=2630 rms=-21.29dBFS
+   seg work[8]=s stress=Unstressed spec=Parallel span=[12263,13542) interior_n=839 F1=678 F2=2668 F3=4193 rms=-11.83dBFS FRICATIVE
+   seg work[9]=e stress=Unstressed spec=Cascade span=[13366,14821) interior_n=1015 F1=534 F2=1746 F3=1846 rms=-24.82dBFS
+   seg work[10]=j stress=Unstressed spec=Cascade span=[14645,15549) interior_n=464 F1=506 F2=2526 F3=3275 rms=-25.95dBFS
+   seg work[11]=o stress=Unstressed spec=Cascade span=[15373,17446) interior_n=1633 F1=477 F2=1072 F3=2256 rms=-31.54dBFS
+   centroid series: 78 frames(20ms/10ms-hop) global max adjacent jump=3951Hz
+   -- boundaries (interior-to-interior) --
+   b1 a->n pos=171.0ms |dF1|=305Hz |dF2|=675Hz |dF3|=98Hz RMSstep=-1.55dB centroid-localmax=895Hz globalmax=3951Hz
+   b2 n->n pos=215.1ms |dF1|=128Hz |dF2|=40Hz |dF3|=10Hz RMSstep=-0.31dB centroid-localmax=412Hz globalmax=3951Hz
+   b3 n->j pos=252.1ms |dF1|=23Hz |dF2|=57Hz |dF3|=7Hz RMSstep=+1.00dB centroid-localmax=297Hz globalmax=3951Hz
+   b4 j->V pos=285.1ms |dF1|=17Hz |dF2|=936Hz |dF3|=19Hz RMSstep=-0.43dB centroid-localmax=297Hz globalmax=3951Hz
+   b5 V->N pos=365.1ms |dF1|=0Hz |dF2|=860Hz |dF3|=232Hz RMSstep=-1.12dB centroid-localmax=306Hz globalmax=3951Hz
+   b6 N->h pos=402.1ms |dF1|=213Hz |dF2|=1149Hz |dF3|=1034Hz RMSstep=+0.75dB centroid-localmax=792Hz globalmax=3951Hz FRIC
+   b7 h->a pos=446.1ms |dF1|=14Hz |dF2|=1850Hz |dF3|=654Hz RMSstep=+0.88dB centroid-localmax=1161Hz globalmax=3951Hz FRIC
+   b8 a->s pos=556.1ms |dF1|=25Hz |dF2|=1856Hz |dF3|=1563Hz RMSstep=+9.46dB centroid-localmax=3099Hz globalmax=3951Hz FRIC
+   b9 s->e pos=606.2ms |dF1|=144Hz |dF2|=923Hz |dF3|=2347Hz RMSstep=-12.99dB centroid-localmax=3951Hz globalmax=3951Hz FRIC
+   b10 e->j pos=664.2ms |dF1|=28Hz |dF2|=780Hz |dF3|=1428Hz RMSstep=-1.13dB centroid-localmax=914Hz globalmax=3951Hz
+   b11 j->o pos=697.2ms |dF1|=29Hz |dF2|=1454Hz |dF3|=1019Hz RMSstep=-5.59dB centroid-localmax=914Hz globalmax=3951Hz
+== yeobo wavlen=14666 (plan predicted 14666: EXACT)
+   seg work[0]=j stress=Unstressed spec=Cascade span=[0,948) interior_n=508 F1=425 F2=1558 F3=2535 rms=-22.44dBFS
+   seg work[1]=V stress=Secondary spec=Cascade span=[772,3639) interior_n=2427 F1=590 F2=1034 F3=2246 rms=-19.20dBFS
+   seg work[2]=b stress=Unstressed spec=Cascade span=[3463,4367) interior_n=464 F1=465 F2=1560 F3=3152 rms=-20.39dBFS
+   seg work[3]=o stress=Primary spec=Cascade span=[4191,6462) interior_n=1831 F1=469 F2=1390 F3=2301 rms=-20.11dBFS
+   seg work[4]=s stress=Unstressed spec=Parallel span=[6286,7587) interior_n=861 F1=677 F2=2669 F3=4193 rms=-10.81dBFS FRICATIVE
+   seg work[5]=e stress=Secondary spec=Cascade span=[7411,10255) interior_n=2404 F1=499 F2=2713 F3=2826 rms=-22.21dBFS
+   seg work[6]=j stress=Unstressed spec=Cascade span=[10079,10983) interior_n=464 F1=506 F2=1538 F3=2517 rms=-26.30dBFS
+   seg work[7]=o stress=Secondary spec=Cascade span=[10807,14666) interior_n=3419 F1=479 F2=953 F3=2335 rms=-29.45dBFS
+   centroid series: 65 frames(20ms/10ms-hop) global max adjacent jump=5723Hz
+   -- boundaries (interior-to-interior) --
+   b1 j->V pos=35.0ms |dF1|=165Hz |dF2|=524Hz |dF3|=289Hz RMSstep=+3.24dB centroid-localmax=228Hz globalmax=5723Hz
+   b2 V->b pos=157.1ms |dF1|=125Hz |dF2|=526Hz |dF3|=906Hz RMSstep=-1.18dB centroid-localmax=590Hz globalmax=5723Hz
+   b3 b->o pos=190.1ms |dF1|=4Hz |dF2|=169Hz |dF3|=850Hz RMSstep=+0.28dB centroid-localmax=590Hz globalmax=5723Hz
+   b4 o->s pos=285.1ms |dF1|=208Hz |dF2|=1278Hz |dF3|=1892Hz RMSstep=+9.30dB centroid-localmax=5111Hz globalmax=5723Hz FRIC
+   b5 s->e pos=336.1ms |dF1|=178Hz |dF2|=44Hz |dF3|=1367Hz RMSstep=-11.40dB centroid-localmax=5723Hz globalmax=5723Hz FRIC
+   b6 e->j pos=457.1ms |dF1|=7Hz |dF2|=1175Hz |dF3|=310Hz RMSstep=-4.09dB centroid-localmax=1019Hz globalmax=5723Hz
+   b7 j->o pos=490.1ms |dF1|=27Hz |dF2|=586Hz |dF3|=182Hz RMSstep=-3.14dB centroid-localmax=1019Hz globalmax=5723Hz
+GATE-CHECK non-fricative boundaries: F2>150Hz count=12 [('hello', 2, np.float64(207.94242577817568)), ('hello', 3, np.float64(440.8095232871825)), ('annyeong', 1, np.float64(675.2817893629655)), ('annyeong', 4, np.float64(935.6301126420067)), ('annyeong', 5, np.float64(860.0291022667891)), ('annyeong', 10, np.float64(780.4378947879914)), ('annyeong', 11, np.float64(1453.8945445973488)), ('yeobo', 1, np.float64(523.54378158803)), ('yeobo', 2, np.float64(525.5644217034785)), ('yeobo', 3, np.float64(169.33284357262232)), ('yeobo', 6, np.float64(1174.6392043138412)), ('yeobo', 7, np.float64(585.6370682082932))]
+GATE-CHECK non-fricative boundaries: |RMSstep|>4dB count=2 [('annyeong', 11, -5.587278763267971), ('yeobo', 6, -4.092029909904689)]
+WORST non-fricative |dF2|=('annyeong', 11, np.float64(1453.8945445973488)) WORST |RMSstep|=('annyeong', 11, -5.587278763267971)
+== transition-local F2 (per-frame 20ms Hann / 10ms hop)
+== hello
+   b1 h->E noseF2 pre=2670 post=1600 |d|=1070Hz corridor-max-per-frame=1047Hz FRIC
+   b2 E->l noseF2 pre=1603 post=1372 |d|=231Hz corridor-max-per-frame=708Hz
+   b3 l->o+U noseF2 pre=1354 post=829 |d|=524Hz corridor-max-per-frame=417Hz
+== annyeong
+   b1 a->n noseF2 pre=838 post=1537 |d|=699Hz corridor-max-per-frame=673Hz
+   b2 n->n noseF2 pre=1526 post=1499 |d|=27Hz corridor-max-per-frame=105Hz
+   b3 n->j noseF2 pre=1475 post=1435 |d|=40Hz corridor-max-per-frame=653Hz
+   b4 j->V noseF2 pre=1551 post=1808 |d|=257Hz corridor-max-per-frame=448Hz
+   b5 V->N noseF2 pre=2349 post=1512 |d|=837Hz corridor-max-per-frame=730Hz
+   b6 N->h noseF2 pre=1536 post=1219 |d|=317Hz corridor-max-per-frame=1424Hz FRIC
+   b7 h->a noseF2 pre=2661 post=863 |d|=1798Hz corridor-max-per-frame=1447Hz FRIC
+   b8 a->s noseF2 pre=829 post=2311 |d|=1481Hz corridor-max-per-frame=1492Hz FRIC
+   b9 s->e noseF2 pre=2701 post=1761 |d|=940Hz corridor-max-per-frame=1027Hz FRIC
+   b10 e->j noseF2 pre=1797 post=2520 |d|=723Hz corridor-max-per-frame=1636Hz
+   b11 j->o noseF2 pre=2533 post=835 |d|=1699Hz corridor-max-per-frame=1634Hz
+== yeobo
+   b1 j->V noseF2 pre=863 post=1033 |d|=170Hz corridor-max-per-frame=726Hz
+   b2 V->b noseF2 pre=1039 post=1542 |d|=502Hz corridor-max-per-frame=434Hz
+   b3 b->o noseF2 pre=1570 post=1311 |d|=259Hz corridor-max-per-frame=501Hz
+   b4 o->s noseF2 pre=1414 post=2311 |d|=897Hz corridor-max-per-frame=875Hz FRIC
+   b5 s->e noseF2 pre=2702 post=2764 |d|=62Hz corridor-max-per-frame=428Hz FRIC
+   b6 e->j noseF2 pre=2759 post=1527 |d|=1232Hz corridor-max-per-frame=1912Hz
+   b7 j->o noseF2 pre=1550 post=869 |d|=680Hz corridor-max-per-frame=693Hz

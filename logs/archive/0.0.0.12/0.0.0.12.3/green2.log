@@ -1,0 +1,11 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.75s
+     Running tests\cf0.rs (target\debug\deps\cf0-411ea725cfca2caf.exe)
+
+running 2 tests
+test cf0_threshold_selects_flat_or_decay ... ok
+test vowel_onset_after_voiceless_obstruent_runs_faster ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

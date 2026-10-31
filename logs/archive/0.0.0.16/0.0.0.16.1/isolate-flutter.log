@@ -1,0 +1,22 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.12s
+     Running tests\source_null.rs (target\debug\deps\source_null-1e9280ea88253cbb.exe)
+
+running 1 test
+test no_deep_notches_in_speech_band ... FAILED
+
+failures:
+
+---- no_deep_notches_in_speech_band stdout ----
+
+thread 'no_deep_notches_in_speech_band' (16848) panicked at crates\articul-dsp\tests\source_null.rs:43:17:
+notch at 990Hz f0=90 oq=0.4 ratio=0.011584869
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    no_deep_notches_in_speech_band
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-dsp --test source_null`

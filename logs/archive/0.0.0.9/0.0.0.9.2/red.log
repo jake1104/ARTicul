@@ -1,0 +1,23 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.39s
+     Running tests\synth_vowels.rs (target\debug\deps\synth_vowels-d97d615327988bf6.exe)
+
+running 1 test
+test i_has_high_formant_energy_and_a_has_low ... FAILED
+
+failures:
+
+---- i_has_high_formant_energy_and_a_has_low stdout ----
+
+thread 'i_has_high_formant_energy_and_a_has_low' (5716) panicked at crates\articul-cli\tests\synth_vowels.rs:33:5:
+i high/low=0.18622911
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    i_has_high_formant_energy_and_a_has_low
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-cli --test synth_vowels`

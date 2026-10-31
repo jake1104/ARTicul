@@ -1,0 +1,133 @@
+0.0.0.25.1 spark localization probe - sparks.txt (no code change)
+======================================================================
+Inputs (default voice, 22050 Hz; re-rendered fresh with
+target/release/articul.exe into probe/0.0.0.25.1/, byte-identical to demo/):
+- hello    `hE "loU`          9792 samples, sha256 20c32a07... (match demo/hello.wav)
+- annyeong `%an njVN "hasejo` 17446 samples, sha256 ba344cd8... (match demo/annyeonghaseyo.wav)
+- yeobo    `%jV"bo%se%jo`     14666 samples, sha256 86942e5f... (match demo/yeoboseyo.wav)
+Segment START (boundary) table reused from probe/archive/0.0.0.24/0.0.0.24.1/
+junctions.txt + plan.txt (blend-zone start == segment start, output timeline):
+- hello:    70.0, 151.0, 213.1 ms
+- annyeong: 171.0, 215.1, 252.1, 285.1, 365.1, 402.1, 446.1, 556.1, 606.2, 664.2, 697.2 ms
+- yeobo:    35.0, 157.1, 190.1, 285.1, 336.1, 457.1, 490.1 ms
+(plus utterance/seg-0 start at t = 0.0 ms, not a tabled boundary)
+
+Method (probe/0.0.0.25.1/sparks.py, python3 + numpy, stdlib wav I/O)
+------------------------------------------------------------------
+crest[i] = peak(|x|, centered 2 ms window) / rms(x, centered 20 ms window),
+1 ms hop. flag[i] = crest[i] > 4.0 * median(crest[i-100 .. i-1]) AND peak >= 0.01
+(-40 dBFS floor keeps flat-digital-silence math out; no other gating).
+Consecutive flagged frames grouped into sparks. Dominant band per spark from
+1024-pt FFT of the centered 20 ms window vs the 100 ms background before it:
+reported both as max energy-RATIO band (relative HF lift) and absolute excess
+band (excess_b = spark_b - bg_b * total_scale, i.e. where the extra joules sit).
+
+1) Prescribed 4x detector - spark table per demo
+------------------------------------------------
+hello:    t0=3.0ms peak=3.2ms amp=0.0898 dur=1ms ratio=4.19 band=125-250(seg h, onset)
+annyeong: no sparks. yeobo: no sparks.
+Strict hit rate vs tabled boundaries (+-10 ms): 0 hits / 1 spark = 0.00.
+Nearest tabled boundary to the single spark: hello b1 (70.0 ms), d = 67.0 ms -> MISS.
+NOTE: that spark sits 3.0 ms after the seg-0 (utterance) start at t = 0.0 ms.
+
+2) Why the 4x bar is (almost) unreachable mid-utterance
+-------------------------------------------------------
+Threshold sweep with the identical detector (probe/0.0.0.25.1/sweep2.py):
+  2.0x -> 12 sparks, 9 tabled hits, hit rate 0.75
+  2.5x -> 10 sparks, 8 tabled hits, hit rate 0.80
+  3.0x -> 2 sparks,  1 tabled hit,  hit rate 0.50
+  4.0x -> 1 spark,   0 tabled hits, hit rate 0.00 (the onset event above)
+Max mid-utterance crest ratio observed anywhere: 3.08 (annyeong b6, 402.1 ms).
+Physical ceiling: the transient tamer clamps every sample above 2.2x the 5 ms
+RMS with 0.08 residual (synth.rs:1063-1065), so post-tamer overshoot cannot
+reach 4x steady-state crest except at utterance onset (no preceding median
+buildup). The 4x bar therefore selects only the onset artifact and hides the
+mid-utterance spark family at 2.5-3.1x. The family below is the evidence.
+
+3) Transient family at 2.5x - spark table per demo (the audible sparks)
+-----------------------------------------------------------------------
+hello (2 tabled hits + onset event):
+ t0=150.7 peak=151.0 amp=0.9890 dur=1ms ratio=2.50 abs-band=1-2k maxratio-band=62-125(x7.1) at b2 E->l d=0.3 HIT
+ t0=212.5 peak=213.1 amp=0.9890 dur=2ms ratio=2.60 abs-band=125-250 maxratio-band=8k+(x2.7) at b3 l->o d=0.6 HIT
+annyeong (3 tabled hits, 0 misses):
+ t0=170.6 peak=171.0 amp=0.6028 dur=2ms ratio=2.65 abs-band=1-2k maxratio-band=8k+(x844.6) at b1 a->n d=0.4 HIT
+ t0=402.1 peak=402.1 amp=0.4335 dur=2ms ratio=3.08 abs-band=0.5-1k maxratio-band=8k+(x11.9) at b6 N->h d=0.0 HIT
+ t0=696.4 peak=697.2 amp=0.7608 dur=4ms ratio=2.85 abs-band=250-500 maxratio-band=1-2k(x11.6) at b11 j->o d=0.8 HIT
+yeobo (3 tabled hits + onset event):
+ t0=34.9 peak=35.0 amp=0.4577 dur=2ms ratio=2.64 abs-band=4-8k-thin-edge(bulk 250-500/0.5-1k) maxratio-band=8k+(x23778) at b1 j->V d=0.1 HIT
+ t0=189.6 peak=191.4 amp=0.5632 dur=3ms ratio=2.56 abs-band=1-2k maxratio-band=8k+(x1787) at b3 b->o d=0.5 HIT
+ t0=489.9 peak=490.1 amp=0.7264 dur=3ms ratio=2.81 abs-band=1-2k maxratio-band=8k+(x897) at b7 j->o d=0.2 HIT
+Hit rate vs tabled boundaries (+-10 ms): 8 hits / 10 sparks = 0.80.
+
+4) Sparks NOT near tabled boundaries (with positions)
+-----------------------------------------------------
+ hello  t0=3.0ms (peak 3.2ms, amp 0.0898, dur 1-2ms, band 125-250) - 67.0 ms from b1
+ yeobo  t0=1.0ms (peak 1.9ms, amp 0.1142, dur 1ms, band 8k+) - 34.0 ms from b1
+Both sit within 3 ms of the utterance (seg-0) start at t = 0.0 ms: they are the
+same onset transient as the segment-start family, at the one start the boundary
+table does not list. Including seg-0 start: 10/10 sparks within +-10 ms of A
+segment start. No spark points at tamer/creak/leveler interiors: zero detected
+sparks fall in mid-segment steady state.
+
+5) Near-full-scale peak map (supporting positional evidence)
+------------------------------------------------------------
+Groups of samples with |x| > 0.9 (file peaks are 0.9890 on all three demos):
+ hello:    70.9-73.3ms (b1, d=0.9), 151.0-151.3ms (b2, d=0.0), 213.1ms (b3, d=0.0) - 3/3 HIT
+ annyeong: 600.4-608.6ms straddling b9 s->e MIXED-LINEAR (606.2, d=5.8) - HIT (broad 8 ms /s/ body, phonetic)
+ yeobo:    327.3-337.6ms straddling b5 s->e MIXED-LINEAR (336.1, d=8.8) - HIT (broad 10 ms /s/ body, phonetic)
+Sharp crest sparks (1-4 ms, ratio 2.5-3.1) sit on CASCADE boundaries; broad
+full-scale /s/ bodies sit on MIXED-LINEAR s->e boundaries (low crest ratio
+1.3-1.4 there because sibilant regions have high crest medians - phonetic
+loudness per 0.0.0.15.4/0.0.0.24.1, not a spark; smoothing contraindicated).
+
+6) Code inspection (READ ONLY, with file:line refs)
+----------------------------------------------------
+(a) Fresh filter + phase-0 excitation restart (IMPLICATED):
+ - Every Single work unit renders through a fresh CascadeFilter::from_pairs /
+   ParallelFilter::from_pairs built inside the render_units loop
+   (crates/articul-cli/src/synth.rs:909-934); notch/lateral filters likewise
+   fresh per segment (synth.rs:935-942). No filter object crosses a boundary.
+ - CASCADE glide path warms a fresh filter by replaying the old tail
+   (synth.rs:217-220, 228-236, nasal 242-249) then steps the RAW-signal mix
+   through per-sample retuned coefficients (synth.rs:221-225, 232-235) - state
+   carry is approximate replay, and the driving mix itself restarts.
+ - EVERY generate_* path starts at phase 0.0 (crates/articul-dsp/src/source.rs:
+   34 generate, 72 generate_cf0_onset, 117 generate_glide, 169
+   generate_exp_glide, 220 generate_cf0_exp_glide, 273 generate_cf0_glide, 317
+   generate_creak); render_unit calls one fresh src.generate* per unit
+   (synth.rs:488-497), render_diphthong likewise (synth.rs:570-574). Voiced
+   excitation restarts at phase 0 at every segment start regardless of type.
+(b) Leveler transient tamer (MITIGATOR, not cause):
+ - 5 ms ring RMS (synth.rs:1047), clamp threshold 2.2x with 0.05*p0 floor
+   (synth.rs:1063), 0.08 residual (synth.rs:1065). Caps overshoot - explains the
+   3.08 observed ceiling vs the 4x bar. Follower attack 12 ms / release 8 ms
+   per 20 ms window (synth.rs:1080-1081), gain smoothing 10 ms (synth.rs:1104):
+   too slow to create 1-4 ms sparks; causal-only (no pre-echo), and all spark
+   onsets sit AT/after the boundary (d >= -0.8 ms granularity).
+(c) 8 ms linear crossfade of uncorrelated sources (EXONERATED as spark source):
+ - short = 8 ms / 176 samples (synth.rs:782), glide = 50 ms / 1102
+   (synth.rs:783, unexercised: 0 VV pairs); fades assigned synth.rs:951-958;
+   MIXED-LINEAR plain linear crossfade synth.rs:740-744; gain-track linear
+   crossfade synth.rs:695-715. The 4 MIXED-LINEAR boundaries hold the LOWEST
+   crest ratios (1.30-1.40) - the uncorrelated-source crossfade does not spark.
+(d) Creak on/off (EXONERATED): creak only on utterance-final voiced unit
+   (synth.rs:481-489; source.rs:303-347). All 8 tabled sparks sit at
+   mid-utterance starts (latest: annyeong b11 j->o at 697 ms of 791 ms, before
+   the final-/o/ creak ramp from frac 0.4; yeobo b7 j->o at 490 ms of 665 ms,
+   before its creak ramp). No spark in any creak-ramped region.
+
+Verdict
+-------
+Sparks cluster at segment starts: 8/10 within +-10 ms of tabled boundaries at
+the 2.5x operating point (10/10 including the seg-0 onset pair), all 3 hello
+boundaries carry a full-scale 0.989 peak at d <= 0.9 ms, worst sharp spark
+annyeong b6 N->h ratio 3.08 amp 0.4335 dur 2 ms band 8k+(x11.9), longest
+annyeong b11 j->o dur 4 ms amp 0.7608, loudest hello b2/b3 amp 0.9890 dur 1-2 ms.
+Positional evidence implicates suspect (a): fresh filter per segment +
+phase-0 excitation restart -> transient overshoot at segment starts, capped
+(not caused) by the tamer at ~2.2x - which is why the prescribed 4x bar sees
+only the onset event. MIXED-LINEAR crossfade (c) and creak (d) are exonerated
+with numbers; the tamer (b) is a mitigator.
+Single fix for 0.0.0.25.2: filter-state carry across same-filter boundaries
+(or segment-start fade-in). Gate on the 2.5x family: spark count/peak must drop
+while `TIs TIN` hash is re-measured in-task.

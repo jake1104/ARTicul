@@ -1,0 +1,59 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.32s
+     Running tests\lateral_zero.rs (target\debug\deps\lateral_zero-efc8bd84b3de84cd.exe)
+
+running 4 tests
+test coda_lateral_has_no_notch ... ok
+test hello_interior_window_has_notch ... ok
+test vowel_window_scores_below_notch_floor ... ok
+test lateral_window_has_notch ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.63s
+
+     Running tests\leveling.rs (target\debug\deps\leveling-84ed11da9d3cc29e.exe)
+
+running 3 tests
+test tail_not_buried ... ok
+test intra_word_troughs_bounded ... ok
+test demo_rms_audible ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests\nonsibilant_bandlimit.rs (target\debug\deps\nonsibilant_bandlimit-e32d9570f5621aeb.exe)
+
+running 2 tests
+test solo_s_above_4k_fraction_unchanged ... ok
+test solo_h_above_4k_fraction_drops_vs_baseline ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+     Running tests\pause.rs (target\debug\deps\pause-9b600c2a93927d0c.exe)
+
+running 2 tests
+test pause_region_renders_silence ... ok
+test pause_extends_utterance_by_its_own_length ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests\synth.rs (target\debug\deps\synth-22b4dd0f9413717c.exe)
+
+running 3 tests
+test empty_text_gives_empty ... ok
+test renders_fixed_sentence_to_expected_samples ... ok
+test output_differs_per_text ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\synth_vowels.rs (target\debug\deps\synth_vowels-d97d615327988bf6.exe)
+
+running 1 test
+test i_has_high_formant_energy_and_a_has_low ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\voiced_fricative_mix.rs (target\debug\deps\voiced_fricative_mix-a7be44936707dd8f.exe)
+
+running 1 test
+test voiced_fricative_keeps_periodicity ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+

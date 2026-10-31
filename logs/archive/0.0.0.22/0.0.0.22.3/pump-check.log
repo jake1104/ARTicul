@@ -1,0 +1,7 @@
+windows=23 window_ms=20 fs=50Hz
+gain_dB min=-1.01 max=11.60 swing=12.61
+syllable_band_3_8Hz p95-p5=2.69dB peak_to_peak=3.34dB
+verdict_3dB=NO_BREATHING
+trough_region windows=21-22 mean_gain=10.77dB range=1.65dB
+trough_adjacent_step_std=0.00dB
+max_gain_window=22 gdb=11.60 wrms=0.0027

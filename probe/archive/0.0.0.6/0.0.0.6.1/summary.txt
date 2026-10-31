@@ -1,0 +1,7 @@
+Task 0.0.0.6.1 synthesis command
+Tests: synth.rs 3 passed (nonempty finite energetic, empty for punctuation, differs per text)
+Commands: articul synthesize --text --voice --out --f0, articul --help
+Evidence: hello.wav 18522 samples (X-SAMPA input), hi-klatt.wav 4410 samples
+Files: crates/articul-cli/src/lib.rs, synth.rs, main.rs (clap derive, hound 16-bit WAV, English output)
+Input note: --text takes X-SAMPA phonetic symbols, not English orthography
+Logs: logs/0.0.0.6.1/

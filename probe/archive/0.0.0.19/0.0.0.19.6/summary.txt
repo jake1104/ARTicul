@@ -1,0 +1,116 @@
+Task 0.0.0.19.6 regression re-baseline with demo regeneration
+
+No production code change in this task. Work confirms the 0.0.0.19.2
+(GOAT diphthong as one gliding syllable), 0.0.0.19.3 (/h/ as voiceless
+vowel-formant onset, base -10dB, halves gate re-baselined to |diff|<=5dB
+plus -32dBFS second-half floor), 0.0.0.19.4 (clear-[l] 300/1400/2800
+targets with 70ms floor before stressed vowels, coda-guarded) and
+0.0.0.19.5 (mixed glottal+noise excitation for voiced fricatives)
+landings. All four kept the fixed-sentence hash at 3d31... (verified,
+not assumed, in each task).
+
+Gates (logs in logs/0.0.0.19.6/, all exit 0)
+- cargo fmt --check: clean, 0-byte log fmt-check.log (fresh re-run to
+  green captured on disk).
+- cargo clippy --workspace --all-targets -- -D warnings: clean
+  (clippy.log).
+- cargo test --workspace: all suites ok, zero failures, including
+  voiced_fricative_mix 1/1, clear_l 2/2, h_onset 1/1,
+  diphthong_glide 2/2, halves_gain 2/2 (5dB bound), balance 3/3,
+  nonsibilant_bandlimit 2/2 (test-workspace.log).
+- cargo build --release (full workspace): green (release.log).
+
+Fixed-sentence regression (TIs TIN, config/default-voice.toml)
+- probe/0.0.0.19.6/regression-a.wav and regression-b.wav.
+- 8822 samples each at 22050 Hz mono 16-bit, 17688 bytes each.
+- sha256 3D31D08A3BE49623FD05ABB1B1587A22A4F29B0E4B6F57AABFE3D32DC88F2F93
+  both runs, deterministic=True (cli-regression.log plus per-run
+  cli-regression-a.log / cli-regression-b.log).
+- Hash MATCHES the expected 3d31d08a... (identical to 0.0.0.18.5 and all
+  four 0.0.0.19 landings: no code change since 19.5, verified not
+  assumed). Input verified by symbol inspection: T I s space T I N =
+  voiceless plosives + lax vowels + voiceless sibilant + nasal. No
+  voiced fricatives, no laterals, no /h/, no o+U GOAT pair, so none of
+  the four landed changes touches this input.
+
+Demo regeneration (X-SAMPA hE "loU, config/default-voice.toml)
+- demo/hello.wav regenerated: 9792 samples at 22050 Hz mono 16-bit
+  (19628 bytes), sha256
+  34ef76e4e5f30c2cc4e65049e6dd9bec31881ba46afeeeb9f575618955869318
+  (demo.log, demo-measure.log). Second render to
+  probe/0.0.0.19.6/hello-check.wav is byte-identical (deterministic
+  demo render confirmed, demo-render2.log).
+- Sample count vs 0.0.0.18.5 baseline 8248: +1544 = +1103 (19.2 GOAT
+  merge absorbs the 50ms o+U internal overlap) + 441 (19.4 lateral
+  70ms floor: 1103 to 1544 samples).
+- Halves: first-half RMS -24.3 dBFS, second-half RMS -27.9 dBFS, diff
+  -3.56dB (first half louder from the now-audible /h/ onset), within
+  the re-baselined |diff| <= 5.0dB gate; second half -27.9 > -32.0
+  floor. Meter: probe/0.0.0.19.6/demo_measure.py.
+- Per-window peaks: whole-file -0.92dBFS (sits at the o-to-U glide
+  junction transient, per the 19.4 ruling; no clipping), h-interior
+  [200:1344] -13.13dBFS (identical to the 19.3 round-2 measurement),
+  o-interior [5600:7000] -17.46dBFS. RMS: h-interior -25.06dBFS,
+  o-interior -26.67dBFS.
+- Spectral centroid (whole-file Hann-windowed rFFT magnitude, the
+  exact 0.0.0.18.1 method): 3268.5 Hz vs the 18.5 baseline 3514.5 Hz
+  (-246 Hz; /h/ now vowel-shaped instead of a noise burst, lateral
+  retuned, GOAT gliding). Power-weighted centroid 909.3 Hz recorded
+  for reference (18.5: 1046.6 Hz). Numbers only; no threshold forced.
+- F2 trajectory across the o+U span (6 Hann windows, DFT peak pick
+  700 to 1500 Hz, span start o_start+176+110 with updated lateral
+  length): [908.4, 936.0, 936.0, 1046.1, 1018.5, 1073.6], overall rise
+  +165.2 Hz, largest step down -27.5 Hz within the 50 Hz monotonicity
+  tolerance (identical windows to 19.2: span length unchanged at 4808
+  samples since the lateral growth shifts o_start by exactly the file
+  growth). Final-80ms autocorr peak 0.7727 (threshold 0.5).
+
+Eval self-test (non-gating, full eval owned by 0.0.0.17.4)
+- python python/validation/eval_reference.py --self-test (run with
+  `python`, which carries librosa): PASS (eval-selftest.log:
+  "SELF-TEST PASS: deterministic renders identical, distinct items
+  separated"). No full eval run.
+
+Python parity (python/validation/check_parity.py, PYTHONPATH=python)
+- 4/4 PASS: lookup-p, lookup-unknown, synthesize len=3242,
+  vowel-a f2/f1=0.120 (parity.log, identical numbers to 0.0.0.18.5).
+- Extension refreshed: target/release/articul_py.dll copied to
+  python/articul/_articul.pyd before the check, hashes equal
+  (py-copy.log).
+
+Human-likeness spot check (report-only, no thresholds)
+- Six eval corpus items rendered with the release CLI to
+  probe/0.0.0.19.6/spot/ (fixed_sentence 8822, demo_hello 9792,
+  creak_probe 6439, gain_probe 5072, cluster_probe 7785,
+  pause_probe 8535 samples). Meter: probe/0.0.0.19.6/spot_measure.py,
+  numbers in logs/0.0.0.19.6/spot.log.
+- Per-item RMS (dBFS) / centroid magnitude-weighted (Hz) /
+  voiced fraction (librosa pyin 50-500 Hz; autocorr>0.5 cross-check):
+  fixed_sentence -21.04 / 6522.6 / pyin 0.000 ac 0.194
+  demo_hello -25.71 / 3268.5 / pyin 0.667 ac 0.486
+  creak_probe -12.27 / 1231.1 / pyin 0.692 ac 0.682
+  gain_probe -29.08 / 4046.8 / pyin 0.850 ac 0.562
+  cluster_probe -19.56 / 6005.5 / pyin 0.516 ac 0.407
+  pause_probe -23.60 / 2794.7 / pyin 0.735 ac 0.567
+- Highlights: sibilant-heavy items carry the highest centroids
+  (fixed_sentence 6522.6, cluster_probe 6005.5 Hz); the solo-vowel
+  creak_probe is the loudest (-12.27 dBFS) with the lowest centroid
+  (1231.1 Hz). pyin labels fixed_sentence fully unvoiced while frame
+  autocorr finds 6/31 voiced frames concentrated in the two short lax
+  I nuclei: pyin default thresholds miss short lax vowels in a strong
+  sibilant context, so both numbers are reported and neither gates.
+
+Archive note
+- Bundle 0.0.0.19 closed by this task. Live probe/0.0.0.19.1..0.0.0.19.6
+  moved under probe/archive/0.0.0.19/ (0.0.0.19.1 keeps its
+  signal/frontend/dsp/hto subdirs); live logs/0.0.0.19.1..0.0.0.19.6
+  moved under logs/archive/0.0.0.19/.
+
+Probe/log paths
+- Probe: probe/archive/0.0.0.19/0.0.0.19.6/ (regression-a.wav,
+  regression-b.wav, hello-check.wav, demo_measure.py,
+  write_demolog.py, spot_measure.py, spot/, summary.txt)
+- Logs: logs/archive/0.0.0.19/0.0.0.19.6/ (fmt-check, clippy,
+  test-workspace, release, cli-regression-a, cli-regression-b,
+  cli-regression, demo-render, demo-render2, demo, demo-measure,
+  eval-selftest, py-copy, parity, spot)

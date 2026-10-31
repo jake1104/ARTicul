@@ -1,0 +1,71 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+   Compiling articul-py v0.0.0 (E:\01_coding\ARTicul\crates\articul-py)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 15.54s
+     Running unittests src\lib.rs (target\debug\deps\articul_cli-55cb57f443750be1.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\main.rs (target\debug\deps\articul-52988a17f5456c9f.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\gain.rs (target\debug\deps\gain-30581dde76d74032.exe)
+
+running 18 tests
+test aspirated_floor_minus_3_db ... ok
+test declination_caps_at_12_db ... ok
+test declination_per_segment ... ok
+test default_plosive_zero_db ... ok
+test final_segment_extra_minus_4_db ... ok
+test burst_decay_for_unvoiced_plosive ... ok
+test nasal_minus_8_db ... ok
+test sonorant_minus_10_db ... ok
+test stressed_vowel_at_reference_zero_db ... ok
+test fricative_onset_ramps_up ... ok
+test unstressed_consonant_ignores_stress ... ok
+test unstressed_vowel_minus_3_5_db ... ok
+test voiced_sibilant_minus_15_db ... ok
+test final_fade_quiets_ending ... ok
+test sibilant_minus_5_db ... ok
+test voiced_weak_fricative_minus_28_db ... ok
+test weak_fricative_minus_18_db ... ok
+test stressed_vowel_louder_than_unstressed ... ok
+
+test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\glide.rs (target\debug\deps\glide-469a3e6cc7a240c0.exe)
+
+running 2 tests
+test vv_boundary_gets_long_glide_crossfade ... FAILED
+test consonant_boundary_keeps_short_crossfade ... FAILED
+
+failures:
+
+---- vv_boundary_gets_long_glide_crossfade stdout ----
+
+thread 'vv_boundary_gets_long_glide_crossfade' (19496) panicked at crates\articul-cli\tests\glide.rs:22:5:
+assertion `left == right` failed
+  left: 2404
+ right: 2359
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- consonant_boundary_keeps_short_crossfade stdout ----
+
+thread 'consonant_boundary_keeps_short_crossfade' (3480) panicked at crates\articul-cli\tests\glide.rs:30:5:
+assertion `left == right` failed
+  left: 3749
+ right: 2691
+
+
+failures:
+    consonant_boundary_keeps_short_crossfade
+    vv_boundary_gets_long_glide_crossfade
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-cli --test glide`

@@ -1,0 +1,112 @@
+Task 0.0.0.19.5 mixed excitation for voiced fricatives
+
+Change
+- crates/articul-cli/src/synth.rs render_unit (lines 452-504): new
+  voiced_mixed predicate (line 453: not pause, is_voiced, manner
+  Fricative or LateralFricative). Routing verified before editing:
+  frication_level_for returns base 0.05 for voiced fricatives, so the
+  old 0.1 branch test was false and solo z took the pure-glottal path
+  (with final creak), not the frication_noise branch. Added mixed path:
+  glottal source at unit F0 with the same GlottalSource construction as
+  vowels (cf0 mode, open_quotient, asymmetry, effective_aspiration;
+  source.rs untouched) PLUS frication_noise(n, 0.15), clamped, then the
+  existing parallel shaping for that phoneme. Final-creak branch is
+  skipped for the mixed path (creak guard gains !voiced_mixed, line 483)
+  because alternating period doubling destroys F0 periodicity and
+  measurement showed solo z needs the flat glide to keep its voicing
+  leg. Voiceless path (19.3 /h/ cascade, sibilants) untouched:
+  frication branch still pure frication_noise(n, 0.3).
+
+Noise level
+- 0.15 kept as prescribed. Measured solo-z sweep: 0.15 gives
+  voice-band peak 0.444 and above-4kHz fraction 0.969; 0.10 gives 0.584
+  and 0.963. No harshness finding was made (voiced z HF load 0.969 is at
+  the level of voiceless s 0.976, expected for a sibilant), so the 0.10
+  fallback was recorded but not taken.
+
+TDD red/green
+- crates/articul-cli/tests/voiced_fricative_mix.rs,
+  voiced_fricative_keeps_periodicity, solo z at 22050 Hz base F0 120.
+- RED (mixed path disabled): fails frication leg, fraction 0.6294 < 0.8
+  (old path already carried harmonic HF through sibilant shaping, so the
+  task-text 0.3 bound could not discriminate; see deviation note).
+- GREEN (mixed path enabled): voice-band peak 0.4439 > 0.4 and fraction
+  0.9692 > 0.8. PASS.
+- Deviation from task text, forced by measurement: broadband autocorr
+  cannot reach 0.4 under genuine mixed excitation (glottal-only ceiling
+  measured 0.3529; sibilant shaping plus radiation put most energy above
+  4 kHz), and pre-change harmonic HF already exceeded 0.3 (0.6294). The
+  gate therefore measures voicing in the voice bar (one-pole lowpass
+  300 Hz, autocorr max over lags 80-300 Hz, threshold 0.4: pre 0.7881,
+  post 0.4439, voiceless-s counterfactual 0.11) and genuine frication as
+  above-4kHz fraction above 0.8 (pre 0.6294, post 0.9692, Hann-windowed
+  DFT same method as nonsibilant_bandlimit.rs). 0.8 sits between
+  fake-harmonic HF and genuine noise-driven HF.
+
+Solo-z numbers pre/post (mixed disabled / enabled, noise 0.15)
+- periodicity (voice-band peak): 0.7881 / 0.4439 (threshold 0.4)
+- above-4kHz fraction: 0.6294 / 0.9692 (threshold 0.8)
+- raw broadband autocorr for reference: 0.2550 / 0.1494 (not gated; the
+  old value was creak subharmonic correlation, the new value is
+  noise-swamped by design)
+- solo v sanity: voice-band 0.7947 / 0.7931, HF 0.0043 / 0.1249
+  (non-sibilant band-limit from 0.0.0.18.3 intact)
+
+Gates (logs in logs/0.0.0.19.5/, all exit 0)
+- cargo fmt --check: clean (fmt-check.log)
+- cargo clippy --workspace --all-targets -- -D warnings: clean (clippy.log)
+- cargo test --workspace: all suites ok, zero failures, including new
+  voiced_fricative_mix 1/1 and prior gates balance, nonsibilant_bandlimit,
+  halves_gain, diphthong_glide, h_onset, clear_l, gain, fricative,
+  determinism (test-workspace.log)
+- cargo build --release: green (release.log)
+
+Fixed-sentence regression (TIs TIN, config/default-voice.toml)
+- probe/0.0.0.19.5/regression-a.wav and regression-b.wav
+- 8822 samples each at 22050 Hz mono 16-bit, 17688 bytes each
+- sha256 3D31D08A3BE49623FD05ABB1B1587A22A4F29B0E4B6F57AABFE3D32DC88F2F93
+  both runs, deterministic=True (cli-regression.log plus per-run
+  cli-regression-a.log / cli-regression-b.log)
+- Hash matches the pre-task hash (3d31...): expected, TIs TIN contains no
+  voiced fricative so the mixed path never triggers; recorded, not assumed.
+
+Probe/log paths
+- Probe: probe/0.0.0.19.5/ (regression-a.wav, regression-b.wav, summary.txt)
+- Logs: logs/0.0.0.19.5/ (fmt-check, clippy, test-workspace, release,
+  cli-regression-a, cli-regression-b, cli-regression)
+
+Closure (evidence round, measurement and logging only, no engine change)
+- Measurement script: probe/0.0.0.19.5/measure_mix.py renders solo z and
+  solo s through target/release/articul (config/default-voice.toml,
+  f0 120) and reports voice-bar peak (one-pole lowpass 300 Hz, autocorr
+  max over lags 80-300 Hz), broadband autocorr peak (unfiltered, lags
+  60-300 Hz), and above-4kHz Hann-DFT fraction, same methods as the Rust
+  gate. Python numbers reproduce the Rust harness to 4 decimals.
+- Red-green cycle on crates/articul-cli/src/synth.rs: pre-round sha256
+  D40A5BFACE1E1AF76E1AAD4B3D399066B32866A957C46E1AECC32ADD81F210C3.
+  Red edit was the minimal one-token change 0.15 to 0.0 (noise addition
+  disabled, mixed glottal path kept). red-mix.log shows a fresh compile
+  and FAIL on the HF leg: fraction 0.6292 < 0.8. Backup restored
+  byte-identical: post-restore hash equals pre-round hash D40A...210C3,
+  and grep confirms the 0.15 literal back at line 496. green-mix.log
+  shows a fresh compile and PASS (1 passed, 0 failed) on the restored
+  tree. Staleness note: the first post-restore run reused a stale cargo
+  fingerprint (Finished without Compiling, red numbers on the green
+  tree); caught by log inspection, forced rebuild via mtime touch, and
+  green-mix.log re-recorded from a genuine fresh compile.
+- Sweep at noise 0.10 (logs/0.0.0.19.5/sweep-010.log): solo z
+  voice_peak 0.5840@160, broad_peak 0.1523@147, hf 0.9634. Restored 0.15
+  (hash-verified D40A...210C3), rebuilt release, re-measured
+  (logs/0.0.0.19.5/sweep-015.log): solo z voice_peak 0.4439@160,
+  broad_peak 0.1494@147, hf 0.9692. On-disk binary is the 0.15 green
+  state (release rebuilt after restore with a Compiling line on record).
+- Counterfactual and ceiling (same script, same binary): solo
+  voiceless s gives voice_peak 0.1126@89, broad_peak 0.1154@97,
+  hf 0.9756, confirming the voice-band leg discriminates voiced from
+  pure-noise excitation; broadband raw autocorr of mixed solo z is
+  0.1494 (glottal-only ceiling 0.3529), which is why the gate measures
+  periodicity in the voice bar rather than broadband.
+- Final full cargo test --workspace
+  (logs/0.0.0.19.5/test-workspace-final.log): 58 ok results, 0 non-ok,
+  voiced_fricative_keeps_periodicity ok. Restored tree is the green
+  state; synth.rs hash D40A5BFACE1E1AF76E1AAD4B3D399066B32866A957C46E1AECC32ADD81F210C3.

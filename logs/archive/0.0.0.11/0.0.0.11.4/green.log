@@ -1,0 +1,21 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.10s
+     Running tests\prosody.rs (target\debug\deps\prosody-794f4189c96b22bd.exe)
+
+running 13 tests
+test baseline_initial_holds_plus_2st ... ok
+test faster_rate_shortens_durations ... ok
+test bare_input_defaults_nucleus_to_last_vowel ... ok
+test intrinsic_fricatives_longer_than_stops ... ok
+test long_vowel_gets_more_time ... ok
+test f0_declines_across_utterance ... ok
+test mindur_floor_holds ... ok
+test plan_length_matches_input ... ok
+test pre_voiceless_obstruent_shortens_sonorant ... ok
+test nuclear_accent_adds_5st_on_last_primary_vowel ... ok
+test sublinear_cap_limits_combined_shortening ... ok
+test post_nuclear_falls_to_minus_7st ... ok
+test unstressed_segments_shorten ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

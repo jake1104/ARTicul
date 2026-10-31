@@ -1,0 +1,48 @@
+    Checking dasp_sample v0.11.0
+    Checking dasp_frame v0.11.0
+    Checking dasp_ring_buffer v0.11.0
+    Checking num-integer v0.1.47
+    Checking dasp_rms v0.11.0
+    Checking dasp_peak v0.11.0
+    Checking dasp_envelope v0.11.0
+    Checking dasp_interpolate v0.11.0
+    Checking dasp_window v0.11.1
+    Checking strength_reduce v0.2.4
+    Checking transpose v0.2.3
+    Checking dasp_signal v0.11.0
+    Checking primal-check v0.3.4
+    Checking num-complex v0.4.6
+    Checking dasp_slice v0.11.0
+    Checking dasp v0.11.0
+    Checking rustfft v6.4.1
+    Checking num-bigint v0.4.8
+    Checking articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+error: the loop variable `i` is used to index `samples`
+ --> crates\articul-dsp\src\spectrum.rs:8:14
+  |
+8 |     for i in 0..n {
+  |              ^^^^
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.91.0/index.html#needless_range_loop
+  = note: `-D clippy::needless-range-loop` implied by `-D warnings`
+  = help: to override `-D warnings` add `#[allow(clippy::needless_range_loop)]`
+help: consider using an iterator and enumerate()
+  |
+8 -     for i in 0..n {
+8 +     for (i, <item>) in samples.iter().enumerate().take(n) {
+  |
+
+error: the loop variable `k` is used to index `buf`
+  --> crates\articul-dsp\src\spectrum.rs:18:14
+   |
+18 |     for k in 1..n / 2 {
+   |              ^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.91.0/index.html#needless_range_loop
+help: consider using an iterator and enumerate()
+   |
+18 -     for k in 1..n / 2 {
+18 +     for (k, <item>) in buf.iter().enumerate().take(n / 2).skip(1) {
+   |
+
+error: could not compile `articul-dsp` (lib) due to 2 previous errors

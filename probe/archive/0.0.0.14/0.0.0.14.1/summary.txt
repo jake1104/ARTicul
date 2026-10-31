@@ -1,0 +1,9 @@
+Task 0.0.0.14.1 stressed rhyme `@U` to `oU` with demo regeneration
+Finding (subagent): the audible "o" is U (80ms glide); worse, the stressed nucleus was schwa (@) instead of /o/; rhyme 179ms vs natural 200-300ms for /həˈloʊ/.
+Fix: demo input changed from `hE "l@U` to `hE "loU` (one phone; length and vowel quality fixed together). No engine code changed.
+Result: demo/hello.wav regenerated: 7763 samples at 22050Hz (was 6771, +992 as predicted). Candidate halves RMS 0.208 vs 0.301, second half prominent within ~3dB.
+Gates: fmt --check clean, clippy --workspace --all-targets -- -D warnings clean, cargo test --workspace green (EXIT 0), release build green.
+Measured CLI regression: synthesize TIs TIN default voice: 8536 samples, sha256 3255c3a5c465470273dd0ff2dc356a837ffe396f9d748e8d27261414a3dda314, deterministic across runs (identical to 12.4 hash: engine untouched). Python parity 4/4 PASS (synthesize len=3043, vowel-a f2/f1=0.127).
+Probe: probe/0.0.0.14.1/hello-candidate.wav, regression-a.wav, regression-b.wav (identical).
+Logs: logs/0.0.0.14.1/ (render-candidate, measure-candidate, demo, fmt-check, clippy, test-workspace, release, cli-regression-a, cli-regression-b, cli-regression, py-build, py-copy, parity).
+Archive: probe/0.0.0.14.1 moved to probe/archive/0.0.0.14/; logs likewise to logs/archive/0.0.0.14/.

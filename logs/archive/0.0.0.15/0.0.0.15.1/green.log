@@ -1,0 +1,11 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.21s
+     Running tests\balance.rs (target\debug\deps\balance-2b6ff1eef64abd6c.exe)
+
+running 3 tests
+test stressed_nucleus_holds_at_least_100ms ... ok
+test demo_meets_word_balance ... ok
+test old_input_violates_word_balance ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

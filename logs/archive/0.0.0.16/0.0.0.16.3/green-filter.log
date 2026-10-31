@@ -1,0 +1,11 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.11s
+     Running tests\filter_interp.rs (target\debug\deps\filter_interp-d335dcbcf09d6dc4.exe)
+
+running 3 tests
+test retune_moves_resonance ... ok
+test step_matches_batched_process ... ok
+test parallel_retune_moves_resonance ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

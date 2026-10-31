@@ -1,0 +1,10 @@
+Task 0.0.0.12.1 downstep spacing with secondary accents
+TDD RED: 4 new prosody tests failed on 11.4 model (prenuclear accents got no boost, no reset jump): first accent 134.7 vs ~160.2, downstep ratio 1.122 vs ~1.224, secondary 134.7 vs ~146.9, syllable 8 below syllable 7.
+GREEN: plan() now tracks vowel-ordinal syllable windows of 8 (consonants join the preceding vowel's window), baseline declination computed on within-window local position, prenuclear accented vowels get level = (Primary 3.0 / Secondary 1.5) minus 1.5 per prior prenuclear accent, added over baseline. Nucleus H* +5 and post-nuclear fall to -7st unchanged; single-window utterances reproduce the 11.4 contour exactly.
+Ruling: syllable = one vowel; window = 8 syllables (within the specified 7-9); downstep chain counts every prenuclear accent regardless of kind; nucleus-final and no-vowel edge behavior unchanged from 11.4.
+Files: crates/articul-front/src/prosody.rs, crates/articul-front/tests/prosody.rs.
+Tests: prosody.rs 17 passed (13 existing, 4 new); full workspace suite green.
+Gates: fmt clean, clippy -D warnings clean, test workspace green, release build green.
+Measured CLI regression: synthesize TIs TIN default voice: 7897 samples, sha256 57367d5c598bd9e8d4c093b9410a1b9984fe8814259b25815add678d2b2dd8f4, deterministic across runs (identical to 11.5 hash: expected, unmarked input has no prenuclear accents and fits one window). Python parity 4/4 PASS (synthesize len=3286, vowel-a f2/f1=0.131).
+Probe: probe/0.0.0.12.1/regression-a.wav, regression-b.wav (identical).
+Logs: logs/0.0.0.12.1/ (red, green, fmt-check, clippy, test-workspace, release, cli-regression-a, cli-regression-b, cli-regression, py-build, py-copy, parity).

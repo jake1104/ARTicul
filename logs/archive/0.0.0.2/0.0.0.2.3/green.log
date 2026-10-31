@@ -1,0 +1,11 @@
+   Compiling articul-config v0.0.0 (E:\01_coding\ARTicul\crates\articul-config)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.97s
+     Running tests\voice_config.rs (target\debug\deps\voice_config-e63f8e53e47eaaa6.exe)
+
+running 3 tests
+test rejects_out_of_range_sample_rate ... ok
+test default_voice_loads_and_validates ... ok
+test klatt_voice_loads_and_validates ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

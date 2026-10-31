@@ -1,0 +1,176 @@
+0.0.0.31.1 background texture probe - texture.txt (no code change)
+=====================================================================
+User hearing (overrules prior spark metric): not transient sparks, but
+per-sound ENVIRONMENT differences - as if each segment was recorded in a
+different room. Hypothesis: aspiration/breathiness/HF-shaping levels differ
+per segment.
+
+Inputs (default voice config/voice, 22050 Hz, f0 120; re-rendered fresh with
+target/release/articul.exe into probe/0.0.0.31.1/, byte-identical to demo/):
+- hello    `hE "loU`          9792 samples, identical=True
+- annyeong `%an njVN "hasejo` 17446 samples, identical=True
+- yeobo    `%jV"bo%se%jo`     14666 samples, identical=True
+
+Method
+------
+Segment output ranges replicate the engine concat arithmetic exactly
+(work-unit lens minus 176-sample fades), parsed from the 0.0.0.24.1 plan.txt
+(work_units lens/fades); predicted totals match wav lengths EXACTLY
+(9792/17446/14666), so ranges are sample-exact. Segment boundaries first read
+from probe/archive/0.0.0.24/0.0.0.24.1/junctions.txt. GOAT-merged hello o+U
+work unit split at first seglen (3263 samples).
+Per VOICED segment interior (10 ms edges excluded, 40 ms frames / 20 ms step,
+frame means - removes slow intra-segment F0-glide confound of whole-segment
+autocorrelation):
+ (a) voicing depth = peak normalized autocorrelation in 80-300 Hz lag band
+     (73-276 samples); plus hp_depth = same metric on the 4k+ brickwall-HP
+     (rfft) signal: high = HF energy is harmonic (bright formant), low = HF
+     energy is inharmonic wash (noise bed).
+ (b) noise-floor RMS = RMS of residual after subtracting a harmonic comb
+     pitched at the lag of (a): p[i] = 0.5*(x[i-L]+x[i+L]); cross-check proxy
+     hp_rms = RMS of the 4k+ brickwall-HP signal.
+ (c) spectral tilt = 10*log10(E[0-1kHz]/E[4kHz+]) from rfft; HF fraction
+     E[4k+]/E[total].
+Across-segment variance ("different rooms" number): CV = std/mean of depth,
+noise floor, hp_rms, hf_frac; std/range of tilt in dB (gain-independent:
+hf_frac, tilt, hp_depth are level ratios, so scalar gain cannot explain them).
+Fricatives (/h/ frication path, /s/ parallel sibilant) and /b/ burst are
+REFERENCE rows, excluded from the variance verdict.
+
+Per-segment table (frame means; rms = post-leveler broadband RMS)
+-----------------------------------------------------------------
+hello (voiced set: E l o U):
+ seg sym cls creak depth noise_floor hp_rms   hp_depth hf_frac tilt_db  rms
+ u1  E   V   False 0.7706 0.048472  0.004143 0.2903  0.00036  34.30 0.215590
+ u2  l   S   False 0.7818 0.025125  0.003422 0.0321  0.00034  34.67 0.182520
+ u3  o   V   False 0.5427 0.081417  0.003163 0.0757  0.00066  36.91 0.164528
+ u4  U   V   False 0.6939 0.015895  0.001222 0.0771  0.00011  40.83 0.117961
+ VOICED: depth CV=0.137 | noise_floor CV=0.592 (5.1x: o 0.0814 vs U 0.0159,
+   o value glide-inflated: 155->80 Hz nuclear fall inside one segment) |
+   hp_rms CV=0.362 (3.4x) | hp_depth CV=0.847 (9.0x: E 0.29 harmonic HF vs
+   l 0.03 pure wash) | hf_frac CV=0.536 (6.1x: o 0.00066 vs U 0.00011) |
+   tilt std=2.60 dB range=6.53 dB (U 40.83 darkest vs E 34.30 brightest)
+ FRIC-REF h: hf_frac 0.01063, tilt 3.66, depth 0.37, noise_floor 0.13784
+
+annyeong (voiced set: a n n j V N a e j o):
+ seg sym cls creak depth noise_floor hp_rms   hp_depth hf_frac tilt_db  rms
+ u0  a   V   False 0.8031 0.016855  0.002625 0.2316  0.00087  31.11 0.092594
+ u1  n   S   False 0.7720 0.008227  0.002467 0.0354  0.00094  30.18 0.078822
+ u2  n   S   False 0.7023 0.010038  0.000843 0.1126  0.00012  39.21 0.076054
+ u3  j   S   False 0.6215 0.012487  0.001817 0.1611  0.00044  33.49 0.085313
+ u4  V   V   False 0.7394 0.028935  0.001569 0.2728  0.00041  34.72 0.080229
+ u5  N   S   False 0.6766 0.015471  0.001330 0.0586  0.00032  34.88 0.071403
+ u7  a   V   False 0.5831 0.039022  0.002399 0.1280  0.00088  31.35 0.086407
+ u9  e   V   False 0.7591 0.015254  0.000960 0.3137  0.00028  35.42 0.056481
+ u10 j   S   False 0.4788 0.023237  0.000461 0.3744  0.00008  41.15 0.050397
+ u11 o   V   True  0.5493 0.008341  0.000586 0.0528  0.00044  34.32 0.028670
+ VOICED: depth CV=0.152 | noise_floor CV=0.529 (4.7x: a-u7 0.0390 vs n-u1
+   0.0082; a-u7 inflated by CF0-Decay onset + 158->135 glide) |
+   hp_rms CV=0.505 (5.7x) | hp_depth CV=0.647 (10.6x: j-u10 0.37 all-harmonic
+   HF vs n-u1 0.035 wash) | hf_frac CV=0.627 (12.4x: n-u1 0.00094 vs j-u10
+   0.00008) | tilt std=3.29 dB range=10.97 dB (n-u1 30.18 vs j-u10 41.15)
+ FRIC-REF h: hf 0.00711 tilt 14.67 | s: hf 0.97114 tilt -31.31 noise 0.26355
+
+yeobo (voiced set: j V o e j o):
+ seg sym cls creak depth noise_floor hp_rms   hp_depth hf_frac tilt_db  rms
+ u0  j   S   False 0.6852 0.012406  0.001743 0.0420  0.00052  32.74 0.075474
+ u1  V   V   False 0.8280 0.007776  0.001438 0.0783  0.00019  37.80 0.108487
+ u3  o   V   False 0.7827 0.016633  0.003604 0.0398  0.00125  29.38 0.102535
+ u5  e   V   False 0.7332 0.023896  0.002043 0.2794  0.00071  31.92 0.078644
+ u6  j   S   False 0.4864 0.023508  0.000578 0.3386  0.00013  38.82 0.048390
+ u7  o   V   True  0.5084 0.011696  0.001017 0.0657  0.00096  34.35 0.033763
+ VOICED: depth CV=0.194 | noise_floor CV=0.377 (3.1x) | hp_rms CV=0.553
+   (6.2x: o-u3 0.00360 vs j-u6 0.00058) | hp_depth CV=0.861 (8.5x: j-u6 0.34
+   harmonic vs o-u3 0.04 wash) | hf_frac CV=0.637 (9.7x: o-u3 0.00125 vs
+   j-u6 0.00013) | tilt std=3.29 dB range=9.43 dB (o-u3 29.38 vs j-u6 38.82)
+ FRIC-REF s: hf 0.97587 tilt -35.26 | P-REF b: hf 0.00218 tilt 26.50
+
+Halves-stability caveat (each long voiced interior split in two, tilt/hf per
+half): stable (halves within ~3 dB: hello E 36.7/35.3; annyeong a-u0 35.9/34.6,
+a-u7 38.4/35.8, e-u9 36.2/39.7, o-u11 37.4/34.6) vs INTRA-segment room changes
+(hello l 32.5/38.8, o 36.0/53.3, U 45.5/31.2; annyeong V 29.9/35.4; yeobo V
+31.8/25.7, o-u3 29.0/45.4, o-u7-creak 37.0/44.3). Short interiors (u1/u2 n,
+25-32 ms) swing 7-11 dB between halves: single-frame estimates, not room
+evidence. Stable-long-segment subset alone still spans tilt 34.0-41.2
+(7.2 dB) and hf_frac ~5x - the variance is real, not just estimation noise.
+0.0.0.31.2 gate warning: gate on long stable segments or frame-medians, not
+single numbers from short/glide segments.
+
+Outlier segments (voiced set, frame means)
+-----------------------------------------
+- Brightest wash beds: yeobo u3 o (Primary stressed; tilt 29.38, hf 0.00125,
+  hp_rms max 0.00360, hp_depth 0.04 = wash; halves 29/45 intra-change);
+  annyeong u1 n (tilt 30.18, hf 0.00094, hp_depth 0.035; short-interior caveat).
+- Darkest beds: annyeong u10 j (tilt 41.15, hf 0.00008, hp_depth 0.37 =
+  HF all harmonic, zero wash); hello u4 U (tilt 40.83, hf 0.00011);
+  annyeong u9 e (tilt 41.19 whole-seg / 35.42 frame-mean, hf 0.00007-0.00028).
+- Noisiest comb residuals: hello u3 o 0.0814 (glide-inflated), annyeong u7 a
+  0.0390 (CF0-Decay onset + glide), yeobo u5 e 0.0239.
+- Fricative references (by design, excluded): /s/ hf 0.97, tilt -31/-35;
+  /h/ hf 0.007-0.011, tilt 3.7-14.7 (frication 0.3 through following-vowel
+  cascade filter); /b/ hf 0.0022, tilt 26.5 (burst envelope + glottal path).
+
+Code mapping (READ ONLY - no engine change in this task)
+--------------------------------------------------------
+1. Aspiration injection, CONSTANT across all measured voiced segments:
+   GlottalSource.aspiration_noise base 0.05 wired in SourceParams
+   (crates/articul-cli/src/synth.rs:995,1010,1019,1033-1036); injected as
+   uniform * aspiration_noise * 0.5 * (0.3 + 0.7 * flow) - cycle-gated
+   breathiness - in every modal generate path
+   (crates/articul-dsp/src/source.rs:52,92,139,190,243,297) and in creak
+   (source.rs:343). effective_aspiration +0.3 branch (source.rs:459-465)
+   fires ONLY on secondary.aspirated, set solely by the _h diacritic
+   (crates/articul-front/src/xsampa.rs:113-115) - ABSENT from all three demo
+   inputs. So the aspiration parameter contributes ZERO cross-segment
+   variance here: every voiced segment gets exactly 0.05.
+2. Branches NOT exercised by the voiced set: voiced-mixed 0.15
+   (synth.rs:456-461,498-507 - no voiced fricatives in inputs); sibilant
+   parallel shaping (crates/articul-dsp/src/parallel.rs:90-114 via
+   synth.rs:96 - only /s/); frication 0.3
+   (crates/articul-dsp/src/parallel.rs:75 via synth.rs:464-465 - only
+   voiceless fricatives, boosted by frication_level_for +0.4,
+   parallel.rs:120-132); /h/ takes the FOLLOWING vowel's formants
+   (synth.rs:61-77) with a 90 ms fricative onset ramp longer than the 52 ms
+   segment itself (synth.rs:383-399).
+3. What DOES differ per voiced segment (all downstream of the constant
+   excitation): per-segment cascade formant tables incl. neighbour locus
+   pull (synth.rs:98-119, esp. 102-109), lateral fixed table (synth.rs:78-91),
+   nasal bandwidth widening (synth.rs:120-124); creak excitation on finals
+   annyeong/yeobo o (synth.rs:483-489, source.rs:303-347; hello U exempt via
+   short+goat-follow, synth.rs:487 + is_goat_onset synth.rs:130-135);
+   CF0-Decay +5%-onset after voiceless obstruents (synth.rs:488-496,
+   source.rs:354-360); per-segment burst/fricative envelopes
+   (synth.rs:334-343,376-419); and the causal chain AFTER concat - peak
+   tamer (synth.rs:1053-1068: soft-clips samples above 2.2x the 5 ms local
+   RMS with 8%-over characteristic, i.e. it acts on crest factor, which is
+   high for peaky vowels and low for wash beds, so it injects clipping HF
+   into SOME segments' beds by construction) + adaptive leveler
+   (synth.rs:1082-1118) + peak normalize (synth.rs:1119-1124), which
+   equalize broadband RMS and thereby make the UNEQUALIZED HF/tilt bed stand
+   out (post-leveler RMS spans only ~4x while hf_frac spans 6-12x).
+
+Verdict: single largest inconsistency + 0.0.0.31.2 direction
+------------------------------------------------------------
+Largest cross-segment texture inconsistency: the 4k+ inharmonic bed at
+IDENTICAL excitation. Gain-independent numbers: hp_depth CV 0.64-0.86 per
+utterance (8.5-10.6x max/min: some segments' HF rings harmonic, e.g. hello E
+0.29 / annyeong j-u10 0.37 / yeobo j-u6 0.34, others are pure wash, e.g.
+hello l 0.03 / annyeong n-u1 0.035 / yeobo o-u3 0.04); hf_frac CV 0.54-0.64
+(6-12x); tilt std 2.6-3.3 dB, range 6.5-11.0 dB full set / 7.2 dB over
+stable-long segments only. Voicing depth itself is consistent (CV 0.14-0.19):
+segments are equally "voiced" yet sit in different "rooms".
+Direction for 0.0.0.31.2: UNIFORM BED (not aspiration leveling, not
+per-source caps as primary). Rationale: (a) aspiration leveling is a NO-OP -
+the parameter is already a constant 0.05 everywhere (citations above); there
+is nothing to level. (b) Per-source caps chase 5+ branches while the voiced
+set shares one constant source - the variance is emergent downstream, so cap
+the EMERGENT quantity, not the branches. (c) Tilt matching by EQ risks
+dulling phonetic brightness (formants ARE the vowel); a common low-level
+shaped bed UNDERNEATH preserves phonetics while compressing the max/min bed
+ratio from below (e.g. bed at hf~0.0003 turns hello's 6x into ~2.3x). Gate it
+with the per-segment HF-fraction variance gate already foreseen in
+0.0.0.31.2, computed on long stable segments / frame-medians per the
+halves-stability warning. Prime suspect for the injector (to confirm in
+0.0.0.31.2): the peak tamer (synth.rs:1053-1068), the only causal stage that
+adds HF conditionally per segment by construction (crest-factor-dependent
+clipping); test by toggling tamer vs bed and watching hf_frac CV.

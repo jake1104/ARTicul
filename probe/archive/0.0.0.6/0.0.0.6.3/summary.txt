@@ -1,0 +1,8 @@
+Task 0.0.0.6.3 CLI regression harness
+Fixed input: X-SAMPA 'TIs TIN' + config/default-voice.toml
+Result: 12348 samples twice, sha256 af43b111...55836 both runs, deterministic True
+Prior English fixture retired with the phonetic-input correction.
+Gates: fmt clean, clippy clean, test workspace 29 suites ok, release build ok
+Logs: logs/0.0.0.6.3/ (hash2.log, test-workspace.log, release-build.log, release2.log)
+Probe: probe/0.0.0.6.3/regression-a.wav, regression-b.wav
+Filenames contain no colons.

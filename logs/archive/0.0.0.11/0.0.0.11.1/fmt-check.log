@@ -1,0 +1,30 @@
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\src\synth.rs:166:
+     if seq.is_empty() {
+         return Vec::new();
+     }
+[31m-    let planned = articul_front::plan(&seq, &marks, cfg.prosody.rate, cfg.prosody.pitch_scale, base_f0);
+[0m[32m+    let planned = articul_front::plan(
+[0m[32m+        &seq,
+[0m[32m+        &marks,
+[0m[32m+        cfg.prosody.rate,
+[0m[32m+        cfg.prosody.pitch_scale,
+[0m[32m+        base_f0,
+[0m[32m+    );
+[0m     let pairs: Vec<(f32, f32)> = cfg.cascade().iter().map(|f| (f.freq_hz, f.bw_hz)).collect();
+     let params = SourceParams {
+         open_quotient: cfg.source.open_quotient,
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-front\tests\prosody.rs:1:
+[31m-use articul_front::Stress;
+[0m use articul_front::plan;
+[32m+use articul_front::Stress;
+[0m 
+ fn seq(word: &str) -> (Vec<articul_phon::Phoneme>, Vec<Stress>) {
+     articul_front::Xsampa::new().transcribe(word)
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-front\tests\stress.rs:1:
+[32m+use articul_front::plan;
+[0m use articul_front::Stress;
+ use articul_front::Xsampa;
+[31m-use articul_front::plan;
+[0m 
+ fn stress_of(word: &str) -> (Vec<articul_phon::Phoneme>, Vec<Stress>) {
+     Xsampa::new().transcribe(word)

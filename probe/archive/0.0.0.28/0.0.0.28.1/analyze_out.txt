@@ -1,0 +1,105 @@
+=== PLANNED GAINS ===
+fixed_sentence n=6 min=-12.0 max=-4.5 spread=7.5 worst_step=7.5 floor_n=3
+   step u0(\u7f50)->u1(\ue009): +7.5dB
+   step u1(\ue009)->u2(s): -2.5dB
+   step u2(s)->u3(\u7f50): -5.0dB
+   step u3(\u7f50)->u4(\ue009): +4.5dB
+   step u4(\ue009)->u5(\ud76f): -4.5dB
+demo_hello n=5 min=-10.0 max=-3.0 spread=7.0 worst_step=6.0 floor_n=0
+   step u0(h)->u1(?): +5.5dB
+   step u1(?)->u2(l): -4.5dB
+   step u2(l)->u3(o): +6.0dB
+   step u3(o)->u4(?): -4.5dB
+creak_probe n=2 min=-8.0 max=-1.0 spread=7.0 worst_step=7.0 floor_n=0
+   step u0(m)->u1(a): +7.0dB
+gain_probe n=3 min=-5.5 max=-1.0 spread=4.5 worst_step=4.5 floor_n=0
+   step u0(a)->u1(p): +2.5dB
+   step u1(p)->u2(a): -4.5dB
+cluster_probe n=5 min=-9.0 max=-1.0 spread=8.0 worst_step=8.0 floor_n=0
+   step u0(s)->u1(p): +4.0dB
+   step u1(p)->u2(r): -8.0dB
+   step u2(r)->u3(i): +6.0dB
+   step u3(i)->u4(t): -5.0dB
+pause_probe n=4 min=-6.5 max=-2.0 spread=4.5 worst_step=4.5 floor_n=0
+   step u0(a)->u1(a): -1.0dB
+   step u1(a)->u2(p): +2.5dB
+   step u2(p)->u3(a): -4.5dB
+annyeong n=12 min=-12.0 max=0.0 spread=12.0 worst_step=9.0 floor_n=6
+   step u0(a)->u1(n): -9.0dB
+   step u1(n)->u2(n): -1.0dB
+   step u2(n)->u3(j): +0.0dB
+   step u3(j)->u4(?): +2.5dB
+   step u4(?)->u5(\ud76f): -4.5dB
+   step u5(\ud76f)->u6(h): +0.0dB
+   step u6(h)->u7(a): +5.0dB
+   step u7(a)->u8(s): -5.0dB
+   step u8(s)->u9(e): +0.0dB
+   step u9(e)->u10(j): +0.0dB
+   step u10(j)->u11(o): +0.0dB
+yeobo n=8 min=-12.0 max=-1.0 spread=11.0 worst_step=7.0 floor_n=1
+   step u0(j)->u1(?): +6.0dB
+   step u1(?)->u2(b): -1.0dB
+   step u2(b)->u3(o): -1.0dB
+   step u3(o)->u4(s): -6.0dB
+   step u4(s)->u5(e): +4.0dB
+   step u5(e)->u6(j): -7.0dB
+   step u6(j)->u7(o): +5.0dB
+global min=-12.0 max=0.0 spread=12.0 total_segs=45 floor_n=10 near0_n=5
+arm ranges (planned, incl decl/fin/floor):
+   approximant        n= 6 min= -12.0 max= -7.0
+   h-fric             n= 2 min= -12.0 max=-10.0
+   nasal              n= 5 min= -12.0 max= -8.0
+   other-stop         n= 5 min=  -8.0 max= -1.0
+   sibilant           n= 4 min= -12.0 max= -5.0
+   stressed-vowel     n= 9 min=  -7.0 max=  0.0
+   unstressed-vowel   n=12 min= -12.0 max= -3.5
+   weak-fric          n= 2 min= -12.0 max=-12.0
+unclipped planned spread: min=-21.0 max=0.0 spread=21.0 (floor hides 9.0dB)
+=== RENDER METRICS ===
+fixed_sentence samples=8822 sha=2ad4f841 peak=0.9890 rms=0.1078 halves=-9.94dB trough=-21.17dB tail=0.0494 clamp_n=5
+demo_hello samples=9792 sha=20c32a07 peak=0.9890 rms=0.2186 halves=-2.28dB trough=-3.76dB tail=0.1494 clamp_n=6
+creak_probe samples=6439 sha=36d74c27 peak=0.9890 rms=0.3828 halves=-1.51dB trough=0.00dB tail=0.2572 clamp_n=117
+gain_probe samples=5072 sha=8441ac4e peak=0.9890 rms=0.1347 halves=-2.26dB trough=0.00dB tail=0.0918 clamp_n=1
+cluster_probe samples=7785 sha=00117c95 peak=0.9890 rms=0.1314 halves=-8.47dB trough=-12.58dB tail=0.0572 clamp_n=12
+pause_probe samples=8535 sha=f13f3f4e peak=0.9890 rms=0.2283 halves=-0.89dB trough=-12.83dB tail=0.2299 clamp_n=1
+annyeong samples=17446 sha=ba344cd8 peak=0.9890 rms=0.1288 halves=+1.40dB trough=-12.21dB tail=0.1544 clamp_n=8
+yeobo samples=14666 sha=86942e5f peak=0.9890 rms=0.1378 halves=-2.24dB trough=-9.73dB tail=0.0826 clamp_n=12
+identity demo_hello vs demo/hello.wav: True (sizes 19628/19628)
+identity annyeong vs demo/annyeonghaseyo.wav: True (sizes 34936/34936)
+identity yeobo vs demo/yeoboseyo.wav: True (sizes 29376/29376)
+=== MAKEUP ESTIMATION (fixed-point inversion) ===
+sanity: constant-1.0 input -> gains should be ~1.0, G=1.23625, no clamp
+   const: maxgain=0.862860 G=1.432735 clamp=4410
+fixed_sentence inw=21 G=0.5214 (-5.66dB) resid=4.36e-05
+   makeup dB: max=16.00 mean=11.83 p50=14.49 frac_win>=12dB=0.667 frac_win>=16dB(cap)=0.381
+   makeup lin: max=6.31x mean=4.51x | total lift max=3.29x mean=2.35x frac_lift>=8x=0.000
+   deepest trough ~10ms-win 20 (lvl-win 9): makeup=-1.35dB total_lift=0.46x
+demo_hello inw=23 G=1.2356 (1.84dB) resid=2.36e-05
+   makeup dB: max=13.09 mean=2.74 p50=1.52 frac_win>=12dB=0.043 frac_win>=16dB(cap)=0.000
+   makeup lin: max=4.37x mean=1.49x | total lift max=5.41x mean=1.84x frac_lift>=8x=0.000
+   deepest trough ~10ms-win 18 (lvl-win 8): makeup=1.58dB total_lift=1.47x
+creak_probe inw=15 G=1.1853 (1.48dB) resid=5.59e-05
+   makeup dB: max=7.43 mean=1.00 p50=1.25 frac_win>=12dB=0.000 frac_win>=16dB(cap)=0.000
+   makeup lin: max=2.23x mean=1.15x | total lift max=2.64x mean=1.37x frac_lift>=8x=0.000
+   deepest trough ~10ms-win 10 (lvl-win 4): makeup=-1.26dB total_lift=1.04x
+gain_probe inw=12 G=4.1616 (12.39dB) resid=6.69e-05
+   makeup dB: max=7.06 mean=1.21 p50=0.95 frac_win>=12dB=0.000 frac_win>=16dB(cap)=0.000
+   makeup lin: max=2.16x mean=1.18x | total lift max=9.01x mean=4.92x frac_lift>=8x=0.083
+   deepest trough ~10ms-win 10 (lvl-win 4): makeup=1.12dB total_lift=4.59x
+cluster_probe inw=18 G=0.6957 (-3.15dB) resid=1.38e-04
+   makeup dB: max=16.00 mean=10.64 p50=12.51 frac_win>=12dB=0.556 frac_win>=16dB(cap)=0.167
+   makeup lin: max=6.31x mean=3.98x | total lift max=4.39x mean=2.77x frac_lift>=8x=0.000
+   deepest trough ~10ms-win 10 (lvl-win 4): makeup=8.25dB total_lift=1.64x
+pause_probe inw=20 G=2.6588 (8.49dB) resid=8.04e-04
+   makeup dB: max=16.00 mean=5.09 p50=1.93 frac_win>=12dB=0.250 frac_win>=16dB(cap)=0.200
+   makeup lin: max=6.31x mean=2.42x | total lift max=16.77x mean=6.45x frac_lift>=8x=0.250
+   deepest trough ~10ms-win 11 (lvl-win 5): makeup=13.30dB total_lift=11.06x
+annyeong inw=40 G=0.9160 (-0.76dB) resid=8.93e-05
+   makeup dB: max=16.00 mean=7.83 p50=8.65 frac_win>=12dB=0.225 frac_win>=16dB(cap)=0.100
+   makeup lin: max=6.31x mean=2.88x | total lift max=5.78x mean=2.64x frac_lift>=8x=0.000
+   deepest trough ~10ms-win 62 (lvl-win 30): makeup=-0.99dB total_lift=0.83x
+yeobo inw=34 G=1.0090 (0.08dB) resid=3.57e-05
+   makeup dB: max=16.00 mean=9.81 p50=10.50 frac_win>=12dB=0.412 frac_win>=16dB(cap)=0.294
+   makeup lin: max=6.31x mean=3.61x | total lift max=6.37x mean=3.65x frac_lift>=8x=0.000
+   deepest trough ~10ms-win 48 (lvl-win 23): makeup=16.00dB total_lift=6.07x
+saved makeup.npz

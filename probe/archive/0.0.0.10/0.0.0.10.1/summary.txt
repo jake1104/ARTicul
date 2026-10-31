@@ -1,0 +1,4 @@
+Task 0.0.0.10.1 null-free pulse test
+TDD RED: no_deep_notches_in_speech_band fails on raised-cosine source (1260Hz notch, ratio 0.00006 = -84dB at f0=90 oq=0.4). Threshold 0.03 (-30dB) over 500-4000Hz with full Hann window on exact integer periods.
+Files: crates/articul-dsp/tests/source_null.rs
+Logs: archive in logs/0.0.0.10/0.0.0.10.1/ (red.log, green2.log after mapping fix)

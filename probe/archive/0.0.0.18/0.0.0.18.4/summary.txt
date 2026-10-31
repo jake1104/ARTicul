@@ -1,0 +1,86 @@
+Task 0.0.0.18.4 gain-stack cap
+
+Change (production, only file touched):
+crates/articul-cli/src/synth.rs segment_gain_db (line 188):
+(a) approximant/sonorant branch (line 196-198:
+Approximant | LateralApproximant | Trill | TapFlap) -10.0dB to -7.0dB.
+Nasal -8.0 and every other branch byte-identical.
+(b) final -4.0dB now applies only when the final unit is a consonant
+(line 224: total > 0, last index, and kind is not SegmentKind::Vowel;
+vowel-final utterances skip it). Declination line 223 untouched
+(g -= index.min(12)).
+(c) per-segment total floored at -12.0dB (line 227: g = g.max(-12.0)
+after declination/final, before return).
+
+Per-segment gain table for hello `hE "loU` (indices 0-4, total 5):
+seg  pre     post    note
+h    -18.00  -12.00  floor binds (glottal fricative base -18, index 0)
+E    -4.50   -4.50   unstressed vowel -3.5, declination -1
+l    -12.00  -9.00   approximant -7, declination -2 (+3.0dB louder)
+o    -3.00   -3.00   stressed vowel 0, declination -3
+U    -11.50  -7.50   unstressed vowel -3.5, declination -4, final -4 skipped
+Sample count unchanged: 8248 hello samples pre and post.
+
+Render numbers for `hE "loU` (sr 22050, render_sentence, f0 120):
+halves pre:  first -32.21dB vs second -29.64dB, diff +2.57dB (within 3dB)
+halves post: first -31.89dB vs second -29.48dB, diff +2.42dB (within 3dB)
+l-window pre:  -38.03dB vs stressed-o window -28.94dB, gap 9.10dB
+l-window post: -35.03dB vs stressed-o window -28.94dB, gap 6.10dB
+Windows are fade-trimmed interiors (110-sample margin each side;
+o-window [4543..6308], l-window [3616..4147], 22050 Hz samples).
+
+TDD red/green (new file crates/articul-cli/tests/halves_gain.rs):
+RED: lateral_window_within_8db_of_stressed_vowel asserts gap < 8.0dB and
+failed pre-change with gap = 9.10dB (logs/0.0.0.18.4/red-halves_gain.log).
+The companion hello_halves_within_3db passed pre-change at +2.57dB, so the
+lateral leg is the pinned failing leg. An 8.0dB bound was used instead of a
+loose 12dB bound because the measured pre-change gap is 9.10dB: 12dB would
+pass pre-change and cannot go red; 8.0dB still satisfies "within 12dB".
+GREEN: post-change both tests pass, 2 passed 0 failed
+(logs/0.0.0.18.4/green-halves_gain.log).
+Pre/post probe printouts: logs/0.0.0.18.4/pre-measure.log,
+logs/0.0.0.18.4/post-measure.log.
+
+Collateral test updates in crates/articul-cli/tests/gain.rs (required by
+the specified behavior; production branches untouched):
+line 45 sonorant_minus_7_db expects -7.0 (was -10.0);
+line 57/63/69 f/z/v floor tests expect -12.0 (floor binds at index 0);
+line 107 declination_caps_at_12_db expects -12.0 (was -15.5, floor binds);
+line 113 final_consonant_extra_minus_4_db on "t" expects -8.0 keeps the -4 leg;
+line 119 final_vowel_skips_extra_minus_4_db on "a" expects -7.5 (new rule).
+
+Gates:
+cargo fmt --check exit 0 (logs/0.0.0.18.4/gate-fmt.log; one long line in the
+new test was hand-wrapped, then a clippy collapsible_if finding was resolved
+to the single-line form rustfmt requires)
+cargo clippy --workspace --all-targets -- -D warnings exit 0
+(logs/0.0.0.18.4/gate-clippy.log)
+cargo test --workspace all suites ok, zero failures, including balance.rs 3/3
+and nonsibilant_bandlimit.rs 2/2 (logs/0.0.0.18.4/gate-test.log)
+cargo build --release -p articul-cli exit 0
+(logs/0.0.0.18.4/release.log)
+
+Measured CLI regression: `TIs TIN` with config/default-voice.toml synthesized
+twice to probe/0.0.0.18.4/regression-a.wav and regression-b.wav: 8822 samples
+(17688 bytes) each, sha256
+3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93 for both,
+deterministic=True (logs/0.0.0.18.4/cli-regression.log). Hash changed vs
+25338b5e... as expected: louder sonorant/final-vowel gains reshape levels.
+
+Files changed: crates/articul-cli/src/synth.rs (gain lines only),
+crates/articul-cli/tests/halves_gain.rs (new),
+crates/articul-cli/tests/gain.rs (5 expectations + 1 added test). No comments
+added. todo.md, CHANGELOG.md, README.md, docs/, apply_final_fade,
+fricative_shaping, demo/hello.wav untouched; eval_reference.py not run.
+
+Addendum 18.4R1: verdict fine. The post-18.4 /h/ interior (first 78ms,
+[0..1720)) peaks at -26.34 dBFS with RMS -40.50 dBFS, which sits 25.43 dB
+below the whole-file peak (-0.92 dBFS) and 6.66 dB below the stressed-o
+interior peak (-19.68 dBFS, o RMS -28.62 vs h RMS -40.50 = 11.89 dB gap),
+so /h/ is nowhere near the peak-setter despite its +6 dB floor lift; the
+global peak (+0.9000 at sample 6418, the o-to-U glide junction) belongs to
+the vowel-glide transient, not the onset, hence normalize_peak is not keyed
+to /h/ and the static-onset complaint is not worsened by this change.
+Evidence: probe/0.0.0.18.4/hello-hburst.wav (8248 samples, post-18.4 release
+binary, default voice), probe/0.0.0.18.4/h-burst.txt,
+probe/0.0.0.18.4/measure_hburst.py, logs/0.0.0.18.4/h-burst.log.

@@ -1,0 +1,23 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.29s
+     Running tests\halves_gain.rs (target\debug\deps\halves_gain-0d073e0f9d968b94.exe)
+
+running 2 tests
+test lateral_window_within_8db_of_stressed_vowel ... FAILED
+test hello_halves_within_3db ... ok
+
+failures:
+
+---- lateral_window_within_8db_of_stressed_vowel stdout ----
+
+thread 'lateral_window_within_8db_of_stressed_vowel' (30268) panicked at crates\articul-cli\tests\halves_gain.rs:85:5:
+lateral -38.03dB vs stressed vowel -28.94dB gap=9.10dB
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    lateral_window_within_8db_of_stressed_vowel
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-cli --test halves_gain`

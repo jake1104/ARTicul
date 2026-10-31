@@ -1,0 +1,39 @@
+== hello wavlen=9792 plan=9792 EXACT
+ syllable he     span=[0,3506) = 0.0..159.0ms
+   unit u0   sym=h   plandur=78ms spans=78.0ms F1=534 F2=2673 F3=3366 rms=-13.41dBFS
+   unit u1   sym=ɛ   plandur=89ms spans=89.0ms F1=575 F2=1592 F3=2672 rms=-13.53dBFS
+ syllable loU    span=[3330,9792) = 151.0..444.1ms
+   unit u2   sym=l   plandur=70ms spans=70.0ms F1=288 F2=1384 F3=2858 rms=-14.61dBFS
+   unit u3   sym=o   plandur=148ms spans=231.0ms F1=460 F2=943 F3=2308 rms=-16.51dBFS
+   glide early F1=479 F2=937 F3=2307 | late F1=415 F2=1014 F3=2306
+== annyeong wavlen=17446 plan=17446 EXACT
+ syllable an     span=[0,4918) = 0.0..223.0ms
+   unit u0   sym=a   plandur=179ms spans=179.0ms F1=721 F2=860 F3=2616 rms=-20.52dBFS
+   unit u1   sym=n   plandur=52ms spans=52.0ms F1=416 F2=1536 F3=2518 rms=-22.07dBFS
+ syllable nyeong span=[4742,9042) = 215.1..410.1ms
+   unit u2   sym=n   plandur=45ms spans=45.0ms F1=544 F2=1496 F3=2508 rms=-22.38dBFS
+   unit u3   sym=j   plandur=41ms spans=41.0ms F1=521 F2=1438 F3=2501 rms=-21.38dBFS
+   unit u4   sym=ʌ   plandur=88ms spans=88.0ms F1=504 F2=2374 F3=2482 rms=-21.81dBFS
+   unit u5   sym=ŋ   plandur=45ms spans=45.0ms F1=504 F2=1514 F3=2250 rms=-22.93dBFS
+ syllable ha     span=[8866,12439) = 402.1..564.1ms
+   unit u6   sym=h   plandur=52ms spans=52.0ms F1=717 F2=2663 F3=3285 rms=-22.18dBFS
+   unit u7   sym=a   plandur=118ms spans=118.0ms F1=702 F2=813 F3=2630 rms=-21.29dBFS
+ syllable se     span=[12263,14821) = 556.1..672.2ms
+   unit u8   sym=s   plandur=58ms spans=58.0ms F1=678 F2=2668 F3=4193 rms=-11.83dBFS
+   unit u9   sym=e   plandur=66ms spans=66.0ms F1=534 F2=1746 F3=1846 rms=-24.82dBFS
+ syllable jo     span=[14645,17446) = 664.2..791.2ms
+   unit u10  sym=j   plandur=41ms spans=41.0ms F1=506 F2=2526 F3=3275 rms=-25.95dBFS
+   unit u11  sym=o   plandur=94ms spans=94.0ms F1=477 F2=1072 F3=2256 rms=-31.54dBFS
+== yeobo wavlen=14666 plan=14666 EXACT
+ syllable yeo    span=[0,3639) = 0.0..165.0ms
+   unit u0   sym=j   plandur=43ms spans=43.0ms F1=425 F2=1558 F3=2535 rms=-22.44dBFS
+   unit u1   sym=ʌ   plandur=130ms spans=130.0ms F1=590 F2=1034 F3=2246 rms=-19.20dBFS
+ syllable bo     span=[3463,6462) = 157.1..293.1ms
+   unit u2   sym=b   plandur=41ms spans=41.0ms F1=465 F2=1560 F3=3152 rms=-20.39dBFS
+   unit u3   sym=o   plandur=103ms spans=103.0ms F1=469 F2=1390 F3=2301 rms=-20.11dBFS
+ syllable se     span=[6286,10255) = 285.1..465.1ms
+   unit u4   sym=s   plandur=59ms spans=59.0ms F1=677 F2=2669 F3=4193 rms=-10.81dBFS
+   unit u5   sym=e   plandur=129ms spans=129.0ms F1=499 F2=2713 F3=2826 rms=-22.21dBFS
+ syllable jo     span=[10079,14666) = 457.1..665.1ms
+   unit u6   sym=j   plandur=41ms spans=41.0ms F1=506 F2=1538 F3=2517 rms=-26.30dBFS
+   unit u7   sym=o   plandur=175ms spans=175.0ms F1=479 F2=953 F3=2335 rms=-29.45dBFS

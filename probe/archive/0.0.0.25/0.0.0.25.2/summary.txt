@@ -1,0 +1,96 @@
+0.0.0.25.2 spark suppression experiment - summary.txt
+=====================================================
+Verdict: BLOCKED. The prescribed single fix (filter-state warmup) was
+implemented exactly as specified, measured, and found inert against every
+full-scale boundary peak. The change was then reverted exactly (grep zero,
+release hash bit-identical to the 0.0.0.24.3 baseline). No production code
+changed. The TDD test is preserved here as evidence, not in-tree (it fails
+by design; keeping it in-tree would break the workspace gate).
+
+Warmup design (as implemented, then reverted)
+---------------------------------------------
+Tail length: up to 20 ms (441 samples at 22050 Hz, WARMUP_MS constant placed
+next to SMOOTH_MS at synth.rs:633), taken from the previous work unit's
+cooked (gain-shaped, unfiltered) tail - the same input the glide path replays
+at synth.rs:217-236.
+Boundaries warmed: every non-initial work-unit boundary EXCEPT VV-glide
+pairs (glide zones already replay tail through the interpolated filter in
+concat at synth.rs:729-746, so warming there would be discarded). Pause
+adjacency needed no special case (a silence tail stepped through a fresh
+filter is a no-op). Utterance-initial segment: no warmup, as specified.
+Coverage: Single units - Cascade (synth.rs:910) and Parallel (synth.rs:922)
+main filters plus nasal/lateral NotchFilters (synth.rs:935-942), all via
+step() before process(); Merged GOAT diphthong units - new DiphthongJob
+warmup field (struct synth.rs:531) consumed at filter init (synth.rs:575)
+and its notch. process(&self) clones live state, so stepped warmup carries
+into rendering - verified at the API level (cascade.rs:117, parallel.rs:18).
+No excitation, gain, fade, pause, leveler, tamer, or spectral-shaping change.
+
+Red / green refs (logs/0.0.0.25.2/)
+-----------------------------------
+test-red.txt: TDD test FIRST, pre-fix - FAIL as required:
+  spark at non-initial segment start 1 of hE "loU: peak 0.9890 >= 0.9
+  (hello start1 pos=1544 peak=0.9890; the assert stops at the first start,
+  so b2/b3 were not reached in the red run - see tmp-probe.txt for all).
+test-green.txt: post-fix rerun - STILL FAILS on the identical assert:
+  spark at non-initial segment start 1 of hE "loU: peak 0.9890 >= 0.9
+  (same pos, same 0.9890 - zero movement).
+tmp-probe.txt: per-boundary window peaks post-fix (blend-start +10 ms
+windows, same convention as the test; positions verified against the
+0.0.0.25.1 table: hello b1 pos=1544=70.0 ms).
+fmt-postfix.txt / clippy-postfix.txt: experiment-state gates (clippy clean;
+fmt flagged only the temporary probe file, since deleted).
+fmt-reverted.txt / clippy-reverted.txt / test-workspace-reverted.txt:
+post-revert gates, all green (fmt 0, clippy -D warnings 0, workspace 0
+failed). build-release.txt: release build ok. cli-regression.log: TIs TIN
+twice, 8822 samples, sha256 2ad4f841... both, deterministic True, matches
+the 0.0.0.24.3 expected hash - the revert is bit-exact.
+Preserved sources: probe/0.0.0.25.2/junction_nospark.rs (the TDD test),
+probe/0.0.0.25.2/tmp_peakprobe.rs (the diagnostic probe).
+
+Per-demo spark numbers pre vs post (window peak, blend-start +10 ms)
+--------------------------------------------------------------------
+Pre (release, probe/0.0.0.25.1/sparks.txt): hello b1 0.989 d=0.9, b2 0.9890
+d=0.3, b3 0.9890 d=0.6; annyeong b1 0.6028, b6 0.4335, b11 0.7608;
+yeobo b1 0.4577, b3 0.5632, b7 0.7264; phonetic /s/ bodies annyeong b9 and
+yeobo b5 at 0.989 (broad 8-10 ms, low crest 1.3-1.4, by design).
+Post (experiment build, tmp-probe.txt): hello b1 0.989000, b2 0.989000,
+b3 0.989000; annyeong b1 0.602477, b6 0.433428, b9 0.989000, b11 0.761139;
+yeobo b1 0.459417, b3 0.570451, b5 0.989000, b7 0.729182.
+Every clamped 0.989 peak is unchanged to all printed decimals; unclamped
+peaks move by <=0.03 in either direction (perturbation, not suppression).
+
+Why the fix cannot work (two independent blockers)
+--------------------------------------------------
+1. Blend-weight proof. The short-fade crossfade (synth.rs:740-744) is
+out[at] = out[at]*(1-t) + s*t with t = k/n. At k = 0 (the window start)
+the new segment has weight exactly 0: the output sample is 100% previous
+segment content, mathematically invariant under any new-filter state.
+Measured argmax sits at exactly d = 0 for hello b2/b3, yeobo b5 and most
+Korean boundaries - those peaks are previous-segment ends (loud vowel
+offsets, /s/ bodies), not fresh-filter onsets. Small-d>0 peaks (hello b1
+d=1.8 ms, annyeong b9 d=1.3 ms) sit 3-16% into the blend and are likewise
+previous-content dominated; warming the new filter moves <=22% of the mix
+and measured zero. Resonator memory (~3-4 ms at 80-120 Hz bandwidths) is
+also shorter than the 8 ms crossfade, so by the post-blend region the
+filter has converged regardless of priming.
+2. Out-of-scope mechanisms own the residue. The remaining overshoot is the
+phase-0 excitation restart hitting leveler onset makeup (up to +16 dB on
+quiet onsets), plus phonetic /s/ level at s->e boundaries (annyeong b9,
+yeobo b5: full-scale /s/ bodies straddling the boundary inside the window
+by design, smoothing contraindicated per 0.0.0.24.1). Excitation, leveler,
+gain, and spectral shaping are all explicitly frozen by this task.
+A weak-tail prime (h->E: -10 dB noise tail) is additionally near-identical
+to zero state, so even the first 2 ms trajectory barely changes.
+
+Gates and hash
+--------------
+Post-revert: fmt clean, clippy -D warnings clean, workspace tests green,
+release build ok, TIs TIN 8822 samples sha256
+2ad4f8413c9182f0be39b9ac836aae06233272c3367256a6f859fa0ae44ad141 x2
+deterministic - identical to baseline, so there is no new hash: the
+experiment was fully reverted. Prior gates (lateral_zero, leveling,
+junction_smooth vs 5 dB, balance, bandlimit, halves, diphthong, h_onset,
+clear_l+coda, voiced_fricative_mix) all green in the reverted workspace run.
+Hygiene: the stray probe/0.0.0.25.1/__pycache__/ directory noted in review
+was deleted (no log beyond this mention).

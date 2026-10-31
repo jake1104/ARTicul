@@ -1,0 +1,6 @@
+Task 0.0.0.8.1 PyO3 binding surface
+Files: crates/articul-py/ (cdylib, pyo3 0.22 extension-module), python/articul/__init__.py (numpy wrapper), python/validation/check_parity.py
+API: lookup_features(symbol) -> dict|None, synthesize(text, sr, f0) -> list[float]
+Fixes: PyDict::new_bound (0.22 has no new without gil-refs); useless_conversion macro friction resolved by returning Option directly instead of PyResult
+RED: ModuleNotFoundError articul._articul. GREEN after cargo build -p articul-py --release + copy to python/articul/_articul.pyd
+Logs: logs/0.0.0.8.1/

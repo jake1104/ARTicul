@@ -1,0 +1,41 @@
+    Checking dasp_sample v0.11.0
+    Checking dasp_frame v0.11.0
+    Checking dasp_rms v0.11.0
+    Checking dasp_peak v0.11.0
+    Checking dasp_envelope v0.11.0
+    Checking dasp_interpolate v0.11.0
+    Checking dasp_window v0.11.1
+    Checking dasp_signal v0.11.0
+    Checking dasp_slice v0.11.0
+    Checking dasp v0.11.0
+    Checking serde v1.0.229
+    Checking articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Checking windows-link v0.2.1
+    Checking windows-sys v0.61.2
+    Checking windows_x86_64_msvc v0.52.6
+    Checking serde_spanned v0.6.9
+    Checking toml_datetime v0.6.11
+    Checking toml_edit v0.22.27
+    Checking windows-targets v0.52.6
+    Checking once_cell_polyfill v1.70.2
+    Checking anstyle v1.0.14
+    Checking utf8parse v0.2.2
+    Checking anstyle-parse v1.0.0
+    Checking anstyle-wincon v3.0.11
+    Checking windows-result v0.1.2
+    Checking toml v0.8.23
+    Checking anstyle-query v1.1.5
+    Checking colorchoice v1.0.5
+    Checking is_terminal_polyfill v1.70.2
+    Checking anstream v1.0.0
+    Checking windows-core v0.54.0
+    Checking clap_lex v1.1.1
+    Checking strsim v0.11.1
+    Checking clap_builder v4.6.7
+    Checking windows v0.54.0
+    Checking articul-config v0.0.0 (E:\01_coding\ARTicul\crates\articul-config)
+    Checking cpal v0.15.3
+    Checking clap v4.6.7
+    Checking hound v3.5.1
+    Checking articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 45.21s

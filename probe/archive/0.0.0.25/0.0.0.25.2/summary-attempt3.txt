@@ -1,0 +1,60 @@
+=====================================================
+Attempt 3 - 2ms end taper (NEEDS_CONTEXT, FINAL attempt -> escalate)
+=====================================================
+Revert of attempt 2 stated explicitly: all phase-threading code removed -
+source.rs six GlottalSource methods back to 0.0-phase Vec<f32> returns,
+synth.rs voice_phase/DiphthongJob.phase/render_unit phase param/allow
+attribute removed, all dsp test call sites restored. Verified zero residue:
+grep start_phase|voice_phase over crates/ = zero. Clean-tree gates BEFORE
+taper: leveling 3/3 + junction_smooth + nasal all green
+(logs/0.0.0.25.2/test-revert-attempt3.txt, exit 0). TDD gate confirmed
+failing on the reverted tree (logs/0.0.0.25.2/test-attempt3-red.txt):
+hello start1 pos=1544 peak=0.9890.
+
+Change (SINGLE variable): 2 ms raised-cosine fade-out on every non-final
+work unit's shaped END before concatenation (crates/articul-cli/src/synth.rs,
+right before fades computation; last-sample multiplier exactly 0.0,
+44 samples at 22050 Hz). Cooked (glide raw-mix reference) and gtracks
+(junction gate input) untouched; utterance-final segment keeps its existing
+final fade only. No excitation/gain/filter/fade/leveler/tamer/ceiling/
+crossfade/envelope/creak changes. fmt clean
+(logs/0.0.0.25.2/fmt-attempt3.txt).
+
+Result: TDD gate STILL FAILS on the identical assert
+(logs/0.0.0.25.2/test-attempt3-green.txt):
+spark at non-initial segment start 1 of hE "loU: peak 0.9890 >= 0.9.
+Per stop rule: STOP, no full workspace suite, no release build, no further
+attempts. Taper edit kept in-tree for the escalation decision.
+
+Per-boundary window peaks, clean tree vs taper
+(logs/0.0.0.25.2/tmp-probe-attempt3.txt), blend-start +10 ms windows:
+hello b1 0.989000 -> 0.989000 (argmax identical at d=1.77 ms);
+b2 0.989000 -> 0.989000 at d=0; b3 0.989000 -> 0.989000 at d=0;
+b4 0.305583 -> 0.305616.
+annyeong b1 0.602477 -> 0.602485; b2 0.221342 -> 0.218633;
+b3 0.230496 -> 0.230693; b4 0.208742 -> 0.208202; b5 0.210513 -> 0.210399;
+b6 0.433428 -> 0.433277; b7 0.345131 -> 0.344976; b8 0.200340 -> 0.200213;
+b9 0.989000 -> 0.989000; b10 0.165950 -> 0.215552; b11 0.761139 -> 0.760428.
+yeobo b1 0.459417 -> 0.454658; b2 0.378978 -> 0.377755;
+b3 0.570451 -> 0.559524; b4 0.224920 -> 0.222706; b5 0.989000 -> 0.989000;
+b6 0.485536 -> 0.480789; b7 0.729182 -> 0.721623.
+Clamped peaks identical to all 6 decimals with identical argmax positions;
+unclamped peaks move <= 0.011 (annyeong b10 the sole outlier at +0.05).
+
+Judgment: CROSSFADE-OVERSHOOT-INTO-CLAMP, end-truncation hypothesis
+REJECTED. Zeroing every non-final segment end moved nothing, which proves
+the window peaks do not live in the tapered end regions: b1 peaks at
+k'=39 of the blend (untapered mid-blend, E-head x 0.22 under leveler makeup
+of a quiet h-context), b2/b3 peak at exactly d=0 (k'=0, previous-vowel
+interior 8 ms before its end at full blend weight 1.0, untapered by
+construction), b9/b5 are phonetic /s/ bodies straddling the boundary.
+The ends the taper crushed were already inaudible under the crossfade
+(previous-end weight falls 1.0 -> 0.0 across the blend); the peaks that
+remain are mid-blend constructive sums and full-weight previous interiors
+that no end-only taper can reach. Three single-variable attempts (filter
+warmup, phase carry, end taper) now cover starts, continuity, and ends;
+the residue is structurally in the blend/leveler interaction, which this
+task's frozen list (gains, crossfade, leveler, ceiling) puts out of scope.
+Recommend escalation with a widened scope or a re-specified gate.
+Attempt-1/2 artifacts untouched. No release build per stop rule, so the
+TIs TIN hash for the taper state was not measured (stated, not assumed).

@@ -1,0 +1,26 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.95s
+     Running tests\glide.rs (target\debug\deps\glide-469a3e6cc7a240c0.exe)
+
+running 2 tests
+test consonant_boundary_keeps_short_crossfade ... ok
+test vv_boundary_gets_long_glide_crossfade ... FAILED
+
+failures:
+
+---- vv_boundary_gets_long_glide_crossfade stdout ----
+
+thread 'vv_boundary_gets_long_glide_crossfade' (5956) panicked at crates\articul-cli\tests\glide.rs:4:5:
+assertion `left == right` failed
+  left: 5116
+ right: 4190
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    vv_boundary_gets_long_glide_crossfade
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-cli --test glide`

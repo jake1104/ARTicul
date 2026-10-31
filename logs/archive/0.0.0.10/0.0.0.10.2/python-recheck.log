@@ -1,0 +1,4 @@
+PASS lookup-p
+PASS lookup-unknown
+PASS synthesize len=4234
+PASS spectrum slope=-7.90

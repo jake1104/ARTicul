@@ -1,0 +1,56 @@
+SR=22050 SHORT=176 GLIDE=1102
+== hello :: hE "loU
+units=5
+u0 sym=h dur=78ms f0=134.70->131.94Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=1720 gain=-10.000dB
+u1 sym=ɛ dur=89ms f0=131.94->133.18Hz stress=Unstressed word_final=true pause=false spec=Cascade seglen=1962 gain=-4.500dB
+u2 sym=l dur=70ms f0=133.18->155.55Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=1544 gain=-9.000dB
+u3 sym=o dur=148ms f0=155.55->80.09Hz stress=Primary word_final=false pause=false spec=Cascade seglen=3263 gain=-3.000dB
+u4 sym=ʊ dur=83ms f0=80.09->80.09Hz stress=Unstressed word_final=true pause=false spec=Cascade seglen=1830 gain=-7.500dB
+work_units=[0] [1] [2] [3, 4] lens=[1720, 1962, 1544, 5094] fades=[0, 176, 176, 176] predicted_out_len=9792
+b1 between u0(h)->u1(ɛ) type=CASCADE-SHORT-GLIDE zone=[1544, 1720) n=176 gain_step=5.500dB f0_step=0.000st
+b2 between u1(ɛ)->u2(l) type=CASCADE-SHORT-GLIDE zone=[3330, 3506) n=176 gain_step=4.500dB f0_step=0.000st
+b3 between u2(l)->u3(o) type=GOAT-EDGE zone=[4698, 4874) n=176 gain_step=6.000dB f0_step=0.000st
+== annyeong :: %an njVN "hasejo
+units=12
+u0 sym=a dur=179ms f0=146.89->140.66Hz stress=Secondary word_final=false pause=false spec=Cascade seglen=3947 gain=0.000dB
+u1 sym=n dur=52ms f0=140.66->137.64Hz stress=Unstressed word_final=true pause=false spec=Cascade seglen=1147 gain=-9.000dB
+u2 sym=n dur=45ms f0=137.64->132.22Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=992 gain=-10.000dB
+u3 sym=j dur=41ms f0=132.22->127.46Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=904 gain=-10.000dB
+u4 sym=ʌ dur=88ms f0=127.46->123.85Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=1940 gain=-7.500dB
+u5 sym=ŋ dur=45ms f0=123.85->131.99Hz stress=Unstressed word_final=true pause=false spec=Cascade seglen=992 gain=-12.000dB
+u6 sym=h dur=52ms f0=131.99->158.45Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=1147 gain=-12.000dB
+u7 sym=a dur=118ms f0=158.45->135.13Hz stress=Primary word_final=false pause=false spec=Cascade seglen=2602 gain=-7.000dB
+u8 sym=s dur=58ms f0=135.13->124.13Hz stress=Unstressed word_final=false pause=false spec=Parallel seglen=1279 gain=-12.000dB
+u9 sym=e dur=66ms f0=124.13->118.47Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=1455 gain=-12.000dB
+u10 sym=j dur=41ms f0=118.47->80.09Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=904 gain=-12.000dB
+u11 sym=o dur=94ms f0=80.09->80.09Hz stress=Unstressed word_final=true pause=false spec=Cascade seglen=2073 gain=-12.000dB
+work_units=[0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] lens=[3947, 1147, 992, 904, 1940, 992, 1147, 2602, 1279, 1455, 904, 2073] fades=[0, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176] predicted_out_len=17446
+b1 between u0(a)->u1(n) type=CASCADE-SHORT-GLIDE zone=[3771, 3947) n=176 gain_step=9.000dB f0_step=0.000st
+b2 between u1(n)->u2(n) type=CASCADE-SHORT-GLIDE zone=[4742, 4918) n=176 gain_step=1.000dB f0_step=0.000st
+b3 between u2(n)->u3(j) type=CASCADE-SHORT-GLIDE zone=[5558, 5734) n=176 gain_step=0.000dB f0_step=0.000st
+b4 between u3(j)->u4(ʌ) type=CASCADE-SHORT-GLIDE zone=[6286, 6462) n=176 gain_step=2.500dB f0_step=0.000st
+b5 between u4(ʌ)->u5(ŋ) type=CASCADE-SHORT-GLIDE zone=[8050, 8226) n=176 gain_step=4.500dB f0_step=0.000st
+b6 between u5(ŋ)->u6(h) type=CASCADE-SHORT-GLIDE zone=[8866, 9042) n=176 gain_step=0.000dB f0_step=0.000st
+b7 between u6(h)->u7(a) type=CASCADE-SHORT-GLIDE zone=[9837, 10013) n=176 gain_step=5.000dB f0_step=0.000st
+b8 between u7(a)->u8(s) type=MIXED-LINEAR zone=[12263, 12439) n=176 gain_step=5.000dB f0_step=0.000st
+b9 between u8(s)->u9(e) type=MIXED-LINEAR zone=[13366, 13542) n=176 gain_step=0.000dB f0_step=0.000st
+b10 between u9(e)->u10(j) type=CASCADE-SHORT-GLIDE zone=[14645, 14821) n=176 gain_step=0.000dB f0_step=0.000st
+b11 between u10(j)->u11(o) type=CASCADE-SHORT-GLIDE zone=[15373, 15549) n=176 gain_step=0.000dB f0_step=0.000st
+== yeobo :: %jV"bo%se%jo
+units=8
+u0 sym=j dur=43ms f0=138.24->146.89Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=948 gain=-7.000dB
+u1 sym=ʌ dur=130ms f0=146.89->148.23Hz stress=Secondary word_final=false pause=false spec=Cascade seglen=2867 gain=-1.000dB
+u2 sym=b dur=41ms f0=148.23->166.03Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=904 gain=-2.000dB
+u3 sym=o dur=103ms f0=166.03->140.39Hz stress=Primary word_final=false pause=false spec=Cascade seglen=2271 gain=-3.000dB
+u4 sym=s dur=59ms f0=140.39->126.61Hz stress=Unstressed word_final=false pause=false spec=Parallel seglen=1301 gain=-9.000dB
+u5 sym=e dur=129ms f0=126.61->119.47Hz stress=Secondary word_final=false pause=false spec=Cascade seglen=2844 gain=-5.000dB
+u6 sym=j dur=41ms f0=119.47->80.09Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=904 gain=-12.000dB
+u7 sym=o dur=175ms f0=80.09->80.09Hz stress=Secondary word_final=true pause=false spec=Cascade seglen=3859 gain=-7.000dB
+work_units=[0] [1] [2] [3] [4] [5] [6] [7] lens=[948, 2867, 904, 2271, 1301, 2844, 904, 3859] fades=[0, 176, 176, 176, 176, 176, 176, 176] predicted_out_len=14666
+b1 between u0(j)->u1(ʌ) type=CASCADE-SHORT-GLIDE zone=[772, 948) n=176 gain_step=6.000dB f0_step=0.000st
+b2 between u1(ʌ)->u2(b) type=CASCADE-SHORT-GLIDE zone=[3463, 3639) n=176 gain_step=1.000dB f0_step=0.000st
+b3 between u2(b)->u3(o) type=CASCADE-SHORT-GLIDE zone=[4191, 4367) n=176 gain_step=1.000dB f0_step=0.000st
+b4 between u3(o)->u4(s) type=MIXED-LINEAR zone=[6286, 6462) n=176 gain_step=6.000dB f0_step=0.000st
+b5 between u4(s)->u5(e) type=MIXED-LINEAR zone=[7411, 7587) n=176 gain_step=4.000dB f0_step=0.000st
+b6 between u5(e)->u6(j) type=CASCADE-SHORT-GLIDE zone=[10079, 10255) n=176 gain_step=7.000dB f0_step=0.000st
+b7 between u6(j)->u7(o) type=CASCADE-SHORT-GLIDE zone=[10807, 10983) n=176 gain_step=5.000dB f0_step=0.000st

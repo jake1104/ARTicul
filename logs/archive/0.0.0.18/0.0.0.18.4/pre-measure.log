@@ -1,0 +1,17 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.14s
+     Running tests\tmp_probe184.rs (target\debug\deps\tmp_probe184-eb42c12df1c846dd.exe)
+
+running 1 test
+HALVES n=8248 db0=-32.21 db1=-29.64 diff=2.57
+unit 0 kind=Consonant { place: Glottal, manner: Fricative } manner=Some(Fricative) stress=Unstressed dur=78 start=0 len=1720 fade=0 gain=-18.00
+unit 1 kind=Vowel { height: OpenMid, backness: Front, rounded: false } manner=None stress=Unstressed dur=89 start=1544 len=1962 fade=176 gain=-4.50
+unit 2 kind=Consonant { place: Alveolar, manner: LateralApproximant } manner=Some(LateralApproximant) stress=Unstressed dur=50 start=3330 len=1103 fade=176 gain=-12.00
+unit 3 kind=Vowel { height: CloseMid, backness: Back, rounded: true } manner=None stress=Primary dur=148 start=4257 len=3263 fade=176 gain=-3.00
+unit 4 kind=Vowel { height: NearClose, backness: Back, rounded: true } manner=None stress=Unstressed dur=83 start=6418 len=1830 fade=1102 gain=-11.50
+lateral idx=2 stressed vowel idx=3
+LWIN [3616..4147] -38.03dB OWIN [4543..6308] -28.94dB gap=9.10
+test tmp_measure_halves_and_windows ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

@@ -1,0 +1,34 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.41s
+     Running tests\spark_report_tmp.rs (target\debug\deps\spark_report_tmp-e25c1935d61ccac8.exe)
+
+running 1 test
+SPARK hE "loU start1 pos=1544 unclamped=0.9448 clamped=1
+SPARK hE "loU start2 pos=3330 unclamped=0.8868 clamped=0
+SPARK hE "loU start3 pos=4698 unclamped=0.4255 clamped=1
+SPARKMAX hE "loU worst start1 unclamped=0.9448 windows_clamped_total=2
+SPARK %an njVN "hasejo start1 pos=3771 unclamped=0.4345 clamped=0
+SPARK %an njVN "hasejo start2 pos=4742 unclamped=0.2015 clamped=0
+SPARK %an njVN "hasejo start3 pos=5558 unclamped=0.2017 clamped=0
+SPARK %an njVN "hasejo start4 pos=6286 unclamped=0.1890 clamped=0
+SPARK %an njVN "hasejo start5 pos=8050 unclamped=0.1573 clamped=0
+SPARK %an njVN "hasejo start6 pos=8866 unclamped=0.3280 clamped=0
+SPARK %an njVN "hasejo start7 pos=9837 unclamped=0.3114 clamped=0
+SPARK %an njVN "hasejo start8 pos=12263 unclamped=0.1727 clamped=0
+SPARK %an njVN "hasejo start9 pos=13366 unclamped=0.8627 clamped=1
+SPARK %an njVN "hasejo start10 pos=14645 unclamped=0.1742 clamped=0
+SPARK %an njVN "hasejo start11 pos=15373 unclamped=0.5639 clamped=0
+SPARKMAX %an njVN "hasejo worst start9 unclamped=0.8627 windows_clamped_total=1
+SPARK %jV"bo%se%jo start1 pos=772 unclamped=0.4113 clamped=0
+SPARK %jV"bo%se%jo start2 pos=3463 unclamped=0.3062 clamped=0
+SPARK %jV"bo%se%jo start3 pos=4191 unclamped=0.4666 clamped=0
+SPARK %jV"bo%se%jo start4 pos=6286 unclamped=0.1952 clamped=0
+SPARK %jV"bo%se%jo start5 pos=7411 unclamped=0.9336 clamped=1
+SPARK %jV"bo%se%jo start6 pos=10079 unclamped=0.2601 clamped=0
+SPARK %jV"bo%se%jo start7 pos=10807 unclamped=0.5377 clamped=0
+SPARKMAX %jV"bo%se%jo worst start5 unclamped=0.9336 windows_clamped_total=1
+BALANCEPIN word0=-13.33dB word1=-19.67dB diff=-6.34dB
+test spark_report_tmp ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+

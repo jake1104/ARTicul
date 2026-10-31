@@ -1,0 +1,13 @@
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\tests\glide.rs:6:
+     let (seq, marks) = g.transcribe(word);
+     plan(&seq, &marks, 1.0, 1.0, 120.0)
+         .iter()
+[31m-        .map(|u| ((u.duration_ms as f32 / 1000.0) * sample_rate as f32).round().max(1.0) as usize)
+[0m[32m+        .map(|u| {
+[0m[32m+            ((u.duration_ms as f32 / 1000.0) * sample_rate as f32)
+[0m[32m+                .round()
+[0m[32m+                .max(1.0) as usize
+[0m[32m+        })
+[0m         .collect()
+ }
+ 

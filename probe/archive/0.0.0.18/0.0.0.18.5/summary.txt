@@ -1,0 +1,63 @@
+Task 0.0.0.18.5 regression re-baseline with demo regeneration
+
+No production code change in this task. Work confirms the 0.0.0.18.2
+(syllable-aware final fade), 0.0.0.18.3 (non-sibilant band-limit) and
+0.0.0.18.4 (gain-stack cap) landings.
+
+Gates (logs in logs/0.0.0.18.5/, all exit 0)
+- cargo fmt --check: clean, 0-byte log fmt-check.log (fresh re-run to green
+  captured on disk; no diff archived without re-running).
+- cargo clippy --workspace --all-targets -- -D warnings: clean (clippy.log).
+- cargo test --workspace: all suites ok, zero failures, including balance.rs
+  3/3, nonsibilant_bandlimit.rs 2/2 and halves_gain.rs 2/2
+  (test-workspace.log).
+- cargo build --release (full workspace): green (release.log).
+
+Fixed-sentence regression (TIs TIN, config/default-voice.toml)
+- probe/0.0.0.18.5/regression-a.wav and regression-b.wav.
+- 8822 samples each at 22050 Hz mono 16-bit, 17688 bytes each.
+- sha256 3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93
+  both runs, deterministic=True (cli-regression.log plus per-run
+  cli-regression-a.log / cli-regression-b.log).
+- Hash matches the 0.0.0.18.4 hash (3d31...): no code change since 18.4,
+  verified not assumed.
+
+Demo regeneration (X-SAMPA hE "loU, config/default-voice.toml)
+- demo/hello.wav regenerated: 8248 samples at 22050 Hz mono 16-bit
+  (16540 bytes), sha256
+  9c001dbdb538fbfe21a92099807e2335732e4db72504470ed2e42a4c2ce23f55
+  (demo.log). Second render to probe/0.0.0.18.5/hello-check.wav is
+  byte-identical (deterministic demo render confirmed).
+- Halves: first-half RMS 833.3, second-half RMS 1100.7, diff +2.42dB
+  (second half louder; within ~3dB, unchanged from the 18.4 post-change
+  +2.42dB as expected with no code change).
+- Spectral centroid (whole-file Hann-windowed rFFT magnitude, the exact
+  0.0.0.18.1 method): 3514.5 Hz vs the 18.1 baseline 3351.5 Hz (+163 Hz).
+  Power-weighted centroid 1046.6 Hz recorded for reference. Numbers only;
+  no threshold forced per task brief (centroid moves with the louder
+  post-18.4 vowels).
+
+Eval self-test (non-gating, full eval owned by 0.0.0.17.4)
+- python python/validation/eval_reference.py --self-test (run with `python`,
+  which carries librosa; the msys `python3` lacks it): PASS
+  (eval-selftest.log: "SELF-TEST PASS: deterministic renders identical,
+  distinct items separated"). No full eval run.
+
+Python parity (python/validation/check_parity.py, PYTHONPATH=python)
+- 4/4 PASS: lookup-p, lookup-unknown, synthesize len=3242,
+  vowel-a f2/f1=0.120 (parity.log, identical numbers to 0.0.0.17.5).
+- Extension refreshed: target/release/articul_py.dll copied to
+  python/articul/_articul.pyd before the check (py-copy.log).
+
+Archive note
+- Bundle 0.0.0.18 closed by this task. Live probe/0.0.0.18.1..0.0.0.18.5
+  moved under probe/archive/0.0.0.18/ (0.0.0.18.1 keeps its
+  signal/frontend/dsp/hto subdirs); live logs/0.0.0.18.1..0.0.0.18.5 moved
+  under logs/archive/0.0.0.18/.
+
+Probe/log paths
+- Probe: probe/archive/0.0.0.18/0.0.0.18.5/ (regression-a.wav,
+  regression-b.wav, hello-check.wav, summary.txt)
+- Logs: logs/archive/0.0.0.18/0.0.0.18.5/ (fmt-check, clippy,
+  test-workspace, release, cli-regression-a, cli-regression-b,
+  cli-regression, demo, eval-selftest, py-copy, parity)

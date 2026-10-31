@@ -1,0 +1,31 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.15s
+     Running tests\tmp_peakprobe.rs (target\debug\deps\tmp_peakprobe-f93040af133c5923.exe)
+
+running 1 test
+hE "loU b1 t=78ms pos=1544 argmax=1583 d=1.7687075 peak=0.989000 gpeak=0.989000
+hE "loU b2 t=167ms pos=3330 argmax=3330 d=0 peak=0.989000 gpeak=0.989000
+hE "loU b3 t=237ms pos=4698 argmax=4698 d=0 peak=0.989000 gpeak=0.989000
+hE "loU b4 t=385ms pos=7785 argmax=7894 d=4.9433107 peak=0.305616 gpeak=0.989000
+%an njVN "hasejo b1 t=179ms pos=3771 argmax=3771 d=0 peak=0.602485 gpeak=0.989000
+%an njVN "hasejo b2 t=231ms pos=4742 argmax=4918 d=7.981859 peak=0.218633 gpeak=0.989000
+%an njVN "hasejo b3 t=276ms pos=5558 argmax=5558 d=0 peak=0.230693 gpeak=0.989000
+%an njVN "hasejo b4 t=317ms pos=6286 argmax=6359 d=3.3106575 peak=0.208202 gpeak=0.989000
+%an njVN "hasejo b5 t=405ms pos=8050 argmax=8100 d=2.2675738 peak=0.210399 gpeak=0.989000
+%an njVN "hasejo b6 t=450ms pos=8866 argmax=8866 d=0 peak=0.433277 gpeak=0.989000
+%an njVN "hasejo b7 t=502ms pos=9837 argmax=9924 d=3.9455783 peak=0.344976 gpeak=0.989000
+%an njVN "hasejo b8 t=620ms pos=12263 argmax=12470 d=9.387754 peak=0.200213 gpeak=0.989000
+%an njVN "hasejo b9 t=678ms pos=13366 argmax=13395 d=1.3151928 peak=0.989000 gpeak=0.989000
+%an njVN "hasejo b10 t=744ms pos=14645 argmax=14821 d=7.981859 peak=0.215552 gpeak=0.989000
+%an njVN "hasejo b11 t=785ms pos=15373 argmax=15373 d=0 peak=0.760428 gpeak=0.989000
+%jV"bo%se%jo b1 t=43ms pos=772 argmax=772 d=0 peak=0.454658 gpeak=0.989000
+%jV"bo%se%jo b2 t=173ms pos=3463 argmax=3463 d=0 peak=0.377755 gpeak=0.989000
+%jV"bo%se%jo b3 t=214ms pos=4191 argmax=4220 d=1.3151928 peak=0.559524 gpeak=0.989000
+%jV"bo%se%jo b4 t=317ms pos=6286 argmax=6493 d=9.387754 peak=0.222706 gpeak=0.989000
+%jV"bo%se%jo b5 t=376ms pos=7411 argmax=7418 d=0.3174603 peak=0.989000 gpeak=0.989000
+%jV"bo%se%jo b6 t=505ms pos=10079 argmax=10079 d=0 peak=0.480789 gpeak=0.989000
+%jV"bo%se%jo b7 t=546ms pos=10807 argmax=10807 d=0 peak=0.721623 gpeak=0.989000
+test tmp_peak_probe ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+

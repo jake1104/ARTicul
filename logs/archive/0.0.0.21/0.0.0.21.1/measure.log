@@ -1,0 +1,2 @@
+demo/annyeonghaseyo.wav: frames=15660 sr=22050 dur=0.710s peak=0.9000 rms=0.0734 halves=+8.96dB centroid=5233.2Hz
+demo/gamsahamnida.wav: frames=16100 sr=22050 dur=0.730s peak=0.9000 rms=0.0633 halves=-12.16dB centroid=5188.0Hz

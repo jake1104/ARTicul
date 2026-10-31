@@ -1,0 +1,21 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+error[E0432]: unresolved import `articul_front::parse_utterance`
+ --> crates\articul-front\tests\utterance.rs:1:5
+  |
+1 | use articul_front::parse_utterance;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `parse_utterance` in the root
+
+error[E0432]: unresolved import `articul_front::plan_utterance`
+ --> crates\articul-front\tests\utterance.rs:3:5
+  |
+3 | use articul_front::plan_utterance;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `plan_utterance` in the root
+
+error[E0432]: unresolved import `articul_front::WordProsody`
+ --> crates\articul-front\tests\utterance.rs:5:5
+  |
+5 | use articul_front::WordProsody;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^ no `WordProsody` in the root
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `articul-front` (test "utterance") due to 3 previous errors

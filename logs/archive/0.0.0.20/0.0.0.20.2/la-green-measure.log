@@ -1,0 +1,7 @@
+samples=6792 total_ms=308.03 sr=22050
+window samples 110-1258 N=1148
+edge 2000-2300 raw: -43.87 dB
+core 2470-2530 raw: -53.43 dB
+notch depth (edge-core): 9.55 dB
+F1 peak: 296.1 Hz
+F2 peak: 1343.1 Hz

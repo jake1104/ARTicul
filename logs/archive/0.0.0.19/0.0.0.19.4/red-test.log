@@ -1,0 +1,22 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.41s
+     Running tests\clear_l.rs (target\debug\deps\clear_l-244fc05f749adf48.exe)
+
+running 1 test
+test lateral_has_low_f1_mid_f2 ... FAILED
+
+failures:
+
+---- lateral_has_low_f1_mid_f2 stdout ----
+
+thread 'lateral_has_low_f1_mid_f2' (30468) panicked at crates\articul-cli\tests\clear_l.rs:85:5:
+pre-stressed-vowel lateral must be at least 70ms, got 54ms
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    lateral_has_low_f1_mid_f2
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-cli --test clear_l`

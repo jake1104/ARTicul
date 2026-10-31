@@ -1,0 +1,184 @@
+0.0.0.23.2 follower-dynamics retune - DONE 2026-10-29 (attempt-3 causal-only follower + trough bound re-baselined 12->14 dB; attempts 1-2 STOPPED as recorded below)
+
+Change tested (REVERTED after gate break, tree is byte-identical to pre-task state):
+  crates/articul-cli/src/synth.rs:949, level_output envelope follower:
+    release = (-win_s / 0.008).exp() -> (-win_s / 0.080).exp()
+  Attack stayed 12 ms; knee slopes, +16 dB cap, transient tamer, 10 ms gain
+  smoothing, 1.25x0.989+clamp ceiling all untouched. Single variable only.
+
+Method (temporary env-gated per-20ms-window gain dump in level_output,
+rebuilt, rendered all three demos, then reverted exactly; grep-zero verified,
+no ARTICUL_GAIN_TRAJ remains under crates/; release constant restored to
+0.008 at synth.rs:949 and leveling 3/3 re-passing post-revert):
+  Pre-change dump reproduces the archived 0.0.0.22.3 hello trajectory exactly
+  (23 windows, slope +0.258 dB/window, p95-p5 4.99 dB), so the dump method is
+  faithful. Pump metric = probe/0.0.0.23.2/pump3.py, the 0.0.0.22.3
+  pump_check2.py two-sided detrended 3-8 Hz method generalized to any window
+  count (linear detrend, two-sided DFT keeping conjugate pairs, 1/N inverse,
+  p95-p5 of the 3-8 Hz band component). Full output in logs/0.0.0.23.2/pump3.log.
+
+Pump results, detrended two-sided 3-8 Hz p95-p5 (50 Hz window rate):
+  hello    (23 windows, bins 2-5 + mirrors): pre 4.99 dB -> post 2.53 dB (REDUCED, -2.46)
+  annyeong (40 windows, bins 4-10 + mirrors): pre 6.11 dB -> post 5.15 dB (reduced, -0.96)
+  yeobo    (34 windows, bins 4-10 + mirrors): pre 5.64 dB -> post 3.74 dB (REDUCED, -1.90)
+  Motion reduced on all three demos, as hypothesized. Pre baselines for the
+  Korean demos are new in this task (0.0.0.22.3 measured hello only).
+
+Gate results under the 80 ms release (STOP condition met):
+  demo_rms_audible (RMS >= 0.10, peak <= 0.99): PASS all three
+    hello 0.2215, annyeong 0.1284, yeobo 0.1287; peak 0.9890 everywhere.
+  intra_word_troughs_bounded (>= -12 dB): FAIL - test panics on annyeong
+    (logs/0.0.0.23.2/leveling.log): "trough -15.6dB deeper than -12dB".
+    Same-algorithm wav measurement on post-change renders:
+    hello -4.10 dB (no gate, reported), annyeong -15.64 dB (3.6 dB violation;
+    pre was -10.51 dB, so the flagged 1.5 dB margin broke by 5.1 dB of trough
+    deepening), yeobo -12.85 dB (0.85 dB violation; pre was -8.97 dB; the Rust
+    test aborts on annyeong first so it never reports yeobo, but the numbers
+    show both Korean trough gates break).
+  tail_not_buried (yeobo last-third RMS >= 0.03): PASS (0.0633; pre 0.0783).
+  Per the task stop rule, no other release values were tried and no bounds
+  were touched. No full-suite, fmt, clippy, release-build, or TIs TIN
+  regression runs were done under the changed code; the change was reverted
+  instead, so no new TIs TIN hash exists (committed hash 870D...C4B0 stands).
+
+Interpretation: with release at 80 ms the follower holds HIGH gain through
+short troughs (preserving fill was the intent), but the zero-phase
+(causal+anticausal geometric mean) follower also holds LOW envelope through
+trough entries: gain is computed from the smoothed envelope, and a slow
+release delays the envelope's fall toward the trough floor, so the knee sees
+a shallower dip and applies less lift exactly where the 60-110 ms troughs
+need it most. Smoothing gain motion and filling trough entries turn out to
+be in tension with this follower topology, not complementary.
+
+Artifacts: gain-pre/post-{hello,annyeong,yeobo}.txt (gain trajectories in dB),
+pre/post-*.wav (debug-build renders for measurement only), pump3.py,
+leveling.log (failing run), leveling-restored.log (3/3 green after revert).
+
+---
+Attempt-2 (causal-only follower; STOPPED, NEEDS_CONTEXT):
+
+Pre-change check: tree verified at the reverted clean state (synth.rs:949
+release 0.008, no ARTICUL_GAIN_TRAJ under crates/) and leveling 3/3 green
+before any edit.
+
+Code shape: clean single-point removal existed. The anticausal pass is one
+contiguous block (env_b backward loop) plus one use site (geometric mean).
+Change tested (REVERTED after gate break, tree restored, 3/3 green
+re-confirmed post-revert):
+  deleted the env_b backward loop (was synth.rs:958-965) and replaced the
+  geometric-mean line (mean of env_f[i] and env_b[i]) with
+    let e = env_f[i];
+  Causal follower untouched (attack 12 ms, release 8 ms, 20 ms windows);
+  knee, +16 dB cap, transient tamer, 10 ms gain smoothing, ceiling untouched.
+
+Gate results under the causal-only follower (STOP condition met):
+  intra_word_troughs_bounded (>= -12 dB): FAIL on annyeong
+    (logs/0.0.0.23.2/leveling-r2.log): "trough -12.1dB deeper than -12dB".
+    Same-algorithm wav measurement on debug renders
+    (probe/0.0.0.23.2/r2-post-*.wav, logs/0.0.0.23.2/gates-r2.log):
+    hello rms 0.2203 / trough -3.84 dB (no gate, reported),
+    annyeong rms 0.1290 / trough -12.13 dB (0.13 dB violation; baseline
+    -10.51 dB, so the 1.5 dB margin broke by 1.6 dB of trough deepening),
+    yeobo rms 0.1436 / trough -9.34 dB PASS / tail 0.0898 PASS.
+    demo_rms_audible and tail_not_buried PASS; only the annyeong trough
+    gate breaks, by 0.13 dB.
+  Per the round-2 stop rule, no pump trajectories were dumped, no full
+  suite / fmt / clippy / release / TIs TIN runs were done under the changed
+  code, and no lead/lag analysis was run (it requires the same temporary
+  dump instrumentation, now pointless against a gate-breaking candidate).
+  The change was reverted instead; no new TIs TIN hash exists (committed
+  hash 870D...C4B0 stands).
+
+Interpretation: the anticausal pass was contributing ~1.6 dB of trough-entry
+fill on annyeong (pre-onset gain rise reaching into the 610-680 ms trough
+from the following energy). Removing it deepens the trough past the bound
+even though the violation is only 0.13 dB. Both single-variable dynamics
+attempts now agree: with this knee + 8 ms-release topology, the trough-fill
+margin (1.5 dB) is fully consumed by the same mechanism that would smooth
+or de-pre-swell the gain. The remaining slack is in neither the release
+time constant nor the zero-phase pass.
+
+---
+Attempt-3 (causal-only follower + trough re-baseline 12 -> 14 dB): DONE.
+
+Coordinator ruling (quoted): "the trough bound 12dB -> 14dB is RE-BASELINED,
+not loosened arbitrarily. Justification: (1) the bound's original intent
+(0.0.0.22.3) was 'troughs audibly better than the -22dB choppy baseline' --
+-14dB is still 8dB better; (2) user priority has shifted from choppiness to
+breathing, and attempts 1-2 prove the 12dB bound blocks every de-breathing
+move (release-80: -15.6; causal-only: -12.1); (3) the user's ear is the final
+gate on the shipped demos. This is the ONLY bound change allowed."
+Precedent cited: 0.0.0.19.3 halves 3->5dB re-baseline.
+
+Pre-change check: tree verified at the reverted clean state (env_b present,
+release 0.008, no dump code) and leveling 3/3 green before any edit.
+
+Changes (exactly two, production + test):
+  1. crates/articul-cli/src/synth.rs: deleted the env_b anticausal backward
+     loop (was :958-965) and replaced the geometric-mean line (mean of
+     env_f[i] and env_b[i]) with
+       let e = env_f[i];
+     Causal follower untouched (attack 12 ms, release 8 ms, 20 ms windows);
+     knee, +16 dB cap, transient tamer, 10 ms gain smoothing, 1.25x0.989
+     ceiling untouched.
+  2. crates/articul-cli/tests/leveling.rs: trough bound -12.0 -> -14.0
+     (assert + message text; test logic identical). No other gate file
+     touched.
+
+Gates (all green; logs in logs/0.0.0.23.2/):
+  - cargo test -p articul-cli --test leveling -> leveling-r3.log: 3/3 ok.
+  - cargo test --workspace -> test-workspace-r3.log: zero failures in
+    every suite (including leveling 3/3 and old-input balance pin).
+  - cargo fmt --check -> fmt-check-r3.log + fmt-check-r3-final.log: clean.
+  - cargo clippy --workspace --all-targets -- -D warnings -> clippy-r3.log:
+    clean.
+  - Final-code wav measurements (logs/0.0.0.23.2/gates-r3.log):
+    hello rms 0.2203 (PASS >= 0.10), peak 0.9890, trough -3.84 (no gate);
+    annyeong rms 0.1290 (PASS), trough -12.13 dB (PASS >= -14.0, margin
+    1.9 dB), peak 0.9890; yeobo rms 0.1436 (PASS), trough -9.34 (PASS),
+    tail 0.0898 (PASS >= 0.03).
+  No gate other than the re-baselined trough was touched; none breaks.
+
+Pump (pump3.py two-sided detrended 3-8 Hz, logs/0.0.0.23.2/pump3-r3.log;
+pre = attempt-1 zero-phase baselines hello 4.99, annyeong 6.11, yeobo 5.64):
+  hello    4.99 -> 4.90 dB (-0.09; kept bins 2-5 + mirrors)
+  annyeong 6.11 -> 6.42 dB (+0.31; kept bins 4-10 + mirrors)
+  yeobo    5.64 -> 6.22 dB (+0.58; kept bins 4-10 + mirrors)
+  Reported honestly: magnitude did NOT reduce on 2 of 3 (essentially
+  unchanged, +/-0.6 dB). The causal follower tracks the same syllable-rate
+  energy; removing lookahead does not shrink the modulation depth, it only
+  re-times it. The magnitude bar was NOT met (4.99->4.90, 6.11->6.42,
+  5.64->6.22); what changed is timing (pre-duck eliminated, lag 0ms).
+  Perceptual verdict deferred to user listening on 0.0.0.23.3 demos.
+
+Lead/lag (probe/0.0.0.23.2/leadlag.py, logs/0.0.0.23.2/leadlag-r3.log;
+pre = gain-pre-hello.txt, post = gain-r3-post-hello.txt; wrms identical):
+  Initial voicing onset (h->E, energy jump w0->w1, +9.4 dB): pre-run gain
+  at w0 (t = 0-20 ms, before any voicing energy) sits 0.549 dB BELOW the
+  causal value -- a 20 ms pre-duck of the [h] murmur on future energy.
+  Post-run holds full boost 5.195 dB through w0 and falls 4.665 dB across
+  w0-w2 only after energy arrives: lag 0 ms (pure causal tracking).
+  Stressed lateral onset (l->oU, energy jump w10->w11): pre-run shows a
+  growing pre-duck (-0.016, -0.046, -0.085 dB at w9-w11 vs causal);
+  post-run fall begins with the actual energy rise: lag 0 ms.
+  Verdict: pre-swelling GONE (lag >= 0 ms on both hello onsets).
+
+CLI regression (release build, logs/0.0.0.23.2/release-r3.log +
+cli-regression-r3.log):
+  probe/0.0.0.23.2/regression-r3-a.wav and regression-r3-b.wav: 8822
+  samples each (count unchanged), sha256
+  B832514D56698CCE417ED3D16BA549312C7AB8573811457FFF49A12107C24620 both.
+  Determinism: byte-identical. Hash ROTATED from 870D...C4B0 as expected
+  (dynamics changed; verified, not assumed).
+
+Probe hygiene: temporary gain dump added for measurement, then reverted
+exactly (grep-zero for ARTICUL_GAIN_TRAJ and env_b under crates/);
+audio-neutrality of the revert proven by re-render (r3-verify-hello.wav
+sha prefix a2e48409d461d273 == r3-post-hello.wav). Final source contains
+only the two allowed edits. End-state proof:
+logs/0.0.0.23.2/leveling-final-tree.log re-runs the leveling suite on the
+current tree (identical to the attempt-3 green state; no code reintroduced
+or changed since), 3/3 green -- it doubles as revert+final evidence. Attempt-1/2 artifacts intact; round-3 files
+use -r3 names (gain-r3-post-*.txt, r3-post/r3-verify-*.wav, leadlag.py,
+leveling-r3, test-workspace-r3, fmt-check-r3(-final), clippy-r3,
+release-r3, cli-regression-r3, pump3-r3, leadlag-r3, gates-r3).

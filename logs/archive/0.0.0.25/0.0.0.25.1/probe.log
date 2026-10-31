@@ -1,0 +1,66 @@
+0.0.0.25.1 probe.log - console transcript (PowerShell 5.1, no &&)
+============================================================================
+
+[1] dirs
+  New-Item -ItemType Directory -Force -Path probe/0.0.0.25.1 -> ok
+  New-Item -ItemType Directory -Force -Path logs/0.0.0.25.1 -> ok
+
+[2] fresh renders (default voice, 22050 Hz)
+  ./target/release/articul.exe synthesize --text 'hE "loU' --voice config/default-voice.toml --out probe/0.0.0.25.1/hello.wav
+    wrote 9792 samples to probe/0.0.0.25.1/hello.wav
+  ./target/release/articul.exe synthesize --text '%an njVN "hasejo' --voice config/default-voice.toml --out probe/0.0.0.25.1/annyeong.wav
+    wrote 17446 samples to probe/0.0.0.25.1/annyeong.wav
+  .\target\release\articul.exe synthesize --text '%jV"bo%se%jo' --voice config/default-voice.toml --out probe/0.0.0.25.1/yeobo.wav
+    wrote 14666 samples to probe/0.0.0.25.1/yeobo.wav
+  (note: one './'-prefix call failed to parse under the '%jV"bo...' quoting;
+   retried with backslash path, same args, succeeded. counts match demo/.)
+
+[3] byte-identity vs demo/ (Get-FileHash sha256)
+  hello:    20C32A07DFFFB2FDA40D4AC23486A6C4FC8AC85721E484FFC5672ADAFEEAABC2 match
+  annyeong: BA344CD813DC455D8BFD951BB09247D9A316437EB2B541B9C5F076862D9CD873 match
+  yeobo:    86942E5F19ED24D679732F0421F8B01FFD0234CEF17169EBA5E01197B3F5D8DE match
+  (identical to logs/archive/0.0.0.24/0.0.0.24.3/demo.log hashes)
+
+[4] prescribed 4x detector
+  python3 probe/0.0.0.25.1/sparks.py
+    hello:    1 spark (t0=3.0ms amp=0.0898 dur=1ms) nearest b1 d=67.0 miss
+    annyeong: 0 sparks. yeobo: 0 sparks. TOTAL 1 spark 0 hits rate 0.00
+
+[5] sensitivity sweep (same detector, lower bars)
+  python3 probe/0.0.0.25.1/sweep.py  (crest stats + per-boundary ratios)
+    hello crest max=4.24 at 150.7ms; annyeong max=5.54 at 402.1ms; yeobo max=4.89 at 490.9ms
+    per-boundary max ratios 1.17-3.08; strongest annyeong b6 N->h 3.08
+  python3 probe/0.0.0.25.1/sweep2.py (threshold sweep + segment context)
+    2.0x -> 12 sparks 9 hits rate 0.75
+    2.5x -> 10 sparks 8 hits rate 0.80
+    3.0x -> 2 sparks 1 hit rate 0.50
+    4.0x -> 1 spark 0 hits rate 0.00
+    all 3 non-tabled events at 2.0x sit at t0=1-3ms (seg-0 onset)
+
+[6] band excess + full-scale map
+  band excess script -> spark energy bulk low-mid (formant/harmonic boost) with
+  HF ratio lift to x844 (annyeong b1) / x23778 (yeobo b1) vs near-zero HF floor
+  |x|>0.9 groups: hello 3/3 at boundaries d<=0.9ms; annyeong 600.4-608.6ms
+  straddling b9 d=5.8; yeobo 327.3-337.6ms straddling b5 d=8.8
+
+[7] code inspection (read-only; grep + read)
+  synth.rs:909-934 fresh CascadeFilter/ParallelFilter per Single unit
+  synth.rs:935-942 fresh notch/lateral per segment
+  synth.rs:217-220,228-236,242-249 replay warmup; 221-225,232-235 retuned stepping
+  source.rs:34,72,117,169,220,273,317 phase 0.0 init (all generate paths)
+  synth.rs:488-497,570-574 fresh src.generate per unit
+  synth.rs:1047 (5ms ring), 1063 (2.2x/0.05 floor), 1065 (0.08 residual)
+  synth.rs:1080-1081 attack 12ms/release 8ms; 1104 gain smoothing 10ms
+  synth.rs:782 short 8ms/176; 783 glide 50ms/1102 (unexercised); 951-958 fades;
+    740-744 mixed-linear xfade; 695-715 gain-track xfade
+  synth.rs:481-489 creak condition; source.rs:303-347 generate_creak
+
+[8] outputs written (no engine/source/config/demo/todo/CHANGELOG/README edits)
+  probe/0.0.0.25.1/hello.wav, annyeong.wav, yeobo.wav (fresh renders)
+  probe/0.0.0.25.1/sparks.py, sweep.py, sweep2.py, final.py (probe scripts)
+  probe/0.0.0.25.1/sparks.txt (spark tables + hit rates + verdict)
+  logs/0.0.0.25.1/probe.log (this file)
+
+Verdict: segment-start cluster -> 0.0.0.25.2 filter-state carry (or segment-start
+fade-in). 8/10 at 2.5x within +-10ms of tabled boundaries (10/10 incl. seg-0
+onset). Worst: hello b2/b3 amp 0.9890 dur 1-2ms; annyeong b6 ratio 3.08.

@@ -1,0 +1,23 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.01s
+     Running tests\lateral_zero.rs (target\debug\deps\lateral_zero-efc8bd84b3de84cd.exe)
+
+running 2 tests
+test coda_lateral_has_no_notch ... ok
+test lateral_window_has_notch ... FAILED
+
+failures:
+
+---- lateral_window_has_notch stdout ----
+
+thread 'lateral_window_has_notch' (17764) panicked at crates\articul-cli\tests\lateral_zero.rs:171:5:
+stressed-onset lateral window must show 2-3kHz notch depth >= 6dB, got -5.51dB
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    lateral_window_has_notch
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.73s
+
+error: test failed, to rerun pass `-p articul-cli --test lateral_zero`

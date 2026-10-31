@@ -1,0 +1,14 @@
+Signal forensics: demo/hello.wav vs probe/archive/0.0.0.17/0.0.0.17.5/regression-a.wav
+Method: python3 + numpy + wave stdlib (no scipy, no new deps); int16 -> float/32768.
+Bands from whole-file Hann-windowed power spectrum; silence = 100 ms window RMS < 0.02.
+
+metric | hello (demo/hello.wav) | regression-a (probe/.../0.0.0.17.5/regression-a.wav)
+hello | sr=22050 frames=8248 dur=0.374s peak=0.9000 rms=0.0386 dc=+0.00587 clip=0.0000 zcr=0.1061 cent=3351.5Hz b0-300=0.276 b300-3400=0.666 b4k+=0.055 sil<0.02=0.000
+regression-a | sr=22050 frames=8822 dur=0.400s peak=0.9000 rms=0.0882 dc=+0.00139 clip=0.0000 zcr=0.2459 cent=6544.4Hz b0-300=0.002 b300-3400=0.016 b4k+=0.961 sil<0.02=0.750
+hello 100ms RMS (3 windows): 0.026 0.044 0.054
+regression-a 100ms RMS (4 windows): 0.013 0.175 0.011 0.006
+
+Notes:
+- Both files peak-normalized to exactly 0.9000 (masks true level; RMS ratio 2.3x).
+- hello: flat low envelope, no silent windows, 0.374 s total (short for a word).
+- regression-a: single loud window (0.175) surrounded by near-silence; 96.1% of energy above 4 kHz.

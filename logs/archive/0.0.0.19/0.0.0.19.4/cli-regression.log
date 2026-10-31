@@ -1,0 +1,12 @@
+TIs TIN release CLI regression
+command-a: target\release\articul.exe synthesize --text "TIs TIN" --voice config/default-voice.toml --out probe\0.0.0.19.4\regression-a.wav
+command-b: target\release\articul.exe synthesize --text "TIs TIN" --voice config/default-voice.toml --out probe\0.0.0.19.4\regression-b.wav
+samples-a: 8822
+samples-b: 8822
+bytes-a: 17688
+bytes-b: 17688
+sha256-a: 3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93
+sha256-b: 3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93
+deterministic: true (byte-identical)
+hash-change-vs-prior: unchanged (3d31..., identical to 0.0.0.18.5 and 0.0.0.19.2 and 0.0.0.19.3; TIs TIN has no laterals so no shift, as expected)
+note: hello probe probe\0.0.0.19.4\hello.wav renders 9792 samples (prior 9351 after GOAT merge; +441 from 70ms lateral floor on the stressed-onset l)

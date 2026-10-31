@@ -1,0 +1,54 @@
+0.0.0.23.1 breathing-source probe - breathing.txt (no code change)
+
+Inputs (default voice, 22050 Hz), fresh renders byte-identical to demos:
+  hello:    `hE "loU`        -> probe/0.0.0.23.1/hello.wav,    9792 samples, sha ebac6825... == demo/hello.wav
+  annyeong: `%an njVN "hasejo` -> probe/0.0.0.23.1/annyeong.wav, 17446 samples, sha 8d090973... == demo/annyeonghaseyo.wav
+  yeobo:    `%jV"bo%se%jo`   -> probe/0.0.0.23.1/yeobo.wav,    14666 samples, sha 4512b944... == demo/yeoboseyo.wav
+
+Known trough windows (0.0.0.22.1 gaps.txt + 0.0.0.22.3/0.0.0.22.4 summaries):
+  annyeong 610-680 ms (pre -18.6 dB, post -10.51 dB); yeobo 340-450 ms (pre -15.1, post -8.97);
+  hello has no trough (post max depth -3.87 dB; this probe confirms: no dip below -8 dB outside final 150 ms fade).
+
+Method (probe/0.0.0.23.1/breathing_probe.py): each trough split into 20 ms
+sub-windows; per sub-window Hann DFT, speech-band (300-3400 Hz) RMS and HF
+(4k+ Hz) RMS derived from band power fractions x total RMS; Pearson r of
+HF-RMS vs total-RMS across sub-windows. Makeup gain estimated by proxy only:
+code inspection (synth.rs:908-999 level_output) shows gain is NOT inferable
+without code changes - transient tamer mutates the waveform before the
+envelope follower, and applied gain = knee(zero-phase geometric-mean
+causal+anticausal follower) + 10 ms smoothing + per-sample interpolation +
+global 1.25x scale/clamp; no pre/post pair or bypass flag is exposed, so no
+observable ratio isolates makeup gain. Proxy per task spec: HF-RMS/total-RMS
+correlation (high r = noise rides the same envelope = breathing signature).
+
+Results (20 ms sub-windows, task-specified resolution):
+  annyeong 610-680 ms (n=4): r(HF,total) = -0.433 | r(speech,total) = +0.992
+    HFfrac = 0.016, speechfrac = 0.548; HF -46.8 dBFS vs speech -31.3 dBFS (HF 15.5 dB below speech)
+  yeobo 340-450 ms (n=6):    r(HF,total) = +0.017 | r(speech,total) = +0.993
+    HFfrac = 0.004, speechfrac = 0.581; HF -48.3 dBFS vs speech -26.6 dBFS (HF 21.7 dB below speech)
+  hello: no trough to test (excluded; only 1 trough-bearing demo pair exists, both measured).
+
+Sensitivity (10 ms sub-windows): annyeong n=8 rHF = 0.610, yeobo n=12 rHF = 0.282 -
+both still below the 0.7 gate, and r is volatile at n <= 12; the load-bearing
+finding is resolution-stable: trough HF energy is negligible (frac <= 0.14 even
+at 10 ms) while speech band carries ~0.47-0.58 of trough power, ABOVE the
+file-global speech shares (annyeong 0.457, yeobo 0.187). Troughs are voiced
+pockets in globally HF-heavy files - there is almost no HF noise present for
+the leveler to lift.
+
+VERDICT: hypothesis REJECTED. 0 of 2 troughs meet r > 0.7 at the specified
+20 ms resolution (max observed r = +0.017, one negative). The swell the
+leveler adds in troughs is voiced-only (speech-band r = 0.99, HF 15-22 dB
+below speech). Do NOT proceed to 0.0.0.23.2 as specified (voicing-weighted
+makeup gain targets a mechanism with no measurable presence).
+
+New direction for 0.0.0.23.2 (pivot, same gates: RMS >= 0.10, trough <= 12 dB, tail >= 0.03):
+  The audible pumping more plausibly IS the syllable-rate gain motion itself
+  (0.0.0.22.3 round-3: detrended two-sided 3-8 Hz p95-p5 = 4.99 dB on hello
+  only) amplitude-modulating low-level VOICED residue in troughs, not lifted
+  noise. Two single-variable candidates: (a) cap or soften the sub--12 dB knee
+  (+0.85 dB/dB below -12 dB, cap +16 dB, synth.rs:970-979) so trough lift is
+  shallower while peaks keep RMS; (b) slow the follower release (8 ms ->
+  longer) and re-measure detrended 3-8 Hz motion per demo (22.3 measured hello
+  only - extend to all three). Either keeps the trough/RMS/tail gates as the
+  stop rule.

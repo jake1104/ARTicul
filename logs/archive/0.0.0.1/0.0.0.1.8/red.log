@@ -1,0 +1,21 @@
+   Compiling articul-phon v0.0.0 (E:\01_coding\ARTicul\crates\articul-phon)
+error[E0425]: cannot find function `devoice_obstruent` in crate `articul_phon`
+ --> crates\articul-phon\tests\rules.rs:6:29
+  |
+6 |     let out = articul_phon::devoice_obstruent(&b);
+  |                             ^^^^^^^^^^^^^^^^^ not found in `articul_phon`
+
+error[E0425]: cannot find function `nasalize_vowel` in crate `articul_phon`
+  --> crates\articul-phon\tests\rules.rs:15:29
+   |
+15 |     let out = articul_phon::nasalize_vowel(&i);
+   |                             ^^^^^^^^^^^^^^ not found in `articul_phon`
+
+error[E0425]: cannot find function `apply_rule` in crate `articul_phon`
+  --> crates\articul-phon\tests\rules.rs:22:29
+   |
+22 |     let out = articul_phon::apply_rule(&b);
+   |                             ^^^^^^^^^^ not found in `articul_phon`
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `articul-phon` (test "rules") due to 3 previous errors

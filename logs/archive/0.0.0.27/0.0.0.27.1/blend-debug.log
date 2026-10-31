@@ -1,0 +1,54 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.67s
+     Running tests\blend_probe_tmp.rs (target\debug\deps\blend_probe_tmp-3765d51650d669fc.exe)
+
+running 1 test
+BLEND idx=0 path=linear n=0 Apeak=0.0000 Arms=0.0000 Bpeak=0.0000 Brms=0.0000 Mpeak=0.0000 Mrms=0.0000
+BLEND idx=1 path=glide n=176 Apeak=0.2618 Arms=0.0877 Bpeak=0.5198 Brms=0.2433 Mpeak=0.4452 Mrms=0.1350
+BLEND idx=2 path=glide n=176 Apeak=0.6748 Arms=0.3381 Bpeak=0.5503 Brms=0.2765 Mpeak=0.3810 Mrms=0.1612
+BLEND idx=3 path=glide n=176 Apeak=0.6485 Arms=0.3160 Bpeak=0.6177 Brms=0.3218 Mpeak=0.5946 Mrms=0.2616
+hE "loU start1 pos=1544 fade=176 winpeak=0.9890 uncl=0.9480 cl=4 | blend[1368..1720] peak=0.9890 rms=0.4044 | left20ms peak=0.7398 rms=0.2890 | right20ms peak=0.6077 rms=0.2674
+hE "loU start2 pos=3330 fade=176 winpeak=0.9890 uncl=0.9360 cl=1 | blend[3154..3506] peak=0.9890 rms=0.2408 | left20ms peak=0.5861 rms=0.2559 | right20ms peak=0.3378 rms=0.1804
+hE "loU start3 pos=4698 fade=176 winpeak=0.9890 uncl=0.5098 cl=1 | blend[4522..4874] peak=0.9890 rms=0.2235 | left20ms peak=0.3640 rms=0.1963 | right20ms peak=0.6106 rms=0.2956
+BLEND idx=0 path=linear n=0 Apeak=0.0000 Arms=0.0000 Bpeak=0.0000 Brms=0.0000 Mpeak=0.0000 Mrms=0.0000
+BLEND idx=1 path=glide n=176 Apeak=0.8985 Arms=0.4625 Bpeak=0.6032 Brms=0.2905 Mpeak=0.3984 Mrms=0.1692
+BLEND idx=2 path=glide n=176 Apeak=0.4059 Arms=0.1873 Bpeak=0.3682 Brms=0.1798 Mpeak=0.3768 Mrms=0.1673
+BLEND idx=3 path=glide n=176 Apeak=0.3405 Arms=0.1678 Bpeak=0.3484 Brms=0.1762 Mpeak=0.3374 Mrms=0.1786
+BLEND idx=4 path=glide n=176 Apeak=0.3590 Arms=0.1962 Bpeak=0.4196 Brms=0.2008 Mpeak=0.3137 Mrms=0.1804
+BLEND idx=5 path=glide n=176 Apeak=0.4856 Arms=0.2178 Bpeak=0.3395 Brms=0.1683 Mpeak=0.3856 Mrms=0.1809
+BLEND idx=6 path=glide n=176 Apeak=0.2669 Arms=0.1402 Bpeak=0.0376 Brms=0.0117 Mpeak=0.1035 Mrms=0.0532
+BLEND idx=7 path=glide n=176 Apeak=0.2362 Arms=0.0886 Bpeak=0.3904 Brms=0.2078 Mpeak=0.3914 Mrms=0.1569
+BLEND idx=8 path=linear n=176 Apeak=0.4267 Arms=0.1943 Bpeak=0.0518 Brms=0.0157 Mpeak=0.3139 Mrms=0.1475
+BLEND idx=9 path=linear n=176 Apeak=0.3495 Arms=0.1494 Bpeak=0.2826 Brms=0.1370 Mpeak=0.3037 Mrms=0.1002
+BLEND idx=10 path=glide n=176 Apeak=0.2607 Arms=0.1433 Bpeak=0.2785 Brms=0.1405 Mpeak=0.1813 Mrms=0.0943
+BLEND idx=11 path=glide n=176 Apeak=0.2655 Arms=0.1152 Bpeak=0.2650 Brms=0.1582 Mpeak=0.4857 Mrms=0.2024
+%an njVN "hasejo start1 pos=3771 fade=176 winpeak=0.6028 uncl=0.6028 cl=0 | blend[3595..3947] peak=0.6028 rms=0.1358 | left20ms peak=0.3278 rms=0.1428 | right20ms peak=0.1986 rms=0.0903
+%an njVN "hasejo start2 pos=4742 fade=176 winpeak=0.2187 uncl=0.2187 cl=0 | blend[4566..4918] peak=0.2164 rms=0.0811 | left20ms peak=0.2099 rms=0.0930 | right20ms peak=0.2187 rms=0.0941
+%an njVN "hasejo start3 pos=5558 fade=176 winpeak=0.2308 uncl=0.2308 cl=0 | blend[5382..5734] peak=0.2308 rms=0.0889 | left20ms peak=0.2042 rms=0.0942 | right20ms peak=0.2137 rms=0.0959
+%an njVN "hasejo start4 pos=6286 fade=176 winpeak=0.2083 uncl=0.2083 cl=0 | blend[6110..6462] peak=0.2137 rms=0.0916 | left20ms peak=0.2102 rms=0.0947 | right20ms peak=0.1991 rms=0.0933
+%an njVN "hasejo start5 pos=8050 fade=176 winpeak=0.2105 uncl=0.2105 cl=0 | blend[7874..8226] peak=0.2638 rms=0.0978 | left20ms peak=0.2474 rms=0.1025 | right20ms peak=0.2220 rms=0.0872
+%an njVN "hasejo start6 pos=8866 fade=176 winpeak=0.4335 uncl=0.4335 cl=0 | blend[8690..9042] peak=0.4335 rms=0.0765 | left20ms peak=0.2220 rms=0.0923 | right20ms peak=0.1646 rms=0.0690
+%an njVN "hasejo start7 pos=9837 fade=176 winpeak=0.3452 uncl=0.3452 cl=0 | blend[9661..10013] peak=0.3452 rms=0.1287 | left20ms peak=0.2438 rms=0.0851 | right20ms peak=0.2239 rms=0.1092
+%an njVN "hasejo start8 pos=12263 fade=176 winpeak=0.2003 uncl=0.2003 cl=0 | blend[12087..12439] peak=0.1500 rms=0.0596 | left20ms peak=0.2676 rms=0.1097 | right20ms peak=0.5104 rms=0.1847
+%an njVN "hasejo start9 pos=13366 fade=176 winpeak=0.9890 uncl=0.9806 cl=1 | blend[13190..13542] peak=0.9890 rms=0.4333 | left20ms peak=0.8071 rms=0.2883 | right20ms peak=0.1333 rms=0.0531
+%an njVN "hasejo start10 pos=14645 fade=176 winpeak=0.2157 uncl=0.2157 cl=0 | blend[14469..14821] peak=0.2304 rms=0.0777 | left20ms peak=0.2063 rms=0.0816 | right20ms peak=0.2157 rms=0.0632
+%an njVN "hasejo start11 pos=15373 fade=176 winpeak=0.7608 uncl=0.7608 cl=0 | blend[15197..15549] peak=0.7608 rms=0.1621 | left20ms peak=0.2157 rms=0.0639 | right20ms peak=0.3113 rms=0.0603
+BLEND idx=0 path=linear n=0 Apeak=0.0000 Arms=0.0000 Bpeak=0.0000 Brms=0.0000 Mpeak=0.0000 Mrms=0.0000
+BLEND idx=1 path=glide n=176 Apeak=0.6463 Arms=0.2771 Bpeak=0.7631 Brms=0.3695 Mpeak=0.7123 Mrms=0.3637
+BLEND idx=2 path=glide n=176 Apeak=0.9778 Arms=0.5290 Bpeak=0.9425 Brms=0.4708 Mpeak=0.9420 Mrms=0.4806
+BLEND idx=3 path=glide n=176 Apeak=1.1238 Arms=0.5017 Bpeak=0.8807 Brms=0.4501 Mpeak=1.3488 Mrms=0.4933
+BLEND idx=4 path=linear n=176 Apeak=0.6616 Arms=0.2977 Bpeak=0.0742 Brms=0.0226 Mpeak=0.3184 Mrms=0.1297
+BLEND idx=5 path=linear n=176 Apeak=0.7625 Arms=0.2594 Bpeak=0.5293 Brms=0.2563 Mpeak=0.5254 Mrms=0.1760
+BLEND idx=6 path=glide n=176 Apeak=0.4977 Arms=0.2672 Bpeak=0.3776 Brms=0.1914 Mpeak=0.2736 Mrms=0.1286
+BLEND idx=7 path=glide n=176 Apeak=0.3116 Arms=0.1391 Bpeak=0.3899 Brms=0.2328 Mpeak=0.5535 Mrms=0.2611
+%jV"bo%se%jo start1 pos=772 fade=176 winpeak=0.4577 uncl=0.4577 cl=0 | blend[596..948] peak=0.4577 rms=0.1028 | left20ms peak=0.1914 rms=0.0889 | right20ms peak=0.3126 rms=0.1418
+%jV"bo%se%jo start2 pos=3463 fade=176 winpeak=0.3803 uncl=0.3803 cl=0 | blend[3287..3639] peak=0.3803 rms=0.1379 | left20ms peak=0.3021 rms=0.1329 | right20ms peak=0.3004 rms=0.1089
+%jV"bo%se%jo start3 pos=4191 fade=176 winpeak=0.5632 uncl=0.5632 cl=0 | blend[4015..4367] peak=0.5632 rms=0.1492 | left20ms peak=0.3004 rms=0.1100 | right20ms peak=0.2610 rms=0.1206
+%jV"bo%se%jo start4 pos=6286 fade=176 winpeak=0.2242 uncl=0.2242 cl=0 | blend[6110..6462] peak=0.1722 rms=0.0682 | left20ms peak=0.2343 rms=0.1045 | right20ms peak=0.5281 rms=0.1962
+%jV"bo%se%jo start5 pos=7411 fade=176 winpeak=0.9890 uncl=0.8953 cl=2 | blend[7235..7587] peak=0.9890 rms=0.4408 | left20ms peak=0.9890 rms=0.3199 | right20ms peak=0.1901 rms=0.0757
+%jV"bo%se%jo start6 pos=10079 fade=176 winpeak=0.4840 uncl=0.4840 cl=0 | blend[9903..10255] peak=0.4840 rms=0.1180 | left20ms peak=0.3047 rms=0.1232 | right20ms peak=0.1755 rms=0.0617
+%jV"bo%se%jo start7 pos=10807 fade=176 winpeak=0.7264 uncl=0.7264 cl=0 | blend[10631..10983] peak=0.7264 rms=0.1615 | left20ms peak=0.1755 rms=0.0603 | right20ms peak=0.3363 rms=0.0828
+test blend_probe ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+

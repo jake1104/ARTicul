@@ -1,0 +1,53 @@
+=====================================================
+Attempt 4 - soft-saturation ceiling (NEEDS_CONTEXT, stopped pre-gate)
+=====================================================
+Revert of attempt 3 stated explicitly: the 2 ms end-taper block removed
+from render_units in crates/articul-cli/src/synth.rs (single edit restoring
+`let mut fades`). Verified zero residue: grep end_taper|warmup|WARMUP|
+start_phase|voice_phase over crates/ = zero. Clean-tree gates BEFORE any
+new change: leveling 3/3 + junction_smooth + nasal all green
+(logs/0.0.0.25.2/test-revert-attempt4.txt, exit 0). junction_nospark.rs kept
+in-tree as instructed (not deleted).
+
+Pre-fix harshness measurement (clean tree, NEW method - full DFT per
+window, no thresholding): per non-initial boundary window
+([start, start+10ms], work-group/output-timeline convention shared with
+junction_smooth.rs) HF fraction = DFT energy above 4 kHz / total window
+energy, plus flat-top count = samples with |x| >= 0.985 and
+|x[n]-x[n-1]| < 1e-9. Tally over hE "loU + both Korean demos:
+MEAN_HF = 0.215926 over N = 21 windows (bound at 0.7x = 0.151148),
+TOTAL_FLATTOPS = 0 (logs/0.0.0.25.2/tmp-hfprobe-prefix.txt; per-window
+table in the same log; probe sources crates/.../tmp_hfprobe.rs measured
+then removed per probe discipline).
+
+STOP per the explicit rule: the flat-top leg CANNOT fail pre-fix (count is
+already 0). Clamped 0.989 peaks in this signal are isolated single samples
+(1-2-sample transient spikes; frication bodies alternate sign/sample so no
+adjacent pair is ever exactly equal), never sustained plateaus, so under
+the task's exact flat-top definition there is nothing to eliminate. The HF
+leg alone would be a valid red (0.215926 > 0.151148 fails by construction),
+but the rule requires both legs viable - do not invent a gate. No ceiling
+code was touched; no junction_noclick.rs was written.
+
+Gate-file bug found and fixed during measurement: is_goat_offglide in both
+junction_nospark.rs and the temp probe carried a mangled offglide literal
+("\x8a" control char instead of the "\u{028A}" Rust escape), so the GOAT
+pair never merged (22 windows incl. a bogus o->U interior window vs the
+correct 21). Fixed byte-exact via probe/0.0.0.25.2/fix_escape.py (kept as
+evidence); all prior peak-gate verdicts are unaffected (the bogus window
+peaked 0.31 < 0.9, and real-boundary positions coincide either way).
+junction_nospark.rs re-run post-fix still fails on the identical assert
+(logs/0.0.0.25.2/test-attempt4-red.txt): hello start1 pos=1544 peak=0.9890.
+fmt clean (logs/0.0.0.25.2/fmt-attempt4.txt).
+
+Per-window HF fractions (pre-fix, correct 21-window merge) for the record:
+hello b1 0.024286, b2 0.061846, b3 0.091836; annyeong b1 0.096931,
+b2 0.023086, b3 0.011035, b4 0.044364, b5 0.012405, b6 0.143941,
+b7 0.004949, b8 0.827051, b9 0.947012, b10 0.023858, b11 0.057696;
+yeobo b1 0.041408, b2 0.055768, b3 0.053132, b4 0.851076, b5 0.973155,
+b6 0.134914, b7 0.054703. Note the mean is dominated by the two phonetic
+/s/ windows (b9 0.947, b5 0.973) and /s/-adjacent b8/b4 (0.827/0.851):
+legitimate frication HF the ceiling must NOT remove, which is also why a
+0.7x mean gate's achievability by soft saturation alone was unproven.
+State: clean tree + escape-fixed TDD gate in-tree, no implementation
+change, attempt-1/2/3 artifacts untouched.

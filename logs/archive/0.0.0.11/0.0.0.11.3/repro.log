@@ -1,0 +1,24 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+error[E0428]: the name `rms` is defined multiple times
+   --> crates\articul-cli\tests\gain.rs:126:1
+    |
+112 | fn rms(x: &[f32]) -> f32 {
+    | ------------------------ previous definition of the value `rms` here
+...
+126 | fn rms(x: &[f32]) -> f32 {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^ `rms` redefined here
+    |
+    = note: `rms` must be defined only once in the value namespace of this module
+
+error[E0425]: cannot find function `render_units_seq_helper` in this scope
+   --> crates\articul-cli\tests\gain.rs:149:25
+    |
+130 | fn render_units_seq(word: &str, marks: &[Stress]) -> (Vec<f32>, Vec<usize>) {
+    | --------------------------------------------------------------------------- similarly named function `render_units_seq` defined here
+...
+149 |     let (out, starts) = render_units_seq_helper(&marks);
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^ help: a function with a similar name exists: `render_units_seq`
+
+Some errors have detailed explanations: E0425, E0428.
+For more information about an error, try `rustc --explain E0425`.
+error: could not compile `articul-cli` (test "gain") due to 2 previous errors

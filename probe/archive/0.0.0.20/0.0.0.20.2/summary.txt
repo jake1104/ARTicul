@@ -1,0 +1,169 @@
+Task 0.0.0.20.2 lateral zero addition
+
+Result: lateral antiformant zero added at 2500 Hz / 300 Hz via the nasal-zero
+reuse path. Stressed-onset lateral window shows 9.55 dB notch depth with F1/F2
+preserved. All gates green. TIs TIN hash unchanged.
+
+Zero function
+- crates/articul-dsp/src/parallel.rs:63 lateral_notch() returns
+  Some((2500.0, 300.0)) for LateralApproximant manner, else None. It sits
+  beside nasal_notch() (parallel.rs:54) and mirrors its shape.
+- crates/articul-dsp/src/lib.rs:18 re-exports lateral_notch.
+
+Call sites (crates/articul-cli/src/synth.rs, line numbers post-fmt)
+- Import synth.rs:6 (beside the nasal_notch import).
+- Gating helper synth.rs:612 lateral_for_unit(unit, next): pauses and
+  fricatives yield None (same guard shape as nasal_for_glide, synth.rs:595);
+  otherwise the exact clear-l spec_for condition applies
+  (synth.rs:78: is_lateral_onset + !word_final, plus next unit a stressed
+  vowel), returning lateral_notch(&unit.phoneme).
+- render_diphthong synth.rs:582-583: nasal chain extended with
+  lateral_for_unit(first, Some(second)) and lateral_for_unit(second, None).
+  Always None for GOAT vowel merges, but the nasal call-site shape is kept.
+- Single-branch select synth.rs:797-802: next_for_lateral from units[oi+1],
+  lateral = lateral_for_unit(u, next_for_lateral), beside the nasal select.
+- Single-branch apply synth.rs:833-836: if let Some((f, b)) = lateral, fresh
+  NotchFilter(f, b, sample_rate) processes s, mirroring the nasal block above.
+- Vec threading synth.rs:839: nasals.push(nasal.or(lateral)); the glide
+  pickup (line ~648, nasals[idx].or(nasals[idx-1])) and the filter_glide
+  warmup are generic over the tuple, so the lateral zero flows into glide
+  zones with no further edits. Nasal and lateral never co-occur in practice
+  (no nasal is a lateral approximant); if a nasalized lateral ever occurred,
+  nasal would win the vec slot while both filters still apply to s.
+
+TDD red/green
+- Test crates/articul-cli/tests/lateral_zero.rs::lateral_window_has_notch
+  renders solo "la (stressed onset) and asserts 2-3 kHz notch depth >= 6 dB
+  plus F1 peak within 300+-100 Hz and F2 peak within 1400+-200 Hz.
+- Metric: raw (unsmoothed) Hann periodogram, N_FFT 8192; depth =
+  median(2000-2300 Hz) minus median(2470-2530 Hz). Both bands sit inside
+  2-3 kHz. Rationale: the cascade F2 (1400) / F3 (2800) poles leave a wide
+  natural valley, so wide flank-vs-valley medians already read 13-16 dB at
+  baseline (false positive on the first draft, which passed without the
+  zero). The narrow core-vs-edge contrast is negative at baseline and flips
+  only when a narrow zero is carved at 2500 Hz. Smoothed spectra dilute the
+  300 Hz notch (smoothing smears filtered energy back into the valley), so
+  the depth metric deliberately uses the raw periodogram; F1/F2 peak checks
+  keep the proven +-12-bin smoothed spectrum from clear_l.
+- RED logs/0.0.0.20.2/red-test.log (first draft metric, smoothed): FAIL with
+  -5.60 dB. RED logs/0.0.0.20.2/red-final.log (final metric, implementation
+  select disabled): FAIL with -5.51 dB. Coda guard passed in both red runs.
+- GREEN logs/0.0.0.20.2/green-test.log: 2 passed, 0 failed.
+- Green numbers (probe/0.0.0.20.2/la-green.wav, 6792 samples, unchanged
+  count): notch depth 9.55 dB; F1 peak 296.1 Hz; F2 peak 1343.1 Hz
+  (logs/0.0.0.20.2/la-green-measure.log). Baseline cross-check on the
+  pre-implementation render: -4.91 dB with F1/F2 unchanged.
+
+Gates (logs/0.0.0.20.2/)
+- fmt.log + fmt-final.log: cargo fmt --check clean (one signature
+  reflowed by cargo fmt itself).
+- clippy.log: cargo clippy --workspace --all-targets -- -D warnings clean.
+- test-workspace.log: cargo test --workspace all green, including prior
+  gates balance, nonsibilant_bandlimit, halves_gain (halves + lateral
+  window), diphthong_glide, h_onset, clear_l 2/2, voiced_fricative_mix,
+  gain (19/19), nasal, synth fixed-sentence 8822 samples.
+- build-release.log: release build clean.
+
+CLI regression (logs/0.0.0.20.2/cli-regression.log)
+- TIs TIN twice to probe/0.0.0.20.2/regression-a.wav and regression-b.wav:
+  8822 samples, 17688 bytes each, sha256
+  3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93
+  both runs, byte-identical (deterministic). Hash unchanged vs 0.0.0.19.6:
+  TIs TIN contains no laterals, so the zero cannot trigger.
+
+Hello l-window numbers (probe/0.0.0.20.2/hello.wav, 9792 samples = baseline
+count; nominal 167-237 ms window, 182-222 ms interior, same frames as
+0.0.0.20.1; logs/0.0.0.20.2/hello-measure.log)
+- F1 peak 301.5 Hz, identical to the 0.0.0.20.1 baseline: pole preserved.
+- Notch depth (2000-2300 vs 2470-2530 medians): 2.63 dB. Lower than the
+  clean solo-"la 9.55 dB because this window is glide-smeared (only ~15 ms
+  steady state per 0.0.0.20.1; GOAT energy enters from ~210 ms and the E-l
+  glide dilutes the zero).
+- F2 narrowband peak-pick reads 915.2 Hz, byte-identical to the 0.0.0.20.1
+  baseline reading: the smeared hello window cannot resolve F2 with or
+  without the zero (flat 1-3 kHz envelope). F2 preservation is proven by the
+  clean solo-"la window instead (1343.1 Hz, inside 1400+-200 Hz).
+
+Coda behavior
+- No zero on coda: lateral_for_unit requires !word_final and a following
+  stressed vowel, the same condition as the clear-l spec_for branch, so
+  word-final laterals (e.g. pal in 'pal "art') never receive the zero.
+- Verified by render: coda_lateral_has_no_notch ("pal "art coda window,
+  same metric) measures -6.00 dB, far below the 3 dB ceiling (negative
+  because the neutral coda keeps the default F3 ~2500 Hz pole, making the
+  core band hot). The existing coda_lateral_keeps_neutral_targets test still
+  passes unchanged.
+
+Constraints honored
+- Poles (300/1400/2800), gains, durations untouched: "la and hello sample
+  counts identical pre/post (6792 / 9792); TIs TIN 8822.
+- No source-code comments; no changes to todo.md, CHANGELOG.md, README.md,
+  docs/, demo/hello.wav; eval_reference.py not re-run.
+
+Round-2 lateral locus exemption (fix-round, single variable)
+- Change: crates/articul-cli/src/synth.rs:101-109. In the spec_for vowel
+  branch, the locus_pull_toward call is now guarded by
+  lateral_for_unit(nb, Some(unit)).is_none(): when the routed neighbor is a
+  lateral onset satisfying the existing clear-l/zero condition (with the
+  current vowel unit as its stressed following vowel), the vowel keeps its
+  plain reduced (f1,f2,f3) targets instead of being pulled toward the
+  lateral place. Neighbor routing, poles, gains, durations, zero, and all
+  other pulls are untouched. No source-code comments added.
+- Vowel control (crates/articul-cli/tests/lateral_zero.rs
+  vowel_window_scores_below_notch_floor): solo "a" middle-half steady
+  window under the same narrow-contrast metric scores -9.64 dB, far below
+  the 6 dB floor (control-a.wav, 2822 samples). Metric is specific, not
+  vacuous; pre-fix control run already green (logs/0.0.0.20.2/control-r2.log).
+- Post-fix numbers: solo-"la lateral window 9.55 dB, F1 296.1 Hz,
+  F2 1343.1 Hz, 6792 samples (logs/0.0.0.20.2/la-green-measure-r2.log;
+  probe/0.0.0.20.2/la-green-r2.wav hash differs from round-1 because the
+  "a" portion now uses plain instead of alveolar-pulled targets, while the
+  lateral window itself is unchanged). Hello l-window (same 182-222 ms
+  interior, probe/0.0.0.20.2/hello-r2.wav): notch 2.63 dB, F1 301.5 Hz,
+  F2 peak-pick 915.2 Hz (logs/0.0.0.20.2/hello-measure-r2.log).
+- hello-r2.wav is byte-identical to round-1 hello.wav (sha256 74525817...):
+  the exemption is a no-op for hello. Root cause: the GOAT "o"+"U" pair
+  renders through the merged diphthong path with fixed diphthong_pairs
+  targets and never enters the spec_for vowel branch, so no locus pull ever
+  applied to "o". The only spec_for vowel adjacent to the lateral in hello
+  is the unstressed E, which fails the stressed-next condition, so its
+  alveolar pull is correctly retained. The smear therefore does not come
+  from locus pull; duration lengthening remains the documented next
+  candidate. No further fix attempted this round.
+- Round-2 gates (logs/0.0.0.20.2/): fmt-r2.log clean, clippy-r2.log clean,
+  test-workspace-r2.log all green (lateral_zero 3/3 incl. new control,
+  clear_l 2/2, halves_gain, h_onset, diphthong_glide, gain 19/19,
+  synth fixed-sentence 8822), build-release-r2.log clean,
+  cli-regression-r2.log: TIs TIN pair re-rendered (regression-a-r2.wav,
+  regression-b-r2.wav) 8822 samples, sha256 3d31d08a...f92f93 both,
+  deterministic, unchanged.
+- Verdict: DONE-WITH-GAP. Hello-window notch 2.63 dB remains below 6 dB
+  after the locus exemption.
+
+Round-3 window sweep (fix-round 3, step 1; no production code change)
+- 40 ms analysis window slid across the hello l-span in 10 ms steps on
+  probe/0.0.0.20.2/hello-r2.wav with the saved narrow-contrast method
+  (raw periodogram, medians 2000-2300 vs 2470-2530 Hz):
+  160-200 ms 3.71 dB; 170-210 ms 16.35 dB; 180-220 ms 2.27 dB;
+  190-230 ms 5.19 dB; 200-240 ms 6.15 dB
+  (probe/0.0.0.20.2/notch-profile.txt, logs/0.0.0.20.2/profile-r3.log).
+  Profile maximum 16.35 dB at the interior 170-210 ms sub-window, so step 1
+  resolved the issue and step 2 (70 to 90 ms floor) was not taken.
+- New test crates/articul-cli/tests/lateral_zero.rs
+  hello_interior_window_has_notch pins the 170-210 ms sub-window of
+  render_sentence("hE "loU") and asserts depth >= 6 dB. Rust-measured depth
+  14.51 dB (method gap vs the 16.35 dB Python profile comes from f32 DFT
+  and Hann-denominator differences; both far above the floor). The CLI
+  default voice cascade, source, and prosody settings equal the test render
+  path, so the pinned window reproduces the profiled render.
+- Round-3 gates (logs/0.0.0.20.2/): fmt-r3.log clean (one assert reflowed by
+  cargo fmt), clippy-r3.log clean, test-workspace-r3.log all green
+  (lateral_zero 4/4, clear_l 2/2, coda, halves_gain, h_onset,
+  diphthong_glide, gain 19/19, synth fixed-sentence 8822), plus
+  lateral-zero-r3.log for the focused run. No existing bound touched.
+  No release rebuild or TIs TIN re-render this round: production code is
+  byte-identical to the round-2 release (only the test file changed), so
+  the round-2 hash 3d31d08a...f92f93 still stands.
+- Verdict: DONE via step 1. The lateral zero bites at 14.51 dB in the
+  170-210 ms hello interior; the earlier 2.63 dB reading was dilution from
+  GOAT energy entering the wider 182-222 ms frame, not a missing zero.

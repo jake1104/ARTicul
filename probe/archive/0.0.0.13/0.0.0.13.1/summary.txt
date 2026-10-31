@@ -1,0 +1,7 @@
+Task 0.0.0.13.1 root-cause probe for demo hello.wav sounding like "he"
+Evidence: rendered '"hE l@U' full (7323 samples) plus per-word '"hE' (5866) and 'l@U' (2669) with default voice.
+Measurement: word2 alone is audible (steady RMS 0.318, actually louder than word1 alone 0.256 after per-utterance normalize_peak); inside the full render, word1 region RMS 0.270 vs word2 region 0.026, ratio 10.5 (~20dB).
+Analysis: per 11.3 gain table over 5 segments, E(Primary) sits at -1dB while l/@/U sit at -12/-6.5/-11.5dB with declination and final -4dB, and the whole second word falls inside the final 150ms fade to -12dB. Global normalize_peak then locks that imbalance in.
+Verdict: H1 CONFIRMED (stress placement: English he-LLO stresses the second syllable but the demo input stressed only the first). H2 EXCLUDED (no word dropped; word2 renders fine standalone).
+Probe: probe/0.0.0.13.1/full.wav, word1-hE.wav, word2-lOU.wav.
+Logs: logs/0.0.0.13.1/ (render-full, render-w1, render-w2, measure).

@@ -1,0 +1,10 @@
+bytes 19628 sha256 34ef76e4e5f30c2cc4e65049e6dd9bec31881ba46afeeeb9f575618955869318
+samples 9792 sr 22050 ch 1
+halves rms1=-24.3 rms2=-27.9 diff=-3.56dB
+peak whole=-0.92dBFS h-interior[200:1344]=-13.13dBFS o-interior[5600:7000]=-17.46dBFS
+rms h-interior=-25.06dBFS o-interior=-26.67dBFS
+centroid magnitude-weighted 3268.5Hz power-weighted 909.3Hz
+F2 trajectory [908.4, 936.0, 936.0, 1046.1, 1018.5, 1073.6]
+F2 rise overall 165.2
+F2 largest step down -27.5 (tolerance 50Hz)
+final-80ms autocorr peak 0.7727

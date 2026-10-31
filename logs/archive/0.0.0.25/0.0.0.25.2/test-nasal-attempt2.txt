@@ -1,0 +1,22 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.30s
+     Running tests\nasal.rs (target\debug\deps\nasal-12e2452b50d01e8a.exe)
+
+running 2 tests
+test nasal_zero_dips_harder_than_oral ... ok
+test alveolar_context_lifts_f2_over_labial ... FAILED
+
+failures:
+
+---- alveolar_context_lifts_f2_over_labial stdout ----
+
+thread 'alveolar_context_lifts_f2_over_labial' (6952) panicked at crates\articul-cli\tests\nasal.rs:41:5:
+assertion failed: f2_band(&ada) > 1.05 * f2_band(&aba)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    alveolar_context_lifts_f2_over_labial
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-cli --test nasal`

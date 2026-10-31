@@ -1,0 +1,166 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+   Compiling articul-py v0.0.0 (E:\01_coding\ARTicul\crates\articul-py)
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 36.43s
+     Running unittests src\lib.rs (target\debug\deps\articul_cli-55cb57f443750be1.exe)
+
+running 3 tests
+test synth::tests::final_fade_caps_at_150ms_for_long_final_unit ... ok
+test synth::tests::final_fade_confined_to_final_unit ... ok
+test synth::tests::final_fade_falls_back_without_unit_length ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\main.rs (target\debug\deps\articul-52988a17f5456c9f.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\balance.rs (target\debug\deps\balance-2b6ff1eef64abd6c.exe)
+
+running 3 tests
+test stressed_nucleus_holds_at_least_100ms ... ok
+test old_input_violates_word_balance ... ok
+test demo_meets_word_balance ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\cf0.rs (target\debug\deps\cf0-411ea725cfca2caf.exe)
+
+running 3 tests
+test cf0_threshold_selects_flat_or_decay ... ok
+test vowel_onset_after_voiceless_obstruent_runs_faster ... ok
+test final_voiced_segment_runs_irregular ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests\clear_l.rs (target\debug\deps\clear_l-244fc05f749adf48.exe)
+
+running 2 tests
+test coda_lateral_keeps_neutral_targets ... ok
+test lateral_has_low_f1_mid_f2 ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s
+
+     Running tests\click.rs (target\debug\deps\click-ff8bd785598a2bfd.exe)
+
+running 1 test
+test fricative_plosive_junction_stays_within_content ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\determinism.rs (target\debug\deps\determinism-5ecc1cbbe32937b1.exe)
+
+running 2 tests
+test glide_regions_stay_finite ... ok
+test render_is_deterministic_across_runs ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests\diphthong_glide.rs (target\debug\deps\diphthong_glide-49aa818c8a0209ab.exe)
+
+running 2 tests
+test diphthong_f2_rises_monotonically ... ok
+test diphthong_final_80ms_stays_periodic ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests\fricative.rs (target\debug\deps\fricative-c075cc645a94081f.exe)
+
+running 2 tests
+test rendered_sibilant_exceeds_weak_fricative_up_high ... ok
+test rendered_voiced_pair_splits_up_high ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\gain.rs (target\debug\deps\gain-30581dde76d74032.exe)
+
+running 19 tests
+test declination_caps_at_12_db ... ok
+test declination_per_segment ... ok
+test aspirated_floor_minus_3_db ... ok
+test final_consonant_extra_minus_4_db ... ok
+test sibilant_minus_5_db ... ok
+test burst_decay_for_unvoiced_plosive ... ok
+test sonorant_minus_7_db ... ok
+test stressed_vowel_at_reference_zero_db ... ok
+test default_plosive_zero_db ... ok
+test final_fade_quiets_ending ... ok
+test unstressed_consonant_ignores_stress ... ok
+test final_vowel_skips_extra_minus_4_db ... ok
+test unstressed_vowel_minus_3_5_db ... ok
+test voiced_sibilant_floored_at_minus_12_db ... ok
+test voiced_weak_fricative_floored_at_minus_12_db ... ok
+test weak_fricative_floored_at_minus_12_db ... ok
+test nasal_minus_8_db ... ok
+test fricative_onset_ramps_up ... ok
+test stressed_vowel_louder_than_unstressed ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\glide.rs (target\debug\deps\glide-469a3e6cc7a240c0.exe)
+
+running 2 tests
+test consonant_boundary_keeps_short_crossfade ... ok
+test vv_boundary_gets_long_glide_crossfade ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\h_onset.rs (target\debug\deps\h_onset-afc13a5c9dcc1be9.exe)
+
+running 1 test
+test h_carries_following_vowel_formants ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s
+
+     Running tests\halves_gain.rs (target\debug\deps\halves_gain-0d073e0f9d968b94.exe)
+
+running 2 tests
+test lateral_window_within_8db_of_stressed_vowel ... ok
+test hello_halves_within_5db ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\junction_smooth.rs (target\debug\deps\junction_smooth-680d212e54048953.exe)
+
+running 1 test
+test boundary_gain_step_bounded ... FAILED
+
+failures:
+
+---- boundary_gain_step_bounded stdout ----
+
+thread 'boundary_gain_step_bounded' (11828) panicked at crates\articul-cli\tests\junction_smooth.rs:128:5:
+max boundary gain step 4.41dB at %an njVN "hasejo boundary 4 exceeds 3.0dB
+hE "loU b1 center=1632 table_step=5.5dB track_step=2.71dB
+hE "loU b2 center=3418 table_step=4.5dB track_step=-2.22dB
+hE "loU b3 center=4786 table_step=6.0dB track_step=2.99dB
+%an njVN "hasejo b4 center=3859 table_step=9.0dB track_step=-4.41dB
+%an njVN "hasejo b5 center=4830 table_step=1.0dB track_step=-0.49dB
+%an njVN "hasejo b6 center=5646 table_step=0.0dB track_step=0.00dB
+%an njVN "hasejo b7 center=6374 table_step=2.5dB track_step=1.23dB
+%an njVN "hasejo b8 center=8138 table_step=4.5dB track_step=-2.22dB
+%an njVN "hasejo b9 center=8954 table_step=0.0dB track_step=0.00dB
+%an njVN "hasejo b10 center=9925 table_step=5.0dB track_step=2.46dB
+%an njVN "hasejo b11 center=12351 table_step=5.0dB track_step=-2.46dB
+%an njVN "hasejo b12 center=13454 table_step=0.0dB track_step=0.00dB
+%an njVN "hasejo b13 center=14733 table_step=0.0dB track_step=0.00dB
+%an njVN "hasejo b14 center=15461 table_step=0.0dB track_step=0.00dB
+%jV"bo%se%jo b15 center=860 table_step=6.0dB track_step=2.95dB
+%jV"bo%se%jo b16 center=3551 table_step=1.0dB track_step=-0.49dB
+%jV"bo%se%jo b17 center=4279 table_step=1.0dB track_step=-0.49dB
+%jV"bo%se%jo b18 center=6374 table_step=6.0dB track_step=-2.95dB
+%jV"bo%se%jo b19 center=7499 table_step=4.0dB track_step=1.97dB
+%jV"bo%se%jo b20 center=10167 table_step=7.0dB track_step=-3.44dB
+%jV"bo%se%jo b21 center=10895 table_step=5.0dB track_step=2.46dB
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    boundary_gain_step_bounded
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+error: test failed, to rerun pass `-p articul-cli --test junction_smooth`

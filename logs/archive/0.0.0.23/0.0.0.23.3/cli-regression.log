@@ -1,0 +1,6 @@
+fixed sentence TIs TIN default voice 22050Hz
+regression-a: samples=8822 bytes=17688 sha256=b832514d56698cce417ed3d16ba549312c7ab8573811457fff49a12107c24620
+regression-b: samples=8822 bytes=17688 sha256=b832514d56698cce417ed3d16ba549312c7ab8573811457fff49a12107c24620
+determinism byte-identical: True
+expected 8822 samples: True
+expected hash B832514D56698CCE417ED3D16BA549312C7AB8573811457FFF49A12107C24620 match: True

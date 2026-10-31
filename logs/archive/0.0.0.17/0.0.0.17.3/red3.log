@@ -1,0 +1,8 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.08s
+     Running tests\utterance.rs (target\debug\deps\utterance-0f2bba251dd69a70.exe)
+
+running 1 test
+test slow_rate_compresses_sublinearly ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+

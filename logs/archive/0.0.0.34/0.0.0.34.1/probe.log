@@ -1,0 +1,65 @@
+CONSOLE TRANSCRIPT 0.0.0.34.1 probe (PowerShell; commands joined with ; only)
+====================================================================================
+$ New-Item -ItemType Directory -Force -Path probe\0.0.0.34.1 | Out-Null
+$ New-Item -ItemType Directory -Force -Path logs\0.0.0.34.1 | Out-Null
+(dirs created)
+
+$ .\target\release\articul.exe --help
+Rule-based articulatory speech synthesizer / Usage: articul.exe <COMMAND> / Commands: synthesize, play, help
+
+$ .\target\release\articul.exe synthesize --help
+Usage: articul.exe synthesize [OPTIONS] --text <TEXT> --voice <VOICE> --out <OUT> / --f0 [default: 120]
+
+$ .\target\release\articul.exe synthesize --text '%an "njVN "h\asejo' --voice config/default-voice.toml --out probe\0.0.0.34.1\annyeonghaseyo.wav
+$ .\target\release\articul.exe synthesize --text '%jV"bo%se%jo' --voice config/default-voice.toml --out probe\0.0.0.34.1\yeoboseyo.wav
+wrote 19101 samples to probe\0.0.0.34.1\annyeonghaseyo.wav
+wrote 14666 samples to probe\0.0.0.34.1\yeoboseyo.wav
+
+$ certutil -hashfile probe\0.0.0.34.1\annyeonghaseyo.wav SHA256  -> 717ef01d...5506b
+$ certutil -hashfile demo\annyeonghaseyo.wav SHA256               -> 717ef01d...5506b IDENTICAL
+$ certutil -hashfile probe\0.0.0.34.1\yeoboseyo.wav SHA256        -> 2da3bc30...3a830
+$ certutil -hashfile demo\yeoboseyo.wav SHA256                    -> 2da3bc30...3a830 IDENTICAL
+
+$ cat config/default-voice.toml  -> [prosody] rate = 1.0, pitch_scale = 1.0, base f0 default 120
+
+$ python3 probe\0.0.0.34.1\plan_replica.py   (iterated: fixed splitmix constant 0x94D049BB133111EB,
+  'b' voicing flag, lateral-70ms rule, fricative mindur, SYM map for ŋ/ɦ)
+VALIDATION vs plan.txt: ALL EXACT
+== annyeong '%an "njVN "h\asejo'
+u0 a 179ms 146.89->140.66Hz S tgt 730/1475/2640 | u1 n 52ms | u2 n 45ms | u3 j 41ms
+u4 V 160ms 139.00->129.34Hz P tgt 600/1775/2369 | u5 N 50ms | u6 h\ 50ms
+u7 a 118ms 158.45->135.87Hz P tgt 730/1475/2640 | u8 s 58ms | u9 e 66ms 124.47->118.63Hz tgt 492/1785/2700
+u10 j 41ms | u11 o 94ms 80.09->80.09Hz tgt 492/1085/2300 | total plan ms: 954
+== yeobo '%jV"bo%se%jo'
+u0 j 43ms 138.24->146.89 | u1 V 130ms 146.89->148.23Hz S tgt 600/1105/2270 | u2 b 41ms
+u3 o 103ms 166.03->140.39Hz P tgt 480/1385/2300 | u4 s 59ms
+u5 e 129ms 126.61->119.47Hz S tgt 480/1950/2700 | u6 j 41ms
+u7 o 175ms 80.09->80.09Hz S tgt 480/950/2300 | total plan ms: 721
+wrote probe/0.0.0.34.1/plan-values.json
+
+$ python3 probe/0.0.0.34.1/measure.py
+== annyeong wavlen=19101 planms=954
+F0 per-100ms median: 0ms:147.0 100ms:141.3 200ms:138.7 300ms:137.0 400ms:131.2 500ms:152.1 600ms:144.1 700ms:135.3 800ms:-
+u0 a S planf0=147->141Hz F1=716Hz F2=broad~1400(picker 872) F3=2595Hz
+u4 V P planf0=139->129Hz F1=533Hz F2=1766Hz F3=2406Hz
+u7 a P planf0=158->136Hz F1=738Hz F2=broad(picker 808) F3=2622Hz
+u9 e U planf0=124->119Hz F1=533Hz F2=1733Hz
+u11 o U planf0=80->80Hz F1=463Hz F2=1098Hz
+== yeobo wavlen=14666 planms=721
+F0 per-100ms median: 0ms:147.5 100ms:150.0 200ms:153.7 300ms:137.8 400ms:- 500ms:245.0(creak artifact) 600ms:-
+u1 V S planf0=147->148Hz F1=598Hz F2=1028Hz
+u3 o P planf0=166->140Hz F1=458Hz F2=1394Hz
+u5 e S planf0=127->119Hz F1=511Hz F2=true~1954-2080(band-max grabbed F3 2762=tgt 2700)
+u7 o S planf0=80->80Hz F1=474Hz F2=937Hz
+
+(web research via websearch: Yang 1996; Shin/Kiaer/Cha 2012 Table 1.4; e-csd 2026 DB;
+Igeta & Arai 2011; Jun K-ToBI/1993/1998/2005; Flemming & Jun AP paper; Jeon 2014;
+Broersma lenis stops; Crosby & Dalola 2021 liquid; Heo & Lee 2004; Kim dissertation;
+Jun 1995/1996 lenis voicing; Manitoba GA table)
+
+$ Remove-Item probe\0.0.0.34.1\dbg.py   (scratch removed)
+$ Remove-Item -Recurse -Force probe\0.0.0.34.1\__pycache__
+(outputs: probe/0.0.0.34.1/{annyeonghaseyo.wav,yeoboseyo.wav,plan_replica.py,plan-values.json,measure.py,korean-facts.txt})
+NOTE: shell-host transcript (Start-Transcript) captures only the first invocation per session;
+this file is the complete curated console record. No engine source/config/demo/todo/CHANGELOG
+edits were made (read-only compliance); new files only under probe/0.0.0.34.1/ and logs/0.0.0.34.1/.

@@ -1,0 +1,60 @@
+Task 0.0.0.17.4 reference-based evaluation (report-only, non-gating)
+
+What ran
+- Harness: python/validation/eval_reference.py (pre-existing, unmodified).
+- Corpus (6 items): fixed_sentence "TIs TIN", demo_hello "hE "loU", creak_probe ""ma",
+  gain_probe "apa", cluster_probe ""sprit", pause_probe "a, pa".
+- Metrics: MCD in dB over DTW-aligned MFCC c1..c12; F0 RMSE in semitones over
+  DTW-aligned jointly-voiced pyin frames plus voiced-agreement fraction;
+  total-duration Pearson correlation across items.
+- Self-test: python python/validation/eval_reference.py --self-test
+  log: logs/0.0.0.17.4/self-test.log
+- Full eval: python python/validation/eval_reference.py --articul target/release/articul.exe
+  --voice config/default-voice.toml --out probe/0.0.0.17.4/eval
+  log: logs/0.0.0.17.4/eval-run.log
+  report: probe/0.0.0.17.4/eval/report.json
+  verify: logs/0.0.0.17.4/verify-report.log
+
+Self-test result
+- PASS: "SELF-TEST PASS: deterministic renders identical, distinct items separated".
+- Asserts checked: every item synth-vs-synth MCD < 1e-6, F0 RMSE < 1e-6,
+  voiced agreement == 1.0, duration_corr == 1.0, cross-matrix diagonal < 1e-6,
+  off-diagonal > 1.0.
+
+Per-item lens (self-consistency runA vs runB, from live report.json)
+- fixed_sentence: len 8822 / 8822, MCD 0.0, F0 RMSE 0.0 st, agreement 1.0.
+- demo_hello: len 8248 / 8248, MCD 0.0, F0 RMSE 0.0 st, agreement 1.0.
+- creak_probe: len 6439 / 6439, MCD 0.0, F0 RMSE 0.0 st, agreement 1.0.
+- gain_probe: len 5072 / 5072, MCD 0.0, F0 RMSE 0.0 st, agreement 1.0.
+- cluster_probe: len 7785 / 7785, MCD 0.0, F0 RMSE 0.0 st, agreement 1.0.
+- pause_probe: len 8535 / 8535, MCD 0.0, F0 RMSE 0.0 st, agreement 1.0.
+- Mean self MCD 0.0000 dB, duration_corr 1.0000.
+- Deterministic renderer confirmed: two independent renders are bit-identical in length
+  and frame-level in all three lenses.
+
+Cross-matrix discriminability (MCD dB, symmetric)
+- Diagonal is 0.0 for all 6 items.
+- Minimum off-diagonal is 247.15 (gain_probe vs pause_probe); all other pairs are
+  larger (next: creak/gain 309.57, creak/pause 316.17, up to creak/fixed 1227.82).
+- Every distinct utterance pair is separated by two orders of magnitude above the
+  1.0 dB self-test floor, so the MFCC lens resolves content differences and the
+  corpus has no degenerate duplicates.
+
+vs_reference status
+- "no reference pack supplied": no human reference directory was passed, so no
+  synth-vs-human columns exist. Live report matches the archived
+  probe/archive/0.0.0.17/0.0.0.17.4/eval/report.json key-for-key on all checked
+  numbers (self MCD 0.0, duration_corr 1.0, diagonal 0.0, same per-item lengths).
+
+Length note / discrepancy
+- demo_hello renders at 8248 samples here, versus the 8005 samples recorded at
+  0.0.0.16.5 close-out. fixed_sentence at 8822 matches the 0.0.0.17.3 post-Klatt
+  length. The demo_hello delta predates this task (likely the 17.3 timing change
+  landing after the last demo regeneration); this task regenerates nothing and only
+  reports current-renderer lengths. No investigation was done here; 0.0.0.17.5
+  re-baseline owns any demo length update.
+
+Production code change
+- NONE. No Rust source, config, test, or voice file was modified. Report-only and
+  non-gating by design: no cargo fmt/clippy/test was run, demo/hello.wav was not
+  regenerated, nothing was archived, todo.md/CHANGELOG.md untouched.

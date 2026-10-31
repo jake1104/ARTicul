@@ -1,0 +1,7 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `release` profile [optimized] target(s) in 1m 20s
+     Running `target\release\examples\bench_resonator.exe`
+rust_ms=23.6 iters=50 sink=27.696991
+cpp_available=true
+cpp_ms=11.7 iters=50 sink=27.696991
+speedup=2.02

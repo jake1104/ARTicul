@@ -1,0 +1,50 @@
+**********************
+PowerShell 기록 시작
+시작 시간: 20261029173643
+사용자 이름: JAKE-DESKTOP\jake1
+실행 사용자: JAKE-DESKTOP\jake1
+구성 이름: 
+컴퓨터: JAKE-DESKTOP (Microsoft Windows NT 10.0.26300.0)
+호스트 애플리케이션: C:\Program Files\PowerShell\7\pwsh.dll -NoLogo -NoProfile -NonInteractive -Command mkdir probe\0.0.0.23.1, logs\0.0.0.23.1 -Force | Out-Null; Start-Transcript -Path logs\0.0.0.23.1\probe.log -Force; echo ARTICUL-0.0.0.23.1-breathing-probe; Get-Date -Format o
+프로세스 ID: 19696
+PSVersion: 7.6.8
+PSEdition: Core
+GitCommitId: 7.6.8
+OS: Microsoft Windows 10.0.26300
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+대화 내용 기록이 시작되었습니다. 출력 파일은 logs\0.0.0.23.1\probe.log입니다.
+ARTICUL-0.0.0.23.1-breathing-probe
+2026-10-29T17:36:43.6434560+09:00
+PS>$global:?
+True
+**********************
+PowerShell 기록 끝
+종료 시간: 20261029173643
+**********************
+
+--- render (each shell call is a separate session; transcript header above covers session 1, outputs below appended verbatim) ---
+./target/release/articul.exe synthesize --text 'hE "loU' --voice config/default-voice.toml --out probe/0.0.0.23.1/hello.wav
+wrote 9792 samples to probe/0.0.0.23.1/hello.wav
+./target/release/articul.exe synthesize --text '%an njVN "hasejo' --voice config/default-voice.toml --out probe/0.0.0.23.1/annyeong.wav
+wrote 17446 samples to probe/0.0.0.23.1/annyeong.wav
+./target/release/articul.exe synthesize --text '%jV"bo%se%jo' --voice config/default-voice.toml --out probe/0.0.0.23.1/yeobo.wav
+wrote 14666 samples to probe/0.0.0.23.1/yeobo.wav
+== hello n=9792 dur=444.1ms
+known window ms: None
+no trough below -8dB outside final fade
+== annyeong n=17446 dur=791.2ms
+known window ms: (610.0, 680.0)
+deepest non-fade trough: 618.6-638.6ms mindepth=-10.51dB
+[detected 619-639ms n=1] r(HF,total)=nan r(speech,total)=nan HFfrac=0.000 speechfrac=0.561 HFdBFS=-68.3 speechdBFS=-31.8
+[known 610-680ms n=4] r(HF,total)=-0.433 r(speech,total)=0.992 HFfrac=0.016 speechfrac=0.548 HFdBFS=-46.8 speechdBFS=-31.3
+== yeobo n=14666 dur=665.1ms
+known window ms: (340.0, 450.0)
+deepest non-fade trough: 349.2-359.2ms mindepth=-8.97dB
+[detected 349-359ms n=1] r(HF,total)=nan r(speech,total)=nan HFfrac=0.000 speechfrac=0.582 HFdBFS=-63.3 speechdBFS=-27.9
+[known 340-450ms n=6] r(HF,total)=0.017 r(speech,total)=0.993 HFfrac=0.004 speechfrac=0.581 HFdBFS=-48.3 speechdBFS=-26.6
+byte-identity: demo/hello.wav True; demo/annyeonghaseyo.wav True; demo/yeoboseyo.wav True (sha256 equal, full byte compare True)

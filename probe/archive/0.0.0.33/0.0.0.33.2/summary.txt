@@ -1,0 +1,78 @@
+0.0.0.33.2 demo regeneration and verification - summary (DONE)
+
+New inputs (from probe/0.0.0.33.1/ipa-audit.txt; M1/M2/M3 applied, N1 kept as-is):
+- hello: `h@ "loU` (M1: E -> @; schwa for GA reduced vowel)
+- annyeong: `%an "njVN "h\asejo` (M2: h -> h\ intervocalic [h]; M3: nyeong stress promotion)
+- yeobo: `%jV"bo%se%jo` UNCHANGED (no mismatches found)
+
+Pin ruling (coordinator, recorded; precedent s1 <= 0.9606 + s5 <= 0.95, both phonetic):
+ADD annyeong relocated-start9 pin unclamped <= 0.9220 (measured 0.9120 + 0.01 margin;
+phonetic /s/-body tail, structurally identical to the passing old window, only rescaled
++0.96 dB by M2+M3; JOIN excluded by probe/0.0.0.33.2/diag-s9/ diagnostic). Same
+input+index selection pattern as s1/s5. Implemented in
+crates/articul-cli/tests/junction_nospark.rs (const + else-if branch only). No other
+bound changes, no engine changes.
+
+Gates (logs in logs/0.0.0.33.2/):
+- cargo fmt --check -> fmt-check.log, clean (empty).
+- cargo clippy --workspace --all-targets -- -D warnings -> clippy.log, clean.
+- cargo test --workspace -> test-workspace.log, 62/62 suites ok, 0 failures
+  (incl. junction_nospark with the new s9 pin; old-input start9 0.8627 <= 0.9220).
+- cargo build --release -> release.log, Finished release profile.
+- Temp spark verify test created, run (spark-report.log, all new-input windows PASS
+  incl. s9 0.9120 <= 0.9220), then deleted; zero references in crates/, fmt clean after.
+
+Fixed sentence `TIs TIN` (default voice, 22050 Hz):
+- probe/0.0.0.33.2/regression-a.wav and -b.wav: 8822 samples each (17688 bytes), sha256
+  cfba9ef28a1a17eee0ba2626b64bb3877f66a51c93fcbdb9ecea3bf99b5b455a both.
+- Determinism byte-identical: True. Expected hash CFBA...: MATCH (no engine change).
+
+Demo regeneration (default voice; commands in logs/0.0.0.33.2/demo.log header):
+- `h@ "loU` -> demo/hello.wav, 9219 samples (418.1 ms, was 9792), sha
+  0d45cc72d157177d63a29111ca6f290a1a9f05aedd3e7ffc0705fc4b8a1191b7.
+- `%an "njVN "h\asejo` -> demo/annyeonghaseyo.wav, 19101 samples (866.3 ms, was 17446), sha
+  717ef01df8cc195bd3bbe948a4beb9f8b9d917aaf71fbfb21bc64e55dd31506b.
+- `%jV"bo%se%jo` -> demo/yeoboseyo.wav NOT rewritten: fresh re-render byte-identical
+  (sha 2da3bc3044fb1da47f3d98e3aeab78bc683451b53c43dd395fcdfb1a1ef3a830).
+Demo files changed: hello.wav + annyeonghaseyo.wav. yeoboseyo.wav unchanged.
+
+Per-demo numbers vs 0.0.0.28.3 baselines
+(hello 9792/-2.28/RMS 0.2186/trough -3.76/centroid 2009/F2+165.2;
+annyeong 17446/+1.40/0.1288/4340/-12.21/tail 0.0826):
+- hello: halves -2.28 -> -1.45 dB (PASS, second half -16.28 dBFS > -32 PASS);
+  global RMS 0.2186 -> 0.1680 (PASS, -15.49 dBFS); peak 0.9890 (PASS);
+  trough -3.76 -> -1.40 dB (PASS vs -14); centroid 2009 -> 2133.0 Hz (+124.0);
+  F2 rise +165.2, trajectory [908.4 936.0 936.0 1046.1 1018.5 1073.6] bit-identical
+  shape to baseline (GOAT span unchanged), monotonic within 50 Hz PASS.
+  Spark (relocated): start1 0.5733 <= 0.9606 PASS; start2 0.8246 < 0.9 PASS
+  (was 0.8868); start3 0.4353 PASS.
+- annyeong: halves +1.40 -> +1.99 dB (PASS, floor PASS); global RMS
+  0.1288 -> 0.1170 (PASS, margin +1.32 dB over 0.10 - better than the old +0.31 pinch);
+  peak 0.9890 (PASS); trough -12.21 -> -12.29 dB (PASS vs -14, margin 1.71);
+  centroid 4340 -> 4199.5 Hz (-140.5, expected: voiced h\ softens HF pole + longer mid vowel).
+  Spark (relocated): all windows PASS, incl. start9 0.9120 <= 0.9220 pin
+  (was 0.8627 at old pos; +0.049 rescale, JOIN excluded by diag-s9).
+  Thirds RMS -19.67/-20.49/-16.70 dBFS.
+- yeobo: all numbers bit-identical to baseline (halves -3.11, RMS 0.1146,
+  trough -10.40, tail third 0.0501 >= 0.03 PASS, centroid 5676.7).
+  Spark bit-identical to pins (start5 0.9336 <= 0.95, others < 0.9).
+
+Eval self-test (non-gating): python python/validation/eval_reference.py --self-test
+-> eval-selftest.log, "SELF-TEST PASS: deterministic renders identical, distinct items separated".
+
+Python parity: target/release/articul_py.dll copied to python/articul/_articul.pyd;
+check_parity.py (PYTHONPATH=python) 4/4 PASS
+(lookup-p, lookup-unknown, synthesize len=3242, vowel-a f2/f1=0.110) -> parity.log.
+
+Diagnostic record: probe/0.0.0.33.2/diag-s9/ (analyse.py, verdict.txt PIN) +
+logs/0.0.0.33.2/diag-s9.log; probe pre-demo renders + measure.py/measure.log kept.
+
+Port (test-only; no engine/bound changes):
+- crates/articul-cli/tests/junction_nospark.rs ONLY: rendered inputs ported to the
+  shipped demo strings (`h@ "loU`, `%an "njVN "h\asejo`; yeobo unchanged).
+  All bounds identical (s1 <= 0.9606, yeobo-s5 <= 0.95, annyeong-s9 <= 0.9220,
+  others < 0.9, clamp 0.985); test names/structure unchanged.
+- Gates (logs/0.0.0.33.2/port-*.log): junction_nospark PASS on new inputs (1/1);
+  cargo test --workspace green (62/62 suites ok, 0 failures);
+  cargo fmt --check clean; cargo clippy --workspace --all-targets clean.
+- TIs TIN hash unchanged (test-only change, no release rebuild).

@@ -1,0 +1,42 @@
+
+$ .\target\release\articul.exe synthesize --text '%an njVN h\asejo' --voice config/korean-voice.toml --out probe\0.0.0.34.3\demo_ko_annyeong.wav
+wrote 28693 samples to probe\0.0.0.34.3\demo_ko_annyeong.wav
+$ .\target\release\articul.exe synthesize --text '%an "njVN "h\asejo' --voice config/korean-voice.toml --out probe\0.0.0.34.3\demo_ko_annyeong_shipped.wav
+wrote 28693 samples to probe\0.0.0.34.3\demo_ko_annyeong_shipped.wav
+$ .\target\release\articul.exe synthesize --text '%jVbosejo' --voice config/korean-voice.toml --out probe\0.0.0.34.3\demo_ko_yeobo.wav
+wrote 18878 samples to probe\0.0.0.34.3\demo_ko_yeobo.wav
+$ .\target\release\articul.exe synthesize --text '%jV"bo%se%jo' --voice config/korean-voice.toml --out probe\0.0.0.34.3\demo_ko_yeobo_shipped.wav
+wrote 18878 samples to probe\0.0.0.34.3\demo_ko_yeobo_shipped.wav
+$ fc /b shipped vs destressed (stress-mark byte-identity)
+$ TIs TIN default voice x2
+wrote 8822 samples to probe\0.0.0.34.3\regression-a.wav
+wrote 8822 samples to probe\0.0.0.34.3\regression-b.wav
+$ hello default voice (compare only, demo NOT overwritten)
+wrote 9219 samples to probe\0.0.0.34.3\hello.wav
+SHA256의 probe\0.0.0.34.3\regression-a.wav 해시:
+cfba9ef28a1a17eee0ba2626b64bb3877f66a51c93fcbdb9ecea3bf99b5b455a
+CertUtil: -hashfile 명령이 성공적으로 완료되었습니다.
+SHA256의 probe\0.0.0.34.3\regression-b.wav 해시:
+cfba9ef28a1a17eee0ba2626b64bb3877f66a51c93fcbdb9ecea3bf99b5b455a
+CertUtil: -hashfile 명령이 성공적으로 완료되었습니다.
+SHA256의 probe\0.0.0.34.3\demo_ko_annyeong.wav 해시:
+96f9352836f044cdb2701361b962bef1948b4f6e7db4fe38aeff1a902f148254
+CertUtil: -hashfile 명령이 성공적으로 완료되었습니다.
+SHA256의 probe\0.0.0.34.3\demo_ko_yeobo.wav 해시:
+86390f85fbfe160c54fb6ff8ddf990f56b3b2081d695720e452d7b5ad20d6d08
+CertUtil: -hashfile 명령이 성공적으로 완료되었습니다.
+SHA256의 probe\0.0.0.34.3\hello.wav 해시:
+0d45cc72d157177d63a29111ca6f290a1a9f05aedd3e7ffc0705fc4b8a1191b7
+CertUtil: -hashfile 명령이 성공적으로 완료되었습니다.
+파일을 비교합니다: PROBE\0.0.0.34.3\demo_ko_annyeong.wav - PROBE\0.0.0.34.3\DEMO_KO_ANNYEONG_SHIPPED.WAV
+FC: 다른 점이 없습니다.
+
+파일을 비교합니다: PROBE\0.0.0.34.3\demo_ko_yeobo.wav - PROBE\0.0.0.34.3\DEMO_KO_YEOBO_SHIPPED.WAV
+FC: 다른 점이 없습니다.
+
+파일을 비교합니다: PROBE\0.0.0.34.3\hello.wav - DEMO\HELLO.WAV
+FC: 다른 점이 없습니다.
+
+파일을 비교합니다: PROBE\0.0.0.34.3\regression-a.wav - PROBE\0.0.0.34.3\REGRESSION-B.WAV
+FC: 다른 점이 없습니다.
+

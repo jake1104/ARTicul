@@ -1,0 +1,306 @@
+0.0.0.30.1 gain-architecture probe: FLAT-table proposal (no code change)
+===============================================================================
+READ-ONLY probe. Engine code was linked read-only by three throwaway probe
+binaries (plandump, f32dump, ratiodump) and never edited: grep over crates/
+for plandump|ratiodump|f32dump|0.0.0.30 returns ZERO matches (revert-proof by
+construction; same method note as 0.0.0.28.1 gain-arch.txt). New files live
+only under probe/0.0.0.30.1/ (+ logs/0.0.0.30.1/probe.log).
+
+TREE-STATE FINDING (step 1 did NOT confirm byte-identity):
+  Fresh renders (release articul.exe, default voice, 22050 Hz) do NOT match
+  the 0.0.0.28.3 baselines. fixed_sentence sha cd8278... != CFBA9EF2...
+  (expected CFBA...); demos differ from demo/*.wav (same sample counts
+  9792/17446/14666, different bytes). Root cause: the tree still contains the
+  full 0.0.0.29.2 UNGREEN residue (coherence_rms_normalize post-leveler at
+  synth.rs:755 + WorkUnit/Merged machinery + single-sample de-click at
+  synth.rs:873), contradicting todo's "reverts cleanly ... (hash 2AD4)"
+  note (which also cites the wrong hash: 2AD4 was the 0.0.0.24.3 hash, not
+  0.0.0.28.3's CFBA). My fresh renders reproduce the 0.0.0.29.2 clamp-census
+  bytes EXACTLY (hello 2B34, annyeong E689, yeobo 3134), so the measured tree
+  state is pinned: 29.2-diagnostic-round + de-click. Consequence: the probe
+  characterizes THIS tree; demo/*.wav on disk (hashes verified =
+  cfe3/7dce/2da3) serve as the 28.3 reference. All proposal sims below use
+  the current chain (leveler V2 + coherence residue) as base.
+
+STEP 1 renders (probe/0.0.0.30.1/*.wav, 9 items = 6 eval + 2 demos + old):
+  fixed_sentence 8822 cd827812 | demo_hello 9792 2b348b80 | creak 6439 251b54fd
+  gain_probe 5072 8882869c | cluster 7785 caeefdeb | pause 8535 bb356340
+  annyeong 17446 e6898c0f | yeobo 14666 3134b4a5 | old_input 7852 9f55ab85.
+  Determinism: rerun byte-identical (fc /b clean). wav-vs-f32 <= 4.4e-5.
+
+(a) MEASURED NUMBERS (current tree: V2 table + cap12/pre1.10 + coherence)
+------------------------------------------------------------------------------
+1. Per-arm planned gains, eval corpus + demos + old (50 segs, engine 50/50 OK):
+   V2 bases in corpus: 0, -1.75, -2.5, -3.5, -4.0, -10(h), -9(weak).
+   GLOBAL planned spread: min -6.00 max 0.00 = 6.00 dB (n=50).
+   UNCLIPPED (base+decl+fin): min -13.00 max 0.00 = 13.00 dB.
+   The floor hides 7.00 dB. Declination cap (idx>=12 -> -6.0) binds 0 segs
+   (deepest decl in corpus -5.5, annyeong u11).
+   Per arm (planned, incl decl/fin/floor) min/max/mean/n:
+     stressed-vowel    n=10  -3.50 ..  0.00  mean -1.55
+     unstressed-vowel  n=14  -6.00 .. -1.75  mean -3.32
+     sibilant          n=4   -6.00 .. -2.50  mean -4.12
+     approximant       n=7   -6.00 .. -3.50  mean -4.86
+     nasal             n=5   -6.00 .. -4.00  mean -5.10
+     h-fric            n=3   -6.00 .. -6.00  mean -6.00  (always floored)
+     weak-fric         n=2   -6.00 .. -6.00  mean -6.00  (always floored)
+     other-stop        n=5   -4.00 .. -0.50  mean -1.40
+   (voiced-fric/latfric arms never fire in corpus/demo/old inputs.)
+   Floor (-6) hits: 12/50 (24%): fixed u0,u3 weak-fric + u5 nasal(+decl+fin),
+     hello u0 h, annyeong u5 nasal u6 h u8 sib(+decl) u9/u11 vowels(+decl)
+     u10 approx(+decl), yeobo u6 approx(+decl), old u0 h.
+   Worst adjacent planned steps (demos): hello u0->u1 +3.75, annyeong
+   u0->u1 -4.50; old_input u0->u1 +5.50 (ungated input).
+2. Leveler makeup (exact float64 replica, cap+12dB, prescale 1.10x, causal
+   follower atk12ms/rel8ms/smooth10ms, tamer 5ms/2.2x/0.08, knee -0.20x
+   above -12dB / 2.4-0.85x below / extra -0.5x above -3dB; fixed-point
+   inversion resid <= 1.6e-5 = wav-quantization floor on all items except
+   1-2 pinned-max samples each; it150==it250 stable; wav-vs-f32 <=4.4e-5):
+   item            makeup max/mean/p50 dB  atCap  G(dB)    total-lift max/mean frac>=4x
+   fixed_sentence  12.00/ 9.95/12.00  66.7%  -3.69      2.60x/ 2.22x  0.000
+   demo_hello      11.71/ 2.42/ 1.37   0.0%   +6.26      7.64x/ 2.88x  0.130
+   creak_probe      7.60/ 0.95/ 1.01   0.0%   +2.56      3.05x/ 1.54x  0.000
+   gain_probe      12.00/ 9.16/11.99  50.0%  +10.23    12.92x/10.19x  0.917
+   cluster_probe   12.00/ 9.21/12.00  55.6%   -2.03      3.15x/ 2.53x  0.000
+   pause_probe     12.00/ 6.33/ 5.54  40.0%   +6.49      8.40x/ 5.18x  0.500
+   annyeong        12.00/10.35/12.00  57.5%   -0.52      3.75x/ 3.26x  0.000
+   yeobo           12.00/10.66/12.00  67.6%   -0.23      3.88x/ 3.48x  0.000
+   old_input       12.00/ 2.77/ 1.44  11.1%   +4.74      6.45x/ 2.63x  0.111
+   Cap +12dB binds on 6/9 items. Max TOTAL lift 12.92x (gain_probe "apa").
+   Demos max total lift: hello 7.64x. Max makeup alone 12.0 dB (3.98x).
+   Makeup at spark windows: hello s1 -1.11dB (NOT lifted: peak-anchored,
+     confirms 0.0.0.28.1 refined mechanism), s2 +1.21; annyeong
+     s9 -1.21 (peak-anchored /s/ body) but s11 +8.76dB, s10 +11.47dB;
+     yeobo s5 -0.83 but s7 +12.00dB (cap). So BOTH mechanisms coexist:
+     head sparks = peak-anchored prescale pin; tail-join sparks (s11/s7)
+     = rescue-lifted (+8.8/+12dB at window).
+   Leveler applied range (max-min gdb per 20ms window): 9.0-13.4 dB/item
+     (fixed 13.31, hello 12.82, creak 9.02, gain 12.50, cluster 13.35,
+      pause 13.26, annyeong 13.21, yeobo 12.83, old 13.25).
+   Coherence applied range (per-unit dB): fixed/annyeong/yeobo/gain/
+     cluster/pause all rail at +-6.00 (2-4 units each at rails); hello
+     -0.25..+0.42 (near-idle); creak idle (0.00); old -1.75..+0.98.
+3. Clamp engagement (|x| >= 0.985), current tree: demos 0/0/0 (de-click
+   shaves the Gc-pinned max below 0.985; matches 0.0.0.29.2 census);
+   fixed 1, cluster 1, pause 2, creak 23 (interior creak pulses, phonetic),
+   gain 0, old 1. Spark windows (10ms, gate mirror): hello s1 0.8667 ok
+   (s2 0.6292, s3 0.3893); annyeong s9 0.7124 ok, s11 0.9608 SPARK;
+   yeobo s5 0.5630 ok, s7 0.9311 SPARK. (Ungated: cluster s1 0.9478,
+   pause s2 0.9747, old s1 0.9705.)
+4. Dynamic-range split (quantified):
+   PLANNED side: arm bases in corpus 10.0 dB (-10 h .. 0 ref) +
+     declination 0..-5.5 (5.5 dB by position) + final -2.0 (2 segs) =
+     13.0 dB unclipped; floor -6 clips 7.0 dB off 12 segs -> 6.0 dB
+     effective planned spread. Final fade (post-gain, -12dB raised-cosine
+     over final <=150ms): up to -12dB tip depth on the final segment.
+   REALIZED side (pre-leveler, engine): per-unit OUTPUT profile under
+     flat sim shows /s/ bodies at -13dBFS vs vowels at -25..-32dBFS =
+     ~19 dB realized spread vs 6 dB planned. The extra ~13 dB is
+     EXCITATION-dominated (/s/ white-noise path ~+13dB hot vs vowels at
+     matched source gain; h-burst similar), NOT table-driven. The leveler
+     (mean ~10dB on annyeong/yeobo) + coherence (+-6 rails) bridge exactly
+     this excitation gap. THIS is why table flattening cannot remove the
+     rescue: the burial is in the excitation + h-floor + fade tip, while
+     the table (halved in 0.0.0.28.2) contributes only its 6 dB.
+   28.3-vs-current deltas (demos on disk are 28.3): rms -0.86/-0.73/-1.36dB
+     (hello/annyeong/yeobo), peaks 0.989->0.867/0.961/0.931, troughs
+     -2.76->-2.71 / -12.31->-5.20 / -10.40->-7.61 (coherence fills troughs),
+     RMS 0.1831->0.1659 / 0.1037->0.0953 / 0.1146->0.0980.
+
+(b) CONCRETE FLAT TABLE PROPOSAL (F3d25; TOTAL effective spread 6.00 dB,
+     firing-arm nominal 8 dB -- budget met on both framings)
+------------------------------------------------------------------------------
+segment_gain_db arms (V2 -> F3d25) with decl -0.5 -> -0.25/seg (cap idx12,
+i.e. max -3.0), final -2.0 KEEP, floor -6.0 KEEP:
+  stressed-vowel        0.0   ->   0.0    reference; corpus max (annyeong u0).
+                                     Unchanged.
+  unstressed-vowel     -1.75  ->  -1.25  (+0.5) most numerous arm (14/50);
+                                     E-onset deltas shrink. Audibility:
+                                     apa test-plan ratio 2.483 -> 2.463
+                                     simulated (> 1.8 PASS, margin +2.7dB).
+  sibilant             -2.5   ->  -2.0   (+0.5) stays below ref; peak-setter
+                                     /s/ ranking preserved, G absorbs.
+                                     Sib-cooling to -4/-6/-8 GRID-TESTED:
+                                     no spark/RMS benefit (whack-a-mole:
+                                     max relocates, RMS falls) -> rejected.
+  approximant          -3.5   ->  -3.0   (+0.5) lateral gap -0.75
+                                     (bound <8) PASS, margin 8.75dB.
+  nasal                -4.0   ->  -3.5   (+0.5).
+  h-fric              -10.0   ->  -8.0   NULL-OP: raw <= -8 always, floor -6
+                                     binds identically (0.0.0.28.1 V1 proved
+                                     h-eff -5 -> hello 0.979; -6 stays the
+                                     sweet spot). Pure nominal-spread win
+                                     (10 -> 8 dB).
+  weak fricative       -9.0   ->  -6.0   NULL-OP in corpus+tests (always
+                                     floored; f/z/v gain tests stay green
+                                     unchanged). Nominal cosmetics.
+  voiced-fric offset   -5.0   ->  -5.0   KEEP (z: -7.0, v: -11.0, still
+                                     floored; tests green).
+  latfric unvoiced      -9.0   ->  -6.0   NULL-OP (never fires; always floors).
+  latfric voiced       -14.0  ->  -8.0   NULL-OP (never fires; always floors).
+  aspirated max         -1.5   ->  -1.5   KEEP (h_h test pins -1.5).
+  declination          -0.5   ->  -0.25  per seg (idx cap 12). Tails up
+                                     +1.4..+2.75dB on late segs; fixes
+                                     coherence b11 (-4.32 -> -3.68 sim).
+                                     Keeps a prosodic slope (F0 declination
+                                     untouched elsewhere).
+  final consonant       -2.0   ->  -2.0   KEEP (2 segs; minimal churn).
+  floor                 -6.0   ->  -6.0   KEEP as h-burst backstop (28.1:
+                                     floor-12 variant worsened RMS -0.9dB).
+Result: effective corpus spread 6.00 dB (-6..0, floor-dominated as before
+but floor hits 12 -> 4 segs: fixed th,th,ng + hello h + annyeong h + old h).
+Max adjacent DEMO table step 4.50 dB (hello u0->u1; annyeong u6->u7 +4.25;
+bound 5.0 -> junction-safe by construction, smoothing reduces further).
+Max over all inputs 5.75 dB (old_input h->E only; ungated, report-only).
+REJECTED flatter variant F4d10 (arms +1.0, decl 0.1): demo steps
++5.15/+5.30 EXCEED the 5.0 junction bound (re-derive risk), yeobo RMS
+0.0927 FAILS 0.095, apa margin thinner (2.16). Kept as documented runner-up.
+
+(c) MINIMAL LEVELER PROPOSAL: NO CHANGE (all twelve dB kept)
+------------------------------------------------------------------------------
+  makeup cap  +12dB KEEP | prescale 1.10x KEEP | ceiling 0.989 KEEP |
+  tamer KEEP | knee/follower/smoothing KEEP.
+  Justification (grid-measured): cap 8 -> annyeong RMS fail + cohviol;
+  cap 10 -> cohviol fail; cap 6 -> RMS 0.0940 fail + cohviol + worse sparks.
+  prescale 0.95/1.00 -> no RMS/spark gain with cohON (Gc absorbs);
+  1.25 -> hello s1 0.9404 RED; 0.90 + cohOFF -> audibility collapse
+  (halves +7..+11, RMS ~0.07). Tamer strictly attenuating (29.2 math proof
+  stands; sim: spark-window makeup ~0dB at head sparks). So the "safety
+  net" story is REFUTED for this corpus: the full rescue stack IS the
+  audibility (tails need ~+10dB effective: fade tip -12 + h-floor -6 +
+  /s/-pinned G). Predicted clamp-engagement: ~1 sample/demo
+  (coherence-Gc construction floor; 28.3 had 6/8/12) -- true zero is
+  unreachable with cohON and buys nothing (current tree already reads 0
+  via de-click luck). Coherence: KEEP (revert refuted; redistribution
+  cohcap3 + lvlcap14/16 refuted: sparks rise to 0.98).
+  Honest headline: flattening buys join cooling + gate fixes, NOT rescue
+  removal. Rescue need is excitation/fade/floor-driven, table changes
+  move it by <1dB (capfrac 0.575 -> 0.675 annyeong: G renormalization
+  eats the arm lift).
+
+(d) PREDICTED MARGINS UNDER P0 (F3d25 + cap12 + pre1.10 + atk12 + cohON;
+     task bar RMS >= 0.10 (code bound 0.095 noted); sim +/-0.5dB audio /
+     +/-0.05 spark-peak uncertainty; hello-s1 bias -0.04 calibrated:
+     sim 0.83 -> truth ~0.87)
+------------------------------------------------------------------------------
+  leveling RMS (task bar 0.10 | code 0.095): hello 0.1703 (+4.63dB |
+    +5.07dB) | annyeong 0.1010 (+0.09dB | +0.53dB -- SUB-ERROR-BAR,
+    needs >= 0.1122 for 2x margin) | yeobo 0.0961 (-0.35dB vs 0.10 --
+    RAW FAIL; +0.11dB vs code 0.095 only).
+  trough (bound -14.0): hello -2.7 (+11.3dB) | annyeong -5.8 (+8.2dB) |
+    yeobo -8.0 (+6.0dB). ALL PASS with margin (need >= -13.0).
+  tail (yeobo bound 0.03): 0.0867 (+9.2dB; need >= 0.0336). PASS w/ margin.
+    hello/annyeong tails 0.1185/0.1165 report-only.
+  halves (bound 5.0): hello -2.8 | annyeong +1.8 | yeobo +0.0.
+    ALL PASS with margin (need |.| <= 4.0).
+  spark, per-window unclamped peaks (bound 0.9; truth = sim except
+    hello s1 +0.04 bias):
+    hello:   s1 0.8276 (truth ~0.87, margin 0.03 -- SUB-ERROR-BAR, pin
+      0.9606 still holds) | s2 0.6379 | s3 0.4028.
+    annyeong: s1 0.2467 s2 0.2667 s3 0.2006 s4 0.1961 s5 0.1844 s6 0.1107
+      s7 0.3633 s8 0.0986 s9 0.7480 s10 0.3237 s11 0.9463 RED.
+    yeobo:   s1 0.2217 s2 0.2233 s3 0.4495 s4 0.0901 s5 0.5581 s6 0.2028
+      s7 0.9304 RED.
+    Margin rule needs sim <= 0.80 for acceptance: s11 misses by 0.1463,
+    s7 by 0.1304. NO pin proposed for s11/s7 (rescue-lifted join
+    artifacts per tail-decomp + de-click round, NOT phonetic like the
+    s1/s5 pins) -- gate stays RED, implementation STOP expected.
+  clamp engagement (|x| >= 0.985): 1/1/1 per demo (coherence-Gc
+    construction floor; 28.3 had 6/8/12). True zero unreachable with
+    cohON and buys nothing (current tree already reads 0 via de-click).
+  coherence-RMS steps > 4dB: 0 (b11 -4.32 -> within bound; FIXED vs
+    current tree).
+  gain apa testplan ratio 2.46 (> 1.8 PASS, margin +2.7dB). NOTE: the
+    analyze_flat.py gain_probe proxy (0.81 FAIL) is NOT the gate -- it
+    FAILS on control/current engine too; the gate is gain.rs ratio with
+    Primary-marked testplan = APA sim above.
+  hello lateral gap -0.75dB (< 8 PASS, margin 8.75dB).
+  balance old_input -3.36dB (non-violating; violator RETIRED, see (f)).
+  VERDICT ON P0: RED on spark TDD (s11 0.9463, s7 0.9304 -- confirms
+  the review verdict) PLUS yeobo RMS raw-FAIL vs task bar 0.10.
+
+(e) REVISION-ROUND EXTENDED GRID (56 new points; console + cert in
+     logs/0.0.0.30.1/revise.log; prior ~61 points in logs probe.log)
+------------------------------------------------------------------------------
+  Sweep: table arms within +/-1dB of F3d25 (unstrV/sib/approx/nasal/h
+    +/-1; decl {0.15,0.35}; fin {1,3}; floor {5,7}; 16 singles x2
+    corners + 6 two-arm combos) x cap {8,10,12} x pre {1.00,1.05,1.10}
+    x atk {12ms,40ms}, cohON, validated replica (residuals in (d)
+    header + revise.log: max spark |sim-eng| 0.0406, bound +/-0.05;
+    audio bound +/-0.5dB; acceptance needs >= 2x: spark sim <= 0.80,
+    RMS >= +1.0dB, trough >= -13.0, tail >= 0.0336, |halves| <= 4.0).
+  Result: ZERO ALLPASS in 56 new points (~117 total with prior grids).
+  Frontier (which gates conflict, with numbers):
+    F1 spark-vs-spark: yeobo s7 in [0.9062,0.9707] over all 56 points,
+      NEVER < 0.9; leveler-invariant (cap/pre/atk move it <= 0.03).
+      annyeong s11 in [0.8765,0.9845]. Anti-correlated: sib+ cools ye
+      s7 0.9429 -> 0.9080 but heats an s11 0.8793 -> 0.9801
+      (cap8/pre1.05). Best joint spark point is P0 itself -- double-RED.
+    F2 RMS(yeobo >= 0.10) vs SPARK: yeobo RMS >= 0.10 needs cap8 rescue
+      (0.118-0.126); at cap12 it is 0.094-0.096 RAW FAIL (P0 0.0961,
+      -0.35dB). But cap8 always fires annyeong cohviol = 1 AND s11 RED.
+    F3 COHVIOL(b11 <= 4dB) vs SPARK(s11 < 0.9): b11 needs >= +4dB tail
+      lift (cap >= 10 rescue); the same lift pushes s11 to 0.94+. At
+      cap8 the lift collapses and b11 fires (-6.05 class, cv = 1).
+    F4 RMS(annyeong >= 0.10) vs CAP: cap12/pre1.10 gives 0.1010
+      (+0.09dB, sub-error-bar; 2x margin needs >= 0.1122); cap8 gives
+      0.104-0.109 but with cohviol = 1. No corner gives RMS + margin
+      AND cv = 0 AND spark < 0.9.
+    Structural cause (confirms 29.2 Round-4): coherence peakcap
+    (0.9/peak, +-6dB) + Gc rescale re-pin tail onsets to ~0.9 under
+    EVERY setting; one scalar gain per segment cannot satisfy RMS-fill
+    (+6dB needed) and spark-avoidance (binds at +5.3dB) at once.
+    Parametric search cannot cross this; it is not a tuning gap.
+  Margin check: MOOT -- no raw pass, so no 2x-margin pass. Closest
+    spark 0.9062 misses raw by 0.0062, margin bound by 0.1062. Engine
+    baseline itself fails the task bar (yeobo 0.0980, an 0.0953, RED).
+  CERTIFICATION: the searched space contains NO passing point.
+  RECOMMENDATION: close 0.0.0.30 with no implementation (see (g)).
+
+(f) GATE-MOVE DISPOSITIONS (old bound -> new bound + one-line reason)
+------------------------------------------------------------------------------
+  1. leveling RMS floor: code 0.095 KEEP (no move). Engine-verified on
+     the current tree (0.0953/0.0980); the task bar 0.10 is a probe
+     acceptance bar only -- raising the code bound to 0.10 would
+     red-light the shipped-tree baseline itself.
+  2. trough -14dB: KEEP. P0 sim -2.7..-8.0, margins >= 6dB everywhere.
+  3. tail 0.03 (yeobo): KEEP. P0 sim 0.0867 (+9.2dB over bound).
+  4. halves 5dB: KEEP. P0 sim worst 2.8 (need <= 4.0 for margin).
+  5. junction_smooth 5.0dB: KEEP. Max demo table step 4.50dB sim,
+     junction-safe by construction (smoothing reduces further).
+  6. spark unclamped 0.9 + pins s1 0.9606 / s5 0.95: KEEP, NO NEW PIN.
+     s11/s7 are rescue-lifted join artifacts (tail-decomp + de-click),
+     not phonetic like s1 (h-burst) / s5 (/s/ body) -- pinning them
+     would enshrine a blend artifact (same standard as s1/s5 pins).
+  7. balance violator (old_input must violate < -6): RETIRE (already
+     retired in-tree per 0.0.0.29.2 R1/R3: mean-target RMS normalization
+     makes deliberately-buried-tail impossible BY DESIGN; superseded by
+     coherence RMS <= 4dB + trough/tail/halves/floor gates; old_input
+     now reads -3.36, non-violating by construction).
+  8. coherence RMS step 4dB + same-phoneme 150Hz: KEEP. P0 sim cv = 0
+     (b11 fixed -4.32 -> within bound; decl 0.25 does the work).
+  9. gain apa ratio 1.8: KEEP. P0 sim 2.46 (+2.7dB margin).
+  10. lateral gap 8dB: KEEP. P0 sim -0.75dB (margin 8.75dB).
+  11. clear_l / gain unit tests: KEEP (re-derive exact values in 0.0.0.30.2
+      ONLY if implementation proceeds; table arms move <= 1dB so the
+      re-derivation set is bounded -- NULL-OP arms need no touch).
+  12. leveler cap 12dB / prescale 1.10x / ceiling 0.989: KEEP. Grid
+      proves no softer setting passes; the full rescue stack IS the
+      audibility (tails need ~+10dB effective).
+
+(g) SCOPE STATEMENT
+------------------------------------------------------------------------------
+  ANALYSIS/SIMULATION ONLY. No production code, no test, no gate, no
+  docs/demo-wav change was made or is proposed herein; new files are
+  this flat-table.txt (rewritten whole, truncation fixed) plus
+  logs/0.0.0.30.1/revise.log (grid console + certification). All sims
+  use the validated output-domain replica; engine renders were
+  read-only truth data. Handoff to 0.0.0.30.2: P0 CANNOT go green on
+  spark TDD as scoped (s11/s7 RED unpinnable, yeobo RMS short) -- expect
+  STOP on the spark gate unless a tail-onset mechanism (fade-tip +
+  h-floor + /s/-pinned-G stack) is scoped first. Standing
+  recommendation: CLOSE 0.0.0.30 with no implementation; flattening buys
+  join cooling (s9 fixed, b11 fixed, 4.50dB steps) + gate fixes, NOT
+  rescue removal, and ~117 sim points show every rescue shrink re-fires
+  RMS/cohviol/spark elsewhere. Next is a user call: (B) accept current
+  sound, or (C) new tail-onset probe -- not another parametric sweep.

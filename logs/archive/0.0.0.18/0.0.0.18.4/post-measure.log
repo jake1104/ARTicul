@@ -1,0 +1,16 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.07s
+     Running tests\tmp_post184.rs (target\debug\deps\tmp_post184-c60d0305fb02ea96.exe)
+
+running 1 test
+POST HALVES n=8248 db0=-31.89 db1=-29.48 diff=2.42
+POST unit 0 dur=78 gain=-12.00
+POST unit 1 dur=89 gain=-4.50
+POST unit 2 dur=50 gain=-9.00
+POST unit 3 dur=148 gain=-3.00
+POST unit 4 dur=83 gain=-7.50
+POST LWIN -35.03dB OWIN -28.94dB gap=6.10
+test tmp_post_numbers ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

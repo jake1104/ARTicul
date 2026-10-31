@@ -1,0 +1,4 @@
+Task 0.0.0.5.3 prosody rule engine (unchanged by phonetic-input rework)
+Design: plan() reads SegmentKind/LengthMark features only, base 80ms C / 120ms V, mult Short 1.0 HalfLong 1.25 Long 1.5 Overlong 2.0, f0 declination 20 percent
+Tests: prosody.rs 4 passed
+Files: crates/articul-front/src/prosody.rs

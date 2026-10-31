@@ -1,0 +1,21 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+error[E0425]: cannot find function `vowel_formants` in crate `articul_dsp`
+ --> crates\articul-dsp\tests\vowel_formants.rs:5:36
+  |
+5 |     let (f1, f2, _) = articul_dsp::vowel_formants(&p).expect("vowel must have targets");
+  |                                    ^^^^^^^^^^^^^^ not found in `articul_dsp`
+
+error[E0425]: cannot find function `vowel_formants` in crate `articul_dsp`
+  --> crates\articul-dsp\tests\vowel_formants.rs:43:41
+   |
+43 |         let (f1, f2, f3) = articul_dsp::vowel_formants(&p).expect("vowel target");
+   |                                         ^^^^^^^^^^^^^^ not found in `articul_dsp`
+
+error[E0425]: cannot find function `vowel_formants` in crate `articul_dsp`
+  --> crates\articul-dsp\tests\vowel_formants.rs:54:30
+   |
+54 |         assert!(articul_dsp::vowel_formants(&p).is_none());
+   |                              ^^^^^^^^^^^^^^ not found in `articul_dsp`
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `articul-dsp` (test "vowel_formants") due to 3 previous errors

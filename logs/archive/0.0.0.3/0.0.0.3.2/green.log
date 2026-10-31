@@ -1,0 +1,11 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.24s
+     Running tests\aspiration.rs (target\debug\deps\aspiration-f2767425e8d23f8f.exe)
+
+running 3 tests
+test unaspirated_keeps_base_noise ... ok
+test aspirated_boosts_noise ... ok
+test nasalized_vowel_does_not_boost_aspiration ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -1,0 +1,31 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.89s
+     Running tests\stress.rs (target\debug\deps\stress-a52db44136c9a22d.exe)
+
+running 8 tests
+test marker_after_base_attaches_to_later_vowel ... ok
+test consonants_before_vowel_get_no_stress ... ok
+test last_marker_wins ... ok
+test plan_defaults_missing_stress_to_unstressed ... ok
+test plan_carries_stress_through ... ok
+test secondary_stress_marks_following_vowel ... ok
+test trailing_marker_without_vowel_is_dropped ... ok
+test primary_stress_attaches_to_following_vowel ... FAILED
+
+failures:
+
+---- primary_stress_attaches_to_following_vowel stdout ----
+
+thread 'primary_stress_attaches_to_following_vowel' (17240) panicked at crates\articul-front\tests\stress.rs:15:5:
+assertion `left == right` failed
+  left: [Unstressed, Primary, Unstressed, Primary, Unstressed]
+ right: [Unstressed, Primary, Unstressed, Unstressed, Unstressed]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    primary_stress_attaches_to_following_vowel
+
+test result: FAILED. 7 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-front --test stress`

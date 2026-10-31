@@ -1,0 +1,19 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+error[E0609]: no field `f0_end_hz` on type `ProsodicPhoneme`
+   --> crates\articul-front\tests\prosody.rs:311:21
+    |
+311 |             (out[i].f0_end_hz - out[i + 1].f0_hz).abs() < 1e-4,
+    |                     ^^^^^^^^^ unknown field
+    |
+    = note: available fields are: `phoneme`, `duration_ms`, `f0_hz`, `stress`
+
+error[E0609]: no field `f0_end_hz` on type `&ProsodicPhoneme`
+   --> crates\articul-front\tests\prosody.rs:317:15
+    |
+317 |         (last.f0_end_hz - last.f0_hz).abs() < 1e-4,
+    |               ^^^^^^^^^ unknown field
+    |
+    = note: available fields are: `phoneme`, `duration_ms`, `f0_hz`, `stress`
+
+For more information about this error, try `rustc --explain E0609`.
+error: could not compile `articul-front` (test "prosody") due to 2 previous errors

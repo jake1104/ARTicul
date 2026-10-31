@@ -1,0 +1,68 @@
+== fixed_sentence :: TIs TIN
+units=6
+u0 sym=罐 dur=78ms stress=Unstressed word_final=false pause=false seglen=1720 arm=weak-fric base=-18.0 decl=-0.0 fin=0.0 floor=1 engine=-12.000dB match=OK
+u1 sym= dur=66ms stress=Unstressed word_final=false pause=false seglen=1455 arm=unstressed-vowel base=-3.5 decl=-1.0 fin=0.0 floor=0 engine=-4.500dB match=OK
+u2 sym=s dur=74ms stress=Unstressed word_final=true pause=false seglen=1632 arm=sibilant base=-5.0 decl=-2.0 fin=0.0 floor=0 engine=-7.000dB match=OK
+u3 sym=罐 dur=65ms stress=Unstressed word_final=false pause=false seglen=1433 arm=weak-fric base=-18.0 decl=-3.0 fin=0.0 floor=1 engine=-12.000dB match=OK
+u4 sym= dur=92ms stress=Unstressed word_final=false pause=false seglen=2029 arm=unstressed-vowel base=-3.5 decl=-4.0 fin=0.0 floor=0 engine=-7.500dB match=OK
+u5 sym=흯 dur=65ms stress=Unstressed word_final=true pause=false seglen=1433 arm=nasal base=-8.0 decl=-5.0 fin=-4.0 floor=1 engine=-12.000dB match=OK
+== demo_hello :: hE "loU
+units=5
+u0 sym=h dur=78ms stress=Unstressed word_final=false pause=false seglen=1720 arm=h-fric base=-10.0 decl=-0.0 fin=0.0 floor=0 engine=-10.000dB match=OK
+u1 sym=? dur=89ms stress=Unstressed word_final=true pause=false seglen=1962 arm=unstressed-vowel base=-3.5 decl=-1.0 fin=0.0 floor=0 engine=-4.500dB match=OK
+u2 sym=l dur=70ms stress=Unstressed word_final=false pause=false seglen=1544 arm=approximant base=-7.0 decl=-2.0 fin=0.0 floor=0 engine=-9.000dB match=OK
+u3 sym=o dur=148ms stress=Primary word_final=false pause=false seglen=3263 arm=stressed-vowel base=0.0 decl=-3.0 fin=0.0 floor=0 engine=-3.000dB match=OK
+u4 sym=? dur=83ms stress=Unstressed word_final=true pause=false seglen=1830 arm=unstressed-vowel base=-3.5 decl=-4.0 fin=0.0 floor=0 engine=-7.500dB match=OK
+== creak_probe :: "ma
+units=2
+u0 sym=m dur=54ms stress=Unstressed word_final=false pause=false seglen=1191 arm=nasal base=-8.0 decl=-0.0 fin=0.0 floor=0 engine=-8.000dB match=OK
+u1 sym=a dur=246ms stress=Primary word_final=true pause=false seglen=5424 arm=stressed-vowel base=0.0 decl=-1.0 fin=0.0 floor=0 engine=-1.000dB match=OK
+== gain_probe :: apa
+units=3
+u0 sym=a dur=80ms stress=Unstressed word_final=false pause=false seglen=1764 arm=unstressed-vowel base=-3.5 decl=-0.0 fin=0.0 floor=0 engine=-3.500dB match=OK
+u1 sym=p dur=47ms stress=Unstressed word_final=false pause=false seglen=1036 arm=other-stop base=0.0 decl=-1.0 fin=0.0 floor=0 engine=-1.000dB match=OK
+u2 sym=a dur=119ms stress=Unstressed word_final=true pause=false seglen=2624 arm=unstressed-vowel base=-3.5 decl=-2.0 fin=0.0 floor=0 engine=-5.500dB match=OK
+== cluster_probe :: "sprit
+units=5
+u0 sym=s dur=78ms stress=Unstressed word_final=false pause=false seglen=1720 arm=sibilant base=-5.0 decl=-0.0 fin=0.0 floor=0 engine=-5.000dB match=OK
+u1 sym=p dur=42ms stress=Unstressed word_final=false pause=false seglen=926 arm=other-stop base=0.0 decl=-1.0 fin=0.0 floor=0 engine=-1.000dB match=OK
+u2 sym=r dur=36ms stress=Unstressed word_final=false pause=false seglen=794 arm=approximant base=-7.0 decl=-2.0 fin=0.0 floor=0 engine=-9.000dB match=OK
+u3 sym=i dur=162ms stress=Primary word_final=false pause=false seglen=3572 arm=stressed-vowel base=0.0 decl=-3.0 fin=0.0 floor=0 engine=-3.000dB match=OK
+u4 sym=t dur=67ms stress=Unstressed word_final=true pause=false seglen=1477 arm=other-stop base=0.0 decl=-4.0 fin=-4.0 floor=0 engine=-8.000dB match=OK
+== pause_probe :: a, pa
+units=4
+u0 sym=a dur=103ms stress=Unstressed word_final=true pause=false seglen=2271 arm=unstressed-vowel base=-3.5 decl=-0.0 fin=0.0 floor=0 engine=-3.500dB match=OK
+u1 sym=a dur=160ms stress=Unstressed word_final=true pause=true seglen=3528 arm=unstressed-vowel base=-3.5 decl=-1.0 fin=0.0 floor=0 engine=-4.500dB match=OK
+u2 sym=p dur=57ms stress=Unstressed word_final=false pause=false seglen=1257 arm=other-stop base=0.0 decl=-2.0 fin=0.0 floor=0 engine=-2.000dB match=OK
+u3 sym=a dur=133ms stress=Unstressed word_final=true pause=false seglen=2933 arm=unstressed-vowel base=-3.5 decl=-3.0 fin=0.0 floor=0 engine=-6.500dB match=OK
+== annyeong :: %an njVN "hasejo
+units=12
+u0 sym=a dur=179ms stress=Secondary word_final=false pause=false seglen=3947 arm=stressed-vowel base=0.0 decl=-0.0 fin=0.0 floor=0 engine=0.000dB match=OK
+u1 sym=n dur=52ms stress=Unstressed word_final=true pause=false seglen=1147 arm=nasal base=-8.0 decl=-1.0 fin=0.0 floor=0 engine=-9.000dB match=OK
+u2 sym=n dur=45ms stress=Unstressed word_final=false pause=false seglen=992 arm=nasal base=-8.0 decl=-2.0 fin=0.0 floor=0 engine=-10.000dB match=OK
+u3 sym=j dur=41ms stress=Unstressed word_final=false pause=false seglen=904 arm=approximant base=-7.0 decl=-3.0 fin=0.0 floor=0 engine=-10.000dB match=OK
+u4 sym=? dur=88ms stress=Unstressed word_final=false pause=false seglen=1940 arm=unstressed-vowel base=-3.5 decl=-4.0 fin=0.0 floor=0 engine=-7.500dB match=OK
+u5 sym=흯 dur=45ms stress=Unstressed word_final=true pause=false seglen=992 arm=nasal base=-8.0 decl=-5.0 fin=0.0 floor=1 engine=-12.000dB match=OK
+u6 sym=h dur=52ms stress=Unstressed word_final=false pause=false seglen=1147 arm=h-fric base=-10.0 decl=-6.0 fin=0.0 floor=1 engine=-12.000dB match=OK
+u7 sym=a dur=118ms stress=Primary word_final=false pause=false seglen=2602 arm=stressed-vowel base=0.0 decl=-7.0 fin=0.0 floor=0 engine=-7.000dB match=OK
+u8 sym=s dur=58ms stress=Unstressed word_final=false pause=false seglen=1279 arm=sibilant base=-5.0 decl=-8.0 fin=0.0 floor=1 engine=-12.000dB match=OK
+u9 sym=e dur=66ms stress=Unstressed word_final=false pause=false seglen=1455 arm=unstressed-vowel base=-3.5 decl=-9.0 fin=0.0 floor=1 engine=-12.000dB match=OK
+u10 sym=j dur=41ms stress=Unstressed word_final=false pause=false seglen=904 arm=approximant base=-7.0 decl=-10.0 fin=0.0 floor=1 engine=-12.000dB match=OK
+u11 sym=o dur=94ms stress=Unstressed word_final=true pause=false seglen=2073 arm=unstressed-vowel base=-3.5 decl=-11.0 fin=0.0 floor=1 engine=-12.000dB match=OK
+== yeobo :: %jV"bo%se%jo
+units=8
+u0 sym=j dur=43ms stress=Unstressed word_final=false pause=false seglen=948 arm=approximant base=-7.0 decl=-0.0 fin=0.0 floor=0 engine=-7.000dB match=OK
+u1 sym=? dur=130ms stress=Secondary word_final=false pause=false seglen=2867 arm=stressed-vowel base=0.0 decl=-1.0 fin=0.0 floor=0 engine=-1.000dB match=OK
+u2 sym=b dur=41ms stress=Unstressed word_final=false pause=false seglen=904 arm=other-stop base=0.0 decl=-2.0 fin=0.0 floor=0 engine=-2.000dB match=OK
+u3 sym=o dur=103ms stress=Primary word_final=false pause=false seglen=2271 arm=stressed-vowel base=0.0 decl=-3.0 fin=0.0 floor=0 engine=-3.000dB match=OK
+u4 sym=s dur=59ms stress=Unstressed word_final=false pause=false seglen=1301 arm=sibilant base=-5.0 decl=-4.0 fin=0.0 floor=0 engine=-9.000dB match=OK
+u5 sym=e dur=129ms stress=Secondary word_final=false pause=false seglen=2844 arm=stressed-vowel base=0.0 decl=-5.0 fin=0.0 floor=0 engine=-5.000dB match=OK
+u6 sym=j dur=41ms stress=Unstressed word_final=false pause=false seglen=904 arm=approximant base=-7.0 decl=-6.0 fin=0.0 floor=1 engine=-12.000dB match=OK
+u7 sym=o dur=175ms stress=Secondary word_final=true pause=false seglen=3859 arm=stressed-vowel base=0.0 decl=-7.0 fin=0.0 floor=0 engine=-7.000dB match=OK
+== old_input :: "hE l@U
+units=5
+u0 sym=h dur=78ms stress=Unstressed word_final=false pause=false seglen=1720 arm=h-fric base=-10.0 decl=-0.0 fin=0.0 floor=0 engine=-10.000dB match=OK
+u1 sym=? dur=163ms stress=Primary word_final=true pause=false seglen=3594 arm=stressed-vowel base=0.0 decl=-1.0 fin=0.0 floor=0 engine=-1.000dB match=OK
+u2 sym=l dur=50ms stress=Unstressed word_final=false pause=false seglen=1103 arm=approximant base=-7.0 decl=-2.0 fin=0.0 floor=0 engine=-9.000dB match=OK
+u3 sym=? dur=56ms stress=Unstressed word_final=false pause=false seglen=1235 arm=unstressed-vowel base=-3.5 decl=-3.0 fin=0.0 floor=0 engine=-6.500dB match=OK
+u4 sym=? dur=83ms stress=Unstressed word_final=true pause=false seglen=1830 arm=unstressed-vowel base=-3.5 decl=-4.0 fin=0.0 floor=0 engine=-7.500dB match=OK

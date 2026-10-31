@@ -1,0 +1,62 @@
+warning: function `seq_stressed` is never used
+   --> crates\articul-front\tests\prosody.rs:139:4
+    |
+139 | fn seq_stressed(word: &str) -> (Vec<articul_phon::Phoneme>, Vec<Stress>) {
+    |    ^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `articul-front` (test "prosody") generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.09s
+     Running tests\prosody.rs (target\debug\deps\prosody-794f4189c96b22bd.exe)
+
+running 13 tests
+test f0_declines_across_utterance ... ok
+test long_vowel_gets_more_time ... ok
+test post_nuclear_falls_to_minus_7st ... FAILED
+test baseline_initial_holds_plus_2st ... FAILED
+test faster_rate_shortens_durations ... ok
+test mindur_floor_holds ... ok
+test plan_length_matches_input ... ok
+test sublinear_cap_limits_combined_shortening ... ok
+test bare_input_defaults_nucleus_to_last_vowel ... FAILED
+test unstressed_segments_shorten ... ok
+test intrinsic_fricatives_longer_than_stops ... ok
+test pre_voiceless_obstruent_shortens_sonorant ... ok
+test nuclear_accent_adds_5st_on_last_primary_vowel ... FAILED
+
+failures:
+
+---- post_nuclear_falls_to_minus_7st stdout ----
+
+thread 'post_nuclear_falls_to_minus_7st' (27316) panicked at crates\articul-front\tests\prosody.rs:191:5:
+final f0=96 want ~80.09039
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- baseline_initial_holds_plus_2st stdout ----
+
+thread 'baseline_initial_holds_plus_2st' (24060) panicked at crates\articul-front\tests\prosody.rs:148:5:
+first f0=120 want ~134.69545
+
+---- bare_input_defaults_nucleus_to_last_vowel stdout ----
+
+thread 'bare_input_defaults_nucleus_to_last_vowel' (29240) panicked at crates\articul-front\tests\prosody.rs:221:5:
+assertion `left == right` failed: peak must sit on last vowel for bare input
+  left: 0
+ right: 3
+
+---- nuclear_accent_adds_5st_on_last_primary_vowel stdout ----
+
+thread 'nuclear_accent_adds_5st_on_last_primary_vowel' (26564) panicked at crates\articul-front\tests\prosody.rs:169:5:
+nucleus f0=96 want ~151.19052
+
+
+failures:
+    bare_input_defaults_nucleus_to_last_vowel
+    baseline_initial_holds_plus_2st
+    nuclear_accent_adds_5st_on_last_primary_vowel
+    post_nuclear_falls_to_minus_7st
+
+test result: FAILED. 9 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-front --test prosody`

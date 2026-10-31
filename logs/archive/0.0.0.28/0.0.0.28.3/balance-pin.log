@@ -1,0 +1,8 @@
+old-input-violates pin (temporary probe test, reverted; see spark-report.log):
+word0=-13.33dB word1=-19.67dB diff=-6.34dB (was -6.95dB in 0.0.0.24.3)
+margin over the -6.0 must-violate bound is now 0.34dB (was 0.95dB);
+erosion watch moved 0.61dB toward the bound under the V2 rebalance.
+spark maxima (gate geometry, 10ms windows, unclamped below 0.985):
+hello worst start1 unclamped=0.9448 windows_clamped_total=2
+annyeong worst start9 unclamped=0.8627 windows_clamped_total=1
+yeobo worst start5 unclamped=0.9336 windows_clamped_total=1

@@ -1,0 +1,4 @@
+wrote 8248 samples to demo/hello.wav
+samples 8248 rate 22050 ch 1 (X-SAMPA hE \"loU, config/default-voice.toml)
+halves rms1=833.3 rms2=1100.7 diff=+2.42dB (second half louder; within ~3dB)
+centroid magnitude-weighted Hann rFFT 3514.5Hz (18.1 baseline 3351.5Hz, same method; power-weighted 1046.6Hz recorded for reference; no threshold forced)

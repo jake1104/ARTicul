@@ -1,0 +1,46 @@
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\src\synth.rs:109:
+ }
+ 
+ fn envelope_kind(phoneme: &Phoneme, frication_path: bool) -> UnitEnvelope {
+[31m-    if matches!(
+[0m[31m-        phoneme.manner(),
+[0m[31m-        Some(Manner::Plosive | Manner::Ejective)
+[0m[31m-    ) && !phoneme.is_voiced()
+[0m[32m+    if matches!(phoneme.manner(), Some(Manner::Plosive | Manner::Ejective)) && !phoneme.is_voiced()
+[0m     {
+         UnitEnvelope::Burst
+     } else if frication_path {
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\src\synth.rs:213:
+     for s in shaped.iter_mut() {
+         *s *= gain;
+     }
+[31m-    apply_envelope(&mut shaped, envelope_kind(&unit.phoneme, frication), sample_rate);
+[0m[32m+    apply_envelope(
+[0m[32m+        &mut shaped,
+[0m[32m+        envelope_kind(&unit.phoneme, frication),
+[0m[32m+        sample_rate,
+[0m[32m+    );
+[0m     shaped
+ }
+ 
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\tests\gain.rs:1:
+[31m-use articul_front::Stress;
+[0m use articul_front::plan;
+ use articul_front::prosody::ProsodicPhoneme;
+[32m+use articul_front::Stress;
+[0m use articul_front::Xsampa;
+ 
+ fn unit(symbol: &str, stress: Stress) -> ProsodicPhoneme {
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\tests\gain.rs:7:
+     let p = articul_phon::lookup(symbol).expect("symbol must resolve");
+[31m-    let out = plan(std::slice::from_ref(&p), std::slice::from_ref(&stress), 1.0, 1.0, 120.0);
+[0m[32m+    let out = plan(
+[0m[32m+        std::slice::from_ref(&p),
+[0m[32m+        std::slice::from_ref(&stress),
+[0m[32m+        1.0,
+[0m[32m+        1.0,
+[0m[32m+        120.0,
+[0m[32m+    );
+[0m     assert_eq!(out.len(), 1);
+     out.into_iter().next().unwrap()
+ }

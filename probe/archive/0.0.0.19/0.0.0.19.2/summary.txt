@@ -1,0 +1,108 @@
+Task 0.0.0.19.2 GOAT diphthong as one gliding syllable
+
+Merge mechanism (synth.rs only, no front-end plan change)
+- Detection: is_goat_pair (synth.rs:99) matches adjacent units where the
+  first is a stressed rounded vowel with base_symbol "o" (is_goat_onset,
+  synth.rs:85) and the second is an unstressed vowel with base_symbol "U"
+  (is_goat_offglide, synth.rs:92). Pause units are excluded. Only this
+  pattern merges; every other sequence renders exactly as before.
+- Work list: render_units (synth.rs:600) folds a matched pair into one
+  WorkUnit::Merged item (synth.rs:580) carrying first/second original
+  indices, a merged ProsodicPhoneme (o phoneme, summed duration,
+  f0_hz from o, f0_end_hz from U, o stress), and fixed cascade endpoints
+  from diphthong_pairs (synth.rs:105): start F1 500 / F2 900, end F1 400 /
+  F2 1100, F3 carried from o, upper three formants unchanged.
+- Rendering: render_diphthong via DiphthongJob (synth.rs:463/475)
+  synthesizes one excitation across the merged span, filters it with a
+  per-sample retuned CascadeFilter linearly interpolated start to end
+  across the whole span, and applies gain linearly interpolated between
+  the two units original segment_gain_db values (original indices kept,
+  so endpoint gains are unchanged). The merged spec entry is the cascade
+  start pairs, so neighbor crossfades still apply. The o+U internal
+  50 ms overlap is absorbed, so output grows by exactly that overlap
+  (hello 8248 to 9351 samples).
+- Fade cap: the final fade for a trailing merged item is capped by the
+  offglide (second) duration (synth.rs final_len branch), so the fade
+  never reaches back into the stressed nucleus portion. This preserves
+  the 0.0.0.18.2 intent and keeps halves within gate.
+
+F0 staging
+- Planned values for hE "loU at base 120 Hz: o f0_hz 155.55 Hz (H*
+  nucleus), U f0_end_hz 80.09 Hz (final -7 st). The merged span opens at
+  the H* peak value and completes the 155 to 80 Hz nuclear fall inside
+  the single glide; no fall energy straddles a segment split.
+- Contour: exponential approach f(t) = f_end + (f_start - f_end) *
+  exp(-t/tau) with tau = span/4, via new GlottalSource methods
+  generate_exp_glide (source.rs:145) and generate_cf0_exp_glide
+  (source.rs:196). The fall reaches within about 2 Hz of the 80 Hz
+  target by span end and the final third of the glide holds an
+  essentially flat low tail. A full-span raised-cosine sweep was measured
+  at 0.46 to 0.58 final-80ms autocorr on this signal (sweep smears the
+  single-lag correlation of the harmonic-rich tail); the front-loaded
+  fall with flat tail measures 0.77.
+
+Creak-skip rule
+- render_unit creak condition (synth.rs:425-429) now also requires NOT
+  (final unit under 100 ms following a GOAT onset). The merged GOAT span
+  itself never takes the creak path (render_diphthong has no creak
+  branch). In hE "loU the final U is 83 ms after stressed o, so the old
+  code applied generate_creak to the tail; the new code renders periodic
+  excitation through the glide end.
+
+Red/green refs
+- Red: logs/0.0.0.19.2/red-diphthong_glide.log. F2 trajectory
+  [1354.3, 1354.3, 1354.3, 1354.3, 833.4, 1180.6] (locus-pulled static o
+  collapsing to U; monotonic-rise FAIL) and final-80ms autocorr peak
+  0.276 (creak; periodicity FAIL).
+- Green: logs/0.0.0.19.2/green-diphthong_glide.log, 2 passed.
+  In-test measured values: F2 [856.9, 914.0, 942.6, 1028.2, 999.7,
+  1056.8] (overall rise 199.9 Hz, largest step down 28.6 Hz within 50 Hz
+  tolerance) and final-80ms autocorr peak 0.7727 (threshold 0.5).
+- TDD file: crates/articul-cli/tests/diphthong_glide.rs
+  (diphthong_f2_rises_monotonically, diphthong_final_80ms_stays_periodic).
+
+Gates (logs in logs/0.0.0.19.2/, all exit 0)
+- cargo fmt --check: clean (fmt-check.log, 0 bytes).
+- cargo clippy --workspace --all-targets -- -D warnings: clean
+  (clippy.log). Two lints fixed during the task: type-complexity via a
+  FormantPairs alias and too-many-arguments via the DiphthongJob struct.
+- cargo test --workspace: all suites ok, zero failures, including the
+  new diphthong_glide.rs 2/2 and prior gates balance.rs, bandlimit,
+  glide.rs, halves_gain.rs, click.rs, determinism (test-workspace.log).
+- cargo build --release: green (release.log).
+- Intermediate fade finding: first merged cut failed halves_gain at
+  -3.20 dB (150 ms fade reached the nucleus); capping the fade at the
+  83 ms offglide restored halves to -2.70 dB, within the 3 dB gate.
+
+TIs TIN regression (config/default-voice.toml, release CLI)
+- probe/0.0.0.19.2/regression-a.wav and regression-b.wav, 8822 samples
+  each (17688 bytes), sha256
+  3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93
+  both runs, deterministic=True (cli-regression.log plus per-run
+  cli-regression-a.log / cli-regression-b.log).
+- Hash UNCHANGED vs 3d31 (0.0.0.18 baseline), contrary to the task
+  brief expectation: TIs TIN contains no stressed-o plus unstressed-U
+  pair and its final nasal follows I, so neither the merge nor the
+  creak guard touches it. Sample count likewise unchanged at 8822.
+  No production code was altered to force a hash rotation; the
+  no-change result was verified, not assumed.
+
+Hello span measurements (release render hE "loU, config/default-voice.toml)
+- probe/0.0.0.19.2/hello-check.wav: 9351 samples at 22050 Hz mono
+  16-bit (18746 bytes), sha256
+  5c41746ac1af0be14e52ac04b642af2b0c8503c2b42cde872da4375ecc31cd1b
+  (hello-render.log).
+- Meter script: probe/0.0.0.19.2/hello_measure.py.
+- F2 trajectory across the o+U span (6 Hann windows, DFT peak pick
+  700 to 1500 Hz): [908.4, 936.0, 936.0, 1046.1, 1018.5, 1073.6],
+  overall rise 165.2 Hz.
+- Final-80ms periodicity: normalized autocorrelation peak 0.7727 over
+  lags for 60 to 300 Hz (threshold 0.5).
+- Halves: first -25.69 dB, second -28.39 dB, diff -2.70 dB (within 3 dB).
+
+Probe/log paths
+- Probe: probe/0.0.0.19.2/ (regression-a.wav, regression-b.wav,
+  hello-check.wav, hello_measure.py, summary.txt)
+- Logs: logs/0.0.0.19.2/ (fmt-check, clippy, test-workspace, release,
+  cli-regression-a, cli-regression-b, cli-regression, hello-render,
+  red-diphthong_glide, green-diphthong_glide)

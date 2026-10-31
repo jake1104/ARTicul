@@ -1,0 +1,43 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.37s
+     Running tests\junction_smooth.rs (target\debug\deps\junction_smooth-680d212e54048953.exe)
+
+running 1 test
+test boundary_gain_step_bounded ... FAILED
+
+failures:
+
+---- boundary_gain_step_bounded stdout ----
+
+thread 'boundary_gain_step_bounded' (10168) panicked at crates\articul-cli\tests\junction_smooth.rs:128:5:
+max boundary gain step 4.41dB at %an njVN "hasejo boundary 4 exceeds 3.0dB
+hE "loU b1 center=1632 table_step=5.5dB track_step=2.71dB
+hE "loU b2 center=3418 table_step=4.5dB track_step=-2.22dB
+hE "loU b3 center=4786 table_step=6.0dB track_step=2.99dB
+%an njVN "hasejo b4 center=3859 table_step=9.0dB track_step=-4.41dB
+%an njVN "hasejo b5 center=4830 table_step=1.0dB track_step=-0.49dB
+%an njVN "hasejo b6 center=5646 table_step=0.0dB track_step=0.00dB
+%an njVN "hasejo b7 center=6374 table_step=2.5dB track_step=1.23dB
+%an njVN "hasejo b8 center=8138 table_step=4.5dB track_step=-2.22dB
+%an njVN "hasejo b9 center=8954 table_step=0.0dB track_step=0.00dB
+%an njVN "hasejo b10 center=9925 table_step=5.0dB track_step=2.46dB
+%an njVN "hasejo b11 center=12351 table_step=5.0dB track_step=-2.46dB
+%an njVN "hasejo b12 center=13454 table_step=0.0dB track_step=0.00dB
+%an njVN "hasejo b13 center=14733 table_step=0.0dB track_step=0.00dB
+%an njVN "hasejo b14 center=15461 table_step=0.0dB track_step=0.00dB
+%jV"bo%se%jo b15 center=860 table_step=6.0dB track_step=2.95dB
+%jV"bo%se%jo b16 center=3551 table_step=1.0dB track_step=-0.49dB
+%jV"bo%se%jo b17 center=4279 table_step=1.0dB track_step=-0.49dB
+%jV"bo%se%jo b18 center=6374 table_step=6.0dB track_step=-2.95dB
+%jV"bo%se%jo b19 center=7499 table_step=4.0dB track_step=1.97dB
+%jV"bo%se%jo b20 center=10167 table_step=7.0dB track_step=-3.44dB
+%jV"bo%se%jo b21 center=10895 table_step=5.0dB track_step=2.46dB
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    boundary_gain_step_bounded
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+error: test failed, to rerun pass `-p articul-cli --test junction_smooth`

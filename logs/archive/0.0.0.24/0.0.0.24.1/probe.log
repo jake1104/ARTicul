@@ -1,0 +1,242 @@
+== task 0.0.0.24.1 junction probe ==
+2026-10-29T18:11:16.0940135+09:00
+wrote 9792 samples to probe\0.0.0.24.1\hello.wav
+wrote 17446 samples to probe\0.0.0.24.1\annyeong.wav
+wrote 14666 samples to probe\0.0.0.24.1\yeobo.wav
+hello demo=A2E48409D461D273839C7A0734134A537A785CBEC938B39C4073F5B7F1B72A86 probe=A2E48409D461D273839C7A0734134A537A785CBEC938B39C4073F5B7F1B72A86 identical=True
+annyeong demo=99732324CDA2BD3174D73157AEE58A0A4C822080D64A0CF20DC0F7C72BA9FE35 probe=99732324CDA2BD3174D73157AEE58A0A4C822080D64A0CF20DC0F7C72BA9FE35 identical=True
+yeobo demo=DFD7629232E0D0E3A54221B1617F62FD6A6DBF5E75FFC315B54F767394D859A3 probe=DFD7629232E0D0E3A54221B1617F62FD6A6DBF5E75FFC315B54F767394D859A3 identical=True
+     Locking 157 packages to latest compatible versions
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling dasp_sample v0.11.0
+   Compiling autocfg v1.5.1
+   Compiling num-traits v0.2.19
+   Compiling syn v3.0.9
+   Compiling dasp_frame v0.11.0
+   Compiling serde_core v1.0.229
+   Compiling serde v1.0.229
+   Compiling windows_x86_64_msvc v0.52.6
+   Compiling serde_derive v1.0.229
+   Compiling dasp_ring_buffer v0.11.0
+   Compiling windows-link v0.2.1
+   Compiling windows-sys v0.61.2
+   Compiling num-integer v0.1.47
+   Compiling windows-targets v0.52.6
+   Compiling dasp_rms v0.11.0
+   Compiling dasp_peak v0.11.0
+   Compiling find-msvc-tools v0.1.15
+   Compiling shlex v2.0.1
+   Compiling equivalent v1.0.3
+   Compiling utf8parse v0.2.2
+   Compiling hashbrown v0.17.1
+   Compiling anstyle v1.0.14
+   Compiling once_cell_polyfill v1.70.2
+   Compiling anstyle-wincon v3.0.11
+   Compiling indexmap v2.14.2
+   Compiling anstyle-parse v1.0.0
+   Compiling cc v1.10.0
+   Compiling dasp_envelope v0.11.0
+   Compiling windows-result v0.1.2
+   Compiling serde_spanned v0.6.9
+   Compiling toml_datetime v0.6.11
+   Compiling anstyle-query v1.1.5
+   Compiling dasp_interpolate v0.11.0
+   Compiling dasp_window v0.11.1
+   Compiling toml_write v0.1.2
+   Compiling winnow v0.7.15
+   Compiling strength_reduce v0.2.4
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling colorchoice v1.0.5
+   Compiling anstream v1.0.0
+   Compiling transpose v0.2.3
+   Compiling toml_edit v0.22.27
+   Compiling dasp_signal v0.11.0
+   Compiling windows-core v0.54.0
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling primal-check v0.3.4
+   Compiling num-complex v0.4.6
+   Compiling dasp_slice v0.11.0
+   Compiling clap_lex v1.1.1
+   Compiling strsim v0.11.1
+   Compiling heck v0.5.0
+   Compiling articul-phon v0.0.0 (E:\01_coding\ARTicul\crates\articul-phon)
+   Compiling cpal v0.15.3
+   Compiling clap_derive v4.6.7
+   Compiling clap_builder v4.6.7
+   Compiling dasp v0.11.0
+   Compiling rustfft v6.4.1
+   Compiling windows v0.54.0
+   Compiling windows v0.54.0
+   Compiling toml v0.8.23
+   Compiling num-bigint v0.4.8
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling articul-config v0.0.0 (E:\01_coding\ARTicul\crates\articul-config)
+   Compiling cpal v0.15.3
+   Compiling clap v4.6.7
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+   Compiling hound v3.5.1
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+   Compiling plandump v0.0.0 (E:\01_coding\ARTicul\probe\0.0.0.24.1\plandump)
+error[E0658]: cannot call conditionally-const method `<usize as Ord>::max` in constants
+  --> src\main.rs:10:53
+   |
+10 | const SHORT: usize = ((0.008 * SR as f32) as usize).max(1);
+   |                                                     ^^^^^^
+   |
+   = note: calls in constants are limited to constant functions, tuple structs and tuple variants
+   = note: see issue #143874 <https://github.com/rust-lang/rust/issues/143874> for more information
+
+error: `Ord` is not yet stable as a const trait
+  --> src\main.rs:10:22
+   |
+10 | const SHORT: usize = ((0.008 * SR as f32) as usize).max(1);
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0658]: cannot call conditionally-const method `<usize as Ord>::max` in constants
+  --> src\main.rs:11:53
+   |
+11 | const GLIDE: usize = ((0.050 * SR as f32) as usize).max(1);
+   |                                                     ^^^^^^
+   |
+   = note: calls in constants are limited to constant functions, tuple structs and tuple variants
+   = note: see issue #143874 <https://github.com/rust-lang/rust/issues/143874> for more information
+
+error: `Ord` is not yet stable as a const trait
+  --> src\main.rs:11:22
+   |
+11 | const GLIDE: usize = ((0.050 * SR as f32) as usize).max(1);
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0658`.
+error: could not compile `plandump` (bin "plandump") due to 4 previous errors
+   Compiling plandump v0.0.0 (E:\01_coding\ARTicul\probe\0.0.0.24.1\plandump)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.61s
+     Running `probe\0.0.0.24.1\plandump\target\debug\plandump.exe`
+SR=22050 SHORT=176 GLIDE=1102
+== hello :: hE "loU
+units=5
+u0 sym=h dur=78ms f0=134.70->131.94Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=1720 gain=-10.000dB
+u1 sym=? dur=89ms f0=131.94->133.18Hz stress=Unstressed word_final=true pause=false spec=Cascade seglen=1962 gain=-4.500dB
+u2 sym=l dur=70ms f0=133.18->155.55Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=1544 gain=-9.000dB
+u3 sym=o dur=148ms f0=155.55->80.09Hz stress=Primary word_final=false pause=false spec=Cascade seglen=3263 gain=-3.000dB
+u4 sym=? dur=83ms f0=80.09->80.09Hz stress=Unstressed word_final=true pause=false spec=Cascade seglen=1830 gain=-7.500dB
+work_units=[0] [1] [2] [3, 4] lens=[1720, 1962, 1544, 5094] fades=[0, 176, 176, 176] predicted_out_len=9792
+b1 between u0(h)->u1(?) type=CASCADE-SHORT-GLIDE zone=[1544, 1720) n=176 gain_step=5.500dB f0_step=0.000st
+b2 between u1(?)->u2(l) type=CASCADE-SHORT-GLIDE zone=[3330, 3506) n=176 gain_step=4.500dB f0_step=0.000st
+b3 between u2(l)->u3(o) type=GOAT-EDGE zone=[4698, 4874) n=176 gain_step=6.000dB f0_step=0.000st
+== annyeong :: %an njVN "hasejo
+units=12
+u0 sym=a dur=179ms f0=146.89->140.66Hz stress=Secondary word_final=false pause=false spec=Cascade seglen=3947 gain=0.000dB
+u1 sym=n dur=52ms f0=140.66->137.64Hz stress=Unstressed word_final=true pause=false spec=Cascade seglen=1147 gain=-9.000dB
+u2 sym=n dur=45ms f0=137.64->132.22Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=992 gain=-10.000dB
+u3 sym=j dur=41ms f0=132.22->127.46Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=904 gain=-10.000dB
+u4 sym=? dur=88ms f0=127.46->123.85Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=1940 gain=-7.500dB
+u5 sym=흯 dur=45ms f0=123.85->131.99Hz stress=Unstressed word_final=true pause=false spec=Cascade seglen=992 gain=-12.000dB
+u6 sym=h dur=52ms f0=131.99->158.45Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=1147 gain=-12.000dB
+u7 sym=a dur=118ms f0=158.45->135.13Hz stress=Primary word_final=false pause=false spec=Cascade seglen=2602 gain=-7.000dB
+u8 sym=s dur=58ms f0=135.13->124.13Hz stress=Unstressed word_final=false pause=false spec=Parallel seglen=1279 gain=-12.000dB
+u9 sym=e dur=66ms f0=124.13->118.47Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=1455 gain=-12.000dB
+u10 sym=j dur=41ms f0=118.47->80.09Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=904 gain=-12.000dB
+u11 sym=o dur=94ms f0=80.09->80.09Hz stress=Unstressed word_final=true pause=false spec=Cascade seglen=2073 gain=-12.000dB
+work_units=[0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] lens=[3947, 1147, 992, 904, 1940, 992, 1147, 2602, 1279, 1455, 904, 2073] fades=[0, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176] predicted_out_len=17446
+b1 between u0(a)->u1(n) type=CASCADE-SHORT-GLIDE zone=[3771, 3947) n=176 gain_step=9.000dB f0_step=0.000st
+b2 between u1(n)->u2(n) type=CASCADE-SHORT-GLIDE zone=[4742, 4918) n=176 gain_step=1.000dB f0_step=0.000st
+b3 between u2(n)->u3(j) type=CASCADE-SHORT-GLIDE zone=[5558, 5734) n=176 gain_step=0.000dB f0_step=0.000st
+b4 between u3(j)->u4(?) type=CASCADE-SHORT-GLIDE zone=[6286, 6462) n=176 gain_step=2.500dB f0_step=0.000st
+b5 between u4(?)->u5(흯) type=CASCADE-SHORT-GLIDE zone=[8050, 8226) n=176 gain_step=4.500dB f0_step=0.000st
+b6 between u5(흯)->u6(h) type=CASCADE-SHORT-GLIDE zone=[8866, 9042) n=176 gain_step=0.000dB f0_step=0.000st
+b7 between u6(h)->u7(a) type=CASCADE-SHORT-GLIDE zone=[9837, 10013) n=176 gain_step=5.000dB f0_step=0.000st
+b8 between u7(a)->u8(s) type=MIXED-LINEAR zone=[12263, 12439) n=176 gain_step=5.000dB f0_step=0.000st
+b9 between u8(s)->u9(e) type=MIXED-LINEAR zone=[13366, 13542) n=176 gain_step=0.000dB f0_step=0.000st
+b10 between u9(e)->u10(j) type=CASCADE-SHORT-GLIDE zone=[14645, 14821) n=176 gain_step=0.000dB f0_step=0.000st
+b11 between u10(j)->u11(o) type=CASCADE-SHORT-GLIDE zone=[15373, 15549) n=176 gain_step=0.000dB f0_step=0.000st
+== yeobo :: %jV"bo%se%jo
+units=8
+u0 sym=j dur=43ms f0=138.24->146.89Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=948 gain=-7.000dB
+u1 sym=? dur=130ms f0=146.89->148.23Hz stress=Secondary word_final=false pause=false spec=Cascade seglen=2867 gain=-1.000dB
+u2 sym=b dur=41ms f0=148.23->166.03Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=904 gain=-2.000dB
+u3 sym=o dur=103ms f0=166.03->140.39Hz stress=Primary word_final=false pause=false spec=Cascade seglen=2271 gain=-3.000dB
+u4 sym=s dur=59ms f0=140.39->126.61Hz stress=Unstressed word_final=false pause=false spec=Parallel seglen=1301 gain=-9.000dB
+u5 sym=e dur=129ms f0=126.61->119.47Hz stress=Secondary word_final=false pause=false spec=Cascade seglen=2844 gain=-5.000dB
+u6 sym=j dur=41ms f0=119.47->80.09Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=904 gain=-12.000dB
+u7 sym=o dur=175ms f0=80.09->80.09Hz stress=Secondary word_final=true pause=false spec=Cascade seglen=3859 gain=-7.000dB
+work_units=[0] [1] [2] [3] [4] [5] [6] [7] lens=[948, 2867, 904, 2271, 1301, 2844, 904, 3859] fades=[0, 176, 176, 176, 176, 176, 176, 176] predicted_out_len=14666
+b1 between u0(j)->u1(?) type=CASCADE-SHORT-GLIDE zone=[772, 948) n=176 gain_step=6.000dB f0_step=0.000st
+b2 between u1(?)->u2(b) type=CASCADE-SHORT-GLIDE zone=[3463, 3639) n=176 gain_step=1.000dB f0_step=0.000st
+b3 between u2(b)->u3(o) type=CASCADE-SHORT-GLIDE zone=[4191, 4367) n=176 gain_step=1.000dB f0_step=0.000st
+b4 between u3(o)->u4(s) type=MIXED-LINEAR zone=[6286, 6462) n=176 gain_step=6.000dB f0_step=0.000st
+b5 between u4(s)->u5(e) type=MIXED-LINEAR zone=[7411, 7587) n=176 gain_step=4.000dB f0_step=0.000st
+b6 between u5(e)->u6(j) type=CASCADE-SHORT-GLIDE zone=[10079, 10255) n=176 gain_step=7.000dB f0_step=0.000st
+b7 between u6(j)->u7(o) type=CASCADE-SHORT-GLIDE zone=[10807, 10983) n=176 gain_step=5.000dB f0_step=0.000st
+plandump exit=0
+SR=22050 SHORT=176 GLIDE=1102
+== hello :: hE "loU
+units=5
+u0 sym=h dur=78ms f0=134.70->131.94Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=1720 gain=-10.000dB
+u1 sym=ɛ dur=89ms f0=131.94->133.18Hz stress=Unstressed word_final=true pause=false spec=Cascade seglen=1962 gain=-4.500dB
+u2 sym=l dur=70ms f0=133.18->155.55Hz stress=Unstressed word_final=false pause=false spec=Cascade seglen=1544 gain=-9.000dB
+u3 sym=o dur=148ms f0=155.55->80.09Hz stress=Primary word_final=false pause=false spec=Cascade seglen=3263 gain=-3.000dB
+u4 sym=ʊ dur=83ms f0=80.09->80.09Hz stress=Unstressed word_final=true pause=false spec=Cascade seglen=1830 gain=-7.500dB
+Traceback (most recent call last):
+  File "E:\01_coding\ARTicul\probe\0.0.0.24.1\junctions.py", line 203, in <module>
+    main()
+  File "E:\01_coding\ARTicul\probe\0.0.0.24.1\junctions.py", line 161, in main
+    assert len(x) == d["outlen"], (label, len(x), d["outlen"])
+           ^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('hello', 9792, 0)
+== hello wavlen=9792
+   interior-control n=7 median=2.176 max=8.445
+   b1 h->E pos=70.0ms type=CASCADE-SHORT-GLIDE gain=5.5dB f0=+0.000st mfcc=8.869
+   b2 E->l pos=151.0ms type=CASCADE-SHORT-GLIDE gain=4.5dB f0=+0.000st mfcc=9.678
+   b3 l->o pos=213.1ms type=GOAT-EDGE gain=6.0dB f0=+0.000st mfcc=5.559
+== annyeong wavlen=17446
+   interior-control n=7 median=1.624 max=7.756
+   b1 a->n pos=171.0ms type=CASCADE-SHORT-GLIDE gain=9.0dB f0=+0.000st mfcc=3.244
+   b2 n->n pos=215.1ms type=CASCADE-SHORT-GLIDE gain=1.0dB f0=+0.000st mfcc=1.695
+   b3 n->j pos=252.1ms type=CASCADE-SHORT-GLIDE gain=0.0dB f0=+0.000st mfcc=2.758
+   b4 j->V pos=285.1ms type=CASCADE-SHORT-GLIDE gain=2.5dB f0=+0.000st mfcc=3.249
+   b5 V->N pos=365.1ms type=CASCADE-SHORT-GLIDE gain=4.5dB f0=+0.000st mfcc=3.334
+   b6 N->h pos=402.1ms type=CASCADE-SHORT-GLIDE gain=0.0dB f0=+0.000st mfcc=11.456
+   b7 h->a pos=446.1ms type=CASCADE-SHORT-GLIDE gain=5.0dB f0=+0.000st mfcc=10.131
+   b8 a->s pos=556.1ms type=MIXED-LINEAR gain=5.0dB f0=+0.000st mfcc=21.676
+   b9 s->e pos=606.2ms type=MIXED-LINEAR gain=0.0dB f0=+0.000st mfcc=20.810
+   b10 e->j pos=664.2ms type=CASCADE-SHORT-GLIDE gain=0.0dB f0=+0.000st mfcc=7.819
+   b11 j->o pos=697.2ms type=CASCADE-SHORT-GLIDE gain=0.0dB f0=+0.000st mfcc=9.873
+== yeobo wavlen=14666
+   interior-control n=8 median=4.914 max=12.679
+   b1 j->V pos=35.0ms type=CASCADE-SHORT-GLIDE gain=6.0dB f0=+0.000st mfcc=4.991
+   b2 V->b pos=157.1ms type=CASCADE-SHORT-GLIDE gain=1.0dB f0=+0.000st mfcc=4.619
+   b3 b->o pos=190.1ms type=CASCADE-SHORT-GLIDE gain=1.0dB f0=+0.000st mfcc=4.323
+   b4 o->s pos=285.1ms type=MIXED-LINEAR gain=6.0dB f0=+0.000st mfcc=19.205
+   b5 s->e pos=336.1ms type=MIXED-LINEAR gain=4.0dB f0=+0.000st mfcc=18.584
+   b6 e->j pos=457.1ms type=CASCADE-SHORT-GLIDE gain=7.0dB f0=+0.000st mfcc=4.140
+   b7 j->o pos=490.1ms type=CASCADE-SHORT-GLIDE gain=5.0dB f0=+0.000st mfcc=8.182
+== hello wavlen=9792
+   interior-control n=7 median=2.176 max=8.445
+   b1 h->E pos=70.0ms type=CASCADE-SHORT-GLIDE gain=5.5dB realised=-1.1dB f0=+0.000st mfcc=8.869
+   b2 E->l pos=151.0ms type=CASCADE-SHORT-GLIDE gain=4.5dB realised=-2.9dB f0=+0.000st mfcc=9.678
+   b3 l->o pos=213.1ms type=GOAT-EDGE gain=6.0dB realised=+3.4dB f0=+0.000st mfcc=5.559
+== annyeong wavlen=17446
+   interior-control n=7 median=1.624 max=7.756
+   b1 a->n pos=171.0ms type=CASCADE-SHORT-GLIDE gain=9.0dB realised=-5.2dB f0=+0.000st mfcc=3.244
+   b2 n->n pos=215.1ms type=CASCADE-SHORT-GLIDE gain=1.0dB realised=+0.1dB f0=+0.000st mfcc=1.695
+   b3 n->j pos=252.1ms type=CASCADE-SHORT-GLIDE gain=0.0dB realised=+0.8dB f0=+0.000st mfcc=2.758
+   b4 j->V pos=285.1ms type=CASCADE-SHORT-GLIDE gain=2.5dB realised=-0.1dB f0=+0.000st mfcc=3.249
+   b5 V->N pos=365.1ms type=CASCADE-SHORT-GLIDE gain=4.5dB realised=-2.3dB f0=+0.000st mfcc=3.334
+   b6 N->h pos=402.1ms type=CASCADE-SHORT-GLIDE gain=0.0dB realised=-2.4dB f0=+0.000st mfcc=11.456
+   b7 h->a pos=446.1ms type=CASCADE-SHORT-GLIDE gain=5.0dB realised=+1.3dB f0=+0.000st mfcc=10.131
+   b8 a->s pos=556.1ms type=MIXED-LINEAR gain=5.0dB realised=+5.9dB f0=+0.000st mfcc=21.676
+   b9 s->e pos=606.2ms type=MIXED-LINEAR gain=0.0dB realised=-17.5dB f0=+0.000st mfcc=20.810
+   b10 e->j pos=664.2ms type=CASCADE-SHORT-GLIDE gain=0.0dB realised=-2.8dB f0=+0.000st mfcc=7.819
+   b11 j->o pos=697.2ms type=CASCADE-SHORT-GLIDE gain=0.0dB realised=-0.3dB f0=+0.000st mfcc=9.873
+== yeobo wavlen=14666
+   interior-control n=8 median=4.914 max=12.679
+   b1 j->V pos=35.0ms type=CASCADE-SHORT-GLIDE gain=6.0dB realised=+5.0dB f0=+0.000st mfcc=4.991
+   b2 V->b pos=157.1ms type=CASCADE-SHORT-GLIDE gain=1.0dB realised=-2.6dB f0=+0.000st mfcc=4.619
+   b3 b->o pos=190.1ms type=CASCADE-SHORT-GLIDE gain=1.0dB realised=+0.2dB f0=+0.000st mfcc=4.323
+   b4 o->s pos=285.1ms type=MIXED-LINEAR gain=6.0dB realised=+6.6dB f0=+0.000st mfcc=19.205
+   b5 s->e pos=336.1ms type=MIXED-LINEAR gain=4.0dB realised=-14.6dB f0=+0.000st mfcc=18.584
+   b6 e->j pos=457.1ms type=CASCADE-SHORT-GLIDE gain=7.0dB realised=-7.3dB f0=+0.000st mfcc=4.140
+   b7 j->o pos=490.1ms type=CASCADE-SHORT-GLIDE gain=5.0dB realised=+3.9dB f0=+0.000st mfcc=8.182

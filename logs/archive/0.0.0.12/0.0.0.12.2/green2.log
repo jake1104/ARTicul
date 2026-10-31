@@ -1,0 +1,32 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.22s
+     Running tests\utterance.rs (target\debug\deps\utterance-0f2bba251dd69a70.exe)
+
+running 9 tests
+test boundary_grades_coda_lengthening ... ok
+test final_rhyme_lengthens_at_strong_boundary ... ok
+test cluster_shortens_non_initial_consonants ... ok
+test disyllabic_word_gets_0_9 ... ok
+test no_lengthening_without_boundary ... ok
+test function_word_shortens_unless_emphasized ... FAILED
+test single_onset_keeps_full_duration ... ok
+test trisyllabic_word_gets_0_8 ... ok
+test utterance_f0_matches_flat_plan ... ok
+
+failures:
+
+---- function_word_shortens_unless_emphasized stdout ----
+
+thread 'function_word_shortens_unless_emphasized' (7488) panicked at crates\articul-front\tests\utterance.rs:96:5:
+assertion `left == right` failed
+  left: 50
+ right: 48
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    function_word_shortens_unless_emphasized
+
+test result: FAILED. 8 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-front --test utterance`

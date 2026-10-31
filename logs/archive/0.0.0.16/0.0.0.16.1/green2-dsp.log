@@ -1,0 +1,14 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.97s
+     Running tests\voice_quality.rs (target\debug\deps\voice_quality-7b4ff30f2410d0d1.exe)
+
+running 6 tests
+test creak_alternates_periods ... ok
+test shimmer_varies_peak_amplitude ... ok
+test output_stays_deterministic ... ok
+test flutter_shifts_rate_over_time ... ok
+test jitter_adds_period_variance ... ok
+test breathiness_follows_glottal_cycle ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

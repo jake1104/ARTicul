@@ -1,0 +1,55 @@
+WORD "hE"
+  [0] base="h" kind=Consonant { place: Glottal, manner: Fricative } voicing=Voiceless stress=Unstressed
+  [1] base="ɛ" kind=Vowel { height: OpenMid, backness: Front, rounded: false } voicing=Voiced stress=Unstressed
+  len=2 stress_len=2
+WORD "\"loU"
+  [0] base="l" kind=Consonant { place: Alveolar, manner: LateralApproximant } voicing=Voiced stress=Unstressed
+  [1] base="o" kind=Vowel { height: CloseMid, backness: Back, rounded: true } voicing=Voiced stress=Primary
+  [2] base="ʊ" kind=Vowel { height: NearClose, backness: Back, rounded: true } voicing=Voiced stress=Unstressed
+  len=3 stress_len=3
+WORD "TIs"
+  [0] base="θ" kind=Consonant { place: Dental, manner: Fricative } voicing=Voiceless stress=Unstressed
+  [1] base="ɪ" kind=Vowel { height: NearClose, backness: Front, rounded: false } voicing=Voiced stress=Unstressed
+  [2] base="s" kind=Consonant { place: Alveolar, manner: Fricative } voicing=Voiceless stress=Unstressed
+  len=3 stress_len=3
+WORD "TIN"
+  [0] base="θ" kind=Consonant { place: Dental, manner: Fricative } voicing=Voiceless stress=Unstressed
+  [1] base="ɪ" kind=Vowel { height: NearClose, backness: Front, rounded: false } voicing=Voiced stress=Unstressed
+  [2] base="ŋ" kind=Consonant { place: Velar, manner: Nasal } voicing=Voiced stress=Unstressed
+  len=3 stress_len=3
+PLAN hE+"loU flat
+  [0] h stress=Unstressed dur=71ms f0=134.70 f0end=131.94 pause=false
+  [1] ɛ stress=Unstressed dur=89ms f0=131.94 f0end=133.18 pause=false
+  [2] l stress=Unstressed dur=51ms f0=133.18 f0end=155.55 pause=false
+  [3] o stress=Primary dur=165ms f0=155.55 f0end=80.09 pause=false
+  [4] ʊ stress=Unstressed dur=71ms f0=80.09 f0end=80.09 pause=false
+  total_ms=447
+PLAN TIs+TIN flat
+  [0] θ stress=Unstressed dur=71ms f0=134.70 f0end=134.70 pause=false
+  [1] ɪ stress=Unstressed dur=66ms f0=134.70 f0end=125.39 pause=false
+  [2] s stress=Unstressed dur=74ms f0=125.39 f0end=130.33 pause=false
+  [3] θ stress=Unstressed dur=74ms f0=130.33 f0end=154.49 pause=false
+  [4] ɪ stress=Unstressed dur=71ms f0=154.49 f0end=80.09 pause=false
+  [5] ŋ stress=Unstressed dur=50ms f0=80.09 f0end=80.09 pause=false
+  total_ms=406
+UTTERANCE "hello" words=["hE", "\"loU"]
+  word0 syms=["h", "ɛ"] stress=[Unstressed, Unstressed] boundary=0 func=false emph=false
+  word1 syms=["l", "o", "ʊ"] stress=[Unstressed, Primary, Unstressed] boundary=1 func=false emph=true
+PLAN_UTTERANCE hello
+  [0] h stress=Unstressed dur=78ms f0=134.70 f0end=131.94 pause=false
+  [1] ɛ stress=Unstressed dur=89ms f0=131.94 f0end=133.18 pause=false
+  [2] l stress=Unstressed dur=50ms f0=133.18 f0end=155.55 pause=false
+  [3] o stress=Primary dur=148ms f0=155.55 f0end=80.09 pause=false
+  [4] ʊ stress=Unstressed dur=83ms f0=80.09 f0end=80.09 pause=false
+  total_ms=448 nseg=5
+UTTERANCE "tistin" words=["TIs", "TIN"]
+  word0 syms=["θ", "ɪ", "s"] stress=[Unstressed, Unstressed, Unstressed] boundary=0 func=false emph=false
+  word1 syms=["θ", "ɪ", "ŋ"] stress=[Unstressed, Unstressed, Unstressed] boundary=1 func=false emph=false
+PLAN_UTTERANCE tistin
+  [0] θ stress=Unstressed dur=78ms f0=134.70 f0end=134.70 pause=false
+  [1] ɪ stress=Unstressed dur=66ms f0=134.70 f0end=125.39 pause=false
+  [2] s stress=Unstressed dur=74ms f0=125.39 f0end=130.33 pause=false
+  [3] θ stress=Unstressed dur=65ms f0=130.33 f0end=154.49 pause=false
+  [4] ɪ stress=Unstressed dur=92ms f0=154.49 f0end=80.09 pause=false
+  [5] ŋ stress=Unstressed dur=65ms f0=80.09 f0end=80.09 pause=false
+  total_ms=440 nseg=6

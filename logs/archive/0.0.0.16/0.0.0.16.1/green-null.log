@@ -1,0 +1,43 @@
+warning: unused variable: `t`
+  --> crates\articul-dsp\src\source.rs:38:17
+   |
+38 |             let t = i as f32 / sample_rate as f32;
+   |                 ^
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+help: if this is intentional, prefix it with an underscore
+   |
+38 |             let _t = i as f32 / sample_rate as f32;
+   |                 +
+help: you might have meant to pattern match on the similarly named constant `SHIMMER_DEPTH`
+   |
+38 -             let t = i as f32 / sample_rate as f32;
+38 +             let source::SHIMMER_DEPTH = i as f32 / sample_rate as f32;
+   |
+
+warning: unused variable: `secs`
+   --> crates\articul-dsp\src\source.rs:126:17
+    |
+126 |             let secs = i as f32 / sample_rate as f32;
+    |                 ^^^^
+    |
+help: if this is intentional, prefix it with an underscore
+    |
+126 |             let _secs = i as f32 / sample_rate as f32;
+    |                 +
+help: you might have meant to pattern match on the similarly named constant `SHIMMER_DEPTH`
+    |
+126 -             let secs = i as f32 / sample_rate as f32;
+126 +             let source::SHIMMER_DEPTH = i as f32 / sample_rate as f32;
+    |
+
+warning: `articul-dsp` (lib) generated 2 warnings (run `cargo fix --lib -p articul-dsp` to apply 2 suggestions)
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.01s
+     Running tests\source_null.rs (target\debug\deps\source_null-1e9280ea88253cbb.exe)
+
+running 1 test
+test no_deep_notches_in_speech_band ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+

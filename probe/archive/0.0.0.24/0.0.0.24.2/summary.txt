@@ -1,0 +1,161 @@
+0.0.0.24.2 junction continuity fix - summary
+================================================
+Status: BLOCKED on the literal 3.0dB gate (2 of 21 boundaries exceed it).
+The specified single fix is fully implemented; all other gates stay green.
+
+1. Design
+---------
+Per-segment scalar gains are replaced by a raised-cosine interpolation of
+the gain in dB over +/-20 ms around each inter-segment boundary, measured
+in output-timeline milliseconds around the boundary (blend-zone) center.
+The trajectory for boundary b between segment gains Ga_dB (left edge) and
+Gb_dB (right edge) is G(t) = Ga + (Gb-Ga) * 0.5 * (1 - cos(pi * u)) with
+u = (t + R) / (2R), t in [-R, +R], R = 20 ms in samples (441 at 22050 Hz).
+
+Implementation location (all inside the render path, synth.rs):
+- synth.rs:633 SMOOTH_MS = 20.0; synth.rs:635 smooth_radius().
+- synth.rs:639 raised_db() is the raised-cosine dB interpolant.
+- synth.rs:643 smooth_work_gains() multiplies shaped, cooked AND the gain
+  tracks by 10^((target - baseline) / 20). Target is the raised-cosine
+  curve; baseline is the segment's own constant table gain, or the linear
+  GOAT-internal lerp for merged units. Pause-adjacent boundaries are
+  skipped, so pause logic is untouched.
+- Segment-time radius is span + fade/2 per boundary (synth.rs:661), so the
+  heard (output-timeline) span is exactly +/-20 ms: the 8 ms crossfade zone
+  consumes the middle of the segment-side ramps.
+- synth.rs:695 concat_gain_track() maps per-unit gain tracks to the output
+  timeline with the same truncate/extend/fade arithmetic as the signal
+  concat; zones use linear mixing of the two sides' gains (both sides sit
+  at approximately the midpoint gain there, identical-content equivalent).
+- synth.rs:885,947 per-work-unit gain tracks (merged units lerp
+  first-to-second edge gains, matching render_diphthong; singles constant).
+- synth.rs:969 track built from engine-true edges; synth.rs:984 public
+  render_gain_track(); lib.rs:4 re-export. Audio path outputs are
+  bit-identical except for the gain trajectory (same filters, F0,
+  envelopes, fades, leveler, radiation, final fade).
+
+Untouched per task: segment_gain_db table values, declination, floors,
+fades, pause logic, leveler, all filter and F0 code. GOAT-merged spans are
+one work unit with no internal smoothing seam.
+
+2. TDD red/green
+----------------
+Gate: crates/articul-cli/tests/junction_smooth.rs boundary_gain_step_bounded.
+It renders hE "loU + %an njVN "hasejo + %jV"bo%se%jo, takes the
+engine-produced gain track, and asserts the RMS ratio of 10 ms windows each
+side of every boundary center is <= 3.0 dB on all 21 boundaries (track
+length must equal audio length; 21 boundaries asserted).
+An audio-RMS variant of this gate was tried first and rejected with
+evidence: realized audio steps sit on phonetic floors (e.g. annyeong
+j->o, planned gain step 0.0 dB, measures -6.5 dB from phonetic content;
+s->e cliffs to -17.5 dB are filter/envelope reset per 0.0.0.24.1 and
+explicitly out of scope). Gating audio would require spectral smoothing,
+which the task forbids. The gain track isolates exactly the quantity the
+task names: the planned-boundary gain step post-smoothing.
+- RED (fix disabled, logs/0.0.0.24.2/probe-red-test.log): max 6.77 dB
+  (annyeong a->n); audio-variant RED pre-fix (logs/0.0.0.24.2/red-test.log):
+  max 8.88 dB gated-center-window step, consistent with 9.0 dB planned /
+  -7.3 dB realized from 0.0.0.24.1.
+- With fix (logs/0.0.0.24.2/final-test.log): max 4.41 dB at annyeong a->n
+  (table step 9.0 dB) and 3.44 dB at yeobo e->j (table step 7.0 dB);
+  19 of 21 boundaries pass, three 6.0 dB steps land at 2.95-2.99 dB.
+
+3. Per-boundary max-step table (dB, 10 ms center windows)
+---------------------------------------------------------
+bnd transition                table  track-pre  track-post  audio-pre  audio-post
+hello b1 h->E                   5.5     4.31        2.71      -3.05       -4.49
+hello b2 E->l                   4.5    -3.55       -2.22      -5.10       -4.33
+hello b3 l->o(GOAT-edge)        6.0     4.55        2.99       3.20        1.58
+annyeong b4 a->n                9.0    -6.77       -4.41      -7.67       -5.38
+annyeong b5 n->n                1.0    -0.80       -0.49      -1.69       -1.31
+annyeong b6 n->j                0.0     0.00        0.00        1.24        1.23
+annyeong b7 j->V                2.5     1.99        1.23       -0.35       -1.05
+annyeong b8 V->N                4.5    -3.55       -2.22      -3.87       -2.67
+annyeong b9 N->h                0.0     0.00        0.00       -4.01       -4.05
+annyeong b10 h->a               5.0     3.93        2.46        0.17       -1.03
+annyeong b11 a->s               5.0    -3.93       -2.46        4.41        6.08
+annyeong b12 s->e               0.0     0.00        0.00      -10.72      -10.72
+annyeong b13 e->j               0.0     0.00        0.00       -1.94       -1.97
+annyeong b14 j->o               0.0     0.00        0.00       -6.50       -6.51
+yeobo b15 j->V                  6.0     4.68        2.95        4.88        3.35
+yeobo b16 V->b                  1.0    -0.80       -0.49      -2.10       -1.80
+yeobo b17 b->o                  1.0    -0.80       -0.49      -4.57       -4.28
+yeobo b18 o->s                  6.0    -4.67       -2.95        4.31        6.61
+yeobo b19 s->e                  4.0     3.17        1.97      -10.96      -10.53
+yeobo b20 e->j                  7.0    -5.40       -3.44      -8.88       -6.63
+yeobo b21 j->o                  5.0     3.93        2.46       -3.37       -4.69
+Track steps are exactly proportional to table steps (factor 0.49):
+the geometry, not a bug. Zero-step boundaries read exactly 0.00
+(smoothing correctly no-ops). Audio steps move both ways because phonetic
+floors and leveler re-settling dominate them; the track is the gate.
+
+4. Why 3.0 dB is unreachable for the 9.0 and 7.0 dB steps
+----------------------------------------------------------
+For output-referred +/-20 ms raised-cosine interpolation with 10 ms
+windows straddling the boundary center, the captured fraction of the total
+step is fixed by geometry at 0.49 (window means sit at +/-110 samples on
+the slope plus the 8 ms crossfade blend at mid gain; verified by exact
+replica computation and engine measurement across all step sizes 1-9 dB).
+Bound 3.0 dB therefore requires table steps <= ~6.1 dB. The corpus has
+9.0 dB (annyeong a->n -> 4.41 dB) and 7.0 dB (yeobo e->j -> 3.44 dB).
+No compliant curve shape can do better: any monotonic G0->G1 traversal
+over the fixed 40 ms span leaves >= ~0.45 of the excursion inside 20 ms
+center windows; flat-center variants would delay gain changes away from
+the phoneme boundary (pre-echo) and misrepresent the trajectory.
+Options for the follow-up: (a) relax the bound to 5 dB (all 21 pass,
+margin 0.6 dB); (b) widen the span to about +/-30 ms (predicted max
+about 2.8 dB, but contradicts the +/-20 ms spec); (c) 5 ms windows
+(predicted max about 1.9 dB, contradicts the 10 ms spec).
+
+5. Gates
+--------
+- cargo fmt --check: clean (logs/0.0.0.24.2/fmt-check.log).
+- cargo clippy --workspace --all-targets -- -D warnings: clean
+  (logs/0.0.0.24.2/clippy.log).
+- cargo test --workspace: every prior gate green (balance, cf0, clear_l,
+  click, determinism, diphthong_glide, fricative, gain 19/19, glide,
+  h_onset, halves_gain, lateral_zero 4/4, leveling 3/3, nonsibilant,
+  pause, synth, synth_vowels, voiced_fricative_mix; logs test-workspace.log
+  + test-remaining.log). Only the new boundary_gain_step_bounded fails,
+  exactly on b4 (4.41 dB) and b20 (3.44 dB) vs the 3.0 dB bound.
+- Release build: clean (logs/0.0.0.24.2/release-build.log).
+- CLI regression: TIs TIN twice to probe/0.0.0.24.2/regression-a.wav and
+  regression-b.wav; 8822 samples each, byte-identical, deterministic.
+  New hash 2AD4F8413C9182F0BE39B9AC836AAE06233272C3367256A6F859FA0AE44AD141
+  (rotated from B832..., expected: gain trajectory change).
+  Logged in logs/0.0.0.24.2/cli-regression.log.
+- eval_reference.py not re-run per task constraints.
+
+6. Files
+--------
+Changed: crates/articul-cli/src/synth.rs (smoothing + gain tracks),
+crates/articul-cli/src/lib.rs (render_gain_track export),
+crates/articul-cli/tests/junction_smooth.rs (new gate).
+Outputs: probe/0.0.0.24.2/ (summary here; hello/annyeong/yeobo.wav
+post-fix renders; regression-a/b.wav), logs/0.0.0.24.2/ (red-test.log
+audio pre-fix, probe-red-test.log track fix-disabled, final-test.log
+track with fix, fmt-check.log, clippy.log, test-workspace.log,
+test-remaining.log, release-build.log, cli-regression.log,
+green-test.log superseded by final-test.log).
+Untouched: todo.md, CHANGELOG.md, README.md, docs/, demo/*.wav,
+spectra/F0/filter/pause/leveler code, existing gate bounds.
+
+7. Round 2 (coordinator ruling: bound 3 dB -> 5 dB)
+-------------------------------------------------
+Ruling (recorded): the boundary-step bound 3dB becomes 5dB. Precedent:
+halves 3->5dB in 0.0.0.19.3, trough 12->14dB in 0.0.0.23.2. Justification:
+(1) the gate intent was eliminating INSTANT 9dB steps; the +/-20ms
+raised-cosine traversal converts them to gradual 40ms slopes (4.41dB max
+measured, mechanism proven exactly proportional across table steps 1-9dB);
+(2) the geometry proof (section 4) shows 3dB demands table steps <=6.1dB,
+i.e. it bans the existing gain table rather than testing the smoothing;
+(3) the user ear is the final gate on 0.0.0.24.3 demos.
+Change: test-only, crates/articul-cli/tests/junction_smooth.rs
+boundary_gain_step_bounded assert + message 3.0 -> 5.0, logic identical.
+No production code touched; TIs TIN hash 2AD4F841 stands from round 1.
+Gates round 2: cargo test --workspace fully green (all targets, zero
+failures, incl. boundary_gain_step_bounded PASS with max 4.41dB vs 5dB
+bound, margin 0.6dB; logs round2-test-workspace.log + round2-test-junction.log),
+cargo fmt --check clean (round2-fmt-check.log), cargo clippy clean
+(round2-clippy.log). No release rebuild (no production change).
+Status: DONE.

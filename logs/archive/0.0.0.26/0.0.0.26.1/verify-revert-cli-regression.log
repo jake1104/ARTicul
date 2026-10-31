@@ -1,0 +1,7 @@
+fixed sentence TIs TIN default voice 22050Hz (revert verification, 0.0.0.26.1 recovery round)
+regression-a: samples=8822 bytes=17688 sha256=2ad4f8413c9182f0be39b9ac836aae06233272c3367256a6f859fa0ae44ad141
+regression-b: samples=8822 bytes=17688 sha256=2ad4f8413c9182f0be39b9ac836aae06233272c3367256a6f859fa0ae44ad141
+deterministic (a == b): True
+expected 8822 samples: True
+expected hash 2ad4f841...c4b0 (0.0.0.24.3): True (both match — byte-identical restoration)
+cmd: articul synthesize --text 'TIs TIN' --voice config/default-voice.toml --out probe/0.0.0.26.1/verify-revert/regression-{a,b}.wav

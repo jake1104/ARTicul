@@ -1,0 +1,9 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 54.17s
+     Running tests\spectrum.rs (target\debug\deps\spectrum-02f7deb41e15cba8.exe)
+
+running 1 test
+test glottal_spectrum_falls_about_12db_per_oct ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

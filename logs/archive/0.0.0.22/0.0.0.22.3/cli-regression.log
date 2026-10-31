@@ -1,0 +1,8 @@
+0.0.0.22.3 CLI regression
+command A: articul synthesize --text 'TIs TIN' --voice config/default-voice.toml --out probe/0.0.0.22.3/regression-a.wav
+command B: articul synthesize --text 'TIs TIN' --voice config/default-voice.toml --out probe/0.0.0.22.3/regression-b.wav
+build: cargo build --release, Finished release profile
+regression-a.wav: 8822 samples, 17688 bytes, sha256 870D1A7DF1219AEDEA3E8E138F358D9D0855B0D9A92F54A8F9D109D1C662C4B0
+regression-b.wav: 8822 samples, 17688 bytes, sha256 870D1A7DF1219AEDEA3E8E138F358D9D0855B0D9A92F54A8F9D109D1C662C4B0
+determinism: identical hashes, byte-identical renders
+prior hash 3d31 superseded by staging change, sample count unchanged at 8822

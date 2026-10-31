@@ -1,0 +1,76 @@
+0.0.0.22.1 gap and loudness probe — gaps.txt
+Inputs (default voice, 22050 Hz):
+  A: `%an njVN "hasejo` -> probe/0.0.0.22.1/annyeong.wav, 17446 samples, 791.2 ms
+  Y: `%jV"bo%se%jo`   -> probe/0.0.0.22.1/yeobo.wav,    14666 samples, 665.1 ms
+
+1. Fresh-render vs demo identity
+  annyeong.wav == demo/annyeonghaseyo.wav byte-identical (34936 bytes, sha256 EEC030BD...)
+  yeobo.wav    == demo/yeoboseyo.wav    byte-identical (29376 bytes, sha256 55BF516C...)
+
+2. Word-boundary silence (< -60 dBFS, min 5 ms = 111 samples)
+  A: 0 runs. No silence anywhere.
+  Y: 1 run: start=647.4 ms len=5.3 ms (116 samples), 17.7 ms before file end.
+     Input Y has NO spaces, so this cannot be a word boundary; it is the
+     final-fade tail crossing -60 dBFS. Not a choppiness gap.
+  Max silence length: A 0 ms; Y 5.3 ms (tail fade only).
+
+3. Word-junction inference (separate CLI renders, no code change)
+  `%an`=6439, `njVN`=5558, `"hasejo`=8911 samples; sum=20908 vs full 17446
+  (scale 0.834: cross-word context shortens; proportional estimate only).
+  Estimated junctions: j1 ~= 244 ms, j2 ~= 454 ms.
+  Envelope shows: drop at ~180 ms (w1->w2 zone), rise 430-560 ms (w2->w3 zone).
+  Y input has no spaces: zero word junctions by construction.
+
+4. 10 ms-window RMS envelope dips (< -12 dB vs preceding-100 ms mean)
+  A (full envelope dBFS per 10 ms: 0-170 ms ~-21; 180-420 ms ~-33..-38;
+     430-600 ms ramp to -10 peak; 610-680 ms ~-37; 690-700 ms -28/-32;
+     710-780 ms fade to -59):
+    618.6 -18.6 dB | 628.6 -18.1 | 638.5 -18.2 | 648.5 -18.2 | 658.5 -18.3
+    668.5 -18.5 | 678.5 -18.6 (7 consecutive windows = ~70 ms trough at -37 dBFS,
+      ~27 dB below the -10 dBFS local peak; sits INSIDE final word "hasejo,
+      ~165 ms after estimated j2 — not a boundary)
+    758.3 -14.2 | 768.3 -20.3 | 778.2 -12.8 (final fade)
+    Deepest non-fade dip: -18.6 dB at 618.6/678.5 ms.
+  Y (envelope: 0-280 ms -22..-30; 290-330 ms peak -9; 340-450 ms -31..-32;
+     460-480 ms -38..-41; 490 ms -28 blip; 500-650 ms -37..-52 tail):
+    349.2 -15.1 | 359.2 -14.1 | 369.2 -14.4 | 379.1 -15.1 | 389.1 -14.5
+    399.1 -13.6 | 409.1 -13.6 (7 windows = ~70 ms trough at -31..-32 dBFS,
+      ~22 dB below the -9 dBFS peak; mid-utterance, no word boundary exists)
+    Deepest dip: -15.1 dB at 349.2/379.1 ms.
+
+5. Crest factor (peak/RMS) + halves
+  A: global 12.58 (peak 0.9000, RMS 0.0715 = -22.9 dBFS); thirds 12.80 / 7.50 / 8.19
+     (rms .0703 / .0300 / .0975); halves +2.95 dB.
+  Y: global 11.14 (peak 0.9000, RMS 0.0808 = -21.9 dBFS); thirds 12.64 / 7.22 / 25.99
+     (rms .0619 / .1246 / .0144 = -36.8 dBFS tail); halves -4.86 dB.
+
+6. Band energy split (fraction of total FFT power)
+  A: 0-300 Hz 0.066 | 300-3400 Hz 0.245 | 4k+ Hz 0.675 (3.4-4k rest 0.014)
+  Y: 0-300 Hz 0.023 | 300-3400 Hz 0.069 | 4k+ Hz 0.895 (3.4-4k rest 0.014)
+  Speech band carries only 24.5% / 6.9% of energy; peak 0.9 is set by HF transient.
+
+7. Pause-insertion code path (READ ONLY)
+  - crates/articul-front/src/prosody.rs:324-339 `boundary_strength()`: only
+    `.`/`!` -> 1.0, `|` -> 0.6, `;`/`:` -> 0.5, `,` -> 0.4; plain space -> 0.0.
+  - prosody.rs:347-369 `parse_utterance()`: last word forced to max(1.0).
+  - prosody.rs:505-520: pause emitted only if `wi+1 < words.len()` (never for the
+    final word) AND `boundary_after >= 0.4`, length = 400 ms * strength
+    (`,` 160 ms, `;`/`:` 200 ms, `|` 240 ms, mid-utterance `.`/`!` 400 ms).
+  - crates/articul-cli/src/synth.rs:462-463: `is_pause` renders `vec![0.0; n]`.
+  - Neither demo input contains `, ; : | . !`, so ZERO pause units are planned;
+    measurement (0 runs / tail-only 5.3 ms) confirms.
+  - Gain stack for the "quiet" half: synth.rs:279-326 `segment_gain_db()`
+    (unstressed vowel -3.5, nasal -8, approximant -7, voiced fricative extra -10,
+    declination -1 dB/unit capped at index 12 in line 320, floor -12 dB line 324);
+    synth.rs:908-917 `normalize_peak()` scales file peak to 0.9.
+
+VERDICT: No word-boundary silence exists in either demo (max 0 ms / 5.3 ms tail
+fade) -> Task 0.0.0.22.2 does NOT apply (no silence to shorten; would be a no-op).
+Proceed to 0.0.0.22.3. Largest dip/gain contributors, in order:
+  (a) Intra-word RMS troughs 60-110 ms wide, 22-27 dB below local peak
+      (A 610-680 ms at -37 dBFS; Y 340-450 ms at -31 dBFS) — continuity/dip
+      softening target, NOT pause cleanup.
+  (b) Crest 11-13 with peak 0.9 pinned by 67-90% HF (>4 kHz) energy while the
+      300-3400 Hz speech band holds 7-25% — crest-aware (not peak-only)
+      normalization target.
+  (c) Y tail collapse (third2 RMS 0.0144, crest 26) under declination+floor stack.

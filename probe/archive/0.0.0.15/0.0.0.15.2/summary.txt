@@ -1,0 +1,7 @@
+Task 0.0.0.15.2 per-segment F0 glide interpolation
+TDD RED: new dsp glide tests failed to compile (no generate_glide); new front f0_end test failed to compile (no f0_end_hz field).
+GREEN: ProsodicPhoneme gains pub f0_end_hz (next segment start, last = own); plan()/plan_utterance() fill it from the shared f0_track. GlottalSource.generate_glide renders phase-continuous raised-cosine F0 glide; generate_cf0_glide layers the CF0 onset factor on the gliding base. render_unit uses glide for Cf0Mode::None, cf0_glide for Decay, unchanged flat generate for Flat fallback. Direction tests fixed to 0.5-threshold crossings (LF output is non-negative, so zero crossings never fire).
+Gates: fmt clean, clippy -D warnings clean, test workspace green (incl. pre-existing CF0 autocorr e2e and new f0_end continuity test), release build green.
+Measured CLI regression: synthesize TIs TIN default voice: 8536 samples (unchanged: no duration change), sha256 962f872b68b39acf11b7b823ea75be2a1478aefc9b9e79f72956166a82b265c7 (was 3255...: glide reshapes every segment), deterministic across runs. Python parity 4/4 PASS (synthesize len=3043, vowel-a f2/f1=0.133).
+Probe: probe/0.0.0.15.2/regression-a.wav, regression-b.wav (identical). No demo change.
+Logs: logs/0.0.0.15.2/ (red-dsp, red-front, green-dsp, green-front, green2-dsp, fmt-check, clippy, test-workspace, release, cli-regression-a, cli-regression-b, cli-regression, py-build, py-copy, parity).

@@ -1,0 +1,5 @@
+b1 a0-n1 b5 V4-N5 nasal Cascade-Cascade coherent morph synth.rs 1204-1300 plus glide synth.rs 802 notch synth.rs 247 static full-depth NotchFilter cascade.rs 66-99 has new-step-process only NO retune hook.
+Notch 1000Hz-150BW parallel.rs 54-61 switches 0-full at blend edge z0; cascade F2 lerp 1475-1500 b1 25Hz cannot move notch-driven peak-pick fmin plus F0-glide harmonic flip 1471-860.
+b5 same V spec 1812 vs N 1500 true 2374 mismatch; notch dominates.
+b10 e9-j10 no notch fully retunable BUT j base F2 default 1500 vs true 2520 inverted vs e 1785; lerp preserves F2-weak F3-strong misassignment F3 picked as F2 723-859.
+Conclusion separate static object with no retune hook plus wrong base targets; same-pattern lerp cannot reach. STOP.

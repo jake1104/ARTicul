@@ -1,0 +1,56 @@
+0.0.0.31.2 bed-placement experiment log
+==========================================
+Bed under test (single uniform mechanism, no per-segment logic):
+  crates/articul-cli/src/synth.rs level_output(), currently lines 1119-1146
+  white xorshift64* noise (fixed seed 0x9E3779B97F4A7C15, deterministic per render)
+  through single-pole lowpass, bed_k = exp(-2*pi*6000/sr)
+  normalized to -50 dBFS RMS, mixed post-peak-normalize pre-clamp
+  (i.e. chain: tamer -> leveler -> 1.10*0.989/maxv peak scale -> bed mix -> clamp)
+
+Two faithful placements of the same bed were measured:
+
+Placement A (as found in tree, exact -50 dBFS final):
+  norm -> bed -> clamp
+  room_tone full_mean_ratio (bound <= 3.0):
+    hello    6.10 -> 1.89   PASS
+    annyeong 2.07 -> 5.28   FAIL (new max: g11u11 o 0.00050 -> 0.00700)
+    yeobo    7.95 -> 14.37  FAIL (new max: g7u7 o 0.00109 -> 0.00889)
+  room_tone RMS (lift bound <= +1 dB): all PASS
+    hello    0.183119 -> 0.183130 (+0.0005 dB)
+    annyeong 0.103675 -> 0.103742 (+0.0056 dB)
+    yeobo    0.114574 -> 0.114635 (+0.0046 dB)
+  lateral_zero notch depth (bound >= 6 dB):
+    lateral_window_has_notch      got 0.79 dB   FAIL
+    hello_interior_window_has_notch got -0.77 dB FAIL
+    (other 2 lateral tests pass)
+
+Placement B (bed moved before peak scale: bed -> norm -> clamp):
+  room_tone full_mean_ratio:
+    hello    6.10 -> 3.24   FAIL (g3u4 0.00012 -> 0.01030, g1u1 -> 0.00318)
+    annyeong 2.07 -> 5.03   FAIL (g11u11 o -> 0.00591)
+    yeobo    7.95 -> 12.86  FAIL (g7u7 o -> 0.00547)
+  room_tone RMS: all PASS (lift <= +0.02 dB; hello 0.181138, annyeong 0.103493, yeobo 0.114771)
+  lateral_zero notch depth:
+    lateral_window_has_notch        got -0.31 dB FAIL
+    hello_interior_window_has_notch got -1.02 dB FAIL
+
+Reading of the numbers:
+- The bed floor does not merely lift quiet-segment HF. Its own HF fraction
+  imprints ~0.003-0.010 on bed-dominated (quiet) segments, which is ABOVE every
+  natural segment value (pre-bed max 0.00152). So on annyeong/yeobo the bed
+  CREATES a new max (quiet 'o' nuclei: 0.00050 -> 0.007, 0.00109 -> 0.0089),
+  raising max/min instead of compressing it. Placement barely matters
+  (5.28 vs 5.03; 14.37 vs 12.86), so this is level/shape physics, not a
+  clipping artifact of one placement.
+- The -50 dBFS broadband bed fills the 2.5 kHz lateral antiformant: post-bed
+  depth ~= bed's own inter-band tilt ~= 0 dB in both placements, vs >= 6 dB
+  required. Recovering 6 dB needs the bed ~15 dB quieter (~-65 dBFS), at which
+  level the room_tone floor effect vanishes (hello returns toward 6.10).
+- Compressing all demos to ratio <= 3.0 with this bed brightness would require
+  the bed to dominate even loud segments (bed RMS within ~3 dB of signal),
+  violating the +1 dB lift bound and burying the notch entirely.
+- Hence the specified bed (LP ~6 kHz at -50 dBFS) cannot satisfy room_tone and
+  lateral_zero simultaneously. Design change needed (e.g. darker bed whose own
+  HF fraction sits at/below natural minima, or notch-sparing shaping).
+  Escalated as NEEDS_CONTEXT; tree restored to found state (placement A).
+  No release renders were produced, so no new TIs TIN hash is recorded.

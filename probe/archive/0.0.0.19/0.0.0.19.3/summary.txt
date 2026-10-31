@@ -1,0 +1,159 @@
+Task 0.0.0.19.3 /h/ as voiceless vowel-formant onset
+
+Change (crates/articul-cli/src/synth.rs only)
+- is_h_onset (synth.rs:43): voiceless glottal fricative, non-pause
+  (manner Fricative + place Glottal + voiceless). Voiced /ɦ/ excluded.
+- spec_for h-branch (synth.rs:56), placed BEFORE the generic fricative
+  branch: when the unit is an h-onset and the neighbor unit is a vowel,
+  build a Cascade spec from the FOLLOWING vowel's reduced targets
+  (f1,f2,f3 via reduced_vowel_targets with the vowel's own stress) plus
+  the same upper three formants as the vowel branch (f1/80, f2/100,
+  f3/120). Falls through to the generic Parallel fricative path for solo
+  /h/ or /h/ before a consonant. Excitation unchanged: frication_noise
+  via the existing frication_level_for call path; envelope unchanged.
+- render_units call site (synth.rs:684): when the unit is an h-onset and
+  the next unit is a vowel, the neighbor passed to spec_for is that
+  vowel (the default neighbor computation filters vowels out for locus
+  purposes, so without this override the branch could never trigger).
+- segment_gain_db (synth.rs:273): /h/ base -18.0 dB to -6.0 dB, checked
+  as place Glottal + Fricative + voiceless. No other gain arms touched;
+  voiced fricatives, sibilants, laterals, nasals, vowels all unchanged.
+
+Red/green refs
+- Red: logs/0.0.0.19.3/red-h_onset.log. h window of render hE showed no
+  F1 local-maximum peak within 200 Hz of 576 Hz (old Parallel shaping at
+  1400/2600 Hz); test FAILED as required before the fix.
+- Green: logs/0.0.0.19.3/green-h_onset.log, 1 passed.
+- TDD file: crates/articul-cli/tests/h_onset.rs
+  (h_carries_following_vowel_formants): renders hE at 22050 Hz, analyzes
+  the h window [150 : h_len-326] with a Hann-windowed zero-padded DFT
+  (smoothed power, local-maximum peak pick with 3x-median prominence),
+  and requires peaks near (576, 1624) Hz within 200 Hz.
+- Release-render cross-check (probe/0.0.0.19.3/hello_measure.py): hello
+  h-window spectral peaks at 538.3 Hz and 1644.6 Hz, both within
+  tolerance of the following-vowel targets.
+
+Gates (logs in logs/0.0.0.19.3/)
+- cargo fmt --check: clean, exit 0 (fmt-check.log).
+- cargo clippy --workspace --all-targets -- -D warnings: clean, exit 0
+  (clippy.log). Three lints fixed in the new test file only
+  (needless_range_loop, collapsible_if, unnecessary_map_or).
+- cargo test --workspace: NOT fully green (test-workspace.log, exit 101).
+  All suites pass except halves_gain.rs hello_halves_within_3db:
+  halves -22.12 dB vs -28.39 dB, diff -6.27 dB (gate 3 dB). Every other
+  suite is green, including h_onset 1/1, diphthong_glide 2/2, gain 19/19
+  (incl. the aspirated h_h case), determinism, and all remaining suites.
+- cargo build --release: green (release.log).
+
+Load-bearing conflict (verified by revert experiment in this environment)
+- Baseline (original code): halves PASS (2/2, diff about -2.70 dB).
+- Filter change only (h cascade, old gain floor): halves -24.57 vs
+  -28.39 dB, diff -3.82 dB, FAIL. The mandated cascade filter alone
+  already exceeds the 3 dB gate; pre-change headroom was only 0.3 dB.
+- Full change (+ -6 dB base): halves -22.12 vs -28.39 dB, diff
+  -6.27 dB, FAIL. Second half is bit-identical (-28.39 dB) in all runs.
+- Both mandated sub-changes independently move the first half beyond the
+  gate, so no implementation satisfying (a)+(b) as specified can keep
+  hello_halves_within_3db green. Resolving this needs a parent decision:
+  re-baseline the halves gate for the now-audible /h/, or revisit the
+  -6 dB target. No gate file was modified; the failure is reported as is.
+
+TIs TIN regression (release CLI, config/default-voice.toml)
+- probe/0.0.0.19.3/regression-a.wav and regression-b.wav, 8822 samples
+  each (17688 bytes), sha256
+  3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93
+  both runs, deterministic=True (cli-regression.log plus per-run
+  cli-regression-a.log / cli-regression-b.log).
+- Hash UNCHANGED vs 3d31 (0.0.0.19.2 baseline): TIs TIN contains no /h/,
+  so neither the filter reroute nor the gain change touches it. Sample
+  count likewise unchanged at 8822.
+
+Hello span measurements (release render hE "loU, config/default-voice.toml)
+- probe/0.0.0.19.3/hello-check.wav: 9351 samples at 22050 Hz mono
+  16-bit (18746 bytes), sha256
+  d1cac4ad7032bd46786ba211b54e951958844e1c9ee4193233ffa3c01ae3b0d4
+  (hello-render.log). Sample count unchanged vs 0.0.0.19.2 (9351).
+- Meter script: probe/0.0.0.19.3/hello_measure.py (log hello-measure.log).
+  h window uses planned /h/ duration 78 ms = 1720 samples (identical to
+  the 0.0.0.19.2 window), interior [200:1344] to exclude attack and the
+  176-sample h-to-E crossfade.
+- h-window: peak -9.13 dBFS, RMS -21.06 dBFS. Vs the 0.0.0.18.4 h-burst
+  peak of -26.3 dBFS, the new vowel-shaped /h/ peaks 17.2 dB hotter.
+  Following E window for context: peak -14.91 dBFS, RMS -23.54 dBFS, so
+  /h/ now peaks about 5.8 dB above the vowel it anticipates (white-noise
+  excitation drives all six cascade resonances equally, while the
+  glottal source tilts energy toward low formants).
+- Halves from the release wav: -22.12 vs -28.39 dB, diff -6.27 dB,
+  matching the debug-suite measurement.
+
+Probe/log paths
+- Probe: probe/0.0.0.19.3/ (regression-a.wav, regression-b.wav,
+  hello-check.wav, hello_measure.py, summary.txt)
+- Logs: logs/0.0.0.19.3/ (fmt-check, clippy, test-workspace, release,
+  cli-regression-a, cli-regression-b, cli-regression, hello-render,
+  hello-measure, red-h_onset, green-h_onset)
+
+Round 2 (fix-round: /h/ base -10.0 dB, coordinator ruling)
+- Single change: segment_gain_db /h/ base -6.0 to -10.0 dB
+  (synth.rs:273, same Glottal+Fricative-voiceless-only condition; floor
+  -12 dB and all other arms untouched). Filter branch, neighbor
+  override, and excitation all kept from Round 1.
+- h_onset test: PASS (green-h_onset-round2.log).
+- halves_gain: STILL FAILS: halves -23.97 vs -28.39 dB, diff -4.42 dB
+  (gate 3 dB; halves_gain-round2.log). Full workspace suite therefore
+  still red (test-workspace-round2.log); every other suite is green.
+- Release hello re-render (9351 samples, sha256
+  bfb1b440ba8e33264326dadc5167fed74851d72d2e9bea648e88bff51b635856;
+  hello-render-round2.log, measured by hello_measure.py in
+  hello-measure-round2.log): h-window [200:1344] peak -13.13 dBFS, RMS
+  -25.06 dBFS; following E window peak -14.91 dBFS, RMS -23.54 dBFS.
+  So /h/ RMS now sits 1.52 dB below E (near the 2-3 dB target), but /h/
+  peak remains 1.78 dB ABOVE E (was +5.8 dB in Round 1): the -4 dB gain
+  cut removed most of the overshoot, yet narrow cascade resonances keep
+  noise-excited peaks hotter than the glottal-excited vowel. Spectral
+  peaks intact at 538.3 / 1644.6 Hz (formant-onset timbre preserved).
+- TIs TIN regression pair re-rendered (overwrite): 8822 samples each,
+  sha256 3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93
+  both runs, deterministic=True (cli-regression-a/b-round2.log). Hash
+  still UNCHANGED vs baseline.
+- Per fix-round instruction, no further values tried and the gate file
+  was not touched. Round-2 verdict: NEEDS_CONTEXT with measured halves
+  diff -4.42 dB and h-vs-E peak +1.78 dB / RMS -1.52 dB.
+
+Round 3 (fix-round 3: gate re-baseline, coordinator ruling)
+- Only file changed: crates/articul-cli/tests/halves_gain.rs. No
+  production code touched; binary unchanged since Round 2, so no
+  re-render was needed and the Round-2 wavs stand as current.
+- Rationale (in summary, not in code): the halves <=3 dB bound dates
+  from an era when /h/ was a defective -12 dB noise burst. Its original
+  intent is catching a buried second syllable, and the tail is healthy:
+  second half -28.39 dBFS identical across all rounds, and a faithful
+  re-measurement with the lateral test's exact windows gives l-vs-o gap
+  4.21 dB (lateral -29.47 vs stressed vowel -25.26 dBFS), well within
+  the 8 dB ceiling (the ruling cited 6.10 dB from an unspecified window;
+  the conclusion is unchanged). /h/ RMS sits 1.52 dB below E. The
+  -4.42 dB halves diff comes from a now-audible, phonetically correct
+  /h/ onset raising the first half, so the metric misfires on a correct
+  feature. Precedent for gate re-derivation exists in 11.4/12.1 and
+  0.0.0.19.2.
+- New bounds, test renamed hello_halves_within_3db to
+  hello_halves_within_5db: MAX_HALVES_DIFF_DB 5.0 f32 for the halves
+  |diff| assert, plus a new second-half audibility floor assert
+  MIN_SECOND_HALF_DBFS -32.0 f32 (second-half RMS must exceed -32 dBFS),
+  preserving the original anti-burial intent directly. Both bounds are
+  named constants; all touched files remain comment-free.
+- Buried-input check (temporary probe test, deleted after the run):
+  the old pinned violating input from balance.rs ("hE l@U with old
+  stress pattern) renders halves db0 -22.37 vs db1 -27.68, diff -5.31
+  dB. The re-baselined |diff| <= 5.0 assert FAILS on it as required
+  (5.31 > 5.0), so the gate still catches the buried tail. The -32.0
+  floor assert does NOT fail on it (db1 -27.68 is above the floor); the
+  floor is kept anyway as a guard against far-worse burial, with this
+  outcome recorded.
+- Gates: cargo test --workspace exit 0, all suites green
+  (test-workspace-round3.log), including halves_gain 2/2 with the new
+  bound (hello halves -23.97 vs -28.39 dB, diff -4.42 <= 5.0; second
+  half -28.39 > -32.0). cargo fmt --check clean (fmt-check-round3.log),
+  cargo clippy --workspace --all-targets -- -D warnings clean
+  (clippy-round3.log).
+- Round-3 verdict: DONE.

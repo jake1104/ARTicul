@@ -1,0 +1,20 @@
+[package]
+name = "articul-cli"
+version = "0.0.1"
+edition = "2021"
+
+[[bin]]
+name = "articul"
+path = "src/main.rs"
+
+[dependencies]
+articul-phon = { path = "../articul-phon" }
+articul-dsp = { path = "../articul-dsp" }
+articul-front = { path = "../articul-front" }
+articul-config = { path = "../articul-config" }
+clap = { version = "4", features = ["derive"] }
+cpal = { version = "0.15" }
+hound = { version = "3" }
+
+[dev-dependencies]
+rustfft = { version = "6" }

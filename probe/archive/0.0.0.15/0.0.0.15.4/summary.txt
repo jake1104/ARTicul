@@ -1,0 +1,8 @@
+Task 0.0.0.15.4 boundary click audit with zone-relative gate
+Measurement first: global clickmax on current TIs TIN is 1.586 @46.6% (up from 0.592 pre-15.3: parallel sibilant shaping legitimately restores HF energy). Zone analysis: sibilant interior max jump 1.074, s|T junction 1.428 (1.33x interior), T2 head 0.090, vowels 0.015-0.021, onset 0.001, tail 0.002. Conclusion: no true amplitude click — concat_crossfade is continuous by construction, and lengthening the fade would smear the linguistically correct abrupt /s-t/ contrast. The audit headline metric was confounded by legitimate HF content.
+TDD RED: naive absolute gate (max jump < 0.5) failed with clickmax=1.428, proving a global threshold cannot work. GREEN: replaced with zone-relative gate fricative_plosive_junction_stays_within_content (junction <= 1.5x sibilant interior) in new crates/articul-cli/tests/click.rs. No production change (test-only, like 15.1).
+Ruling: keep 8ms/50ms fades; smearing the /s-t/ contrast would sound worse, not better. If stop-gap insertion is ever wanted, it is a new duration-model task.
+Gates: fmt clean, clippy -D warnings clean, test workspace green, release build green.
+Measured CLI regression: synthesize TIs TIN default voice: 8536 samples, sha256 b4d389e0d818a79bad47d546558dc365e89667fce2f8b7cde6394db173ad5efc, deterministic (identical to 15.3: test-only change). Python parity 4/4 PASS (synthesize len=3043, vowel-a f2/f1=0.133).
+Probe: probe/0.0.0.15.4/regression-a.wav, regression-b.wav (identical). No demo change.
+Logs: logs/0.0.0.15.4/ (click-baseline, click-zones, click-zones2, red, green, green2, fmt-check, clippy, test-workspace, release, cli-regression-a, cli-regression-b, cli-regression, py-build, py-copy, parity).

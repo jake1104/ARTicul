@@ -1,0 +1,15 @@
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\src\synth.rs:534:
+     let mixed = concat_formant_glide(shaped, cooked, specs, units, &fades, sample_rate);
+     let radiated = apply_radiation(&mixed);
+     let mut out = radiated;
+[31m-    let final_len = units
+[0m[31m-        .last()
+[0m[31m-        .map(|u| ((u.duration_ms as f32 / 1000.0) * sample_rate as f32).round().max(1.0) as usize);
+[0m[32m+    let final_len = units.last().map(|u| {
+[0m[32m+        ((u.duration_ms as f32 / 1000.0) * sample_rate as f32)
+[0m[32m+            .round()
+[0m[32m+            .max(1.0) as usize
+[0m[32m+    });
+[0m     apply_final_fade(&mut out, sample_rate, final_len);
+     normalize_peak(out)
+ }

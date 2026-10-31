@@ -1,0 +1,103 @@
+0.0.0.22.3 loudness and continuity rebalance - summary
+
+Change: replaced peak-only normalize_peak with crest-aware leveling in the
+output staging (crates/articul-cli/src/synth.rs, level_output). Untouched:
+segment_gain_db table, declination, fade lengths, pause logic.
+
+Leveler design (three stages, all deterministic, no new dependencies):
+1. Crest-selective transient tamer (synth.rs:921-935): per-sample hard-soft
+   clip at T = max(2.2 x trailing-5ms RMS, 0.05 x file peak), residual 0.08.
+   Shaves only isolated HF spikes; periodic voicing (crest ~2.2) and noise
+   (~2.6) pass through, so a_fade/apa/s_ramp are unaffected.
+2. Slow leveler (synth.rs:936-993): per-20ms-window RMS, zero-phase envelope
+   follower (causal plus anticausal geometric mean) with attack 12ms and
+   release 8ms on window rate (synth.rs:947-965). Attack exceeds the 8ms
+   crossfade so joins do not pump; release fills 60-110ms troughs.
+   Knee gain curve: +0.20 dB/dB above -12 dB, +0.85 dB/dB below -12 dB,
+   top cut -0.5 dB/dB above -3 dB (max -1.5 dB), cap +16 dB; 10ms gain
+   smoothing plus linear per-sample interpolation.
+3. Ceiling (synth.rs:994-999): scale 1.25 x 0.989/peak with hard clamp at
+   +/-0.989, so global peak stays <= 0.99 while clipped samples are limited
+   to tamer-rounded transient tips.
+
+Assert results (render_sentence, 22050 Hz, 120 Hz base):
+demo_rms_audible (RMS >= 0.10, peak <= 0.99):
+  hE "loU:         pre RMS 0.0529 peak 0.9000 -> post RMS 0.2197 peak 0.9890
+  %an njVN "hasejo: pre RMS 0.0715 peak 0.9000 -> post RMS 0.1113 peak 0.9890
+  %jV"bo%se%jo:    pre RMS 0.0808 peak 0.9000 -> post RMS 0.1299 peak 0.9890
+intra_word_troughs_bounded (10ms RMS vs preceding-100ms mean, final 150ms
+  of fade excluded as in the probe's non-fade reporting, max depth <= -12dB):
+  %an njVN "hasejo: pre -18.6 dB (non-fade; -21.3 with fade) -> post -10.5 dB
+  %jV"bo%se%jo:    pre -15.1 dB -> post -9.0 dB
+tail_not_buried (yeobo last-third RMS >= 0.03):
+  pre 0.0144 -> post 0.0783
+All three tests failed pre-change (red log on disk) and pass post-change.
+
+Prior gates all green, unchanged bounds: balance (old input still violates
+at -6.60 dB, pre -13.93 dB), halves_gain, gain (apa ratio 8.06 -> 2.33,
+still > 1.8; s_ramp holds; burst holds; final fade 0.236 -> 0.463, still
+< 0.5), bandlimit, click, diphthong, h_onset, clear_l plus coda,
+voiced_fricative_mix, lateral_zero 4/4, determinism, and the full
+cargo test --workspace suite.
+
+Gates: cargo fmt --check clean, cargo clippy --workspace --all-targets
+-D warnings clean, cargo test --workspace all ok, release build ok.
+
+CLI regression: TIs TIN rendered twice to probe/0.0.0.22.3/regression-a.wav
+and regression-b.wav, 8822 samples each (count unchanged), byte-identical,
+sha256 870D1A7DF1219AEDEA3E8E138F358D9D0855B0D9A92F54A8F9D109D1C662C4B0.
+Hash rotated from 3d31 as expected; recorded in cli-regression.log.
+
+Round-2 fix review (no gate-bound changes, no production-code change):
+Finding 1 (attack/release): measured the applied makeup-gain trajectory for
+hE "loU (23 per-20ms-window gains, 50 Hz rate; method: temporary env-gated
+dump in level_output plus FFT band analysis in probe/0.0.0.22.3/pump_check.py,
+both reverted/removed after measurement, grep-zero verified). Result in
+logs/0.0.0.22.3/pump-check.log: gain swing -1.01 to +11.60 dB (fade ramp);
+syllable-band 3-8 Hz component p95-p5 = 2.69 dB (< 3 dB threshold),
+peak-to-peak 3.34 dB driven by the fade-ramp edge, not sustained wobble;
+lifted-region ripple (windows 21-22, mean +10.77 dB) range 1.65 dB monotonic
+trend tracking the fade, adjacent-step std 0.00 dB. No breathing -> constants
+kept: attack 12 ms / release 8 ms on window rate with 10 ms gain smoothing.
+The backward (release-faster) order is deliberate: fast fall tracking fills
+60-110 ms trough onsets, while 20 ms window averaging plus 10 ms smoothing
+keeps 8 ms crossfades and glottal pulses out of the gain trajectory.
+Finding 2 (balance pin): fresh exact-replication measurement on final code
+gives old word balance -11.58 dB vs -18.18 dB, diff -6.60 dB (margin 0.60 dB
+over the -6.0 dB must-violate bound). Green-log quote:
+logs/0.0.0.22.3/round2-suite.log:23 "test old_input_violates_word_balance ... ok"
+with suite line "test result: ok. 3 passed; 0 failed". Leveling suite in the
+same log: tail_not_buried, intra_word_troughs_bounded, demo_rms_audible all ok.
+Step B not taken (no breathing); TIs TIN not re-rendered (production code
+unchanged); recorded hash stays 870D1A7D...C4B0, sample count 8822.
+
+Round-3 measurement rigor (no production-code change):
+Method correction: the Round-2 band analysis used a single-sided spectrum in
+the inverse transform, halving reconstructed amplitude. Redone correctly in
+probe/0.0.0.22.3/pump_check2.py: least-squares linear detrend of the 23-tap
+gain trajectory first (removes the fade-ramp edge, slope +0.258 dB/window),
+then full two-sided DFT keeping conjugate bin pairs (kept bins
+2,3,4,5,27,28,29,30 at 50 Hz window rate), inverse DFT with 1/N scaling.
+Same hE "loU trajectory method (temporary env-gated dump, reverted after,
+grep-zero verified); console in logs/0.0.0.22.3/pump-check2.log.
+Numbers: detrended two-sided 3-8 Hz p95-p5 = 4.99 dB, peak-to-peak =
+5.71 dB, raw gain swing 12.61 dB. Honest baseline: pre-leveler normalize_peak
+is constant gain, i.e. 0.00 dB syllable-band modulation by construction, so
+the leveler adds ~5 dB of syllable-rate gain motion; that motion is the
+working mechanism behind the measured trough benefit (annyeong -18.6 dB to
+-10.5 dB, yeobo -15.1 dB to -9.0 dB), and the no-harm side is carried by the
+unchanged shape gates (apa ratio 2.33, a_fade 0.463, halves, old-input).
+Stop rule: 4.99 dB < 6 dB -> constants kept (attack 12 ms / release 8 ms,
+no follower change, no rebuild, no TIs TIN re-render).
+Balance numbers on disk: logs/0.0.0.22.3/balance-pin.log holds
+"word0=-11.58dB word1=-18.18dB diff=-6.60dB" from a fresh render on final
+code with the exact balance.rs windowing replicated; no bound change.
+Final suite in logs/0.0.0.22.3/round3-suite.log: leveling 3/3 ok,
+old_input_violates_word_balance ok, zero failures workspace-wide.
+
+Design notes: trough onsets are causally indistinguishable from sustained
+quiet, so no future-gated or sustain-gated boost was used; a gentle global
+curve plus the prior -6.5 dB-scale old-input margin (measured -13.93 dB
+pre-change) keeps the buried-word gate intact while transient fill plus
+crest cut lift RMS. Peak-norm rescale plus clamp is what converts crest
+reduction into RMS; the 1.25 scale was sized so a_fade stays < 0.5.

@@ -1,0 +1,10 @@
+annyeong pre win=[15373,15593) d=0 (0.00ms) peak=0.5639 unclamped=0.5639 clamped=0 harm=0.233
+annyeong post win=[15373,15593) d=0 (0.00ms) peak=0.9890 unclamped=0.9608 clamped=1 harm=0.251
+annyeong pre/post unclamped 0.5639 -> 0.9608 (+4.63dB) d 0 -> 0 harm 0.233 -> 0.251
+yeobo pre win=[10807,11027) d=0 (0.00ms) peak=0.5376 unclamped=0.5376 clamped=0 harm=0.244
+yeobo post win=[10807,11027) d=0 (0.00ms) peak=0.9890 unclamped=0.9311 clamped=1 harm=0.244
+yeobo pre/post unclamped 0.5376 -> 0.9311 (+4.77dB) d 0 -> 0 harm 0.244 -> 0.244
+
+control hello s1 pinned-phonetic h-burst (pin 0.9606):
+pre d= 68 3.08ms peak=0.9890 uncl=0.9448 clamped=1 harm=0.213
+post d= 68 3.08ms peak=0.8667 uncl=0.8667 clamped=0 harm=0.214

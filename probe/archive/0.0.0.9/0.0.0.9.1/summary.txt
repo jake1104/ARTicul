@@ -1,0 +1,6 @@
+Task 0.0.0.9.1 vowel formant rule table
+Rule: F1 from height (280-730), F2 from height/backness/rounding cells, F3 from backness/opening. Calibrated so Peterson-Barney 10 male anchors land within 15 percent (worst -9 percent, most within 6 percent). No per-phoneme hardcoding beyond feature cells.
+Tests: vowel_formants.rs 4 passed (PB anchors, all 28 in range with F3 2000-3200, consonants None, height/backness monotonicity)
+Files: crates/articul-dsp/src/vowels.rs (+lib export)
+Logs: logs/archive/0.0.0.9/0.0.0.9.1/ (red: missing fn, green: 4 passed)
+Fixes during task: test symbols must be IPA (lookup level), not X-SAMPA

@@ -1,0 +1,87 @@
+== task 0.0.0.28.1 gain architecture probe (read-only, no engine edits) ==
+Console record. Shell: Windows PowerShell 5.1 for .ps1 (powershell -NoProfile
+-ExecutionPolicy Bypass -File), direct python3.12 otherwise. No && used anywhere.
+No engine source/config/demo/todo/README file was written in this session; the
+only builds are throwaway probe crates under probe/0.0.0.28.1/ (read-only link
+against engine crates). There was no instrumentation, hence no revert/grep-zero
+step to perform.
+
+$ mkdir probe\0.0.0.28.1, logs\0.0.0.28.1
+$ ls target\release\articul.exe  -> 1462272 bytes, present
+$ python -c "import numpy, soundfile, librosa"  -> py-ok
+
+$ cargo build --offline  (probe/0.0.0.28.1/plandump; mirrors 0.0.0.24.1 approach)
+    Finished dev profile in 2m 16s
+$ .\target\debug\plandump.exe | Out-File -Encoding utf8 ..\plan.txt
+  50/50 segments match=OK (engine segment_gain_db == probe arm decomposition).
+  Excerpt: annyeong u11 o base=-3.5 decl=-11.0 fin=0.0 floor=1 engine=-12.000dB
+  match=OK. Six annyeong segments at the -12 floor; unclipped min -21.0dB
+  (fixed u3 th: base -18 decl -3).
+
+$ python probe\0.0.0.28.1\render_all.py  (release CLI, subprocess arg lists so
+  embedded quotes pass through; replaces render_all.ps1 after PS quoting and
+  fc-alias failures on quoted inputs)
+fixed_sentence rc= 0 / demo_hello rc= 0 / creak_probe rc= 0 / gain_probe rc= 0
+cluster_probe rc= 0 / pause_probe rc= 0 / annyeong rc= 0 / yeobo rc= 0
+sizes: fixed 17688, demo_hello 19628 (=9792 samples), gain 10188, pause 17114,
+annyeong 34936 (=17446), yeobo 29376 (=14666), cluster 15614, creak 12922.
+
+$ python < sha check (fc.exe output ambiguous through this host; sha decisive)
+fixed_sentence: 8822 samples sha=2ad4f8413c91 (== pinned 2AD4 hash)
+demo_hello.wav identical=True / annyeong.wav identical=True / yeobo.wav identical=True
+(byte-identical to shipped demos)
+
+$ python probe\0.0.0.28.1\analyze.py  (plan stats + gate metrics + exact leveler
+  replica + per-sample fixed-point inversion; full output analyze_out.txt)
+PLANNED: global min=-12.0 max=0.0 spread=12.0 (45 corpus segs); unclipped
+  spread min=-21.0 max=0.0 = 21.0dB (floor hides 9.0dB). floor_n: fixed 3,
+  annyeong 6, yeobo 1. Worst steps: anny u0->u1 -9.0dB; cluster u1->u2 -8.0dB;
+  fixed u0->u1 +7.5dB.
+MAKEUP (max/mean dB, cap-bound frac, G, max total lift): fixed 16.0/11.83/38%
+  G=0.52 lift 3.29x; hello 13.09/2.74/0% G=1.236 lift 5.41x; creak 7.43/1.00
+  G=1.19 lift 2.64x; gain 7.06/1.21 G=4.16 lift 9.01x; cluster 16.0/10.64/17%
+  G=0.70 lift 4.39x; pause 16.0/5.09/20% G=2.66 lift 16.77x; anny 16.0/7.83/10%
+  G=0.92 lift 5.78x; yeobo 16.0/9.81/29% G=1.01 lift 6.37x.
+Sanity: constant-1.0 input -> gdb(0dB)=-1.5dB (knee above -3dB), matches replica
+  maxgain 0.8629 (hand calc 0.8414 + smoothing startup). Inversion residuals
+  <= 1.4e-4 unclamped (pause 8e-4, silence-zero guard).
+
+$ python probe\0.0.0.28.1\analyze2.py  (spark windows + trough-gate windows;
+  full output analyze2_out.txt)
+SPARK (unclamped peak + clamped count, makeup at window): hello s1 0.9480/cl4
+  mu=-0.76dB; s2 0.9360/cl1 mu=+1.10dB; s3 ok; anny s9 0.9805/cl1 mu=-0.87dB;
+  yeobo s5 0.8953/cl2 mu=-0.36dB. Spark windows carry ~0dB makeup: content is
+  hot pre-leveler (pre_est 0.84-1.18), G pins it.
+Trough gates: anny k62 dip -12.21 mu=-0.87dB; k63 -8.93 mu=+6.60dB; yeobo k48
+  -6.11 mu=+15.58dB lift 6.07x; fixed k20 -21.17 mu=-1.17dB (dip bottom gets no
+  lift -- follower reads it loud vs peak_env).
+
+$ cargo build --offline (probe/0.0.0.28.1/f32dump: render_sentence f32 + exact
+  junction_nospark_red2.rs window mirror) -> Finished in 3m 41s
+$ .\target\debug\f32dump.exe ..  (f32gate.txt)
+hello s1 0.948047/cl4 SPARK; s2 0.936042/cl1 SPARK; anny s9 0.980562/cl1 SPARK
+  (0.0.0.26.1's 0.917583 was the with-carry number; clean-tree truth is 0.9806);
+  yeobo s5 0.895336/cl2 ok (margin 0.005dB); cluster s1 0.966348/cl7 (non-gated
+  input); fixed s3 0.864275/cl1 near; old s1 0.972729/cl3 (non-gated input).
+Wav-based peaks reproduce f32 to <= 1e-4. Identity sim reproduces 0.9481 (5e-5).
+
+$ python probe\0.0.0.28.1\analyze4.py  (global-max ownership; analyze4_out.txt)
+hello max pos 1583 INSIDE s1 [1544,1764), h-tail 0.989 vs E-onset 0.521;
+  anny max 13327 (s9 window starts 13366, /s/ body); yeobo max 7229 (/s/ group);
+  fixed/cluster maxes in /s/ groups. /s/ (-5dB arm) and h-burst set every max.
+
+$ python probe\0.0.0.28.1\analyze5.py  (cap x prescale grid on V1..V5; f32;
+  analyze5_out.txt) + analyze6.py (V2/V7/V8 + maxpos; analyze6_out.txt) +
+  analyze7.py (V2 final confirmation; analyze7_out.txt) + analyze8.py
+  (lateral-window 8dB gate mirror: BASE 2.01dB PASS, V2 0.18dB PASS).
+Grid verdict: no variant clears hello s1 (0.94-0.98; maxpos stays 1583/1612 in
+  s1 in ALL variants incl. h-12: gain-invariant). V2 (HALF arms, h base kept
+  -10, decl -0.5, fin -2, floor -6; cap 12dB; prescale 1.1x) passes everything
+  else: anny spark 0.8628, yeobo 0.7627, anny RMS 0.1039 (+0.33dB), trough
+  -12.35, tail 0.1338; yeobo RMS 0.1145, trough -10.35, tail 0.0481; hello RMS
+  0.2037, halves -2.98, bal -2.62; old viol -6.61 PIN HELD; clamps 6/8/12->5/3/10;
+  lifts >=8x eliminated everywhere (pause 25%->0%). Tail pins at cap 12 (0dB
+  budget, output margins 13/4dB -- flagged). V3/cap10/prescale-only/V7/V8
+  rejected with measured causes (see gain-arch.txt section 6).
+Deliverable: probe/0.0.0.28.1/gain-arch.txt (numbers + concrete arm-by-arm dB
+  table + leveler targets + predicted margins + hello-s1 negative result).

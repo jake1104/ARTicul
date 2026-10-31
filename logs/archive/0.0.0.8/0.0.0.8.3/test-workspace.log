@@ -1,0 +1,229 @@
+   Compiling articul-py v0.0.0 (E:\01_coding\ARTicul\crates\articul-py)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.66s
+     Running unittests src\lib.rs (target\debug\deps\articul_cli-08f8989f21457fcb.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\main.rs (target\debug\deps\articul-781f45a618b479ca.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\synth.rs (target\debug\deps\synth-ab0e3892ec4bce2a.exe)
+
+running 3 tests
+test empty_text_gives_empty ... ok
+test renders_fixed_sentence_to_expected_samples ... ok
+test output_differs_per_text ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\lib.rs (target\debug\deps\articul_config-eb1a54e5de859c03.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\voice_config.rs (target\debug\deps\voice_config-b1079d439e3e65ea.exe)
+
+running 3 tests
+test rejects_out_of_range_sample_rate ... ok
+test klatt_voice_loads_and_validates ... ok
+test default_voice_loads_and_validates ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\lib.rs (target\debug\deps\articul_dsp-0420891a76243934.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\aspiration.rs (target\debug\deps\aspiration-56f7d2a674f7f51a.exe)
+
+running 3 tests
+test aspirated_boosts_noise ... ok
+test nasalized_vowel_does_not_boost_aspiration ... ok
+test unaspirated_keeps_base_noise ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\cascade.rs (target\debug\deps\cascade-d7723346a1696b61.exe)
+
+running 3 tests
+test cascade_preserves_length_and_stays_finite ... ok
+test impulse_response_decays ... ok
+test single_resonator_prefers_its_formant ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\cpp_parity.rs (target\debug\deps\cpp_parity-914f1b558bb6b0cc.exe)
+
+running 1 test
+test cpp_flag_consistent ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\nasal_frication.rs (target\debug\deps\nasal_frication-9410841781d288d5.exe)
+
+running 5 tests
+test frication_level_boosted_for_voiceless_fricative ... ok
+test nasal_widens_bandwidth ... ok
+test frication_silence_at_zero_level ... ok
+test nasal_branch_needed_for_m_not_p ... ok
+test frication_noisy_at_positive_level ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\parallel.rs (target\debug\deps\parallel-9b99fe40f0c1c9a3.exe)
+
+running 3 tests
+test amplitude_scales_linearly ... ok
+test zero_amplitude_gives_silence ... ok
+test parallel_sum_matches_single_sum ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\source.rs (target\debug\deps\source-517ec6b2354f209a.exe)
+
+running 3 tests
+test pulse_peak_count_matches_f0 ... ok
+test pulse_train_length_matches_duration ... ok
+test aspiration_adds_energy_to_closed_phase ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\spectrum.rs (target\debug\deps\spectrum-f01dcab0e373e328.exe)
+
+running 1 test
+test glottal_spectrum_falls_about_12db_per_oct ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\stability.rs (target\debug\deps\stability-bccc685990d5d318.exe)
+
+running 2 tests
+test impulse_peak_near_formant ... ok
+test grid_stable_and_decaying ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\lib.rs (target\debug\deps\articul_front-f5c3b4887d233ab0.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\g2p.rs (target\debug\deps\g2p-32f3624c0074125d.exe)
+
+running 3 tests
+test pin_transcribes_to_three_phonemes ... ok
+test table_is_replaceable ... ok
+test skips_unknown_chars ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\integration.rs (target\debug\deps\integration-a473cdf337513b39.exe)
+
+running 2 tests
+test digits_do_not_break_pipeline ... ok
+test sentence_produces_phonemes_with_prosody ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\normalize.rs (target\debug\deps\normalize-8c80ea6a9b088e38.exe)
+
+running 4 tests
+test empty_input_gives_empty ... ok
+test keeps_numbers_as_tokens ... ok
+test expands_common_abbreviations ... ok
+test lowercases_and_strips_punctuation ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\prosody.rs (target\debug\deps\prosody-794f4189c96b22bd.exe)
+
+running 4 tests
+test faster_rate_shortens_durations ... ok
+test f0_declines_across_utterance ... ok
+test plan_length_matches_input ... ok
+test long_vowel_gets_more_time ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\lib.rs (target\debug\deps\articul_phon-2f3ce9ba6b1cf640.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\feature_types.rs (target\debug\deps\feature_types-4485b0012c15a9f0.exe)
+
+running 3 tests
+test nasal_m_is_voiced_nasal ... ok
+test pulmonic_p_is_voiceless_bilabial_plosive ... ok
+test vowel_i_has_close_front_unrounded ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\lookup.rs (target\debug\deps\lookup-9b41c70c4d41a168.exe)
+
+running 7 tests
+test lookup_all_pulmonic_inventory ... ok
+test lookup_all_vowel_inventory ... ok
+test lookup_nonpulmonic_samples ... ok
+test lookup_extipa_samples ... ok
+test lookup_vowel_samples ... ok
+test lookup_pulmonic_samples ... ok
+test lookup_unknown_returns_none ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\rules.rs (target\debug\deps\rules-f972628c0e89ef4b.exe)
+
+running 3 tests
+test apply_rule_preserves_features_shape ... ok
+test devoice_turns_b_to_voiceless_keeping_place_manner ... ok
+test nasalize_marks_vowel_nasal ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\lib.rs (target\debug\deps\articul_py-8e5ff16a6bd2d319.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests articul_cli
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests articul_config
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests articul_dsp
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests articul_front
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests articul_phon
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

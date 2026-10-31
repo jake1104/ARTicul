@@ -1,0 +1,102 @@
+0.0.0.23.3 regression re-baseline with demo regeneration - summary
+
+No production code change in this task. The 0.0.0.23.2 causal-only leveler
+follower (anticausal pass removed, trough bound re-baselined 12->14 dB) is
+re-baselined: fixed-sentence hash re-verified, all three demos regenerated,
+numbers recorded vs 0.0.0.22.4 baselines.
+
+Gates (logs in logs/0.0.0.23.3/, all exit 0):
+- cargo fmt --check -> fmt-check.log, clean (empty file captured on disk).
+- cargo clippy --workspace --all-targets -- -D warnings -> clippy.log, clean.
+- cargo test --workspace -> test-workspace.log, all suites ok, zero failures.
+- cargo build --release -> release.log, Finished release profile.
+
+Fixed sentence `TIs TIN` (default voice, 22050 Hz):
+- probe/0.0.0.23.3/regression-a.wav and regression-b.wav: 8822 samples
+  each (17688 bytes), sha256
+  b832514d56698cce417ed3d16ba549312c7ab8573811457fff49a12107c24620 both.
+- Determinism: identical hashes, byte-identical renders.
+- Expected hash B832514D...C24620 from 0.0.0.23.2 attempt-3: MATCH.
+  Sample count 8822 unchanged. Recorded in cli-regression.log.
+
+Demo regeneration (all default voice; commands in demo.log header):
+- `hE "loU` -> demo/hello.wav, 9792 samples (444.1 ms).
+- `%an njVN "hasejo` -> demo/annyeonghaseyo.wav, 17446 samples (791.2 ms).
+- `%jV"bo%se%jo` -> demo/yeoboseyo.wav, 14666 samples (665.1 ms).
+Sample counts identical to the 0.0.0.22.4 baselines (leveler never changes length).
+
+Per-demo numbers (measured with probe/0.0.0.23.3/demo_measure.py, python+numpy;
+baseline = 0.0.0.22.4 values samples/halves-diff/RMS/centroid/trough; trough gate
+now >= -14 dB per the 0.0.0.23.2 coordinator ruling; the script text still prints
+the old -12 label, annotated in demo.log):
+- hello: halves -1.95 -> -2.04 dB (|diff| <= 5.0 PASS; second half -14.28 dBFS
+  > -32 floor PASS); global RMS 0.2197 -> 0.2203 (-13.14 dBFS, >= 0.10 PASS),
+  peak 0.9890 (<= 0.99 PASS); centroid 1949.6 -> 1955.3 Hz (+5.7 Hz, stable);
+  trough -3.87 -> -3.84 dB (no gate for this input, reported; unchanged);
+  F2 rise +165.2 overall, identical trajectory [908.4 ... 1073.6]
+  (>= 100 Hz PASS, monotonic within 50 Hz PASS).
+  Thirds RMS -11.79/-12.57/-16.34 -> -11.73/-12.53/-16.46 dBFS.
+- annyeong: halves +1.89 -> +1.29 dB (PASS, floor PASS); global RMS
+  0.1113 -> 0.1290 (-17.79 dBFS, PASS), peak 0.9890 (PASS); centroid
+  4479.0 -> 4336.0 Hz (-143 Hz); trough -10.51 -> -12.13 dB (PASS vs the
+  re-baselined >= -14 dB bound, margin 1.87 dB; deepened 1.62 dB as the
+  attempt-2 measurement predicted -- the anticausal pass had been filling
+  the trough entry with pre-onset gain).
+  Thirds RMS -19.40/-21.94/-17.15 -> -17.78/-20.20/-16.26 dBFS.
+- yeobo: halves -1.93 -> -2.35 dB (PASS, floor PASS); global RMS
+  0.1299 -> 0.1436 (-16.85 dBFS, PASS), peak 0.9890 (PASS); centroid
+  5576.4 -> 5499.4 Hz (-77 Hz); trough -8.97 -> -9.34 dB (PASS vs -14,
+  deepened 0.37 dB); tail third RMS 0.0783 -> 0.0898 (-20.94 dBFS,
+  >= 0.03 PASS).
+  Thirds RMS -18.93/-14.99/-22.13 -> -17.67/-14.35/-20.94 dBFS.
+
+Did troughs/centroids move with causal-only? Yes, modestly and in the expected
+direction: Korean-demo troughs deepened (-10.51 -> -12.13, -8.97 -> -9.34)
+because lookahead fill is gone; hello (no trough) is unchanged (-3.87 -> -3.84).
+Centroids shifted down on the Korean demos (-143/-77 Hz) and are flat on hello
+(+6 Hz) -- consistent with slightly less pre-trough lift of HF-adjacent energy,
+not with a voicing change. RMS rose on annyeong/yeobo (+0.018/+0.014) while
+hello is flat (+0.001). All committed gates hold under the re-baselined bound.
+
+Balance margin note: old-input-violates diff re-recorded on final code via a
+temporary probe test (printed PIN, then file deleted, fmt clean after):
+word0=-11.40 dB word1=-18.44 dB diff=-7.04 dB (was -6.60 dB in 0.0.0.22.4).
+Margin over the -6.0 must-violate bound is now 1.04 dB (was 0.60 dB); the
+erosion watch moves in the safe direction under the causal-only follower.
+Log: balance-pin.log.
+
+Eval self-test (non-gating): python python/validation/eval_reference.py
+--self-test -> eval-selftest.log, exit 0,
+"SELF-TEST PASS: deterministic renders identical, distinct items separated".
+
+Python parity: target/release/articul_py.dll copied to
+python/articul/_articul.pyd (hashes equal, both
+212266ef854265d37e20f7873e5970c5f35801369dfcb2269a1d8f014d7835d1);
+validation/check_parity.py (PYTHONPATH=python) 4/4 PASS (lookup-p,
+lookup-unknown, synthesize len=3242, vowel-a f2/f1=0.108) -> parity.log.
+
+Spot table (probe/0.0.0.23.3/spot/, six eval corpus items, report-only,
+per-item RMS + magnitude-weighted centroid, script spot_measure.py -> spot.log):
+- fixed_sentence 8822 samples, -19.57 dBFS, 6163.8 Hz, sha b832514d56698cce
+- demo_hello 9792 samples, -13.14 dBFS, 1955.3 Hz, sha a2e48409d461d273
+- creak_probe 6439 samples, -8.30 dBFS, 1245.9 Hz, sha bc51c191ed5e0173
+- gain_probe 5072 samples, -16.74 dBFS, 2184.3 Hz, sha b442aef86c984d78
+- cluster_probe 7785 samples, -16.99 dBFS, 4866.9 Hz, sha b93c43fed133a87c
+- pause_probe 8535 samples, -12.86 dBFS, 1950.2 Hz, sha bb6d820193998f78
+- demo_hello spot-vs-live byte-identical: True.
+Sample counts identical to the 0.0.0.22.4 spot table; RMS/centroid moved
+slightly with the causal-only follower (fixed_sentence -21.33 -> -19.57 dBFS,
+6279.7 -> 6163.8 Hz; cluster 5219.5 -> 4866.9 Hz; creak_probe stays loudest at
+-8.30 dBFS). No thresholds, no new gate test.
+
+Honest framing, carried forward from 0.0.0.23.2 attempt-3: breathing MAGNITUDE
+was not reduced by this change (detrended two-sided 3-8 Hz pump 4.99 -> 4.90,
+6.11 -> 6.42, 5.64 -> 6.22 dB) -- what the causal-only follower removes is the
+pre-echo (pre-duck eliminated, lag 0 ms on both hello onsets). Whether the
+demos sound less artificially pumped is a listening verdict, and the listener
+is the user: these regenerated demo/*.wav files are the deliverable to judge.
+
+Archive note: live probe/0.0.0.23.1, probe/0.0.0.23.2, probe/0.0.0.23.3 moved
+to probe/archive/0.0.0.23/; logs/0.0.0.23.1, logs/0.0.0.23.2, logs/0.0.0.23.3
+moved to logs/archive/0.0.0.23/. todo.md marks 0.0.0.23.3 Done and closes
+0.0.0.23; CHANGELOG Unreleased gains the re-baseline lines.

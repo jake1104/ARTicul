@@ -1,0 +1,6 @@
+DIAG-S9 VERDICT: PIN (phonetic /s/ body energy, not a join transient)
+
+PIN case (accepted): NEW s9 reproduces OLD s9 sample-for-sample in structure - identical peak offsets (d_all=29, d_uc=54, top5=[29,54,14,43,33]), identical autocorr (lag 97, r=0.165 vs 0.161), identical sibilant HF fraction (0.98), broad plateau (0.76-0.91 across d=14..54) decaying from a hotter pre-window /s/ body (+4.02 dB) into /e/ (-9.17 dB h1->h2); only the overall level rose +0.96 dB under M2+M3 rescale. Same boundary type (s->e) as the already-pinned yeobo s5 (0.9336), and 0.9120 < 0.9336.
+JOIN case (rejected): no new spike was created - the clamped sample at d=29 exists identically in OLD (which passed); no periodicity change; no seam overshoot (window is colder than both the pre-window body and consistent with fricative-offset decay, mirroring the uncontested s8 attack shape).
+
+Proposed pin: annyeong relocated start9 (s->e, pos=15021) unclamped <= 0.9220 (measured 0.9120 + 0.01 margin). No code, gate, or demo changes made.

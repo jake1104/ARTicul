@@ -1,0 +1,21 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+error[E0599]: no function or associated item named `default_table` found for struct `G2p` in the current scope
+ --> crates\articul-front\tests\g2p.rs:5:18
+  |
+5 |     let g = G2p::default_table();
+  |                  ^^^^^^^^^^^^^ function or associated item not found in `G2p`
+
+error[E0599]: no function or associated item named `with_table` found for struct `G2p` in the current scope
+  --> crates\articul-front\tests\g2p.rs:14:18
+   |
+14 |     let g = G2p::with_table(vec![('a', "i")]);
+   |                  ^^^^^^^^^^ function or associated item not found in `G2p`
+
+error[E0599]: no function or associated item named `default_table` found for struct `G2p` in the current scope
+  --> crates\articul-front\tests\g2p.rs:22:18
+   |
+22 |     let g = G2p::default_table();
+   |                  ^^^^^^^^^^^^^ function or associated item not found in `G2p`
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `articul-front` (test "g2p") due to 3 previous errors

@@ -1,0 +1,30 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.18s
+     Running tests\tmp_unclamped2626.rs (target\debug\deps\tmp_unclamped2626-ba4917e4ffa87c91.exe)
+
+running 1 test
+UNCLAMPED hE "loU start1 pos=1544 argmax=1567 d=1.0ms unclamped=0.948030 clamped=4
+UNCLAMPED hE "loU start2 pos=3330 argmax=3336 d=0.3ms unclamped=0.937320 clamped=1
+UNCLAMPED hE "loU start3 pos=4698 argmax=4901 d=9.2ms unclamped=0.527244 clamped=1
+UNCLAMPED %an njVN "hasejo start1 pos=3771 argmax=3771 d=0.0ms unclamped=0.602380 clamped=0
+UNCLAMPED %an njVN "hasejo start2 pos=4742 argmax=4918 d=8.0ms unclamped=0.226427 clamped=0
+UNCLAMPED %an njVN "hasejo start3 pos=5558 argmax=5558 d=0.0ms unclamped=0.229800 clamped=0
+UNCLAMPED %an njVN "hasejo start4 pos=6286 argmax=6359 d=3.3ms unclamped=0.208566 clamped=0
+UNCLAMPED %an njVN "hasejo start5 pos=8050 argmax=8100 d=2.3ms unclamped=0.210766 clamped=0
+UNCLAMPED %an njVN "hasejo start6 pos=8866 argmax=8866 d=0.0ms unclamped=0.434108 clamped=0
+UNCLAMPED %an njVN "hasejo start7 pos=9837 argmax=9924 d=3.9ms unclamped=0.344502 clamped=0
+UNCLAMPED %an njVN "hasejo start8 pos=12263 argmax=12470 d=9.4ms unclamped=0.200319 clamped=0
+UNCLAMPED %an njVN "hasejo start9 pos=13366 argmax=13380 d=0.6ms unclamped=0.917583 clamped=2
+UNCLAMPED %an njVN "hasejo start10 pos=14645 argmax=14654 d=0.4ms unclamped=0.142092 clamped=0
+UNCLAMPED %an njVN "hasejo start11 pos=15373 argmax=15373 d=0.0ms unclamped=0.761902 clamped=0
+UNCLAMPED %jV"bo%se%jo start1 pos=772 argmax=772 d=0.0ms unclamped=0.458320 clamped=0
+UNCLAMPED %jV"bo%se%jo start2 pos=3463 argmax=3463 d=0.0ms unclamped=0.378106 clamped=0
+UNCLAMPED %jV"bo%se%jo start3 pos=4191 argmax=4220 d=1.3ms unclamped=0.569886 clamped=0
+UNCLAMPED %jV"bo%se%jo start4 pos=6286 argmax=6493 d=9.4ms unclamped=0.224060 clamped=0
+UNCLAMPED %jV"bo%se%jo start5 pos=7411 argmax=7432 d=1.0ms unclamped=0.889679 clamped=2
+UNCLAMPED %jV"bo%se%jo start6 pos=10079 argmax=10079 d=0.0ms unclamped=0.483691 clamped=0
+UNCLAMPED %jV"bo%se%jo start7 pos=10807 argmax=10807 d=0.0ms unclamped=0.726769 clamped=0
+test tmp_unclamped_table ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+

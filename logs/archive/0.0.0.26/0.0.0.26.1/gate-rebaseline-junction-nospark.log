@@ -1,0 +1,24 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.25s
+     Running tests\junction_nospark.rs (target\debug\deps\junction_nospark-3771d5965d00ece3.exe)
+
+running 1 test
+test no_fullscale_sparks_at_starts ... FAILED
+
+failures:
+
+---- no_fullscale_sparks_at_starts stdout ----
+
+thread 'no_fullscale_sparks_at_starts' (10440) panicked at crates\articul-cli\tests\junction_nospark.rs:114:17:
+join transient at non-initial segment start 1 of hE "loU: unclamped peak 0.9480 >= 0.9 (clamped=4)
+hE "loU start1 pos=1544 unclamped=0.9480 clamped=4
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    no_fullscale_sparks_at_starts
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p articul-cli --test junction_nospark`

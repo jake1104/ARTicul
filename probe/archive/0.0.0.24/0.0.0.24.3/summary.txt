@@ -1,0 +1,112 @@
+0.0.0.24.3 regression re-baseline with demo regeneration - summary
+
+No production code change in this task. The 0.0.0.24.2 +/-20ms raised-cosine
+gain smoothing (boundary-step bound re-baselined 3->5dB by coordinator ruling)
+is re-baselined: fixed-sentence hash re-verified, all three demos regenerated,
+numbers recorded vs 0.0.0.23.3 baselines.
+
+Gates (logs in logs/0.0.0.24.3/, all exit 0):
+- cargo fmt --check -> fmt-check.log, clean (empty file captured on disk).
+- cargo clippy --workspace --all-targets -- -D warnings -> clippy.log, clean.
+- cargo test --workspace -> test-workspace.log, all suites ok, zero failures
+  (incl. boundary_gain_step_bounded PASS vs the 5dB bound).
+- cargo build --release -> release.log, Finished release profile.
+- Post-revert check: temp probe tests deleted, fmt clean after revert
+  (fmt-clean-after-revert.log); crates/articul-cli/tests lists no *_tmp.rs.
+
+Fixed sentence `TIs TIN` (default voice, 22050 Hz):
+- probe/0.0.0.24.3/regression-a.wav and regression-b.wav: 8822 samples
+  each (17688 bytes), sha256
+  2ad4f8413c9182f0be39b9ac836aae06233272c3367256a6f859fa0ae44ad141 both.
+- Determinism: identical hashes, byte-identical renders.
+- Expected hash 2AD4F841... from 0.0.0.24.2: MATCH (no code change, as assumed).
+  Sample count 8822 unchanged. Recorded in cli-regression.log.
+
+Demo regeneration (all default voice; commands in demo.log header):
+- `hE "loU` -> demo/hello.wav, 9792 samples (444.1 ms), sha
+  20c32a07dfffb2fda40d4ac23486a6c4fc8ac85721e484ffc5672adafeeaabc2.
+- `%an njVN "hasejo` -> demo/annyeonghaseyo.wav, 17446 samples (791.2 ms), sha
+  ba344cd813dc455d8bfd951bb09247d9a316437eb2b541b9c5f076862d9cd873.
+- `%jV"bo%se%jo` -> demo/yeoboseyo.wav, 14666 samples (665.1 ms), sha
+  86942e5f19ed24d679732f0421f8b01ffd0234cef17169eba5e01197b3f5d8de.
+Sample counts identical to the 0.0.0.23.3 baselines (smoothing never changes length).
+
+Per-demo numbers (measured with probe/0.0.0.24.3/demo_measure.py, python+numpy;
+baseline = 0.0.0.23.3 values samples/halves-diff/RMS/centroid/trough; trough gate
+is >= -14 dB per the 0.0.0.23.2 coordinator ruling):
+- hello: halves -2.04 -> -2.28 dB (|diff| <= 5.0 PASS, second half -14.50 dBFS
+  > -32 floor PASS); global RMS 0.2203 -> 0.2186 (-13.21 dBFS, >= 0.10 PASS),
+  peak 0.9890 (<= 0.99 PASS); centroid 1955.3 -> 2009.4 Hz (+54 Hz);
+  trough -3.84 -> -3.76 dB (reported, no gate for this input; +0.08 dB);
+  F2 rise +165.2 overall, identical trajectory [908.4 ... 1073.6]
+  (>= 100 Hz PASS, monotonic within 50 Hz PASS).
+  Thirds RMS -11.73/-12.53/-16.46 -> -11.63/-12.81/-16.51 dBFS.
+- annyeong: halves +1.29 -> +1.40 dB (PASS, floor PASS); global RMS
+  0.1290 -> 0.1288 (-17.80 dBFS, PASS), peak 0.9890 (PASS); centroid
+  4336.0 -> 4339.8 Hz (+4 Hz, flat); trough -12.13 -> -12.21 dB (PASS vs the
+  >= -14 dB bound, margin 1.79 dB; deepened 0.08 dB).
+  Thirds RMS -17.78/-20.20/-16.26 -> -17.87/-20.17/-16.23 dBFS.
+- yeobo: halves -2.35 -> -2.24 dB (PASS, floor PASS); global RMS
+  0.1436 -> 0.1378 (-17.21 dBFS, PASS), peak 0.9890 (PASS); centroid
+  5499.4 -> 5520.9 Hz (+22 Hz); trough -9.34 -> -9.73 dB (PASS vs -14,
+  deepened 0.39 dB); tail third RMS 0.0898 -> 0.0826 (-21.66 dBFS,
+  >= 0.03 PASS, margin 0.0526).
+  Thirds RMS -17.67/-14.35/-20.94 -> -17.97/-14.66/-21.66 dBFS.
+
+Junction max-step, track method (0.0.0.24.2 replica, report-only; temp test
+junction_track_report_tmp.rs created, run, then deleted; log junction-track.log):
+- Track worst = 4.41 dB at annyeong a->n (table step 9.0 dB), then 3.44 dB at
+  yeobo e->j (table 7.0); 21/21 boundaries identical to the 0.0.0.24.2 table
+  (2.71/-2.22/2.99/-4.41/-0.49/0.00/1.23/-2.22/0.00/2.46/-2.46/0.00/0.00/0.00/
+  2.95/-0.49/-0.49/-2.95/1.97/-3.44/2.46); total 21 asserted.
+- No code change in this task, so an identical track is expected and confirms
+  the smoothing landed deterministically. Worst 4.41 vs the 5 dB bound: PASS,
+  margin 0.59 dB (thin, as documented in 0.0.0.24.2).
+- Trough verdict vs baselines: hello essentially flat (-3.84 -> -3.76, +0.08);
+  annyeong -12.13 -> -12.21 (-0.08); yeobo -9.34 -> -9.73 (-0.39). The Korean
+  troughs deepened a few tenths of a dB under the new gain trajectory while
+  staying inside the -14 dB bound. Centroids moved +4/+22 Hz (annyeong/yeobo)
+  and +54 Hz on hello; all committed gates hold.
+
+Balance margin note: old-input-violates diff re-recorded on final code via a
+temporary probe test (printed PIN, then file deleted, fmt clean after):
+word0=-10.82dB word1=-17.77dB diff=-6.95dB (was -7.04dB in 0.0.0.23.3).
+Margin over the -6.0 must-violate bound is now 0.95 dB (was 1.04 dB); the
+erosion watch moves 0.09 dB in the wrong direction under smoothing but the
+pin still violates as required. Log: balance-pin.log.
+
+Eval self-test (non-gating): python python/validation/eval_reference.py
+--self-test -> eval-selftest.log, exit 0,
+"SELF-TEST PASS: deterministic renders identical, distinct items separated".
+
+Python parity: target/release/articul_py.dll copied to
+python/articul/_articul.pyd; validation/check_parity.py (PYTHONPATH=python)
+4/4 PASS (lookup-p, lookup-unknown, synthesize len=3242, vowel-a f2/f1=0.108)
+-> parity.log.
+
+Spot table (probe/0.0.0.24.3/spot/, six eval corpus items, report-only,
+per-item RMS + magnitude-weighted centroid, script spot_measure.py -> spot.log):
+- fixed_sentence 8822 samples, -19.35 dBFS, 6175.4 Hz, sha 2ad4f8413c9182f0
+  (was -19.57 dBFS / 6163.8 Hz on B832; hash rotated with smoothing as expected)
+- demo_hello 9792 samples, -13.21 dBFS, 2009.4 Hz, sha 20c32a07dfffb2fd
+- creak_probe 6439 samples, -8.34 dBFS, 1234.9 Hz, sha 36d74c27d2fac0ba
+- gain_probe 5072 samples, -17.42 dBFS, 2227.0 Hz, sha 8441ac4e4db8cb51
+- cluster_probe 7785 samples, -17.63 dBFS, 4927.7 Hz, sha 00117c95dd46f7f0
+- pause_probe 8535 samples, -12.83 dBFS, 1945.1 Hz, sha f13f3f4e058dcc95
+- demo_hello spot-vs-live byte-identical: True.
+Sample counts identical to the 0.0.0.23.3 spot table; creak_probe stays loudest
+at -8.34 dBFS. No thresholds, no new gate test.
+
+Honest framing, carried forward from 0.0.0.24.2: the track metric improved
+(red 8.88/6.77 -> 4.41 dB max, bound re-baselined 3 -> 5 dB with geometry proof
+and precedent), but the metric shares its code path with the fix
+(self-validation risk, disclosed; mitigated only by the disabled-control red run)
+and audio steps move both ways (phonetic floors and leveler dominate what the
+ear hears). Whether the junctions sound smoother is a listening verdict, and
+the listener is the user: these regenerated demo/*.wav files are the deliverable
+to judge.
+
+Archive note: live probe/0.0.0.24.1, probe/0.0.0.24.2, probe/0.0.0.24.3 moved
+to probe/archive/0.0.0.24/; logs/0.0.0.24.1, logs/0.0.0.24.2, logs/0.0.0.24.3
+moved to logs/archive/0.0.0.24/. todo.md marks 0.0.0.24.3 Done and closes
+0.0.0.24; CHANGELOG Unreleased gains the re-baseline lines.

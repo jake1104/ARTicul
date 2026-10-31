@@ -1,0 +1,293 @@
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\examples\dbg35.rs:105:
+     }
+     println!("nframes {}", f0s.len());
+     for i in 0..f0s.len() {
+[31m-        println!("fr {i} f0={:.2} ph={:.3} bin={:.1}", f0s[i], phs[i], bins[i]);
+[0m[32m+        println!(
+[0m[32m+            "fr {i} f0={:.2} ph={:.3} bin={:.1}",
+[0m[32m+            f0s[i], phs[i], bins[i]
+[0m[32m+        );
+[0m     }
+     let src = GlottalSource {
+         f0_hz: 149.0,
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\examples\dbg35.rs:124:
+             peak0 = i;
+         }
+     }
+[31m-    println!("srcmax {:.3} peak0 {peak0} t0 {t0:.2}", region.iter().fold(0.0f32, |a, v| a.max(*v)));
+[0m[32m+    println!(
+[0m[32m+        "srcmax {:.3} peak0 {peak0} t0 {t0:.2}",
+[0m[32m+        region.iter().fold(0.0f32, |a, v| a.max(*v))
+[0m[32m+    );
+[0m     let mut dmax = 0usize;
+     let mut dbv = f32::NEG_INFINITY;
+     for i in 1..(2.0 * t0) as usize - 1 {
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\examples\dbg35.rs:156:
+         let y1 = region[bi + 1] - region[bi - 1];
+         let y2 = region[bi + 2] - region[bi];
+         let d = y0 - 2.0 * y1 + y2;
+[31m-        let sh = if d.abs() > 1e-12 { 0.5 * (y0 - y2) / d } else { 0.0 };
+[0m[32m+        let sh = if d.abs() > 1e-12 {
+[0m[32m+            0.5 * (y0 - y2) / d
+[0m[32m+        } else {
+[0m[32m+            0.0
+[0m[32m+        };
+[0m         let pos = bi as f32 + sh.clamp(-1.0, 1.0);
+         periods.push(pos - prev);
+         prev = pos;
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\examples\dbg35.rs:301:
+     let dpd = dper.windows(2).map(|w| (w[1] - w[0]).abs()).sum::<f32>() / (dper.len() - 1) as f32;
+     let oqm = oqfit.iter().sum::<f32>() / oqfit.len() as f32;
+     let oqv = oqfit.iter().map(|v| (v - oqm).powi(2)).sum::<f32>() / oqfit.len() as f32;
+[31m-    println!("dictfit npers {} jitter {:.6} oqstd {:.4}", dper.len(), dpd / dpm, oqv.sqrt());
+[0m[32m+    println!(
+[0m[32m+        "dictfit npers {} jitter {:.6} oqstd {:.4}",
+[0m[32m+        dper.len(),
+[0m[32m+        dpd / dpm,
+[0m[32m+        oqv.sqrt()
+[0m[32m+    );
+[0m     let rregion = &out[REG_A..REG_B];
+     let rt0n = SR as f32 / 150.0;
+     let rh = 60usize;
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\examples\dbg35.rs:308:
+     let rtbase = 700usize;
+[31m-    let rtmpl: Vec<f32> = (0..(2 * rh + 21)).map(|m| rregion[rtbase - 70 + m]).collect();
+[0m[32m+    let rtmpl: Vec<f32> = (0..(2 * rh + 21))
+[0m[32m+        .map(|m| rregion[rtbase - 70 + m])
+[0m[32m+        .collect();
+[0m     let mut rshifts: Vec<f32> = Vec::new();
+     let mut rk = 0usize;
+     loop {
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\examples\dbg35.rs:406:
+     let mut dd = 0.0f32;
+     let mut dn = 0usize;
+     for k in 0..cycs.len() - 1 {
+[31m-        let p0 = cycs[k].iter().map(|v| v.abs()).fold(0.0f32, f32::max).max(1e-9);
+[0m[31m-        let p1 = cycs[k + 1].iter().map(|v| v.abs()).fold(0.0f32, f32::max).max(1e-9);
+[0m[32m+        let p0 = cycs[k]
+[0m[32m+            .iter()
+[0m[32m+            .map(|v| v.abs())
+[0m[32m+            .fold(0.0f32, f32::max)
+[0m[32m+            .max(1e-9);
+[0m[32m+        let p1 = cycs[k + 1]
+[0m[32m+            .iter()
+[0m[32m+            .map(|v| v.abs())
+[0m[32m+            .fold(0.0f32, f32::max)
+[0m[32m+            .max(1e-9);
+[0m         for j in 0..clen {
+             dd += (cycs[k][j] / p0 - cycs[k + 1][j] / p1).abs();
+             dn += 1;
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\examples\dbg35.rs:431:
+         resids.push(r - std::f32::consts::PI);
+     }
+     let n = resids.len() as f32;
+[31m-    let (sx, cy) = resids.iter().fold((0.0f32, 0.0f32), |(sx, cy), r| (sx + r.sin(), cy + r.cos()));
+[0m[32m+    let (sx, cy) = resids
+[0m[32m+        .iter()
+[0m[32m+        .fold((0.0f32, 0.0f32), |(sx, cy), r| (sx + r.sin(), cy + r.cos()));
+[0m     let rr = ((sx / n).powi(2) + (cy / n).powi(2)).sqrt().min(1.0);
+     println!("k1 resid circstd {:.3}", (-2.0 * rr.ln()).sqrt());
+     let mut wst = Vec::new();
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\examples\dbg35.rs:452:
+     let mx = ccx.iter().sum::<f32>() / mm;
+     let my = wf.iter().sum::<f32>() / mm;
+     let tsxx: f32 = ccx.iter().map(|v| (v - mx).powi(2)).sum();
+[31m-    let tsxy: f32 = ccx.iter().zip(wf.iter()).map(|(x, y)| (x - mx) * (y - my)).sum();
+[0m[32m+    let tsxy: f32 = ccx
+[0m[32m+        .iter()
+[0m[32m+        .zip(wf.iter())
+[0m[32m+        .map(|(x, y)| (x - mx) * (y - my))
+[0m[32m+        .sum();
+[0m     let beta = if tsxx > 1e-9 { tsxy / tsxx } else { 0.0 };
+     let alpha = my - beta * mx;
+     for (fl, fh) in [(441usize, 441usize), (330, 330)] {
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\examples\dbg35.rs:483:
+             rs.push(r - std::f32::consts::PI);
+         }
+         let m4 = rs.len() as f32;
+[31m-        let (sx4, cy4) = rs.iter().fold((0.0f32, 0.0f32), |(a, b), r| (a + r.sin(), b + r.cos()));
+[0m[32m+        let (sx4, cy4) = rs
+[0m[32m+            .iter()
+[0m[32m+            .fold((0.0f32, 0.0f32), |(a, b), r| (a + r.sin(), b + r.cos()));
+[0m         let rr4 = ((sx4 / m4).powi(2) + (cy4 / m4).powi(2)).sqrt().min(1.0);
+[31m-        println!("trend k1 fl {fl} hop {fh} n {} circstd {:.3}", rs.len(), (-2.0 * rr4.ln()).sqrt());
+[0m[32m+        println!(
+[0m[32m+            "trend k1 fl {fl} hop {fh} n {} circstd {:.3}",
+[0m[32m+            rs.len(),
+[0m[32m+            (-2.0 * rr4.ln()).sqrt()
+[0m[32m+        );
+[0m     }
+     let sfull = flat_src_generate();
+     for (fl, fh) in [(441usize, 441usize), (330, 330), (300, 300)] {
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\examples\dbg35.rs:517:
+             rs.push(r - std::f32::consts::PI);
+         }
+         let m3 = rs.len() as f32;
+[31m-        let (sx3, cy3) = rs.iter().fold((0.0f32, 0.0f32), |(a, b), r| (a + r.sin(), b + r.cos()));
+[0m[32m+        let (sx3, cy3) = rs
+[0m[32m+            .iter()
+[0m[32m+            .fold((0.0f32, 0.0f32), |(a, b), r| (a + r.sin(), b + r.cos()));
+[0m         let rr3 = ((sx3 / m3).powi(2) + (cy3 / m3).powi(2)).sqrt().min(1.0);
+[31m-        println!("src k1 fl {fl} hop {fh} n {} circstd {:.3}", rs.len(), (-2.0 * rr3.ln()).sqrt());
+[0m[32m+        println!(
+[0m[32m+            "src k1 fl {fl} hop {fh} n {} circstd {:.3}",
+[0m[32m+            rs.len(),
+[0m[32m+            (-2.0 * rr3.ln()).sqrt()
+[0m[32m+        );
+[0m     }
+     for (fl, fh) in [(1102usize, 110usize), (441, 441), (330, 330), (441, 110)] {
+         let mut st2 = Vec::new();
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\examples\dbg35.rs:550:
+             rs.push(r - std::f32::consts::PI);
+         }
+         let m2 = rs.len() as f32;
+[31m-        let (sx2, cy2) = rs.iter().fold((0.0f32, 0.0f32), |(a, b), r| (a + r.sin(), b + r.cos()));
+[0m[32m+        let (sx2, cy2) = rs
+[0m[32m+            .iter()
+[0m[32m+            .fold((0.0f32, 0.0f32), |(a, b), r| (a + r.sin(), b + r.cos()));
+[0m         let rr2 = ((sx2 / m2).powi(2) + (cy2 / m2).powi(2)).sqrt().min(1.0);
+[31m-        println!("k1 fl {fl} hop {fh} n {} circstd {:.3}", rs.len(), (-2.0 * rr2.ln()).sqrt());
+[0m[32m+        println!(
+[0m[32m+            "k1 fl {fl} hop {fh} n {} circstd {:.3}",
+[0m[32m+            rs.len(),
+[0m[32m+            (-2.0 * rr2.ln()).sqrt()
+[0m[32m+        );
+[0m     }
+     for (wl, hp) in [(661usize, 100usize), (441, 100), (330, 110), (441, 90)] {
+         let mut st = Vec::new();
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\examples\dbg35.rs:579:
+         let dd: Vec<f32> = (0..f.len()).map(|i| f[i] - sl * (i as f32 - cx)).collect();
+         let mn = dd.iter().sum::<f32>() / m;
+         let vv: f32 = dd.iter().map(|v| (v - mn).powi(2)).sum::<f32>() / m;
+[31m-        println!("win {wl} hop {hp} n {} detrel {:.4}", st.len(), vv.sqrt() / mn);
+[0m[32m+        println!(
+[0m[32m+            "win {wl} hop {hp} n {} detrel {:.4}",
+[0m[32m+            st.len(),
+[0m[32m+            vv.sqrt() / mn
+[0m[32m+        );
+[0m     }
+ }
+ 
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\tests\lifelike_source.rs:75:
+ 
+ fn local_jitter(periods: &[f32]) -> f32 {
+     let mean = periods.iter().sum::<f32>() / periods.len() as f32;
+[31m-    let diff = periods.windows(2).map(|w| (w[1] - w[0]).abs()).sum::<f32>()
+[0m[31m-        / (periods.len() - 1) as f32;
+[0m[32m+    let diff =
+[0m[32m+        periods.windows(2).map(|w| (w[1] - w[0]).abs()).sum::<f32>() / (periods.len() - 1) as f32;
+[0m     diff / mean
+ }
+ 
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\tests\lifelike_source.rs:188:
+     assert!(full.len() > REG_B);
+     let region = &full[REG_A..REG_B];
+     let periods = corr_periods(region);
+[31m-    assert!(periods.len() >= 10, "need >=10 periods, got {}", periods.len());
+[0m[32m+    assert!(
+[0m[32m+        periods.len() >= 10,
+[0m[32m+        "need >=10 periods, got {}",
+[0m[32m+        periods.len()
+[0m[32m+    );
+[0m     let j = local_jitter(&periods);
+     assert!(
+         (0.005..=0.010).contains(&j),
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\tests\lifelike_source.rs:243:
+         starts.push(s);
+         s += WIN_HOP;
+     }
+[31m-    assert!(starts.len() >= 20, "need >=20 windows, got {}", starts.len());
+[0m[32m+    assert!(
+[0m[32m+        starts.len() >= 20,
+[0m[32m+        "need >=20 windows, got {}",
+[0m[32m+        starts.len()
+[0m[32m+    );
+[0m     let mut f0s = Vec::with_capacity(starts.len());
+     let mut guess = None;
+     for st in &starts {
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\tests\lifelike_source.rs:258:
+     let cx: f32 = (0..f0s.len()).map(|i| i as f32).sum::<f32>() / n;
+     let cy: f32 = f0s.iter().sum::<f32>() / n;
+     let sxx: f32 = (0..f0s.len()).map(|i| (i as f32 - cx).powi(2)).sum();
+[31m-    let sxy: f32 = (0..f0s.len()).map(|i| (i as f32 - cx) * (f0s[i] - cy)).sum();
+[0m[32m+    let sxy: f32 = (0..f0s.len())
+[0m[32m+        .map(|i| (i as f32 - cx) * (f0s[i] - cy))
+[0m[32m+        .sum();
+[0m     let slope = if sxx > 1e-9 { sxy / sxx } else { 0.0 };
+[31m-    let detrended: Vec<f32> = (0..f0s.len()).map(|i| f0s[i] - slope * (i as f32 - cx)).collect();
+[0m[32m+    let detrended: Vec<f32> = (0..f0s.len())
+[0m[32m+        .map(|i| f0s[i] - slope * (i as f32 - cx))
+[0m[32m+        .collect();
+[0m     let mean = detrended.iter().sum::<f32>() / n;
+     let var = detrended.iter().map(|v| (v - mean).powi(2)).sum::<f32>() / n;
+     let rel = var.sqrt() / mean;
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-dsp\src\lib.rs:24:
+ 
+ pub use source::cf0_boost_factor;
+ pub use source::effective_aspiration;
+[31m-pub use source::GlottalSource;
+[0m pub use source::lf_pulse_shape;
+[32m+pub use source::GlottalSource;
+[0m pub use spectrum::spectral_slope_db_per_oct;
+ pub use vowels::korean_locus_pull;
+ pub use vowels::korean_vowel_formants;
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-dsp\src\source.rs:63:
+         self.slow_oq = SHAPE_OQ_LP * self.slow_oq + (1.0 - SHAPE_OQ_LP) * w2;
+         let w3 = lcg11(&mut self.rng);
+         self.slow_as = SHAPE_ASYM_LP * self.slow_as + (1.0 - SHAPE_ASYM_LP) * w3;
+[31m-        let trem = (2.0 * std::f64::consts::PI * CYCLE_TREMOR_RATE as f64 * t
+[0m[31m-            + self.trem_ph as f64)
+[0m[31m-            .sin();
+[0m[32m+        let trem =
+[0m[32m+            (2.0 * std::f64::consts::PI * CYCLE_TREMOR_RATE as f64 * t + self.trem_ph as f64).sin();
+[0m         self.cyc_jit = 1.0
+             + CYCLE_WHITE_DEPTH as f64 * w as f64
+             + CYCLE_SLOW_DEPTH as f64 * self.slow_j as f64
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-dsp\src\source.rs:72:
+             + CYCLE_TREMOR_DEPTH as f64 * trem;
+         self.oq = (base_oq * (1.0 + SHAPE_OQ_DEPTH as f64 * self.slow_oq as f64)).clamp(0.05, 0.95);
+[31m-        self.asym =
+[0m[31m-            (base_asym + SHAPE_ASYM_DEPTH as f64 * self.slow_as as f64).clamp(0.05, 0.95);
+[0m[32m+        self.asym = (base_asym + SHAPE_ASYM_DEPTH as f64 * self.slow_as as f64).clamp(0.05, 0.95);
+[0m     }
+     fn micro(&self, t: f64) -> f64 {
+         1.0 + MICROTREMOR_DEPTH as f64
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-dsp\src\source.rs:81:
+ }
+ 
+ fn pulse_peak(pulse: &[f32]) -> f32 {
+[31m-    pulse.iter().map(|v| v.abs()).fold(0.0f32, f32::max).max(1e-9)
+[0m[32m+    pulse
+[0m[32m+        .iter()
+[0m[32m+        .map(|v| v.abs())
+[0m[32m+        .fold(0.0f32, f32::max)
+[0m[32m+        .max(1e-9)
+[0m }
+ 
+ impl GlottalSource {
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-dsp\src\source.rs:432:
+     }
+ }
+ 
+[31m-pub fn lf_pulse_shape(f0_hz: f64, open_quotient: f64, asymmetry: f64, sample_rate: u32) -> Vec<f32> {
+[0m[32m+pub fn lf_pulse_shape(
+[0m[32m+    f0_hz: f64,
+[0m[32m+    open_quotient: f64,
+[0m[32m+    asymmetry: f64,
+[0m[32m+    sample_rate: u32,
+[0m[32m+) -> Vec<f32> {
+[0m     lf_pulse_params(f0_hz, open_quotient, asymmetry, sample_rate)
+ }
+ 
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-dsp\src\source.rs:439:
+ fn lf_pulse(src: &GlottalSource, sample_rate: u32) -> Vec<f32> {
+[31m-    lf_pulse_params(src.f0_hz as f64, src.open_quotient as f64, src.asymmetry as f64, sample_rate)
+[0m[32m+    lf_pulse_params(
+[0m[32m+        src.f0_hz as f64,
+[0m[32m+        src.open_quotient as f64,
+[0m[32m+        src.asymmetry as f64,
+[0m[32m+        sample_rate,
+[0m[32m+    )
+[0m }
+ 
+ fn lf_pulse_params(f0: f64, oq_in: f64, asym_in: f64, sample_rate: u32) -> Vec<f32> {

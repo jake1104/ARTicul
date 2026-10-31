@@ -1,0 +1,8 @@
+Task 0.0.0.17.3 Klatt timing completion
+TDD RED: new tier tests failed on old graded coda (t coda 135 vs 117 new); new word-initial test failed (old 49-50 vs >=52); slow-rate bound failed on linear extrapolation (198 vs <185).
+GREEN: final rhyme uses two tiers (strong boundary >= 1.0: x1.3; weak 0.4<=s<1.0: x1.15; nucleus and coda alike, replacing per-part graded formula); word-initial consonants x1.1 (plan_utterance only, following segment preferred for locus stays unchanged); slow-rate bound test pins sublinear compression (0.85 exponent already landed in 16.2, now covered both directions).
+Rulings: tier thresholds reuse the existing boundary_after scale (space 0.0 < comma 0.4 <= weak < 1.0 strong); word-initial applies to utterance() only since plan() has no word context (no_lengthening test switched to vowel-initial "a" to keep its invariant meaningful); all re-derived exact durations verified within +/-7% of hand theory (variance accounted per index).
+Gates: fmt clean, clippy -D warnings clean, test workspace green, release build green.
+Measured CLI regression: synthesize TIs TIN default voice: 8822 samples (was 8757: two word-initial T lengthenings outweigh one coda tier cut, net +65), sha256 edbf15c68bbe0e24f89e23f2c87936273dab454462982a242fb3dec1e4d19727, deterministic across runs. Python parity 4/4 PASS (synthesize len=3242, vowel-a f2/f1=0.120).
+Probe: probe/0.0.0.17.3/regression-a.wav, regression-b.wav (identical). No demo change.
+Logs: logs/0.0.0.17.3/ (red, red2, green-ut, green-cli, fmt-check, clippy, test-workspace, release, cli-regression-a, cli-regression-b, cli-regression, py-build, py-copy, parity, dbg-now, dbg-vals).

@@ -1,0 +1,6 @@
+Task 0.0.0.10.2 LF pulse implementation
+Replaced Hann-window pulse with Liljencrants-Fant pulse: te=oq*T0, tp/te in [0.7,0.82], ta/T0 in [0.015,0.03] from asymmetry, alpha from zero-net-flow bisection (verified converging, e.g. alpha=13.8 for defaults), numeric cumsum flow normalized to peak 1.0, deterministic LCG noise unchanged.
+Tests: source.rs 3 passed (length, peaks, aspiration), spectral slope test green, null test GREEN. Full oq/asym/f0 grid sweep: worst notch 0.048 (new mapping) vs 0.007 (old).
+Ruling: cc+externC kept over cxx (unchanged); LF chosen over Klatt impulse excitation to preserve 0.0.0.3 test semantics.
+Files: crates/articul-dsp/src/source.rs
+Logs: archive in logs/0.0.0.10/0.0.0.10.{1,2}/

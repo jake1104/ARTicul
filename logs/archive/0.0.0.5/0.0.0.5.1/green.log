@@ -1,0 +1,12 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.48s
+     Running tests\normalize.rs (target\debug\deps\normalize-8c80ea6a9b088e38.exe)
+
+running 4 tests
+test empty_input_gives_empty ... ok
+test keeps_numbers_as_tokens ... ok
+test lowercases_and_strips_punctuation ... ok
+test expands_common_abbreviations ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

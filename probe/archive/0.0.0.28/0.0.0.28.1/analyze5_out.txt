@@ -1,0 +1,71 @@
+inversion check done
+=== BASE cap=16.0 pre=1.25 ===
+  fixed_sentence rms=0.1078 pk=0.9890 halves=-9.94 trough=-21.17 tail=0.0494 spark=nan cl=5 maxgdb=16.0 meangdb=11.8
+  demo_hello     rms=0.2186 pk=0.9890 halves=-2.28 trough=-3.76 tail=0.1494 spark=0.9481 cl=6 maxgdb=13.1 meangdb=2.7 bal=-2.50
+  creak_probe    rms=0.3828 pk=0.9890 halves=-1.51 trough=+0.00 tail=0.2572 spark=nan cl=117 maxgdb=7.4 meangdb=1.0
+  gain_probe     rms=0.1347 pk=0.9890 halves=-2.26 trough=+0.00 tail=0.0918 spark=nan cl=1 maxgdb=7.1 meangdb=1.2
+  cluster_probe  rms=0.1314 pk=0.9890 halves=-8.47 trough=-12.58 tail=0.0572 spark=nan cl=12 maxgdb=16.0 meangdb=10.6
+  pause_probe    rms=0.2283 pk=0.9890 halves=-0.89 trough=-12.83 tail=0.2299 spark=nan cl=1 maxgdb=16.0 meangdb=5.1
+  annyeong       rms=0.1288 pk=0.9890 halves=+1.40 trough=-12.21 tail=0.1544 spark=0.9806 cl=8 maxgdb=16.0 meangdb=7.8
+  yeobo          rms=0.1378 pk=0.9890 halves=-2.24 trough=-9.73 tail=0.0826 spark=0.8953 cl=12 maxgdb=16.0 meangdb=9.8
+  old_input      rms=0.2335 pk=0.9890 halves=-3.96 trough=-2.21 tail=0.1220 spark=nan cl=4 maxgdb=16.0 meangdb=4.1 viol=-6.95(PIN)
+=== B_pre10 cap=16.0 pre=1.00 ===
+  fixed_sentence rms=0.0867 pk=0.9890 halves=-10.00 trough=-21.20 tail=0.0395 spark=nan cl=1 maxgdb=16.0 meangdb=11.8
+  demo_hello     rms=0.1752 pk=0.9890 halves=-2.31 trough=-3.78 tail=0.1195 spark=0.8998 cl=2 maxgdb=13.1 meangdb=2.7 bal=-2.53
+  creak_probe    rms=0.3085 pk=0.9890 halves=-1.45 trough=+0.00 tail=0.2057 spark=nan cl=1 maxgdb=7.4 meangdb=1.0
+  gain_probe     rms=0.1080 pk=0.9890 halves=-2.30 trough=+0.00 tail=0.0734 spark=nan cl=1 maxgdb=7.1 meangdb=1.2
+  cluster_probe  rms=0.1064 pk=0.9890 halves=-8.59 trough=-12.67 tail=0.0458 spark=nan cl=1 maxgdb=16.0 meangdb=10.6
+  pause_probe    rms=0.1827 pk=0.9890 halves=-0.90 trough=-12.84 tail=0.1839 spark=nan cl=1 maxgdb=16.0 meangdb=5.1
+  annyeong       rms=0.1035 pk=0.9890 halves=+1.46 trough=-12.25 tail=0.1245 spark=0.7844 cl=1 maxgdb=16.0 meangdb=7.8
+  yeobo          rms=0.1110 pk=0.9890 halves=-2.12 trough=-9.80 tail=0.0661 spark=0.9745 cl=1 maxgdb=16.0 meangdb=9.8
+  old_input      rms=0.1870 pk=0.9890 halves=-3.98 trough=-2.23 tail=0.0976 spark=nan cl=2 maxgdb=16.0 meangdb=4.1 viol=-6.96(PIN)
+=== V1_half_cap12_pre11 cap=12.0 pre=1.10 ===
+  fixed_sentence rms=0.0861 pk=0.9890 halves=-11.55 trough=-21.79 tail=0.0328 spark=nan cl=1 maxgdb=12.0 meangdb=9.9
+  demo_hello     rms=0.2060 pk=0.9890 halves=-3.17 trough=-3.17 tail=0.1342 spark=0.9788 cl=4 maxgdb=12.0 meangdb=2.9 bal=-2.92
+  creak_probe    rms=0.3461 pk=0.9890 halves=-1.77 trough=+0.00 tail=0.2262 spark=nan cl=13 maxgdb=7.4 meangdb=0.9
+  gain_probe     rms=0.1267 pk=0.9890 halves=-1.54 trough=+0.00 tail=0.0904 spark=nan cl=1 maxgdb=6.2 meangdb=1.0
+  cluster_probe  rms=0.1264 pk=0.9890 halves=-10.02 trough=-14.14 tail=0.0442 spark=nan cl=13 maxgdb=12.0 meangdb=9.2
+  pause_probe    rms=0.2049 pk=0.9890 halves=-0.38 trough=-13.88 tail=0.2241 spark=nan cl=1 maxgdb=12.0 meangdb=4.0
+  annyeong       rms=0.1039 pk=0.9890 halves=+2.97 trough=-12.35 tail=0.1338 spark=0.8628 cl=3 maxgdb=12.0 meangdb=8.6
+  yeobo          rms=0.1145 pk=0.9890 halves=-3.28 trough=-10.35 tail=0.0481 spark=0.7627 cl=10 maxgdb=12.0 meangdb=9.7
+  old_input      rms=0.2152 pk=0.9890 halves=-4.63 trough=-3.67 tail=0.1174 spark=nan cl=3 maxgdb=12.0 meangdb=3.7 viol=-6.61(PIN)
+=== V2_halfkeeph_cap12_pre11 cap=12.0 pre=1.10 ===
+  fixed_sentence rms=0.0861 pk=0.9890 halves=-11.55 trough=-21.79 tail=0.0328 spark=nan cl=1 maxgdb=12.0 meangdb=9.9
+  demo_hello     rms=0.2037 pk=0.9890 halves=-2.98 trough=-2.91 tail=0.1335 spark=0.9406 cl=5 maxgdb=12.0 meangdb=2.8 bal=-2.62
+  creak_probe    rms=0.3461 pk=0.9890 halves=-1.77 trough=+0.00 tail=0.2262 spark=nan cl=13 maxgdb=7.4 meangdb=0.9
+  gain_probe     rms=0.1267 pk=0.9890 halves=-1.54 trough=+0.00 tail=0.0904 spark=nan cl=1 maxgdb=6.2 meangdb=1.0
+  cluster_probe  rms=0.1264 pk=0.9890 halves=-10.02 trough=-14.14 tail=0.0442 spark=nan cl=13 maxgdb=12.0 meangdb=9.2
+  pause_probe    rms=0.2049 pk=0.9890 halves=-0.38 trough=-13.88 tail=0.2241 spark=nan cl=1 maxgdb=12.0 meangdb=4.0
+  annyeong       rms=0.1039 pk=0.9890 halves=+2.97 trough=-12.35 tail=0.1338 spark=0.8628 cl=3 maxgdb=12.0 meangdb=8.6
+  yeobo          rms=0.1145 pk=0.9890 halves=-3.28 trough=-10.35 tail=0.0481 spark=0.7627 cl=10 maxgdb=12.0 meangdb=9.7
+  old_input      rms=0.2150 pk=0.9890 halves=-4.43 trough=-3.35 tail=0.1172 spark=nan cl=3 maxgdb=12.0 meangdb=3.5 viol=-6.61(PIN)
+=== V3_halfkeeph_cap12_pre10 cap=12.0 pre=1.00 ===
+  fixed_sentence rms=0.0784 pk=0.9890 halves=-11.56 trough=-21.80 tail=0.0298 spark=nan cl=1 maxgdb=12.0 meangdb=9.9
+  demo_hello     rms=0.1853 pk=0.9890 halves=-2.99 trough=-2.92 tail=0.1214 spark=0.9596 cl=2 maxgdb=12.0 meangdb=2.8 bal=-2.63
+  creak_probe    rms=0.3148 pk=0.9890 halves=-1.76 trough=+0.00 tail=0.2057 spark=nan cl=1 maxgdb=7.4 meangdb=0.9
+  gain_probe     rms=0.1153 pk=0.9890 halves=-1.56 trough=+0.00 tail=0.0822 spark=nan cl=1 maxgdb=6.2 meangdb=1.0
+  cluster_probe  rms=0.1156 pk=0.9890 halves=-10.07 trough=-14.19 tail=0.0402 spark=nan cl=1 maxgdb=12.0 meangdb=9.2
+  pause_probe    rms=0.1864 pk=0.9890 halves=-0.39 trough=-13.88 tail=0.2037 spark=nan cl=1 maxgdb=12.0 meangdb=4.0
+  annyeong       rms=0.0945 pk=0.9890 halves=+2.98 trough=-12.35 tail=0.1218 spark=0.7844 cl=1 maxgdb=12.0 meangdb=8.6
+  yeobo          rms=0.1044 pk=0.9890 halves=-3.21 trough=-10.38 tail=0.0437 spark=0.9574 cl=1 maxgdb=12.0 meangdb=9.7
+  old_input      rms=0.1956 pk=0.9890 halves=-4.43 trough=-3.36 tail=0.1066 spark=nan cl=2 maxgdb=12.0 meangdb=3.5 viol=-6.62(PIN)
+=== V4_halfkeeph_uv25_cap12_pre11 cap=12.0 pre=1.10 ===
+  fixed_sentence rms=0.0857 pk=0.9890 halves=-12.09 trough=-21.77 tail=0.0306 spark=nan cl=1 maxgdb=12.0 meangdb=10.0
+  demo_hello     rms=0.2114 pk=0.9890 halves=-2.93 trough=-3.14 tail=0.1390 spark=0.9655 cl=5 maxgdb=12.0 meangdb=2.7 bal=-2.42
+  creak_probe    rms=0.3461 pk=0.9890 halves=-1.77 trough=+0.00 tail=0.2262 spark=nan cl=13 maxgdb=7.4 meangdb=0.9
+  gain_probe     rms=0.1239 pk=0.9890 halves=-1.61 trough=+0.00 tail=0.0881 spark=nan cl=1 maxgdb=6.2 meangdb=1.0
+  cluster_probe  rms=0.1264 pk=0.9890 halves=-10.02 trough=-14.14 tail=0.0442 spark=nan cl=13 maxgdb=12.0 meangdb=9.2
+  pause_probe    rms=0.2061 pk=0.9890 halves=-0.28 trough=-13.88 tail=0.2240 spark=nan cl=1 maxgdb=12.0 meangdb=4.0
+  annyeong       rms=0.1036 pk=0.9890 halves=+3.03 trough=-12.35 tail=0.1338 spark=0.8628 cl=3 maxgdb=12.0 meangdb=8.7
+  yeobo          rms=0.1145 pk=0.9890 halves=-3.28 trough=-10.35 tail=0.0481 spark=0.7627 cl=10 maxgdb=12.0 meangdb=9.7
+  old_input      rms=0.2146 pk=0.9890 halves=-4.49 trough=-3.35 tail=0.1146 spark=nan cl=3 maxgdb=12.0 meangdb=3.6 viol=-6.87(PIN)
+=== V5_halfkeeph_cap10_pre11 cap=10.0 pre=1.10 ===
+  fixed_sentence rms=0.0845 pk=0.9890 halves=-13.47 trough=-23.19 tail=0.0261 spark=nan cl=1 maxgdb=10.0 meangdb=8.5
+  demo_hello     rms=0.2029 pk=0.9890 halves=-3.08 trough=-2.91 tail=0.1300 spark=0.9406 cl=5 maxgdb=10.0 meangdb=2.6 bal=-2.62
+  creak_probe    rms=0.3461 pk=0.9890 halves=-1.77 trough=+0.00 tail=0.2262 spark=nan cl=13 maxgdb=7.4 meangdb=0.9
+  gain_probe     rms=0.1267 pk=0.9890 halves=-1.54 trough=+0.00 tail=0.0904 spark=nan cl=1 maxgdb=6.2 meangdb=1.0
+  cluster_probe  rms=0.1233 pk=0.9890 halves=-11.69 trough=-15.98 tail=0.0351 spark=nan cl=13 maxgdb=10.0 meangdb=7.9
+  pause_probe    rms=0.2026 pk=0.9890 halves=-0.25 trough=-15.59 tail=0.2241 spark=nan cl=1 maxgdb=10.0 meangdb=3.5
+  annyeong       rms=0.1000 pk=0.9890 halves=+3.52 trough=-12.83 tail=0.1314 spark=0.8628 cl=3 maxgdb=10.0 meangdb=7.8
+  yeobo          rms=0.1109 pk=0.9890 halves=-3.85 trough=-11.54 tail=0.0382 spark=0.7628 cl=10 maxgdb=10.0 meangdb=8.6
+  old_input      rms=0.2143 pk=0.9890 halves=-4.53 trough=-3.35 tail=0.1133 spark=nan cl=3 maxgdb=10.0 meangdb=3.3 viol=-6.93(PIN)

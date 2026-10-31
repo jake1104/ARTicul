@@ -1,0 +1,15 @@
+h-burst measurement: hello `hE "loU`, post-18.4 release binary, sr 22050
+wav samples: 8248 (nominal 8248)
+h-interior window: [0..1720) = first 78ms
+stressed-o interior window: [4455..6219) = middle 80ms of pure-o [4257..6418)
+whole-file window: [0..8248)
+
+window            peak_lin   peak_dBFS   rms_lin    rms_dBFS
+h-interior        0.048187    -26.34   0.009438    -40.50
+stressed-o        0.103760    -19.68   0.037084    -28.62
+whole-file        0.899963     -0.92   0.029790    -30.52
+
+margin whole-peak minus h-peak: 25.43 dB
+margin o-peak minus h-peak: 6.66 dB
+margin o-rms minus h-rms: 11.89 dB
+whole-file peak setter: other

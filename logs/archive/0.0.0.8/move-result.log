@@ -1,0 +1,4 @@
+Bundle archival per standing rules. Moved 31 probe task dirs and 31 logs task dirs into probe/archive/0.0.0.N/ and logs/archive/0.0.0.N/.
+Counts: 0.0.0.1 probe=8 logs=8, 0.0.0.2 probe=4 logs=4, 0.0.0.3 probe=3 logs=3, 0.0.0.4 probe=4 logs=4, 0.0.0.5 probe=4 logs=4, 0.0.0.6 probe=3 logs=3, 0.0.0.7 probe=2 logs=2, 0.0.0.8 probe=3 logs=3.
+Plan file: logs/archive/0.0.0.8/0.0.0.8.3/archive-plan.log (moved with its bundle).
+Tests do not read probe/ or logs/; config/ python/ cpp/ crates/ untouched.

@@ -1,0 +1,10 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.08s
+     Running tests\diphthong_glide.rs (target\debug\deps\diphthong_glide-49aa818c8a0209ab.exe)
+
+running 2 tests
+test diphthong_f2_rises_monotonically ... ok
+test diphthong_final_80ms_stays_periodic ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+

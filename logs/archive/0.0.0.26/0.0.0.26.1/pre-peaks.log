@@ -1,0 +1,30 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.54s
+     Running tests\tmp_peak2626.rs (target\debug\deps\tmp_peak2626-5d87b4db9c4b7061.exe)
+
+running 1 test
+PRE hE "loU start1 pos=1544 argmax=1583 d=1.8ms peak=0.989000
+PRE hE "loU start2 pos=3330 argmax=3330 d=0.0ms peak=0.989000
+PRE hE "loU start3 pos=4698 argmax=4698 d=0.0ms peak=0.989000
+PRE %an njVN "hasejo start1 pos=3771 argmax=3771 d=0.0ms peak=0.602794
+PRE %an njVN "hasejo start2 pos=4742 argmax=4918 d=8.0ms peak=0.218745
+PRE %an njVN "hasejo start3 pos=5558 argmax=5558 d=0.0ms peak=0.230811
+PRE %an njVN "hasejo start4 pos=6286 argmax=6359 d=3.3ms peak=0.208309
+PRE %an njVN "hasejo start5 pos=8050 argmax=8100 d=2.3ms peak=0.210507
+PRE %an njVN "hasejo start6 pos=8866 argmax=8866 d=0.0ms peak=0.433500
+PRE %an njVN "hasejo start7 pos=9837 argmax=9924 d=3.9ms peak=0.345154
+PRE %an njVN "hasejo start8 pos=12263 argmax=12470 d=9.4ms peak=0.200346
+PRE %an njVN "hasejo start9 pos=13366 argmax=13395 d=1.3ms peak=0.989000
+PRE %an njVN "hasejo start10 pos=14645 argmax=14821 d=8.0ms peak=0.215661
+PRE %an njVN "hasejo start11 pos=15373 argmax=15373 d=0.0ms peak=0.760818
+PRE %jV"bo%se%jo start1 pos=772 argmax=772 d=0.0ms peak=0.457673
+PRE %jV"bo%se%jo start2 pos=3463 argmax=3463 d=0.0ms peak=0.380259
+PRE %jV"bo%se%jo start3 pos=4191 argmax=4220 d=1.3ms peak=0.563234
+PRE %jV"bo%se%jo start4 pos=6286 argmax=6493 d=9.4ms peak=0.224208
+PRE %jV"bo%se%jo start5 pos=7411 argmax=7418 d=0.3ms peak=0.989000
+PRE %jV"bo%se%jo start6 pos=10079 argmax=10079 d=0.0ms peak=0.483978
+PRE %jV"bo%se%jo start7 pos=10807 argmax=10807 d=0.0ms peak=0.726408
+test tmp_peak_2626 ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+

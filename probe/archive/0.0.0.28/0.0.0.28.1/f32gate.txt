@@ -1,0 +1,44 @@
+== fixed_sentence n=8822 groups=6
+start1 pos=1544 unclamped=0.105263 clamped=0 ok
+start2 pos=2823 unclamped=0.115527 clamped=0 ok
+start3 pos=4279 unclamped=0.864275 clamped=1 ok
+start4 pos=5536 unclamped=0.128012 clamped=0 ok
+start5 pos=7389 unclamped=0.268248 clamped=0 ok
+== demo_hello n=9792 groups=4
+start1 pos=1544 unclamped=0.948047 clamped=4 SPARK
+start2 pos=3330 unclamped=0.936042 clamped=1 SPARK
+start3 pos=4698 unclamped=0.509791 clamped=1 ok
+== creak_probe n=6439 groups=2
+start1 pos=1015 unclamped=0.795793 clamped=0 ok
+== gain_probe n=5072 groups=3
+start1 pos=1588 unclamped=0.331915 clamped=1 ok
+start2 pos=2448 unclamped=0.358062 clamped=0 ok
+== cluster_probe n=7785 groups=5
+start1 pos=1544 unclamped=0.966348 clamped=7 SPARK
+start2 pos=2294 unclamped=0.240736 clamped=0 ok
+start3 pos=2912 unclamped=0.371404 clamped=0 ok
+start4 pos=6308 unclamped=0.577727 clamped=0 ok
+== pause_probe n=8535 groups=4
+start1 pos=1169 unclamped=0.849906 clamped=1 ok
+start2 pos=4521 unclamped=0.870914 clamped=0 ok
+start3 pos=5602 unclamped=0.763912 clamped=0 ok
+== annyeong n=17446 groups=12
+start1 pos=3771 unclamped=0.602794 clamped=0 ok
+start2 pos=4742 unclamped=0.218745 clamped=0 ok
+start3 pos=5558 unclamped=0.230811 clamped=0 ok
+start4 pos=6286 unclamped=0.208309 clamped=0 ok
+start5 pos=8050 unclamped=0.210507 clamped=0 ok
+start6 pos=8866 unclamped=0.433500 clamped=0 ok
+start7 pos=9837 unclamped=0.345154 clamped=0 ok
+start8 pos=12263 unclamped=0.200346 clamped=0 ok
+start9 pos=13366 unclamped=0.980562 clamped=1 SPARK
+start10 pos=14645 unclamped=0.215661 clamped=0 ok
+start11 pos=15373 unclamped=0.760818 clamped=0 ok
+== yeobo n=14666 groups=8
+start1 pos=772 unclamped=0.457673 clamped=0 ok
+start2 pos=3463 unclamped=0.380259 clamped=0 ok
+start3 pos=4191 unclamped=0.563234 clamped=0 ok
+start4 pos=6286 unclamped=0.224208 clamped=0 ok
+start5 pos=7411 unclamped=0.895336 clamped=2 ok
+start6 pos=10079 unclamped=0.483978 clamped=0 ok
+start7 pos=10807 unclamped=0.726408 clamped=0 ok

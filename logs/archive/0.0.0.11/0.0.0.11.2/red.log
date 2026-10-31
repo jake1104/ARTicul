@@ -1,0 +1,63 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.08s
+     Running tests\prosody.rs (target\debug\deps\prosody-794f4189c96b22bd.exe)
+
+running 9 tests
+test f0_declines_across_utterance ... ok
+test long_vowel_gets_more_time ... ok
+test plan_length_matches_input ... ok
+test faster_rate_shortens_durations ... ok
+test intrinsic_fricatives_longer_than_stops ... FAILED
+test unstressed_segments_shorten ... FAILED
+test mindur_floor_holds ... FAILED
+test pre_voiceless_obstruent_shortens_sonorant ... FAILED
+test sublinear_cap_limits_combined_shortening ... FAILED
+
+failures:
+
+---- intrinsic_fricatives_longer_than_stops stdout ----
+
+thread 'intrinsic_fricatives_longer_than_stops' (17440) panicked at crates\articul-front\tests\prosody.rs:64:5:
+assertion `left == right` failed
+  left: 80
+ right: 111
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- unstressed_segments_shorten stdout ----
+
+thread 'unstressed_segments_shorten' (28596) panicked at crates\articul-front\tests\prosody.rs:85:5:
+assertion `left == right` failed
+  left: 120
+ right: 99
+
+---- mindur_floor_holds stdout ----
+
+thread 'mindur_floor_holds' (9760) panicked at crates\articul-front\tests\prosody.rs:123:5:
+assertion `left == right` failed
+  left: 80
+ right: 30
+
+---- pre_voiceless_obstruent_shortens_sonorant stdout ----
+
+thread 'pre_voiceless_obstruent_shortens_sonorant' (10480) panicked at crates\articul-front\tests\prosody.rs:100:5:
+assertion `left == right` failed
+  left: 120
+ right: 90
+
+---- sublinear_cap_limits_combined_shortening stdout ----
+
+thread 'sublinear_cap_limits_combined_shortening' (9084) panicked at crates\articul-front\tests\prosody.rs:116:5:
+assertion `left == right` failed
+  left: 120
+ right: 80
+
+
+failures:
+    intrinsic_fricatives_longer_than_stops
+    mindur_floor_holds
+    pre_voiceless_obstruent_shortens_sonorant
+    sublinear_cap_limits_combined_shortening
+    unstressed_segments_shorten
+
+test result: FAILED. 4 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-front --test prosody`

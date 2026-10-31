@@ -1,0 +1,40 @@
+0.0.0.31.2 fix-round variant table (notch-sparing shaping)
+============================================================
+Gate bounds: room_tone ratio <= 3.0 per demo + global RMS lift <= +1 dB;
+lateral_zero notch depth >= 6 dB (4/4). Pre-bed baselines: ratios
+hello 6.10 / annyeong 2.07 / yeobo 7.95; rms 0.183119 / 0.103675 / 0.114574.
+Bed code: crates/articul-cli/src/synth.rs level_output(), lines 1124-1148.
+Notch (variants ii/iii) is NotchFilter::new(2500.0, 300.0, sample_rate),
+the same shape as lateral_notch() in articul-dsp/src/parallel.rs:63-73,
+applied to the bed signal only with level normalization AFTER notching.
+
+Variant (i): -60 dBFS broadband LP-6kHz bed
+  room_tone ratios: hello 4.55 FAIL / annyeong 2.26 PASS / yeobo 8.27 FAIL
+  room_tone rms: 0.183117 / 0.103686 / 0.114584 (lift <= +0.001 dB, PASS)
+  lateral_zero: 3/4 — hello_interior PASS, lateral_window_has_notch -0.25 dB FAIL
+  verdict: FAIL both gates. Quieter bed recovers one notch window but loses
+  floor compression (hello 1.89 at -50 dB -> 4.55 at -60 dB).
+
+Variant (ii): -50 dBFS LP-6kHz bed + 2.5 kHz notch on bed
+  room_tone ratios: hello 1.88 PASS / annyeong 5.37 FAIL / yeobo 14.42 FAIL
+    (outliers: annyeong g11u11 o 0.00729, yeobo g7u7 o 0.00925 — bed HF imprint
+    above 4 kHz, unaffected by the 2.5 kHz notch)
+  room_tone rms: 0.183129 / 0.103743 / 0.114636 (lift <= +0.006 dB, PASS)
+  lateral_zero: 4/4 PASS
+  verdict: FAIL room_tone. Notch-sparing fully restores the notch gate, but the
+  -50 dBFS HF imprint still creates new maxima on annyeong/yeobo.
+
+Variant (iii): -60 dBFS LP-6kHz bed + 2.5 kHz notch on bed (tree keeps this)
+  room_tone ratios: hello 4.51 FAIL / annyeong 2.31 PASS / yeobo 8.34 FAIL
+  room_tone rms: 0.183116 / 0.103687 / 0.114584 (lift <= +0.001 dB, PASS)
+  lateral_zero: 4/4 PASS
+  verdict: FAIL room_tone. Best worst-case (8.34 vs 14.42) and annyeong passes,
+  but hello/yeobo remain above 3.0.
+
+Conclusion: no variant passes all gates. The 4 kHz+ HF imprint needed to lift
+hello/yeobo minima to ratio <= 3.0 always imprints an even higher fraction on
+the quietest nuclei (annyeong/yeobo 'o'), because the bed's own HF fraction
+sits above every natural segment value. Notch-sparing solves the lateral side
+completely (4/4 in both notch variants) but cannot fix the room_tone side at
+any level that keeps lateral green. STOP per plan: no fourth variant tried,
+no bound changes made, no release renders produced (no winning-variant hash).

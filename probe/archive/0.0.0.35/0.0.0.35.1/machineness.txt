@@ -1,0 +1,135 @@
+0.0.0.35.1 machineness probe - results (no code change; read-only mapping to code at the end)
+
+Renders (target/release/articul.exe, exact argv via python subprocess - see render_all.py)
+- solo sustained `a:` variants: `a:` = 4212 samples (191ms), `"a:` = 7673 (348ms, single
+  segment but nucleus+fall+final creak), `a: a:` = 10408 (472ms, BUT 100ms digital silence
+  gap 160-260ms between the vowels), `a:a:` = 5844 (265ms, continuous, no gap).
+  Main vessel: `a:a:` seg1 interior [441,3087] (20-140ms, F0 ~149Hz flat, no boundary/creak).
+- three current demos re-rendered fresh: hello 9219 / annyeong 28693 / yeobo 18878 samples,
+  all byte-identical to demo/*.wav (sha256 0d45cc72 / 96f93528 / 86390f85 prefixes match).
+  Method: PowerShell 5.1 mangles embedded `"` in native argv, so renders run from python.
+
+(a) F0 jitter, period-to-period (sustained `a`, seg1 interior, F0 ~149Hz)
+- Construction-exact (numpy replication of source.rs phase accumulation incl. lcg11 seed):
+  local jitter = 0.042% (F0=120) / 0.044% (F0=149), lag-1 of period series = -0.08 / -0.01
+  (white, no temporal structure). Filter is LTI so waveform timing inherits this exactly.
+- Natural: male /a/ mean 0.49-0.50% (Felippe et al. 2006, CSL, n=40); healthy Praat ~0.3%;
+  MDVP pathology threshold 1.04% (Praat manual notes true threshold lower).
+  Task band 0.5-1.0%.
+- Deficit: engine ~12-24x BELOW natural; spectrum white (lag1 ~ 0) vs natural 1/f plus
+  2-5 Hz microtremor peak, and tremor perturbations LARGER than jitter (Schoentgen 2003).
+- Rejected artifacts: naive peak-picking gave 2.5% (formant-ripple misassignment + glide);
+  brickwall zero-crossing gave 1.2% even on a pure tone (short-window edge ringing).
+
+(b) Shimmer, per-period amplitude (same region)
+- Construction-exact: shim redrawn once per cycle as 1+0.03*U(-1,1) -> local shimmer
+  = 0.03*E|U1-U2| = 0.03*2/3 = 2.0% (~0.17 dB mean-abs).
+- Natural: MDVP local < 3.81%; Fernandez Liesa et al. 1999: 3% excludes 13% of healthy;
+  Felippe male 0.22-0.23 dB; task band ~3%.
+- Verdict: low-normal, IN range. Not a driver. (Waveform-measured 8-18% values were
+  boundary/silence contamination, rejected.)
+
+(c) Harmonic phase coherence (vowel center, 50ms frames / 5ms hop, k=1..8)
+- Metric: frame-to-frame residual of harmonic phase after removing predicted
+  evolution 2*pi*k*F0*hop/sr (lag-1 circular std; pure cycle shifts cancel, so this
+  measures pulse-SHAPE change + noise only).
+- Engine: mean 0.33 rad; k1 0.12, k2 0.27, k3 0.19, k4 0.27, k5 0.37, k6 0.42, k7 0.48,
+  k8 0.57 rad - rising with k = breathiness-noise floor (cycle-gated aspiration noise
+  randomizes high harmonics more). k1 residual 0.12 rad = relative phases near-locked.
+- Construction: lf_pulse() shape fixed per segment; the SAME pulse replayed every cycle,
+  so relative phases are locked by design; the 0.33 rad is the gated-noise floor only.
+- Natural per literature: no cycle repeats - cycle-to-cycle dispersion is exactly what
+  jitter (0.5-1.0%), shimmer (~3%) and microtremor (0.4-1.3%) quantify; pulse shape
+  (OQ/asymmetry/speed quotient) wanders every cycle.
+- Buzziness: Klatt 1980 - impulse-train source sounds "unpleasantly mechanical" as F0
+  rises; Childers & Lee 1991 ("voice sounds buzzy (Sambur et al. 1978)" when natural
+  excitation absent); Cabral et al. 2007 - pulse train gives buzzy HMM quality, mixed-band
+  excitation + phase manipulation reduces it; Klatt 1987 - fixed source over a sentence
+  gives "stereotyped voice quality".
+
+(d) Within-segment formant drift (F1/F2 per 30ms, peak-pick + band centroid)
+- Demo final-/o/ interiors with replicated Korean plan bounds (drift 0/-1 samples vs
+  render): annyeong [24216,28693) + yeobo [14312,18877): F1-centroid range 3.2 Hz
+  (std 1.16), F2-centroid range 1.5 Hz (std 0.64), 4 frames each. Bit-static.
+  (Both demos agree to 0.01 Hz - expected: deterministic engine, same vowel/voice/context.)
+- Construction: filter coefficients retuned only at boundaries (per-sample lerp confined
+  to blend/overlap zones); OQ/asymmetry/aspiration fixed per segment.
+- Contrast: cross-boundary F2 jumps up to ~1450 Hz (0.0.0.29.1) -> stepwise-hold
+  ("piano-key") articulation: dead still within segments, leaps between them.
+- Natural: articulators never hold still; sustained phonation carries 4-8 Hz tremor-rate
+  modulation (Shipp & Izdebski 1981: 4-8 Hz acoustic oscillation in vibrato/tremor).
+
+(e) F0 microprosody below phrase/accent commands
+- Solo seg1, linear glide removed (slope 4.06 st/s): residual std = 0.067 st (n=11) =
+  estimator floor. Engine has NO sub-syllabic F0 layer: within-segment F0 is analytic
+  raised-cosine/exp glide only; per-sample white FM averages to ~0.04%.
+- Natural: vocal microtremor IQR 0.4-1.3% depth at 2.0-4.7 Hz (Schoentgen 2002, JASA;
+  0.4-1.3% ~= 0.07-0.22 st peaks) plus drift; tremor perturbations exceed jitter
+  (Schoentgen 2003, J Voice).
+- Demos after 200ms-median detrend: hello 1.91 st (nuclear accent curvature), Korean
+  0.33-0.36 st = AP-command curvature leaking through the median window, not microprosody.
+
+Ranking (by measured gap x perceptual weight; Kreiman & Gerratt 2003: listeners are
+near-insensitive to jitter/shimmer amounts but hear noise/buzz - weight accordingly)
+1. (c) Phase-locked identical pulse - residual 0.33 rad noise floor; classic Klatt buzz.
+   Biggest TIMBRE contributor. Gap: shape variation exactly zero by construction.
+2. (a) Jitter 0.042% vs 0.5-1.0% (12-24x low) + white (lag1~0) vs 1/f + tremor peak.
+   Biggest NUMERIC deficit; couples into the same fix.
+3. (e) Microprosody ~0.07 st floor vs tremor 0.07-0.22 st + drift; no sub-syllabic layer.
+   Couples with the tremor half of the fix.
+4. (d) Static within-segment filters/OQ (3 Hz drift / 200 ms) vs continuous movement.
+   Separate (filter-side) mechanism - next cascade, not this fix.
+5. (b) Shimmer 2.0% vs ~3% - low-normal; not a driver.
+
+Verdict: SINGLE biggest contributor = (c) the bit-identical replayed glottal pulse
+(harmonic phase coherence). 0.0.0.35.2 direction: per-cycle source variation - perturb
+pulse SHAPE per cycle (OQ/asymmetry wander) together with natural-depth cycle jitter
+(~0.7%) and a 2-5 Hz microtremor component (~0.8%), single source-side mechanism that
+also closes (a) and (e) as coupled symptoms. TDD gates: jitter local 0.5-1.0% on the
+`solo_a_nospace` interior, k1 phase residual clearly above the 0.12 rad floor,
+linear-detrended microprosody std >= tremor floor, shimmer ~3%, TIs TIN hash re-measured.
+
+Side observations (out of scope, no action): space in `a: a:` inserts ~100 ms digital
+silence (vs 0.0.0.22.1 zero-silence on demos - context-dependent); longest single
+segment ~190-348 ms (Long x1.5 + finals); final-unit creak contaminates steady analysis
+(use non-final interiors).
+
+Code map (READ ONLY, no edits made)
+- JITTER_DEPTH 0.008 / SHIMMER_DEPTH 0.03: crates/articul-dsp/src/source.rs:11-12
+- Per-sample white FM + per-cycle shim + gated breathiness, generate():
+  source.rs:38-53; identical pattern in all six generate paths (source.rs:58-301,
+  jit lines 78/125/176/229/283, shim lines 82/129/180/233/287)
+- generate_creak(): source.rs:303-347; creak gate (final voiced unit, non-Korean):
+  crates/articul-cli/src/synth.rs:525-532
+- lf_pulse() static shape per segment: source.rs:362-398
+- Voice construction, static OQ/asymmetry/aspiration per segment: synth.rs:514-522
+- effective_aspiration(): source.rs:459-465
+- Duration variance (+/-6%) / LengthMark table: crates/articul-front/src/prosody.rs:29-41
+- Fujisaki phrase/accent F0, no microprosody layer: prosody.rs:208-302 (accents 241-302)
+
+Citations
+- Felippe, Grillo & Grechi 2006, Braz J Otorhinolaryngol 72(5):659-664 (PMC9443584):
+  male /a/ jitter 0.49%, shimmer 0.22 dB; female jitter 0.62%, shimmer 0.22 dB.
+- Praat manual, Voice 2 (Jitter) / Voice 5 (programs): MDVP Jitt 1.04% pathology
+  threshold, true threshold lower; Praat healthy ~0.3%.
+- Fernandez Liesa et al. 1999, Acta Otorrinolaringol Esp 50(2):134-141: 0.5% jitter /
+  3% shimmer acceptability bounds.
+- Schoentgen 2002, JASA 112(2):690-700 (PMID 12186048): microtremor IQR 2.0-4.7 Hz,
+  0.4-1.3% modulation level.
+- Schoentgen 2003, J Voice 17(2):114-125 (PMID 12825645): tremor perturbations
+  significantly larger than jitter.
+- Shipp & Izdebski 1981, J Forensic Sci 26(3):501-505 (PMID 7252466): 4-8 Hz acoustic
+  oscillation in vibrato/tremor.
+- Klatt 1980, JASA 67(3):971-995: impulse-train source, mechanical at raised F0.
+- Klatt 1987 (Review of text-to-speech, JASA 82(3)): fixed source -> stereotyped quality.
+- Childers & Lee 1991 (Vocal Quality Factors): "voice sounds buzzy (Sambur et al. 1978)".
+- Cabral et al. 2007: pulse-train excitation -> buzzy HMM synthesis; mixed-band
+  excitation + phase manipulation reduces it.
+- Kreiman & Gerratt 2003 (VOQUAL): listeners near-insensitive to jitter/shimmer
+  amounts (limens ~3% / ~2 dB); noise dominates naturalness judgments.
+- PhonaLab guide / Phonalyze / MDVP manual via web: MDVP shimmer local < 3.81%,
+  healthy shimmer <= 3-5%.
+
+Outputs: probe/0.0.0.35.1/ (render_all.py, analyze.py, jitter3.py, diag.py, dbg.py,
+jitter2.py, fresh_*.wav, solo_a_stressed.wav, solo_a_nospace.wav, solo_a_double.wav,
+machineness.txt); console transcript logs/0.0.0.35.1/probe.log.

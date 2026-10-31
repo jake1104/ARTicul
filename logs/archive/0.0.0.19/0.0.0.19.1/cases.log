@@ -1,0 +1,16 @@
+CASES probe transcript — 0.0.0.19.1 (PowerShell 5.1, Windows)
+Task: read-only survey of real formant/vocoder implementations for naturalness.
+
+[1] Read E:\01_coding\ARTicul (dir listing, 15 entries).
+[2] Read todo.md (173 lines: cascades 0.0.0.11-0.0.0.18 closed, standing rules).
+[3] Read CHANGELOG.md Unreleased (naturalness bundle entries through 0.0.0.18).
+[4] Read crates/articul-dsp/src (dir: cascade, cpp_bridge, lib, parallel, radiation, source, spectrum, vowels).
+[5] Read crates/articul-cli/src/synth.rs (653 lines: spec_for branch select, render_units, Fujisaki F0, gain stack).
+[6] Read crates/articul-dsp/src/lib.rs (35 lines: module map).
+[7] Web searches (6 systems): eSpeak NG hybrid/sampled consonants; Gnuspeech tube + prosody; Flite unit selection vs formant; DECtalk/Klattalk parameters; Praat KlattGrid tiers; WORLD aperiodicity/envelope. Follow-ups: Flite paper, Klatt 1980 parameters, eSpeak wavegen/Klatt sampled source.
+[8] Created probe/0.0.0.19.1/cases and logs/0.0.0.19.1 dirs; listed probe and logs.
+[9] Wrote probe/0.0.0.19.1/cases/survey.md (engine brief + 6 systems + steal list of 6 + best reference Praat KlattGrid).
+[10] Wrote this transcript to logs/0.0.0.19.1/cases.log.
+
+No source/config/todo/CHANGELOG/README edits made (read-only).
+Verdict: DONE. Best reference to copy: Praat KlattGrid (Weenink 2009).

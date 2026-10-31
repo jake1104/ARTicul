@@ -1,0 +1,12 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.51s
+     Running tests\nasal_branch.rs (target\debug\deps\nasal_branch-393b9cb4ace8f328.exe)
+
+running 4 tests
+test nasal_consonant_gets_notch ... ok
+test nasalized_vowel_gets_notch ... ok
+test oral_consonant_gets_none ... ok
+test plain_vowel_gets_none ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

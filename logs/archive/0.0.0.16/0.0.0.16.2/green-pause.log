@@ -1,0 +1,23 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.23s
+     Running tests\pause.rs (target\debug\deps\pause-9b600c2a93927d0c.exe)
+
+running 2 tests
+test pause_region_renders_silence ... FAILED
+test pause_extends_utterance_by_its_own_length ... ok
+
+failures:
+
+---- pause_region_renders_silence stdout ----
+
+thread 'pause_region_renders_silence' (14952) panicked at crates\articul-cli\tests\pause.rs:38:5:
+pause rms=0.07675901
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    pause_region_renders_silence
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-cli --test pause`

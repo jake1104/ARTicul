@@ -1,0 +1,18 @@
+    Checking articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Checking articul-py v0.0.0 (E:\01_coding\ARTicul\crates\articul-py)
+error: the loop variable `k` is used to index `buf`
+  --> crates\articul-cli\tests\synth_vowels.rs:15:14
+   |
+15 |     for k in 1..n / 2 {
+   |              ^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.91.0/index.html#needless_range_loop
+   = note: `-D clippy::needless-range-loop` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::needless_range_loop)]`
+help: consider using an iterator and enumerate()
+   |
+15 -     for k in 1..n / 2 {
+15 +     for (k, <item>) in buf.iter().enumerate().take(n / 2).skip(1) {
+   |
+
+error: could not compile `articul-cli` (test "synth_vowels") due to 1 previous error

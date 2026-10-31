@@ -1,0 +1,30 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.09s
+     Running tests\post_table_tmp.rs (target\debug\deps\post_table_tmp-7ea05e2b5aab721f.exe)
+
+running 1 test
+hE "loU start1 pos=1544 unclamped=0.9812 at d=1.7ms clamped=3 FAIL
+hE "loU start2 pos=3330 unclamped=0.9749 at d=0.3ms clamped=1 FAIL
+hE "loU start3 pos=4698 unclamped=0.5138 at d=8.0ms clamped=1 pass
+%an njVN "hasejo start1 pos=3771 unclamped=0.6027 at d=0.0ms clamped=0 pass
+%an njVN "hasejo start2 pos=4742 unclamped=0.2211 at d=8.0ms clamped=0 pass
+%an njVN "hasejo start3 pos=5558 unclamped=0.2358 at d=0.0ms clamped=0 pass
+%an njVN "hasejo start4 pos=6286 unclamped=0.3070 at d=0.0ms clamped=0 pass
+%an njVN "hasejo start5 pos=8050 unclamped=0.1528 at d=1.0ms clamped=0 pass
+%an njVN "hasejo start6 pos=8866 unclamped=0.4399 at d=0.0ms clamped=0 pass
+%an njVN "hasejo start7 pos=9837 unclamped=0.3380 at d=3.9ms clamped=0 pass
+%an njVN "hasejo start8 pos=12263 unclamped=0.1985 at d=9.4ms clamped=0 pass
+%an njVN "hasejo start9 pos=13366 unclamped=0.9805 at d=2.4ms clamped=1 FAIL
+%an njVN "hasejo start10 pos=14645 unclamped=0.2448 at d=8.0ms clamped=0 pass
+%an njVN "hasejo start11 pos=15373 unclamped=0.7779 at d=0.0ms clamped=0 pass
+%jV"bo%se%jo start1 pos=772 unclamped=0.4712 at d=0.0ms clamped=0 pass
+%jV"bo%se%jo start2 pos=3463 unclamped=0.3848 at d=0.0ms clamped=0 pass
+%jV"bo%se%jo start3 pos=4191 unclamped=0.5701 at d=0.0ms clamped=0 pass
+%jV"bo%se%jo start4 pos=6286 unclamped=0.1980 at d=9.5ms clamped=0 pass
+%jV"bo%se%jo start5 pos=7411 unclamped=0.8953 at d=1.0ms clamped=2 pass
+%jV"bo%se%jo start6 pos=10079 unclamped=0.4838 at d=0.0ms clamped=0 pass
+%jV"bo%se%jo start7 pos=10807 unclamped=0.7433 at d=0.0ms clamped=0 pass
+test post_table ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+

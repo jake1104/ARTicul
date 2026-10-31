@@ -1,0 +1,47 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+   Compiling articul-py v0.0.0 (E:\01_coding\ARTicul\crates\articul-py)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 19.35s
+     Running unittests src\lib.rs (target\debug\deps\articul_cli-55cb57f443750be1.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\main.rs (target\debug\deps\articul-52988a17f5456c9f.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\balance.rs (target\debug\deps\balance-2b6ff1eef64abd6c.exe)
+
+running 3 tests
+test stressed_nucleus_holds_at_least_100ms ... ok
+test old_input_violates_word_balance ... ok
+test demo_meets_word_balance ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\cf0.rs (target\debug\deps\cf0-411ea725cfca2caf.exe)
+
+running 3 tests
+test cf0_threshold_selects_flat_or_decay ... ok
+test final_voiced_segment_runs_irregular ... FAILED
+test vowel_onset_after_voiceless_obstruent_runs_faster ... ok
+
+failures:
+
+---- final_voiced_segment_runs_irregular stdout ----
+
+thread 'final_voiced_segment_runs_irregular' (856) panicked at crates\articul-cli\tests\cf0.rs:45:5:
+tail must alternate
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    final_voiced_segment_runs_irregular
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-cli --test cf0`

@@ -1,0 +1,168 @@
+0.0.0.24.1 junction discontinuity probe - junctions.txt (no code change)
+=====================================================================
+Inputs (default voice, 22050 Hz, f0 120.0; re-rendered fresh with
+target/release/articul.exe into probe/0.0.0.24.1/, byte-identical to demo/):
+- hello    `hE "loU`          9792 samples, sha256 a2e48409... (match)
+- annyeong `%an njVN "hasejo` 17446 samples, sha256 99732324... (match)
+- yeobo    `%jV"bo%se%jo`     14666 samples, sha256 dfd76292... (match)
+
+Method
+------
+1. probe/0.0.0.24.1/plandump/ (throwaway cargo bin, path-deps on workspace
+   crates, engine untouched) dumps the front-end plan via the REAL engine
+   functions: normalize / parse_utterance / plan_utterance(rate 1.0,
+   pitch_scale 1.0, base_f0 120.0) and articul_cli::segment_gain_db.
+   Boundary sample positions replicate the engine concat arithmetic exactly
+   (GOAT merge length, VV->1102 / else->176 fades, per-boundary clamps);
+   predicted total lengths match the wav lengths EXACTLY (9792/17446/14666),
+   so positions are sample-exact. Full dump: plan.txt in this folder.
+2. probe/0.0.0.24.1/junctions.py (stdlib only) measures, per boundary, the
+   MFCC euclidean distance (13 coeffs c1..c13, c0 excluded; pre-emph 0.97,
+   20 ms Hamming, 512-pt DFT, 26 mel filters 0-11.025 kHz, log, DCT-II)
+   between 20 ms windows on each side of the blend zone (nose-to-nose, the
+   zone itself excluded), plus the realised broadband RMS step between the
+   same windows (post-leveler, i.e. what the listener gets), plus interior
+   controls (adjacent 20 ms window pairs on a 40 ms grid, kept >=1 window
+   away from any blend zone).
+3. Gain steps are engine-exact (segment_gain_db deltas). F0 steps are
+   engine-exact (12*log2(f0_start_next / f0_end_prev) from the plan).
+
+Boundary tables (pos = blend-zone start; n = zone length, always 176 here)
+---------------------------------------------------------------------------
+
+hello (3 boundaries; the only VV pair o+U is GOAT-merged -> no boundary):
+ b  transition  pos     type                 gain-step  realised  F0-step  MFCC
+ b1 h->E         70.0ms CASCADE-SHORT-GLIDE    5.5 dB    -1.1 dB  +0.000 st  8.869
+ b2 E->l        151.0ms CASCADE-SHORT-GLIDE    4.5 dB    -2.9 dB  +0.000 st  9.678
+ b3 l->o        213.1ms GOAT-EDGE             6.0 dB    +3.4 dB  +0.000 st  5.559
+ interior-control (n=7): median 2.176, max 8.445
+
+annyeong (11 boundaries):
+ b  transition  pos     type                 gain-step  realised  F0-step  MFCC
+ b1 a->n        171.0ms CASCADE-SHORT-GLIDE    9.0 dB    -5.2 dB  +0.000 st  3.244
+ b2 n->n        215.1ms CASCADE-SHORT-GLIDE    1.0 dB    +0.1 dB  +0.000 st  1.695
+ b3 n->j        252.1ms CASCADE-SHORT-GLIDE    0.0 dB    +0.8 dB  +0.000 st  2.758
+ b4 j->V        285.1ms CASCADE-SHORT-GLIDE    2.5 dB    -0.1 dB  +0.000 st  3.249
+ b5 V->N        365.1ms CASCADE-SHORT-GLIDE    4.5 dB    -2.3 dB  +0.000 st  3.334
+ b6 N->h        402.1ms CASCADE-SHORT-GLIDE    0.0 dB    -2.4 dB  +0.000 st 11.456
+ b7 h->a        446.1ms CASCADE-SHORT-GLIDE    5.0 dB    +1.3 dB  +0.000 st 10.131
+ b8 a->s        556.1ms MIXED-LINEAR           5.0 dB    +5.9 dB  +0.000 st 21.676
+ b9 s->e        606.2ms MIXED-LINEAR           0.0 dB   -17.5 dB  +0.000 st 20.810
+ b10 e->j       664.2ms CASCADE-SHORT-GLIDE    0.0 dB    -2.8 dB  +0.000 st  7.819
+ b11 j->o       697.2ms CASCADE-SHORT-GLIDE    0.0 dB    -0.3 dB  +0.000 st  9.873
+ interior-control (n=7): median 1.624, max 7.756
+
+yeobo (7 boundaries):
+ b  transition  pos     type                 gain-step  realised  F0-step  MFCC
+ b1 j->V         35.0ms CASCADE-SHORT-GLIDE    6.0 dB    +5.0 dB  +0.000 st  4.991
+ b2 V->b        157.1ms CASCADE-SHORT-GLIDE    1.0 dB    -2.6 dB  +0.000 st  4.619
+ b3 b->o        190.1ms CASCADE-SHORT-GLIDE    1.0 dB    +0.2 dB  +0.000 st  4.323
+ b4 o->s        285.1ms MIXED-LINEAR           6.0 dB    +6.6 dB  +0.000 st 19.205
+ b5 s->e        336.1ms MIXED-LINEAR           4.0 dB   -14.6 dB  +0.000 st 18.584
+ b6 e->j        457.1ms CASCADE-SHORT-GLIDE    7.0 dB    -7.3 dB  +0.000 st  4.140
+ b7 j->o        490.1ms CASCADE-SHORT-GLIDE    5.0 dB    +3.9 dB  +0.000 st  8.182
+ interior-control (n=8): median 4.914, max 12.679
+
+(d) filter-state reset: what the code does per boundary type (read-only)
+-------------------------------------------------------------------------
+- Every Single segment renders through a FRESH filter: synth.rs:805-830
+  (CascadeFilter::from_pairs / ParallelFilter::from_pairs constructed new
+  per segment inside render_units, then render_unit closure). No filter
+  object is ever carried across a boundary.
+- CASCADE-*-GLIDE (can_glide true, synth.rs:192-198; dispatch 645-654):
+  filter_glide (synth.rs:200-250) builds a fresh filter from the `from`
+  spec, warms it by replaying all n tail samples through it (217-220 for
+  cascade, 228-236 for parallel), then steps the raw-signal mix through
+  per-sample retuned coefficients (221-225 / 232-235); nasal notch warmed
+  the same way (242-249). So state carry is APPROXIMATE (replay, not true
+  continuous state), over n = 176 samples here (8 ms). 16 of 21 boundaries.
+- MIXED-LINEAR (can_glide false, synth.rs:655-661): pure linear crossfade
+  of the two independently-filtered shaped signals over 176 samples. No
+  filtering continuity at all; the two sides never share a filter. 4 of 21
+  boundaries (all /s/ in-/out-boundaries: annyeong b8/b9, yeobo b4/b5).
+- GOAT-EDGE (synth.rs:701-728 work-unit merge; 543-600 render_diphthong):
+  no boundary inside o+U (single continuous filter, per-sample retune
+  575-581, interpolated gain 590-593). The EDGE entries/exits (hello b3
+  l->o) are plain 8 ms zones with a 6.0 dB scalar step. 1 of 21.
+- VV-GLIDE 50 ms (synth.rs:845-852 fades; 1102-sample path): exists in
+  code but is NEVER exercised: 0 of 21 boundaries (the only VV pair is
+  GOAT-merged). All "glide" boundaries here are the 8 ms replay variant.
+- Excitation: EVERY generate_* path starts at phase 0.0 (source.rs:34,
+  72, 117, 169, 220, 273, 317). Voiced excitation restarts at phase 0 at
+  every segment start regardless of boundary type; per-segment F0 glides
+  are phase-continuous only WITHIN the segment.
+- Post-hoc confound: the causal leveler (synth.rs:908+, 80 ms release per
+  0.0.0.23.2) rides on top and roughly halves most scalar steps (e.g.
+  planned 9.0 -> realised -5.2 at annyeong b1), but tracks some steps
+  nearly 1:1 (yeobo b6: planned 7.0 -> realised -7.3).
+
+Mechanism ranking by measured severity (worst boundary per mechanism)
+---------------------------------------------------------------------
+1. Gain step (scalar segment_gain_db deltas, synth.rs:279-326: class table
+   + -1 dB/index declination + final -4 dB + -12 dB floor):
+   worst = 9.0 dB planned (annyeong b1 a->n; realised -5.2 dB post-leveler).
+   9/21 boundaries >= 5 dB planned (hello max 6.0 at b3 diphthong entry;
+   yeobo max 7.0 at b6, realised -7.3 dB i.e. leveler did NOT absorb it).
+   Mean planned step 3.48 dB over 21 boundaries. Scalar steps are
+   step-functions at arbitrary frames; natural amplitude is continuous.
+2. Filter-state / excitation reset:
+   worst realised = -17.5 dB cliff (annyeong b9 s->e) and -14.6 dB (yeobo
+   b5 s->e), both MIXED-LINEAR with planned scalar steps of only 0.0/4.0 dB
+   (yeobo sign even OPPOSES the planned +4.0) -> proof these two cliffs are
+   filter-path+excitation+envelope switching, not scalar gain. Same-gain
+   (0.0 dB) cascade boundaries still jump to MFCC 11.456 (N->h), 9.873,
+   7.819 vs interior-control medians 1.6-4.9. 0/21 boundaries use the 50 ms
+   VV path; 4/21 mixed boundaries get zero filtering continuity.
+3. Spectral jump per se (MFCC nose-to-nose):
+   worst = 21.676 (annyeong b8 a->s); mixed mean 20.07 (4 bds), cascade
+   mean 6.15 (16 bds) vs control medians 1.6-4.9. BUT the largest values
+   sit on fricative boundaries where the contrast is genuine phonetics;
+   smoothing there = smearing phonemes (contraindicated by 0.0.0.15.4,
+   which rejected longer fades for exactly the /s-t/ smear reason).
+4. F0 step: +0.000 st at ALL 21 boundaries (plan chains f0_end[i] =
+   track[i+1] = f0[i+1] by construction, prosody.rs:493-498). Zero
+   boundaries > 1 st. ELIMINATED as a contributor.
+
+Verdict: single winner -> gain smoothing is the 0.0.0.24.2 direction
+---------------------------------------------------------------------
+- F0 is out (measured zero everywhere). Crossfade length is out (8 ms is
+  adequate per 0.0.0.15.4; lengthening risks smear; the 50 ms VV path is
+  unexercised so there is nothing to tune there).
+- Spectral-jump smoothing is contraindicated: the biggest MFCC numbers are
+  phonetic contrast at /s/ boundaries, and the safe fix must not smear
+  spectral detail.
+- Gain smoothing (raised-cosine scalar interpolation across boundaries,
+  the 0.0.0.24.2 leading candidate) is CONFIRMED: up to 9.0 dB planned
+  steps, 9/21 >= 5 dB across all three demos incl. 6.0 dB at the hello
+  diphthong entry (flagship demo, most-listened transition), realised
+  scalar-driven cliffs to -7.3 dB surviving the leveler 1:1. A scalar
+  envelope interpolation cannot smear spectra, fits inside every segment
+  (shortest segment 41 ms = 904 samples > 441+176 sample margins), and is
+  crisply gateable (boundary-step TDD gate). It is also consistent with
+  the existing GOAT-internal gain interpolation (synth.rs:590-593):
+  extend the same idea across boundaries.
+- Documented runner-up (NOT this task): filter-state/excitation carry for
+  the s->e cliffs (-17.5/-14.6 dB realised at 0.0/4.0 dB planned gain) and
+  the same-gain MFCC residual (<= 11.5). That fix spans filter transplant
+  across topologies + phase continuity + envelope interplay: a later
+  cascade, not a single fix. It must also respect the 0.0.0.15.4 smear
+  constraint at fricatives.
+
+Correction note (reviewer recount, rerun-backed)
+------------------------------------------------
+Reviewer caught: two lines stated "13 of 21" CASCADE glide boundaries and
+"cascade mean 7.57 (13 bds)", but the per-demo tables list 16
+CASCADE-SHORT-GLIDE boundaries (hello 2 + annyeong 9 + yeobo 5; plus 4
+MIXED-LINEAR + 1 GOAT-EDGE = 21). Root cause: the MFCC sum (98.361) covered
+all 16 values but was divided by 13. junctions.py now prints machine
+SUMMARY lines computed inside the same rerun; logs/0.0.0.24.1/recount.log
+records: SUMMARY total=21 CASCADE-SHORT-GLIDE=16 GOAT-EDGE=1 MIXED-LINEAR=4;
+SUMMARY cascade-short n=16 mean_mfcc=6.148; SUMMARY mixed-linear n=4
+mean_mfcc=20.069. junctions.txt corrected to 16 of 21 and cascade mean
+6.15 (16 bds). Verdict CONFIRMED unchanged: the correction lowers the
+cascade MFCC mean (7.57 -> 6.15) but it still exceeds interior controls
+(1.6-4.9 medians), and the verdict never rested on that mean -- it rests on
+(a) gain steps up to 9.0 dB planned / -7.3 dB realised surviving the leveler
+1:1, (b) F0 measured exactly zero x21, (c) spectral smoothing being
+contraindicated by phonetic-contrast/smear evidence. Gain smoothing remains
+the 0.0.0.24.2 direction.

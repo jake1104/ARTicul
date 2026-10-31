@@ -1,0 +1,30 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.22s
+     Running tests\gain_probe_tmp.rs (target\debug\deps\gain_probe_tmp-df62871ee89de3df.exe)
+
+running 1 test
+hE "loU s1 pos=1544 uncl=0.9480 at d=1.0ms cl=4 rad_at_peak=0.1159 impl_gain=8.182x
+hE "loU s2 pos=3330 uncl=0.9360 at d=0.3ms cl=1 rad_at_peak=0.0949 impl_gain=9.866x
+hE "loU s3 pos=4698 uncl=0.5098 at d=8.0ms cl=1 rad_at_peak=0.1056 impl_gain=4.829x
+%an njVN "hasejo s1 pos=3771 uncl=0.6028 at d=0.0ms cl=0 rad_at_peak=0.4120 impl_gain=1.463x
+%an njVN "hasejo s2 pos=4742 uncl=0.2187 at d=8.0ms cl=0 rad_at_peak=0.0521 impl_gain=4.202x
+%an njVN "hasejo s3 pos=5558 uncl=0.2308 at d=0.0ms cl=0 rad_at_peak=0.0694 impl_gain=3.323x
+%an njVN "hasejo s4 pos=6286 uncl=0.2083 at d=3.3ms cl=0 rad_at_peak=0.0318 impl_gain=6.556x
+%an njVN "hasejo s5 pos=8050 uncl=0.2105 at d=2.3ms cl=0 rad_at_peak=0.0255 impl_gain=8.239x
+%an njVN "hasejo s6 pos=8866 uncl=0.4335 at d=0.0ms cl=0 rad_at_peak=0.1488 impl_gain=2.913x
+%an njVN "hasejo s7 pos=9837 uncl=0.3452 at d=3.9ms cl=0 rad_at_peak=0.0933 impl_gain=3.701x
+%an njVN "hasejo s8 pos=12263 uncl=0.2003 at d=9.4ms cl=0 rad_at_peak=0.1096 impl_gain=1.829x
+%an njVN "hasejo s9 pos=13366 uncl=0.9806 at d=2.4ms cl=1 rad_at_peak=0.3306 impl_gain=2.966x
+%an njVN "hasejo s10 pos=14645 uncl=0.2157 at d=8.0ms cl=0 rad_at_peak=0.0279 impl_gain=7.739x
+%an njVN "hasejo s11 pos=15373 uncl=0.7608 at d=0.0ms cl=0 rad_at_peak=0.2900 impl_gain=2.623x
+%jV"bo%se%jo s1 pos=772 uncl=0.4577 at d=0.0ms cl=0 rad_at_peak=0.4360 impl_gain=1.050x
+%jV"bo%se%jo s2 pos=3463 uncl=0.3803 at d=0.0ms cl=0 rad_at_peak=0.1716 impl_gain=2.216x
+%jV"bo%se%jo s3 pos=4191 uncl=0.5632 at d=1.3ms cl=0 rad_at_peak=0.2170 impl_gain=2.596x
+%jV"bo%se%jo s4 pos=6286 uncl=0.2242 at d=9.4ms cl=0 rad_at_peak=0.1559 impl_gain=1.438x
+%jV"bo%se%jo s5 pos=7411 uncl=0.8953 at d=1.0ms cl=2 rad_at_peak=0.5273 impl_gain=1.698x
+%jV"bo%se%jo s6 pos=10079 uncl=0.4840 at d=0.0ms cl=0 rad_at_peak=0.1544 impl_gain=3.134x
+%jV"bo%se%jo s7 pos=10807 uncl=0.7264 at d=0.0ms cl=0 rad_at_peak=0.3486 impl_gain=2.084x
+test gain_probe ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+

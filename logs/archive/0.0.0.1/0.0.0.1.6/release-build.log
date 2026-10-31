@@ -1,0 +1,9 @@
+   Compiling autocfg v1.5.1
+   Compiling num-traits v0.2.19
+   Compiling num-integer v0.1.47
+   Compiling num-bigint v0.4.8
+   Compiling articul-phon v0.0.0 (E:\01_coding\ARTicul\crates\articul-phon)
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling articul-config v0.0.0 (E:\01_coding\ARTicul\crates\articul-config)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `release` profile [optimized] target(s) in 18.01s

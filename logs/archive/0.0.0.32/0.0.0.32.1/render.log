@@ -1,0 +1,7 @@
+hello rc=0 samples=9792 sha=cfe3b42cfd194fd4
+annyeong rc=0 samples=17446 sha=7dcef8d8b6275cfa
+yeobo rc=0 samples=14666 sha=2da3bc3044fb1da4
+identity hello.wav vs demo/hello.wav: True samples=9792
+identity annyeong.wav vs demo/annyeonghaseyo.wav: True samples=17446
+identity yeobo.wav vs demo/yeoboseyo.wav: True samples=14666
+done

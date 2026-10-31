@@ -1,0 +1,56 @@
+Task 0.0.0.18.3 non-sibilant fricative excitation band-limit
+
+Change: crates/articul-dsp/src/parallel.rs:100 in fricative_shaping, the
+non-sibilant fallback branch changed from [(1200,1200,0.5),(2800,1500,0.3)]
+to [(1400,400,0.4),(2600,600,0.25)]. The lateral branch (line 94), the
+postalveolar branch (line 96), and the sibilant branch (line 98) are
+byte-identical. frication_noise(n, 0.3) level and the /h/ 90ms onset ramp
+(synth.rs apply_envelope UnitEnvelope::Fricative) are untouched; no other
+production file was modified. No bandwidth measure-adjust was needed: exact
+target values were used, so no deviation is recorded. Pre-change solo-h
+spectral flatness is 0.3877, which satisfies the < 0.6 gate, confirming the
+narrower bands do not over-peak the solo-h spectrum.
+
+Measurements (Hann-windowed rFFT power, fraction of energy at >= 4000 Hz,
+sr 22050; CLI default voice and render_sentence paths agree to 4 decimals):
+solo h baseline (pre-change) frac4k = 0.4010, flatness = 0.3877
+  (probe/0.0.0.18.3/baseline-h.wav, 1720 samples)
+solo h post-change frac4k = 0.1996, flatness = 0.2533
+  (probe/0.0.0.18.3/post-h.wav, 1720 samples)
+solo s baseline = 0.9756, post-change = 0.9756, unchanged to 4 decimals
+  (probe/0.0.0.18.3/baseline-s.wav, post-s.wav, 1720 samples each;
+  matches the 0.0.0.18.1 reference of ~0.97)
+Drop on solo h: 0.4010 -> 0.1996 (delta -0.2014), below the 0.30 test
+threshold, i.e. 0.1010 margin under baseline.
+
+TDD red/green:
+RED: new test crates/articul-cli/tests/nonsibilant_bandlimit.rs,
+solo_h_above_4k_fraction_drops_vs_baseline asserted frac < 0.30 and failed
+pre-change with frac = 0.4010 (logs/0.0.0.18.3/red.log). The companion test
+solo_s_above_4k_fraction_unchanged (frac > 0.90) passed pre-change.
+GREEN: post-change both tests pass, 2 passed 0 failed
+(logs/0.0.0.18.3/green.log). The test renders solo h/s through
+articul_cli::render_sentence and computes the above-4kHz fraction with a
+dependency-free Hann-windowed DFT.
+
+Gates:
+cargo fmt --check exit 0 (logs/0.0.0.18.3/fmt-check.log)
+cargo clippy --workspace --all-targets -- -D warnings exit 0
+  (logs/0.0.0.18.3/clippy.log)
+cargo test --workspace all suites ok, zero failures, including balance.rs
+  3/3 and the 2 new band-limit tests (logs/0.0.0.18.3/test-workspace.log)
+cargo build --release -p articul-cli exit 0
+  (logs/0.0.0.18.3/release.log)
+
+Measured CLI regression: TIs TIN with config/default-voice.toml synthesized
+twice to probe/0.0.0.18.3/regression-a.wav and regression-b.wav: 8822
+samples each (count unchanged), sha256
+25338b5e26b3c1f28d34c75fe9f7728a166c6ca713c3c9cf5cc5cf2e51c783e1 for both,
+deterministic=True (logs/0.0.0.18.3/cli-regression.log). Hash changed vs
+a790cf2b... as expected: the narrower non-sibilant excitation reshapes the
+glottal-fricative portion of the utterance.
+
+Files changed: crates/articul-dsp/src/parallel.rs (1 line),
+crates/articul-cli/tests/nonsibilant_bandlimit.rs (new). No comments added.
+todo.md, CHANGELOG.md, README.md, docs/, apply_final_fade, segment_gain_db,
+demo/hello.wav untouched; eval_reference.py not run.

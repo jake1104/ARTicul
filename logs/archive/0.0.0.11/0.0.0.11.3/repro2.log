@@ -1,0 +1,31 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+warning: function `unit_with_fixed_duration` is never used
+   --> crates\articul-cli\tests\gain.rs:116:4
+    |
+116 | fn unit_with_fixed_duration(symbol: &str, stress: Stress, ms: u32) -> articul_front::prosody::ProsodicPhoneme {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `articul-cli` (test "gain") generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.31s
+     Running tests\gain.rs (target\debug\deps\gain-30581dde76d74032.exe)
+
+running 1 test
+test stressed_vowel_louder_than_unstressed ... FAILED
+
+failures:
+
+---- stressed_vowel_louder_than_unstressed stdout ----
+
+thread 'stressed_vowel_louder_than_unstressed' (8748) panicked at crates\articul-cli\tests\gain.rs:147:18:
+range end index 5967 out of range for slice of length 5050
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    stressed_vowel_louder_than_unstressed
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-cli --test gain`

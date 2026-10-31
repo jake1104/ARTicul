@@ -1,0 +1,5 @@
+file frames peak rms zcr centroid band0-300 band300-3400 band4k+
+vowel-a 2822 0.9000 0.2534 0.0619 621.6 0.139 0.861 0.000
+fric-s 1720 0.9000 0.2501 0.5873 6561.4 0.000 0.010 0.974
+vowel-a autocorr F0 177.8 Hz peak 0.745 (lag search 50-500 Hz)
+

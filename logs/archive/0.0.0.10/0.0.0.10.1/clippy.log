@@ -1,0 +1,28 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+error: the use of negated comparison operators on partially ordered types produces code that is hard to read and refactor, please consider using the `partial_cmp` method instead, to make it clear that the two values could be incomparable
+  --> crates\articul-dsp\src\source.rs:14:12
+   |
+14 |         if !(self.f0_hz > 0.0) || sample_rate == 0 {
+   |            ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.91.0/index.html#neg_cmp_op_on_partial_ord
+   = note: `-D clippy::neg-cmp-op-on-partial-ord` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::neg_cmp_op_on_partial_ord)]`
+
+error: the use of negated comparison operators on partially ordered types produces code that is hard to read and refactor, please consider using the `partial_cmp` method instead, to make it clear that the two values could be incomparable
+   --> crates\articul-dsp\src\source.rs:103:15
+    |
+103 |         while !(g(hi) < 0.0) && hi < 1e9 {
+    |               ^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.91.0/index.html#neg_cmp_op_on_partial_ord
+
+error: the use of negated comparison operators on partially ordered types produces code that is hard to read and refactor, please consider using the `partial_cmp` method instead, to make it clear that the two values could be incomparable
+   --> crates\articul-dsp\src\source.rs:109:15
+    |
+109 |         while !(g(lo) > 0.0) && lo > -1e9 {
+    |               ^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.91.0/index.html#neg_cmp_op_on_partial_ord
+
+error: could not compile `articul-dsp` (lib) due to 3 previous errors

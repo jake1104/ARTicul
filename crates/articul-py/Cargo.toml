@@ -1,0 +1,12 @@
+[package]
+name = "articul-py"
+version = "0.0.1"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+articul-phon = { path = "../articul-phon" }
+articul-cli = { path = "../articul-cli" }
+pyo3 = { version = "0.22", features = ["extension-module"] }

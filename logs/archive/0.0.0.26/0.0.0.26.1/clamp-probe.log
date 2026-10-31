@@ -1,0 +1,12 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.03s
+     Running tests\tmp_clamp2626.rs (target\debug\deps\tmp_clamp2626-436c1ca4a2b3447d.exe)
+
+running 1 test
+CLAMP hE "loU len=9792 gpeak=0.989000 nclamped=6 first10=[1583, 1587, 1612, 1616, 3330, 4698]
+CLAMP %an njVN "hasejo len=17446 gpeak=0.989000 nclamped=9 first10=[13327, 13333, 13337, 13345, 13347, 13356, 13361, 13395, 13420]
+CLAMP %jV"bo%se%jo len=14666 gpeak=0.989000 nclamped=11 first10=[7229, 7260, 7262, 7314, 7350, 7356, 7368, 7370, 7384, 7418]
+test tmp_clamp2626 ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+

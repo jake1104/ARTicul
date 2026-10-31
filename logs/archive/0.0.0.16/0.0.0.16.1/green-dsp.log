@@ -1,0 +1,27 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.51s
+     Running tests\voice_quality.rs (target\debug\deps\voice_quality-7b4ff30f2410d0d1.exe)
+
+running 6 tests
+test creak_alternates_periods ... ok
+test shimmer_varies_peak_amplitude ... ok
+test jitter_adds_period_variance ... ok
+test flutter_shifts_rate_over_time ... ok
+test breathiness_follows_glottal_cycle ... FAILED
+test output_stays_deterministic ... ok
+
+failures:
+
+---- breathiness_follows_glottal_cycle stdout ----
+
+thread 'breathiness_follows_glottal_cycle' (20120) panicked at crates\articul-dsp\tests\voice_quality.rs:112:5:
+closed/open=0.96395767
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    breathiness_follows_glottal_cycle
+
+test result: FAILED. 5 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-dsp --test voice_quality`

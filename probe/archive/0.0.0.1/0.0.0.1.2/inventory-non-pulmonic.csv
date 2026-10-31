@@ -1,0 +1,15 @@
+symbol,codepoint,nonpulmonic_type,place,voicing,notes
+ʘ,U+0298,Click,Bilabial,Voiceless,bilabial click
+ǀ,U+01C0,Click,Dental,Voiceless,dental click
+ǃ,U+01C3,Click,Postalveolar,Voiceless,alveolar click
+ǂ,U+01C2,Click,Palatal,Voiceless,palatal click
+ǁ,U+01C1,Click,Alveolar,Voiceless,lateral alveolar click
+ɓ,U+0253,Implosive,Bilabial,Voiced,voiced bilabial implosive
+ɗ,U+0257,Implosive,Alveolar,Voiced,voiced alveolar implosive
+ʄ,U+0284,Implosive,Palatal,Voiced,voiced palatal implosive
+ɠ,U+0260,Implosive,Velar,Voiced,voiced velar implosive
+ʛ,U+029B,Implosive,Uvular,Voiced,voiced uvular implosive
+pʼ,U+0070+U+02BC,Ejective,Bilabial,Voiceless,bilabial ejective
+tʼ,U+0074+U+02BC,Ejective,Alveolar,Voiceless,alveolar ejective
+kʼ,U+006B+U+02BC,Ejective,Velar,Voiceless,velar ejective
+sʼ,U+0073+U+02BC,Ejective,Alveolar,Voiceless,alveolar fricative ejective

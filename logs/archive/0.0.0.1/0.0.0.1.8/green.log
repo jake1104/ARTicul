@@ -1,0 +1,11 @@
+   Compiling articul-phon v0.0.0 (E:\01_coding\ARTicul\crates\articul-phon)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.80s
+     Running tests\rules.rs (target\debug\deps\rules-f972628c0e89ef4b.exe)
+
+running 3 tests
+test nasalize_marks_vowel_nasal ... ok
+test devoice_turns_b_to_voiceless_keeping_place_manner ... ok
+test apply_rule_preserves_features_shape ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

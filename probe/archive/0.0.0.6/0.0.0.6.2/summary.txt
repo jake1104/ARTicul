@@ -1,0 +1,6 @@
+Task 0.0.0.6.2 CPAL playback command
+Commands: articul play --text --voice --f0 wired, play --help verified
+Ruling: real-time device playback is hardware dependent. Render path shared with synthesize and verified (hi-klatt.wav 4410 samples). Stream code builds CPAL F32 output stream, plays buffer once, sleeps duration. No underrun observable headless; manual device check pending.
+Files: crates/articul-cli/src/main.rs play_samples()
+Logs: logs/0.0.0.6.2/ (play-help via 0.0.0.6.1 log), probe/0.0.0.6.2/hi-klatt.wav
+PowerShell 5.1: commands chained with ; only.

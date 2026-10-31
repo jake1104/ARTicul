@@ -1,0 +1,12 @@
+    Updating crates.io index
+     Locking 4 packages to latest compatible versions
+      Adding num-bigint v0.4.8 (available: v0.5.1)
+   Compiling autocfg v1.5.1
+   Compiling num-traits v0.2.19
+    Checking num-integer v0.1.47
+    Checking num-bigint v0.4.8
+    Checking articul-phon v0.0.0 (E:\01_coding\ARTicul\crates\articul-phon)
+    Checking articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Checking articul-config v0.0.0 (E:\01_coding\ARTicul\crates\articul-config)
+    Checking articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 7.48s

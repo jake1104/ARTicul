@@ -1,0 +1,40 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+error[E0425]: cannot find function `cf0_boost_factor` in crate `articul_dsp`
+  --> crates\articul-dsp\tests\cf0.rs:24:27
+   |
+24 |     assert!((articul_dsp::cf0_boost_factor(0.0) - 1.10).abs() < 1e-6);
+   |                           ^^^^^^^^^^^^^^^^ not found in `articul_dsp`
+
+error[E0425]: cannot find function `cf0_boost_factor` in crate `articul_dsp`
+  --> crates\articul-dsp\tests\cf0.rs:25:27
+   |
+25 |     assert!((articul_dsp::cf0_boost_factor(0.04) - 1.10).abs() < 1e-6);
+   |                           ^^^^^^^^^^^^^^^^ not found in `articul_dsp`
+
+error[E0425]: cannot find function `cf0_boost_factor` in crate `articul_dsp`
+  --> crates\articul-dsp\tests\cf0.rs:30:32
+   |
+30 |     let at_60ms = articul_dsp::cf0_boost_factor(0.06);
+   |                                ^^^^^^^^^^^^^^^^ not found in `articul_dsp`
+
+error[E0425]: cannot find function `cf0_boost_factor` in crate `articul_dsp`
+  --> crates\articul-dsp\tests\cf0.rs:32:29
+   |
+32 |     let late = articul_dsp::cf0_boost_factor(0.5);
+   |                             ^^^^^^^^^^^^^^^^ not found in `articul_dsp`
+
+error[E0599]: no method named `generate_cf0_onset` found for struct `GlottalSource` in the current scope
+  --> crates\articul-dsp\tests\cf0.rs:38:21
+   |
+38 |     let out = src().generate_cf0_onset(0.2, 22050);
+   |                     ^^^^^^^^^^^^^^^^^^ method not found in `GlottalSource`
+
+error[E0599]: no method named `generate_cf0_onset` found for struct `GlottalSource` in the current scope
+  --> crates\articul-dsp\tests\cf0.rs:45:21
+   |
+45 |     let out = src().generate_cf0_onset(0.2, 22050);
+   |                     ^^^^^^^^^^^^^^^^^^ method not found in `GlottalSource`
+
+Some errors have detailed explanations: E0425, E0599.
+For more information about an error, try `rustc --explain E0425`.
+error: could not compile `articul-dsp` (test "cf0") due to 6 previous errors

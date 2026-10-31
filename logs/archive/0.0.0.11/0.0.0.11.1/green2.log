@@ -1,0 +1,17 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.70s
+     Running tests\stress.rs (target\debug\deps\stress-a52db44136c9a22d.exe)
+
+running 9 tests
+test trailing_marker_without_vowel_is_dropped ... ok
+test primary_stress_attaches_to_following_vowel ... ok
+test each_marker_attaches_to_its_own_vowel ... ok
+test plan_carries_stress_through ... ok
+test plan_defaults_missing_stress_to_unstressed ... ok
+test marker_after_base_attaches_to_later_vowel ... ok
+test secondary_stress_marks_following_vowel ... ok
+test consonants_before_vowel_get_no_stress ... ok
+test last_marker_wins ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

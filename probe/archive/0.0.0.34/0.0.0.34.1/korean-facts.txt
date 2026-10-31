@@ -1,0 +1,222 @@
+KOREAN PHONETICS/PROSODY PROBE 0.0.0.34.1 (no code change)
+============================================================
+Date (UTC): 2026-10-30. Voice: config/default-voice.toml, f0 120, 22050 Hz.
+Binary: target/release/articul.exe (unmodified; no rebuild).
+
+STEP 1 - fresh re-render, byte-identity vs demo/
+------------------------------------------------
+cmd annyeong: articul synthesize --text '%an "njVN "h\asejo' --out probe/0.0.0.34.1/annyeonghaseyo.wav
+cmd yeobo:    articul synthesize --text '%jV"bo%se%jo'      --out probe/0.0.0.34.1/yeoboseyo.wav
+annyeong: sha256 717ef01df8cc195bd3bbe948a4beb9f8b9d917aaf71fbfb21bc64e55dd31506b == demo/annyeonghaseyo.wav (19101 samples, 866.3 ms). IDENTICAL.
+yeobo:    sha256 2da3bc3044fb1da47f3d98e3aeab78bc683451b53c43dd395fcdbb1a1ef3a830 == demo/yeoboseyo.wav    (14666 samples, 665.1 ms). IDENTICAL.
+Tooling in this folder: plan_replica.py (exact Python replica of transcribe/plan_utterance/f0_track
++ vowels.rs targets; VALIDATED ALL-EXACT vs probe/archive/0.0.0.24/0.0.0.24.1/plan.txt on all 3 old
+inputs, every unit sym/dur/f0/stress), measure.py (rendered F0 + formant spots), plan-values.json.
+
+ENGINE CURRENT BEHAVIOR (read-only record)
+------------------------------------------
+A. Vowel targets (crates/articul-dsp/src/vowels.rs).
+F1 by height: Close 280 / NearClose 400 / CloseMid 480 / Mid 520 / OpenMid 600 / NearOpen 690 / Open 730.
+F2 by (height,backness,rounding); cells used here: Open-Front-unrounded (a) 1250;
+OpenMid-Back-unrounded (V=ʌ) 1150; CloseMid-Back-rounded (o) 950; CloseMid-Front-unrounded (e) 1950.
+F3 = 2500 - 20*hi + (Front +250 / Central +0 / Back -150), hi = 0..5.5 by height:
+a 2640, V 2270, e 2700, o 2300.
+Reduced (unstressed) targets = 30% centralization toward 520/1400 (F3 kept): e 492/1785, o 492/1085.
+Locus pull with NEXT non-vowel unit preferred, else PREV (synth.rs:827-829):
+bilabial F2 = 0.7*F2+300; alveolar F2 = 0.3*F2+1100 (vowels.rs:90-105); velar F2 = 0.5*F2+1200
+AND F3 += 0.3*(2600-F3); palatal/glottal = unchanged. h-onset units (voiceless glottal fricative
+only) render the FOLLOWING vowel's formants (synth.rs:61-77); h\ (voiced [ɦ]) takes normal path.
+Engine per-vowel render targets in THESE demos (reduced + locus applied):
+annyeong u0 a(S,pre-nasal) 730/1475/2640 | u4 V(P,pre-velar) 600/1775/2369 | u7 a(P,pre-s) 730/1475/2640
+| u9 e(U,pre-j) 492/1785/2700 | u11 o(U,final) 492/1085/2300.
+yeobo u1 V(S,pre-b) 600/1105/2270 | u3 o(P,pre-s) 480/1385/2300 | u5 e(S,pre-j) 480/1950/2700
+| u7 o(S,final) 480/950/2300.
+B. Prosody (crates/articul-front/src/prosody.rs). Stress marks attach to the next VOWEL only
+(xsampa.rs:77-83); consonants always Unstressed. Nucleus = last Primary else last Secondary else
+last vowel (find_nucleus). Accents at/before nucleus only: nucleus +5.0st, prenuclear Primary
++3.0st with -1.5st downstep each, Secondary +1.5st with -1.5st downstep; post-nuclear vowels get
+only decaying tail (0.5^d). Baseline phrase_st: +2.0st hold for pos<0.2, exponential decline to
+-1.0st. FINAL unit ALWAYS -7.0st (80.0 Hz @120 base) + final voiced unit rendered CREAK
+(synth.rs:483-487). CF0: vowel after voiceless obstruent gets +10% F0 onset decaying over the
+unit (Decay, dur>=50) or flat +5% (dur<50); else glide f0->f0_end. Durations = base(intrinsic:
+a180 V155 e160 o160 / nasals-approx 90 / s,h 130 / h\ 110 / b 90) x stress(1.0 P/S, 0.55 U,
+floor 0.5) x ctx(0.78 if sonorant before voiceless obstruent) x poly(1.0/0.9/0.8 by word
+syllables) x cluster(0.8) x initial(1.1) x final(1.3 last-word rhyme) x variance(0.94-1.06)
++ lateral-70ms floor. Gains/declination/fades per 0.0.0.11.3 (not re-measured here).
+C. Plan values, current shipped inputs (replica output, engine-exact by validation):
+annyeong '%an "njVN "h\asejo (words: %an | "njVN | "h\asejo; total plan 954 ms):
+u0 a 179ms 146.9->140.7Hz S | u1 n 52ms 140.7->137.6 | u2 n 45ms 137.6->135.7 | u3 j 41ms 135.7->139.0
+| u4 V 160ms 139.0->129.3Hz P | u5 N 50ms 129.3->134.9 | u6 h\ 50ms 134.9->158.5
+| u7 a 118ms 158.5->135.9Hz P (NUCLEUS +5st) | u8 s 58ms 135.9->124.5 | u9 e 66ms 124.5->118.6
+| u10 j 41ms 118.6->80.1 | u11 o 94ms 80.1->80.1Hz U (final -7st + creak).
+yeobo '%jV"bo%se%jo (ONE word, 4 syllables -> poly 0.8; total plan 721 ms):
+u0 j 43ms 138.2->146.9 | u1 V 130ms 146.9->148.2Hz S | u2 b 41ms 148.2->166.0
+| u3 o 103ms 166.0->140.4Hz P (NUCLEUS +5st) | u4 s 59ms 140.4->126.6 | u5 e 129ms 126.6->119.5Hz S
+| u6 j 41ms 119.5->80.1 | u7 o 175ms 80.1->80.1Hz S (final -7st + creak).
+Note: bo-o (u3) carries BOTH +5st nucleus (166 Hz peak) and Primary duration; yeobo has THREE
+accent events (u1 +1.5, u3 +5.0, u5/u7 secondary chain) on a 4-syllable greeting.
+D. Rendered audio (measure.py; F0 = autocorrelation 20ms/10ms; formants = avg-spectrum peak-pick,
+mid-50% of proportional plan window; picker artifacts noted):
+annyeong F0 medians per 100ms: 147.0 141.3 138.7 137.0 131.2 [152.1 = ha nucleus] 144.1 135.3 then
+unvoiced/creak (80 Hz creak end). Shape = rise to stressed ha (+5st) then -11st fall to creak.
+Formants: u0 a 716/-(broad~1400, picker took 872 harmonic)/- | u4 V 533/1766 (-0.5% of 1775 target,
+clean 19.5dB hump: M3 FIXED the old suppressed-F2/2374) | u7 a 738/-(broad, same note) | u9 e
+533/1733 (-3% of 1785) | u11 o 463/1098 (+1% of 1085 = engine-exact).
+yeobo F0 medians: 147.5 150.0 [153.7 = bo nucleus] 137.8 then fall to 80 Hz creak (500ms 245 Hz =
+creak-period artifact, ignore). Shape = peak on bo then -11st fall to creak.
+Formants: u1 V 598/1028 (F1 +0%, F2 -7% of 1105) | u3 o 458/1394 (+1% of 1385 = engine-exact)
+| u5 e 511/~1954-2080 (band-max grabbed F3 2762 = target 2700; audit convention resolves)
+| u7 o 474/937 (-1% of 950 = engine-exact).
+
+KOREAN GROUND TRUTH (with sources)
+----------------------------------
+(a) Male monophthong formants.
+S1 Yang, B. (1996), J. Phonetics 24:245-261, 10M/10F, read vowels (male means, SD):
+i 341(29)/2219(176); ɨ 405(37)/1488(176); u 369(43)/981(141); o 453(47)/945(134);
+ʌ 608(76)/1121(110). [F3 in S1 not re-extracted here.]
+S2 Shin, Kiaer & Cha (2012), The Sounds of Korean, CUP, Table 1.4 p.103, 10M/10F read speech
+(male mean (SD) F1/F2/F3): a 659.8(41.1)/1182.7(81.4)/2932.5(137.2); ʌ 560.4(45.4)/1045.4(94.3)/F3 n/a;
+ɨ 333.5(71.7)/1517.6(169.9); i 258.9(40.0)/2065.9(130.6); o 317.7(38.7)/691.4(103.6)/2480.9(134.9);
+u 253.3(35.5)/689.2(127.3)/2414.9(153.5). (Via dissertation Table 4.4 quoting S2 p.103.)
+S3 Kim et al. (2026), e-csd 31(1):119, normative DB sustained vowels (male means +-SD):
+a 705.9+-151.5/1152.7+-183.4; e(ㅔ) 479.2+-97.7/1918.6+-217.8; o(ㅗ) 441.1+-88.1/749.7+-156.2.
+S4 Igeta & Arai (2011), ICPhS XVII, Seoul males 30s: a 803/1175; e 482/2064; ʌ(/ɔ/) 590/857;
+o 373/666; u 268/876.
+GA reference (Manitoba adult-male table, GA-adjacent): ə 500/1500; ɛ 600/1930; ʌ 680/1310;
+o 430/980; e 405/2080.
+Reading: ㅓ engine target 600/1150 sits INSIDE native male range (S1 608/1121: -1%/-... +3%;
+S2 560/1045: +7%/+10%); ㅔ engine 480/1950 vs S3 479/1919 (+0%/+2%) and S4 482/2064: native
+already. ㅏ engine 730/1250 vs S3 706/1153 (+3%/+8%), S2 660/1183 (+11%/+6%): close. ONLY ㅗ is
+systematically off: engine 950 (stressed) / 1085 (reduced) vs S3 750 (+27%/+45%), S2 691
+(+37%/+57%), S4 666 (+43%/+63%); S1 945 is the sole older norm matching the engine (o-raising
+since the 1990s lowered/raised modern ㅗ; note S2/S4 young-Seoul values). Engine F3: a 2640 vs
+S2 2933 (-10%); o 2300 vs S2 2481 (-7%).
+(b) Seoul AP intonation (Jun). K-ToBI conventions (Jun, UCLA K-ToBI site; Jun 1993 diss; Jun 1998
+Phonology 15.2; Jun 2005.ch): prosodic units IP > AP; AP tone THLH (T=H iff AP-initial segment
+aspirated/tense, else L), most common surface LHLH/HHLH (4+ syllables); AP-final boundary Ha =
+RISE (LHa label); IP-final boundary takes 1 of 9 tones (L%, H%, LH%, HL%, ...), AP-final H
+overridden IP-finally. IP-final syllable lengthened ~1.6-2x (Jeon 2014 citing review: 1.6-1.8;
+Jun 2005: "about twice"). NO lexical stress or pitch accent in Korean; prominence is phrasal
+(Jun & Lee 1998: focus initiates a new AP, not a +5st accent). Greeting contour: polite
+greetings/questions take rising boundaries — H% (yes/no-question rise), LH% (question/
+continuation/explanatory rise in declaratives), HL% (polite declarative) per Jeon, H.-S. (2014),
+Speech Prosody boundary-tone perception review of Jun/Lee; pedagogical sources concur:
+여보세요 opener "on a rising tone" (elon.io phone-call grammar), 안녕하세요 "calm and neutral",
+English-style emphatic intonation "sounds unnatural" (90daykorean). I.e. canonical
+안녕하세요/여보세요 = gentle AP rise-fall + HIGH or politely-falling (HL%) ending, NEVER a
++5st nuclear spike followed by an 80 Hz creaky -7st drop (that maps to L% as-a-matter-of-fact
+declarative, Jeon 2014).
+(c) Consonants. Lenis voicing: lenis stops voice intervocalically WITHIN an AP (Jun 1993, 1995,
+1996; blocked across AP boundary; gradient across/inside speakers, males voice more: 2021
+focus study, koreascience JAKO202009135472559). Demos: ㅂ in 여보세요 is intervocalic onset ->
+[b] CORRECT as rendered (input b). ㅎ in 하세요 is intervocalic -> [ɦ] CORRECT as rendered
+(input h\, M2). /s/ stays canonically voiceless intervocalically (standard lenis-voicing rule
+covers stops/affricates; youngkorean KAEPS summary; Kim diss. notes gradient partial voicing
+in some tokens — no action). Liquid /l/: single phoneme; onset = flap [ɾ], coda/geminate =
+lateral [l] (Crosby & Dalola 2021 PLSA; Heo & Lee 2004 WPL; Lee 1999). NO /l/ in these demos
+-> no action (flag for future Korean inputs containing ㄹ).
+
+DIFF TABLE (per demo syllable: engine output vs Korean norm)
+-------------------------------------------------------------
+annyeong /an.njʌŋ.ɦa.se.jo/ (formal):
+an   | engine a 730/1475(pre-nasal pull) rendered 716/broad~1400, 179ms S, f0 147->141Hz
+     | Korean ㅏ ~660-706/1153-1183. F1 MATCH(+2-+8%), F2 +25% by locus pull (minor, nasal context).
+     | Duration 179ms prominent (initial+secondary); Korean no stress but AP-initial
+     | strengthening exists (Cho & Keating 2001) -> acceptable.
+nyeong| engine V(P,160ms) 600/1775/2369 rendered 533/1766. f0 139->129Hz (downstepped prenuclear).
+     | Korean ㅓ 560-608/1045-1121. F1 -4--12% ok; F2 +58-+70% SHARP (velar-locus overshoot).
+     | (M3 fixed the old 88ms-suppressed realization; residual issue is the locus rule, not stress.)
+ha   | engine a(P,NUCLEUS +5st,118ms) 730/1475 rendered 738/broad, f0 158Hz peak -> falls.
+     | Korean ㅏ same as above BUT with NO accent: AP-medial syllable should ride the THLH
+     | slope (~+/-2st), not spike +5st (x1.335) as utterance peak. FOREIGN CUE #1 (prosody).
+se   | engine e(U,66ms) 492/1785 rendered 533/1733(-3%), f0 124->119 + CF0 +10% onset (prev s).
+     | Korean ㅔ 479/1919. MATCH. 66ms short but unstressed-reduction mirroring is the issue (rank 4).
+jo   | engine o(U,94ms) 492/1085 rendered 463/1098. f0 119->80Hz + CREAK (final -7st).
+     | Korean ㅛ ㅗ 441/750 (S3): F2 +46% SHARP. Plus boundary error: greeting-final should RISE
+     | (H%/LH%) or fall politely (HL%), never creak at 80 Hz. FOREIGN CUES #2 (vowel) + #3 (boundary).
+yeobo /jʌ.bo.se.jo/:
+yeo  | engine V(S,130ms) 600/1105(bilabial pull) rendered 598/1028. f0 147->148Hz.
+     | Korean ㅓ 560-608/1045-1121: F1 +0-+7%, F2 -2-+... -1.5% vs S1. CLEANEST MATCH. Keep.
+bo   | engine o(P,NUCLEUS +5st,103ms) 480/1385(pre-s pull) rendered 458/1394. f0 166Hz peak.
+     | Korean ㅗ 441/750: F2 +85% SHARP (worst single cell: pre-s alveolar pull on an
+     | already-too-front target). Plus +5st accent on non-stress language. CUES #1 + #2.
+se   | engine e(S,129ms) 480/1950 rendered 511/~2000. f0 127->119Hz + CF0 decay (prev s).
+     | Korean ㅔ 479/1919: MATCH (+7%/+2%). Duration 129ms long for Korean medial syllable
+     | (secondary-stress artifact) but timbre right. Keep phone, fix rhythm globally (rank 4).
+jo   | engine o(S,FINAL 175ms x1.3) 480/950 rendered 474/937. f0 80Hz CREAK.
+     | Korean ㅗ: F2 +25-+27% sharp; boundary: rising opener expected (여보세요? with H%/LH%),
+     | got L%-style creaky fall. CUES #2 + #3. (175ms = final lengthening directionally right
+     | for IP-final, but 175ms @ creak+fall reads English-phrase-final, not Korean rise.)
+
+(i) Does +5st nuclear accent + downstep explain the foreign feel (vs flat/AP contour)? YES, primary.
+Evidence: every demo carries an English nuclear spike (ha 158 Hz, bo 166 Hz, both x1.335 = +5.0st
+over a ~120 Hz baseline already lifted +2st) with -1.5st downstep terracing before it and an
+-11st collapse to 80 Hz creak after — a contour impossible in Seoul Korean, which has no lexical
+stress/pitch accent and realizes APs as gentle THLH rise-falls (total excursion ~4-6st) with
+boundary-tone endings. Vowel timbres are otherwise 4-of-5 native-like (see ii), so prosody
+outranks segments. The final creak compounds it: Korean IP-final lengthening keeps voicing modal.
+(ii) Which vowels most off-target? ONLY ㅗ (o): engine 950/1085 vs modern norms 666-750
+(+25% to +63% F2; rendered 937-1394). Plus one context rule: pre-velar locus 1775 vs ㅓ norm
+~1045-1121 (+58-70%, nyeong only). ㅏ/ㅓ/ㅔ F1/F2 within -4-+11% of norms: NO CHANGE needed.
+
+RANKED MISMATCHES (foreignness impact; consonants explicitly exonerated)
+------------------------------------------------------------------------
+1. Nuclear +5st pitch accent with -1.5st downstep terracing on a non-stress language (ha peaks
+158 Hz x1.335, bo 166 Hz; prenuclear V 139 Hz terraced): replace with flat AP contour.
+2. Greeting-final boundary: engine L%-style -7st fall to 80 Hz creak (both demos) vs polite
+greeting rise H%/LH% (여보세요 opener) or HL% (안녕하세요): needs boundary-tone parameter.
+3. ㅗ F2 +25-+85% too front (engine 950 stressed/1085 reduced; rendered 937/1098/1394 vs norm
+750; worst = bo-o 1394 pre-s): needs Korean backer target ~740.
+4. Stress-timed durations (unstressed x0.55: se 66ms; primary/final boost: jo 175ms; 66->175ms
+2.6x internal range) vs no-stress timing with ONLY IP-final lengthening (x1.6-1.8, last
+syllable): needs flat timing.
+5. Pre-velar locus overshoot: nyeong-V target F2 1775 (rendered 1766) vs ㅓ norm 1045-1121
+(+58-70%): needs Korean-specific locus gains (velar pull must not apply to back vowels).
+6. ㅏ F3 -10% (2640 vs 2933, S2) + pre-nasal F2 pull 1475 vs ~1180 (+25%): minor; fold into
+table retune, lowest priority.
+EXONERATED (no action): ʌ/ㅔ/ㅏ F1/F2 already native (see ii); ㅂ->[b] and ㅎ->[ɦ] voicing
+correct; /s/ voiceless correct; /l/ absent from demos (onset flap [ɾ] noted for future inputs).
+
+CONCRETE 0.0.0.34.2 SPEC (default voice untouched; new Korean voice config + stress-ignoring path)
+---------------------------------------------------------------------------------------------------
+V1. Korean vowel target table (FULL/stressed targets; Korean path applies NO 30%-reduction;
+locus: keep alveolar/bilabial gains, DISABLE velar F2/F3 pull for back vowels, DISABLE alveolar
+pull magnitude x0.5 for /a/ before nasals):
+Korean a (ㅏ)  690 / 1165 / 2930   [S3 706/1153 + S2 660/1183/2933]
+Korean V (ㅓ)  585 / 1085 / 2707*  [S1 608/1121 + S2 560/1045; *F3 interim: round((2932.5+2480.9)/2) = 2707, back-mid mean of S2 a-F3 and S2 o-F3; implementer uses 2707 literally]
+Korean e (ㅔ)  479 / 1919 / 2857*  [S3 479.2/1918.6 primary; S4 482/2064 corroborates; *F3 interim: 2707+150 = 2857, front-mid +150 offset over V; use 2857 literally]
+Korean o (ㅗ)  441 / 740 / 2481   [F1 S3 441.1; F2 S3 749.7 backered to 740 per S2 691 / S4 666 direction (rank #3); F3 S2 2480.9 FINAL]
+Korean u (ㅜ)  253 / 689 / 2415   [S2 253.3/689.2/2414.9 FINAL all three; S1 369/981 older/higher not used; S4 268/876 corroborates modern]
+Korean ɯ (ㅡ)  369 / 1503 / 2674*  [F1/F2 means of S1 405/1488 + S2 333.5/1517.6; *F3 interim: round((2932.5+2414.9)/2) = 2674, central mean of S2 a-F3 and u-F3; use 2674 literally]
+All six F3 values are FINAL-or-formula: no asterisk is open-ended; every interim row carries the exact arithmetic the implementer must use verbatim.
+
+P1. AP prosody rule (Korean path only; all values in semitones relative to voice base f0 = 120 Hz; copy verbatim):
+P1 Stress-mark handling: '"' and '%' are parsed normally but IGNORED in the Korean path. Stress multiplier forced to 1.0 for every unit. '"'/'%' create NO Primary/Secondary accent and have NO duration effect.
+P2 Nucleus/downstep replacement: NONE. No nucleus search, no +5.0st accent, no -1.5st downstep, no post-nuclear 0.5^d tail. All vowel F0 comes from the AP contour (P3-P5) plus CF0 (P6) only.
+P3 Phrase accent shape (THLH; linear interpolation between syllable anchors):
+  T (syllable 1): +1.0st if AP-initial segment is aspirated/tense (s, h, h\) [H variant], else -1.0st [L variant].
+  H (syllable 2; APs with >=3 syllables, else merged): +1.5st.
+  L (penult; APs with >=4 syllables, else the pre-final available syllable): -0.5st.
+  Short-AP mapping: 1-syllable AP = single anchor 0.0st (boundary tone only); 2-syllable AP = T then Ha; 3-syllable AP = T, H, Ha (L skipped).
+P4 AP-final Ha rise: +2.0st above the L anchor on the AP-final syllable (Ha = -0.5 + 2.0 = +1.5st when L is present; +1.5st absolute for short APs), applied if and only if the AP has >=3 syllables. APs with <3 syllables carry the boundary tone only (no independent Ha step).
+P5 IP-final boundary tone (utterance-final syllable; replaces the Ha target):
+  L% (declarative default): -3.5st relative to base, modal voicing REQUIRED (creak path disabled on the Korean voice), hard floor: final F0 clamped to >=100 Hz.
+  H% (greeting/question default; BOTH shipped demos use H%): +3.0st relative to base, modal voicing, no creak.
+P6 CF0: UNCHANGED (+10% onset decay for dur>=50ms, else flat +5%; universal phonetic effect, not a foreignness cue).
+P7 Durations: stress factor forced 1.0 for all units; initial 1.1 KEPT (AP-initial strengthening, Cho & Keating); final factor 1.3 REPLACED by 1.6 on the IP-final syllable only (Jeon/Jun 1.6-1.8 range, lower bound); ctx/poly/cluster/variance factors unchanged.
+
+G1. TDD gates (exact bounds; all must pass in 0.0.0.34.2):
+G1 korean_o_f2_neutral: Korean-path '%ho' (h-onset transparent, vowel targets unmodified); rendered F2 (mid-50% window, avg-spectrum peak-pick, same audit convention as section D) within 740 +-5% (703-777 Hz).
+G2 korean_a_f1f2_neutral: Korean-path '%ha'; F1 within 690 +-5% (656-725 Hz) AND F2 within 1165 +-8% (1072-1258 Hz).
+G3 korean_e_f2_neutral: Korean-path '%he'; F2 within 1919 +-5% (1823-2015 Hz).
+G4 korean_flat_f0_no_nucleus: Korean-path render of de-stressed '%an njVN h\asejo'; vowel-center F0 excursion over non-final syllables <=3.5st total; no vowel-center peak above +2.5st relative to base outside the final syllable; final H% target +3.0st +-0.5st.
+G5 TIs-TIN regression (hard pin): default voice, input 'TIs TIN', 8822 samples, sha256 MUST equal CFBA9EF28A1A17EEE0BA2626B64BB3877F66A51C93FCBDB9ECEA3BF99B5B455A byte-identical. Bound unchanged, no rotation allowed.
+G6 hello-unchanged (hard pin): demo/hello.wav input 'h@ "loU', 9219 samples, byte-identical to shipped demo/hello.wav. No re-render difference allowed.
+G7 Full suite green (fmt clean, clippy -D warnings clean, workspace tests, release build) still required.
+
+S1. Scope statement (what 0.0.0.34.2 must NOT touch):
+S1 Default voice path: config/default-voice.toml, the GA vowel table in vowels.rs, and the English accent path in prosody.rs keep byte-identical behavior; G5/G6 prove it.
+S2 Fricative shaping: s/h gains including the M2 h-fric -10 dB staging and CF0 behavior (P6) are out of scope.
+S3 Leveler/normalize chain: crest-aware leveler, fades, and the -12 dB floor are out of scope.
+S4 Korean work lives ONLY in a NEW voice config plus a branched vowel-target/prosody path; no existing gate bound may be edited to make Korean pass.
+End of 0.0.0.34.2 concrete spec; the implementer starts from V1/P1-P7/G1-G7/S1-S4 with no open numbers.

@@ -1,0 +1,7 @@
+[workspace]
+members = ["crates/articul-phon", "crates/articul-dsp", "crates/articul-config", "crates/articul-cli", "crates/articul-front", "crates/articul-py"]
+resolver = "2"
+
+[workspace.dependencies]
+num-bigint = "0.4"
+num-traits = "0.2"

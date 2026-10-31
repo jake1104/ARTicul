@@ -1,0 +1,24 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.80s
+     Running tests\balance.rs (target\debug\deps\balance-2b6ff1eef64abd6c.exe)
+
+running 3 tests
+test stressed_nucleus_holds_at_least_100ms ... ok
+test demo_meets_word_balance ... ok
+test old_input_violates_word_balance ... FAILED
+
+failures:
+
+---- old_input_violates_word_balance stdout ----
+
+thread 'old_input_violates_word_balance' (17752) panicked at crates\articul-cli\tests\balance.rs:112:5:
+word balance -31.6dB vs -11.7dB
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    old_input_violates_word_balance
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-cli --test balance`

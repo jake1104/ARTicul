@@ -1,0 +1,5 @@
+Task 0.0.0.7.2 benchmark gate
+Harness: crates/articul-dsp/examples/bench_resonator.rs (50 iters x 22050 samples, single 500Hz resonator)
+Measured release: rust 23.0ms iters=50 (default), rust 23.6ms vs cpp 11.7ms speedup 2.02 with --features cpp, identical sink 27.696991
+Gates: fmt clean, clippy clean default and cpp feature, test workspace 28 suites ok, release build ok, marker grep zero
+Logs: logs/0.0.0.7.2/ (bench-rust, bench-cpp, fmt-check, clippy, clippy-cpp, test-workspace, release-build, grep-markers)

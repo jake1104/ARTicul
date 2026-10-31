@@ -1,0 +1,15 @@
+   Compiling articul-phon v0.0.0 (E:\01_coding\ARTicul\crates\articul-phon)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.07s
+     Running tests\lookup.rs (target\debug\deps\lookup-9b41c70c4d41a168.exe)
+
+running 7 tests
+test lookup_all_vowel_inventory ... ok
+test lookup_all_pulmonic_inventory ... ok
+test lookup_nonpulmonic_samples ... ok
+test lookup_extipa_samples ... ok
+test lookup_unknown_returns_none ... ok
+test lookup_pulmonic_samples ... ok
+test lookup_vowel_samples ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

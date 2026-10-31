@@ -1,0 +1,89 @@
+Front-end audit: hE "loU vs TIs TIN (probe-only, read-only)
+====================================================
+Params for all plans below: rate=1.0 pitch_scale=1.0 base_f0=120.0 Hz.
+Synthesis path uses plan_utterance(); plan() shown as direct flat-sequence check.
+Raw probe output: raw_utf8.txt (this folder). Probe source kept as
+probe_dump_0018.rs.txt (probe-only, NOT part of build).
+
+1) transcribe()
+---------------
+normalize("hE \"loU") -> ["hE", "\"loU"] (whitespace split; normalize.rs:1-6).
+normalize("TIs TIN") -> ["TIs", "TIN"].
+
+Word "hE" (Xsampa::transcribe, xsampa.rs:24-89):
+  [0] "h" -> h | Glottal Fricative, Voiceless | stress Unstressed (consonants never take pending; xsampa.rs:77-84)
+  [1] "E" -> ɛ | OpenMid Front unrounded vowel, Voiced | stress Unstressed (no " or % prefix)
+  len 2, stress_len 2. No drops, no empty.
+
+Word "\"loU":
+  [0] "l" -> l | Alveolar LateralApproximant, Voiced | Unstressed
+  [1] "o" -> o | CloseMid Back rounded, Voiced | Primary (consumes '"' pending; xsampa.rs:31-35,77-84)
+  [2] "U" -> ʊ | NearClose Back rounded, Voiced | Unstressed (pending reset after vowel)
+  len 3, stress_len 3. No drops, no empty.
+
+Word "TIs": θ (Dental Fricative Vl) | ɪ (NearClose Front) | s (Alveolar Fricative Vl); all Unstressed; len 3.
+Word "TIN": θ | ɪ | ŋ (Velar Nasal Vd); all Unstressed; len 3.
+
+Flat sequences for plan():
+  hello: [h, ɛ, l, o, ʊ] stress [U,U,U,P,U]
+  tistin: [θ, ɪ, s, θ, ɪ, ŋ] stress [U,U,U,U,U,U]
+
+2) plan() flat (prosody.rs:138-183)
+-----------------------------------
+hello (total 447 ms):
+  idx sym stress   dur    f0_start  f0_end  note
+  0   h   U        71ms   134.70    131.94  intrinsic fricative-Vl 130 *0.55
+  1   ɛ   U        89ms   131.94    133.18  OpenMid 155 *0.55, sonorant next=l voiced so ctx 1.0
+  2   l   U        51ms   133.18    155.55  LatApprox 90 *0.55
+  3   o   P       165ms   155.55     80.09  nucleus (find_nucleus picks last Primary; prosody.rs:121-136) +5st accent
+  4   ʊ   U        71ms    80.09     80.09  post-nuclear final fall -7st (prosody.rs:255,275)
+  Chain check: f0_end[i]==f0[i+1] holds; last ends flat. No zero durations (min 51), no absurd F0 (80-156 Hz).
+
+tistin (total 406 ms):
+  0   θ   U        71ms   134.70    134.70
+  1   ɪ   U        66ms   134.70    125.39  NearClose 125 *0.55 *ctx 0.78 (next s voiceless obstruent; prosody.rs:159-166)
+  2   s   U        74ms   125.39    130.33
+  3   θ   U        74ms   130.33    154.49  anticipation 0.3*amp before nucleus (prosody.rs:269)
+  4   ɪ   U        71ms   154.49     80.09  bare-input nucleus defaults to last vowel (prosody.rs:254-260)
+  5   ŋ   U        50ms    80.09     80.09  Nasal 90 *0.55, final -7st
+  No zero durations (min 50), F0 80-155 Hz sane, same shape as hello.
+
+3) plan_utterance() (prosody.rs:349-492; real synthesis path via synth.rs:537-550)
+----------------------------------------------------------------------------------
+hello words: w0 [h,ɛ] stress [U,U] boundary 0.0 func false emph false;
+             w1 [l,o,ʊ] stress [U,P,U] boundary 1.0 (utterance-final max 1.0) emph true.
+  0   h   U        78ms   134.70    131.94  (flat 71 *initial 1.1; prosody.rs:430-434)
+  1   ɛ   U        89ms   131.94    133.18  unchanged
+  2   l   U        50ms   133.18    155.55  (flat 51 *variance slot shift)
+  3   o   P       148ms   155.55     80.09  (flat 165 *poly 0.9 for 2-syllable word; prosody.rs:415-419)
+  4   ʊ   U        83ms    80.09     80.09  (flat 71 *poly 0.9 *final tier 1.3; prosody.rs:435-449)
+  total 448 ms, nseg 5, no pause (only 2 words, pause needs boundary>=0.4 AND non-final; prosody.rs:475).
+  F0 track identical to flat plan() (same phrase, single-phrase space; prosody.rs:368-375).
+
+tistin words: w0 [θ,ɪ,s] boundary 0.0; w1 [θ,ɪ,ŋ] boundary 1.0; both bare, func false.
+  0   θ   U        78ms   134.70    134.70  (*initial 1.1)
+  1   ɪ   U        66ms   134.70    125.39  unchanged
+  2   s   U        74ms   125.39    130.33  unchanged
+  3   θ   U        65ms   130.33    154.49  (*cluster 0.8 prev s non-vowel, *initial 1.1; prosody.rs:425-434)
+  4   ɪ   U        92ms   154.49     80.09  (*final tier 1.3; prosody.rs:442-449)
+  5   ŋ   U        65ms    80.09     80.09  (*final tier 1.3)
+  total 440 ms, nseg 6. At 22050 Hz ~9702 raw samples; after 8 ms/50 ms crossfade overlap
+  (synth.rs:464-465,522-529) plus final fade, lands at known 8822-sample render. Consistent.
+
+4) Suspicious-input checklist
+----------------------------
+  empty phoneme: none (all words len>0; render_sentence guards all-empty at synth.rs:540-542).
+  dropped word/char: none (E->ɛ, U->ʊ, T->θ, I->ɪ, N->ŋ all resolve via lookup table phon/src/lib.rs:244-366;
+    unknown chars are skipped at xsampa.rs:64-67 but none occur here).
+  zero durations: none (min 50 ms; mindur floor prosody.rs:93-101).
+  absurd F0: none (all 80.09-155.55 Hz; start 134.70 = 120*2^(2/12) baseline +2st per prosody.rs:103-115 test).
+  stress: exactly one Primary on "o", consumed once, not leaked to ʊ; tistin correctly all-Unstressed.
+
+VERDICT: front-end SANE, not the culprit.
+Both inputs reach synthesis as well-formed phoneme/stress/duration/F0 plans through the same
+code path. The static/noise symptom for hE "loU must originate downstream (synthesis/filter/source),
+not from garbage-in at transcribe/plan. Evidence refs:
+  crates/articul-front/src/xsampa.rs:24 (transcribe), :31-35 (stress pending), :77-84 (vowel-only attach)
+  crates/articul-front/src/prosody.rs:138 (plan), :185 (f0_track), :121 (find_nucleus), :325 (parse_utterance), :349 (plan_utterance)
+  crates/articul-phon/src/lib.rs:244 (lookup)
+  crates/articul-cli/src/synth.rs:537 (render_sentence), :188 (segment_gain_db)

@@ -1,0 +1,24 @@
+== hello len=9792 pred=9792
+b1 h->E nose 2670/1600 d=1070 rms +0.00 FRIC
+b2 E->l nose 1527/1483 d=44 rms -0.00
+b3 l->o+U nose 1201/956 d=246 rms -2.91
+== annyeong len=17446 pred=17446
+b1 a->n nose 834/1536 d=701 rms +0.00
+b2 n->n nose 1526/1499 d=27 rms -0.00
+b3 n->j nose 1475/1436 d=39 rms +0.00
+b4 j->V nose 1568/1663 d=96 rms -0.00
+b5 V->N nose 2358/1505 d=853 rms -0.00
+b6 N->h nose 1534/1219 d=315 rms +0.00 FRIC
+b7 h->a nose 2661/863 d=1798 rms +0.86 FRIC
+b8 a->s nose 829/2311 d=1481 rms +3.46 FRIC
+b9 s->e nose 2701/1761 d=940 rms -4.32 FRIC
+b10 e->j nose 1658/2517 d=859 rms +0.00
+b11 j->o nose 2515/1283 d=1232 rms -3.44
+== yeobo len=14666 pred=14666
+b1 j->V nose 1399/1168 d=232 rms +0.00
+b2 V->b nose 1200/1410 d=209 rms -0.00
+b3 b->o nose 1562/1480 d=82 rms +2.13
+b4 o->s nose 1414/2311 d=897 rms +3.27 FRIC
+b5 s->e nose 2702/2764 d=62 rms -5.40 FRIC
+b6 e->j nose 2674/2511 d=163 rms -0.00
+b7 j->o nose 1503/1080 d=423 rms -1.28

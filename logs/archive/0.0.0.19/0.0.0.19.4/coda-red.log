@@ -1,0 +1,23 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.56s
+     Running tests\clear_l.rs (target\debug\deps\clear_l-244fc05f749adf48.exe)
+
+running 2 tests
+test coda_lateral_keeps_neutral_targets ... FAILED
+test lateral_has_low_f1_mid_f2 ... ok
+
+failures:
+
+---- coda_lateral_keeps_neutral_targets stdout ----
+
+thread 'coda_lateral_keeps_neutral_targets' (9960) panicked at crates\articul-cli\tests\clear_l.rs:177:5:
+word-final coda lateral must not take the 70ms onset floor, got 70ms
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    coda_lateral_keeps_neutral_targets
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.41s
+
+error: test failed, to rerun pass `-p articul-cli --test clear_l`

@@ -1,0 +1,4 @@
+wrote 9792 samples to demo/hello.wav
+samples 9792 rate 22050 ch 1 mono 16-bit (X-SAMPA hE loU stressed, config/default-voice.toml)
+sha256 34ef76e4e5f30c2cc4e65049e6dd9bec31881ba46afeeeb9f575618955869318
+deterministic demo render confirmed: probe/0.0.0.19.6/hello-check.wav byte-identical

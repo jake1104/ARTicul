@@ -1,0 +1,100 @@
+{
+  "self_consistency": {
+    "per_item": {
+      "fixed_sentence": {
+        "mcd_db": 0.0,
+        "f0_rmse_st": 0.0,
+        "voiced_agreement": 1.0,
+        "len_a": 8822,
+        "len_b": 8822
+      },
+      "demo_hello": {
+        "mcd_db": 0.0,
+        "f0_rmse_st": 0.0,
+        "voiced_agreement": 1.0,
+        "len_a": 8248,
+        "len_b": 8248
+      },
+      "creak_probe": {
+        "mcd_db": 0.0,
+        "f0_rmse_st": 0.0,
+        "voiced_agreement": 1.0,
+        "len_a": 6439,
+        "len_b": 6439
+      },
+      "gain_probe": {
+        "mcd_db": 0.0,
+        "f0_rmse_st": 0.0,
+        "voiced_agreement": 1.0,
+        "len_a": 5072,
+        "len_b": 5072
+      },
+      "cluster_probe": {
+        "mcd_db": 0.0,
+        "f0_rmse_st": 0.0,
+        "voiced_agreement": 1.0,
+        "len_a": 7785,
+        "len_b": 7785
+      },
+      "pause_probe": {
+        "mcd_db": 0.0,
+        "f0_rmse_st": 0.0,
+        "voiced_agreement": 1.0,
+        "len_a": 8535,
+        "len_b": 8535
+      }
+    },
+    "duration_corr": 1.0
+  },
+  "cross_mcd": {
+    "cluster_probe": {
+      "cluster_probe": 0.0,
+      "creak_probe": 1193.479824766027,
+      "demo_hello": 544.9351738049614,
+      "fixed_sentence": 601.8415730264694,
+      "gain_probe": 1165.1245884792118,
+      "pause_probe": 1123.6126504790554
+    },
+    "creak_probe": {
+      "cluster_probe": 1193.479824766027,
+      "creak_probe": 0.0,
+      "demo_hello": 864.682946750919,
+      "fixed_sentence": 1227.8165085479159,
+      "gain_probe": 309.5740525105358,
+      "pause_probe": 316.1688567395764
+    },
+    "demo_hello": {
+      "cluster_probe": 544.9351738049614,
+      "creak_probe": 864.682946750919,
+      "demo_hello": 0.0,
+      "fixed_sentence": 656.1664981957646,
+      "gain_probe": 720.6016327543107,
+      "pause_probe": 662.8092247631389
+    },
+    "fixed_sentence": {
+      "cluster_probe": 601.8415730264694,
+      "creak_probe": 1227.8165085479159,
+      "demo_hello": 656.1664981957646,
+      "fixed_sentence": 0.0,
+      "gain_probe": 978.0207690172336,
+      "pause_probe": 846.3446787518461
+    },
+    "gain_probe": {
+      "cluster_probe": 1165.1245884792118,
+      "creak_probe": 309.5740525105358,
+      "demo_hello": 720.6016327543107,
+      "fixed_sentence": 978.0207690172336,
+      "gain_probe": 0.0,
+      "pause_probe": 247.15372583434595
+    },
+    "pause_probe": {
+      "cluster_probe": 1123.6126504790554,
+      "creak_probe": 316.1688567395764,
+      "demo_hello": 662.8092247631389,
+      "fixed_sentence": 846.3446787518461,
+      "gain_probe": 247.15372583434595,
+      "pause_probe": 0.0
+    }
+  },
+  "vs_reference": "no reference pack supplied"
+}

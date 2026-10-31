@@ -1,0 +1,12 @@
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\tests\lateral_zero.rs:203:
+     assert!(!out.is_empty());
+     let lo = (170.0 * SR as f32 / 1000.0) as usize;
+     let hi = (210.0 * SR as f32 / 1000.0) as usize;
+[31m-    assert!(hi < out.len(), "hello interior window must fit inside output");
+[0m[32m+    assert!(
+[0m[32m+        hi < out.len(),
+[0m[32m+        "hello interior window must fit inside output"
+[0m[32m+    );
+[0m     let seg = out[lo..hi].to_vec();
+     let depth = notch_depth_db(&raw_power(&seg));
+     assert!(

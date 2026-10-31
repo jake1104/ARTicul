@@ -1,0 +1,32 @@
+0.0.0.22.4 demo regeneration
+cmd hello:    articul synthesize --text 'hE "loU' --voice config/default-voice.toml --out demo/hello.wav
+cmd annyeong: articul synthesize --text '%an njVN "hasejo' --voice config/default-voice.toml --out demo/annyeonghaseyo.wav
+cmd yeobo:    articul synthesize --text '%jV"bo%se%jo' --voice config/default-voice.toml --out demo/yeoboseyo.wav
+measured with probe/0.0.0.22.4/demo_measure.py (python3+numpy)
+
+== hello (demo/hello.wav): bytes=19628 sha256=ebac68258c1bf6c351c7bdcdc8c872764b5acea4987cf4c814d4ccbadc349c6f
+   samples=9792 sr=22050 ch=1 dur=444.1ms
+   global rms=0.2197 (-13.16dBFS) peak=0.9890 gate: rms>=0.10 peak<=0.99 -> PASS
+   halves rms1=-12.30dBFS rms2=-14.25dBFS diff=-1.95dB (|diff|<=5.0 -> PASS; floor2>-32 -> PASS)
+   centroid=1949.6Hz
+   trough max depth=-3.87dB (gate >=-12 -> PASS)
+   thirds rms=-11.79/-12.57/-16.34dBFS
+   band energy: 0-300Hz=0.451 300-3400Hz=0.541 4k+Hz=0.007
+== annyeong (demo/annyeonghaseyo.wav): bytes=34936 sha256=8d090973547761bb3ac5079247206e3a0290d86e20e8f5b1d701a82c896003c2
+   samples=17446 sr=22050 ch=1 dur=791.2ms
+   global rms=0.1113 (-19.07dBFS) peak=0.9890 gate: rms>=0.10 peak<=0.99 -> PASS
+   halves rms1=-20.12dBFS rms2=-18.23dBFS diff=+1.89dB (|diff|<=5.0 -> PASS; floor2>-32 -> PASS)
+   centroid=4479.0Hz
+   trough max depth=-10.51dB (gate >=-12 -> PASS)
+   thirds rms=-19.40/-21.94/-17.15dBFS
+   band energy: 0-300Hz=0.193 300-3400Hz=0.457 4k+Hz=0.339
+== yeobo (demo/yeoboseyo.wav): bytes=29376 sha256=4512b944ec87dfd890cb4af8a51e893369fa776954672852c771d772cadc9337
+   samples=14666 sr=22050 ch=1 dur=665.1ms
+   global rms=0.1299 (-17.73dBFS) peak=0.9890 gate: rms>=0.10 peak<=0.99 -> PASS
+   halves rms1=-16.87dBFS rms2=-18.80dBFS diff=-1.93dB (|diff|<=5.0 -> PASS; floor2>-32 -> PASS)
+   centroid=5576.4Hz
+   trough max depth=-8.97dB (gate >=-12 -> PASS)
+   thirds rms=-18.93/-14.99/-22.13dBFS
+   band energy: 0-300Hz=0.096 300-3400Hz=0.187 4k+Hz=0.706
+hello F2 trajectory [908.4, 936.0, 936.0, 1046.1, 1018.5, 1073.6]
+hello F2 rise overall 165.2 (gate >=100 -> PASS; monotonic 50Hz tol -> PASS)

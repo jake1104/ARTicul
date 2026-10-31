@@ -1,0 +1,48 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.18s
+     Running tests\room_tone.rs (target\debug\deps\room_tone-aef5605600acc8fb.exe)
+
+running 1 test
+hE "loU: rms=0.183119 full_mean_ratio=6.10 gated_median_ratio=1.00
+hE "loU g1u1 ? interior=61ms nfr=2 mean_hf=0.00037 med_hf=0.00037 tilt=26.7/27.4 stable=true
+hE "loU g3u3 o interior=128ms nfr=5 mean_hf=0.00073 med_hf=0.00029 tilt=35.7/52.3 stable=false
+hE "loU g3u4 ? interior=63ms nfr=2 mean_hf=0.00012 med_hf=0.00012 tilt=44.1/30.2 stable=false
+%an njVN "hasejo: rms=0.103675 full_mean_ratio=2.07 gated_median_ratio=1.51
+%an njVN "hasejo g0u0 a interior=151ms nfr=6 mean_hf=0.00090 med_hf=0.00066 tilt=36.4/35.3 stable=true
+%an njVN "hasejo g4u4 ? interior=60ms nfr=2 mean_hf=0.00044 med_hf=0.00044 tilt=34.0/30.6 stable=true
+%an njVN "hasejo g7u7 a interior=90ms nfr=3 mean_hf=0.00091 med_hf=0.00052 tilt=37.6/29.8 stable=false
+%an njVN "hasejo g11u11 o interior=74ms nfr=2 mean_hf=0.00050 med_hf=0.00050 tilt=35.7/33.2 stable=true
+%jV"bo%se%jo: rms=0.114574 full_mean_ratio=7.95 gated_median_ratio=1.00
+%jV"bo%se%jo g1u1 ? interior=102ms nfr=4 mean_hf=0.00019 med_hf=0.00018 tilt=39.6/32.5 stable=false
+%jV"bo%se%jo g3u3 o interior=75ms nfr=2 mean_hf=0.00152 med_hf=0.00152 tilt=29.5/48.1 stable=false
+%jV"bo%se%jo g5u5 e interior=101ms nfr=4 mean_hf=0.00075 med_hf=0.00058 tilt=36.0/29.1 stable=false
+%jV"bo%se%jo g7u7 o interior=155ms nfr=6 mean_hf=0.00109 med_hf=0.00065 tilt=35.7/42.7 stable=false
+
+
+thread 'bed_variance_bounded' (17964) panicked at crates\articul-cli\tests\room_tone.rs:266:9:
+segment HF-fraction max/min 6.10 > 3.0 for hE "loU
+hE "loU: rms=0.183119 full_mean_ratio=6.10 gated_median_ratio=1.00
+hE "loU g1u1 ? interior=61ms nfr=2 mean_hf=0.00037 med_hf=0.00037 tilt=26.7/27.4 stable=true
+hE "loU g3u3 o interior=128ms nfr=5 mean_hf=0.00073 med_hf=0.00029 tilt=35.7/52.3 stable=false
+hE "loU g3u4 ? interior=63ms nfr=2 mean_hf=0.00012 med_hf=0.00012 tilt=44.1/30.2 stable=false
+%an njVN "hasejo: rms=0.103675 full_mean_ratio=2.07 gated_median_ratio=1.51
+%an njVN "hasejo g0u0 a interior=151ms nfr=6 mean_hf=0.00090 med_hf=0.00066 tilt=36.4/35.3 stable=true
+%an njVN "hasejo g4u4 ? interior=60ms nfr=2 mean_hf=0.00044 med_hf=0.00044 tilt=34.0/30.6 stable=true
+%an njVN "hasejo g7u7 a interior=90ms nfr=3 mean_hf=0.00091 med_hf=0.00052 tilt=37.6/29.8 stable=false
+%an njVN "hasejo g11u11 o interior=74ms nfr=2 mean_hf=0.00050 med_hf=0.00050 tilt=35.7/33.2 stable=true
+%jV"bo%se%jo: rms=0.114574 full_mean_ratio=7.95 gated_median_ratio=1.00
+%jV"bo%se%jo g1u1 ? interior=102ms nfr=4 mean_hf=0.00019 med_hf=0.00018 tilt=39.6/32.5 stable=false
+%jV"bo%se%jo g3u3 o interior=75ms nfr=2 mean_hf=0.00152 med_hf=0.00152 tilt=29.5/48.1 stable=false
+%jV"bo%se%jo g5u5 e interior=101ms nfr=4 mean_hf=0.00075 med_hf=0.00058 tilt=36.0/29.1 stable=false
+%jV"bo%se%jo g7u7 o interior=155ms nfr=6 mean_hf=0.00109 med_hf=0.00065 tilt=35.7/42.7 stable=false
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test bed_variance_bounded ... FAILED
+
+failures:
+
+failures:
+    bed_variance_bounded
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.61s
+
+error: test failed, to rerun pass `-p articul-cli --test room_tone`

@@ -1,0 +1,8 @@
+   Compiling find-msvc-tools v0.1.15
+   Compiling shlex v2.0.1
+   Compiling cc v1.10.0
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `release` profile [optimized] target(s) in 1m 25s
+     Running `target\release\examples\bench_resonator.exe`
+rust_ms=23.0 iters=50 sink=27.696991
+cpp_available=false

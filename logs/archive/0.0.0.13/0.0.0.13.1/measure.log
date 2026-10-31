@@ -1,0 +1,7 @@
+USING PYTHON
+word1-alone steady rms=0.2556 n=5866
+word2-alone steady rms=0.3179 n=2669
+full word1-region rms=0.2700 n=7323
+full word2-region rms=0.0258
+standalone w1/w2 ratio=0.80
+full w1/w2 ratio=10.49

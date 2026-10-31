@@ -1,0 +1,5 @@
+Task 0.0.0.3.2 aspiration noise generator
+Tests: aspiration.rs 3 passed (unaspirated keeps base, aspirated boosts, vowel no boost)
+API: effective_aspiration(&Phoneme, base) reads secondary.aspirated only
+TOML link: source.aspiration_noise feeds GlottalSource.aspiration_noise as base value
+Logs: logs/0.0.0.3.2/red.log, green.log

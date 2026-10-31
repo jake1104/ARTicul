@@ -1,0 +1,8 @@
+Task 0.0.0.17.1 locus-equation transitions
+TDD RED: new slope tests failed (all places measured k=0.7 on old fixed 30% nudge); alveolar needed 0.3, velar 0.5.
+GREEN: locus_pull_toward rewritten as F2_onset = k*F2mid + c (labial 0.7/300, alveolar 0.3/1100, velar 0.5/1200; F3 velar pinch kept); old directional tests still pass. Sliding-window onset/mid measurement replaced with direct slope unit tests.
+Rulings: slope/intercept values are literature-shaped working numbers (Sussman ordering labial > velar > alveolar; Lindblom steep/flat), pending calibration against the reference set from 17.4; F3 kept static except velar pinch.
+Gates: fmt clean, clippy -D warnings clean, test workspace green, release build green.
+Measured CLI regression: synthesize TIs TIN default voice: 8757 samples (unchanged: no duration change), sha256 02e79c2794f0d79d1f87388d789203bcf9884340018b83c3655be7a586ad2366 (was 5287...: locus-shifted I vowels), deterministic across runs. Python parity 4/4 PASS (unchanged: hi has no locus neighbor).
+Probe: probe/0.0.0.17.1/regression-a.wav, regression-b.wav (identical). No demo change.
+Logs: logs/0.0.0.17.1/ (red, green, green2, fmt-check, clippy, test-workspace, release, cli-regression-a, cli-regression-b, cli-regression, py-build, py-copy, parity).

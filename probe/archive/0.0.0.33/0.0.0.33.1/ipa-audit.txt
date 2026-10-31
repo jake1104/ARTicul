@@ -1,0 +1,217 @@
+IPA AUDIT 0.0.0.33.1 — demo input vs standard pronunciation + rendered acoustics
+================================================================================
+Date (UTC): 2026-10-30. Voice: config/default-voice.toml, f0 default 120.
+Engine binary: target/release/articul.exe (unchanged; re-render deterministic).
+
+STEP 1 — fresh re-render, byte-identity vs demo/:
+  hello    `hE "loU`          -> 9792 samples, IDENTICAL to demo/hello.wav
+  annyeong `%an njVN "hasejo` -> 17446 samples, IDENTICAL to demo/annyeonghaseyo.wav
+  yeobo    `%jV"bo%se%jo`     -> 14666 samples, IDENTICAL to demo/yeoboseyo.wav
+  Plan spans (probe/archive/0.0.0.24/0.0.0.24.1/plan.txt) predict
+  9792/17446/14666 exactly: span table VALID for this binary.
+
+Method: per work-segment interior (10 ms edge trim), 20 ms Hann / 10 ms hop
+averaged power spectrum, peak-pick F1 200-1000 / F2 800-2800 (>F1+50) /
+F3 1800-4200 (>F2+100) + parabolic interpolation (same convention as
+0.0.0.29.1/coherence.py). Harmonic-aware cross-check in diag.txt
+(band-max F2 sometimes lands on a harmonic or F3; true resonance judged
+from peak lists). Durations from plan dur= (ms) = rendered spans (ms).
+Full numbers: measure.txt (band-max), diag.txt (peak lists + periodicity),
+mid.txt (center-third control).
+
+Tolerances: phone-identity error vs dictionary = MISMATCH regardless of
+Hz. Formant MATCH if |d| <= ~15% of reference (engine PB-calibration bound,
+0.0.0.9.1) or inside reference +/-1 SD; back-vowel F2 naturally 10-20 dB
+below F1. F1 carries openness (high perceptual weight); F2 carries
+frontness (normal coarticulation swing +/-200-300 Hz accepted with note).
+
+--------------------------------------------------------------------------------
+PER-SYLLABLE TABLE
+columns: expected standard IPA | X-SAMPA now | rendered F1/F2/F3 + dur | verdict | fix or NO-GO
+--------------------------------------------------------------------------------
+[hello] GA /həˈloʊ/
+
+he   | ə (reduced)     | E (ɛ)            | F1 575 F2 1592 F3 2672, 89 ms, per 0.76
+     | VERDICT: MISMATCH (input phone wrong: ɛ for standard ə; render is only
+     |   schwa-like via 30% unstressed centralization: engine reduced-ɛ target
+     |   = 576/1624, measured 575/1592 = engine-exact, dictionary-wrong)
+     | FIX M1: `h@ "loU` (@ = Mid central: target 520/1500, unstressed->520/1470).
+     |   Predicted: F1 575->~520, F2 1592->~1470, nucleus slightly shorter/quieter.
+     |   GATE-FLAG: hello halves -3.54 dB (bound ±5 dB); first-half energy drops
+     |   -> halves ratio rises toward bound. 0.0.0.33.2 must re-measure.
+
+"loU | ˈloʊ (GOAT)     | "loU = o+U glide  | early 479/937 -> late 415/1014, 231 ms, per 0.20
+     | VERDICT: MATCH. Glide direction o->ʊ exact (F1 falls, F2 rises);
+     |   early +11%/-4% vs o 430/980, late +4%/-8% vs ʊ 400/1100; matches engine
+     |   GOAT design F1 500->400 / F2 900->1100 (CHANGELOG 0.0.0.19). Duration
+     |   plausible for stressed diphthong. Lateral onset l 288/1384 = pinned
+     |   clear-l 300/1400. Onset h carries following-vowel F1 (534 ~= 576) + upper
+     |   pole 2670 (design: h routes to cascade + upper); voiceless onset correct
+     |   for GA /h/. FIX: keep.
+
+[annyeonghaseyo] formal /an.njʌŋ.ɦa.se.jo/ (intervocalic /h/ voiced [ɦ];
+casual contractions noted but formal assumed)
+
+an      | an            | %an = a+n        | a: F1 721, F2 broad hump ~1400 (band-max
+        |                               | grabs 6th harmonic 861), F3 2616, 179 ms;
+        |                               | n murmur 52 ms, RMS -22.1 dBFS
+        | VERDICT: MATCH. F1 +2% vs Korean a 706. F2 hump ~1400 = engine alveolar-
+        |   locus pull (0.3*1250+1100 = 1475, vowels.rs:93-99) = correct pre-nasal
+        |   design, within engine tolerance (+15% of 1250) and +23% vs Korean 1153
+        |   (broad, nasal-coda context). 179 ms long (secondary stress + phrase-
+        |   initial) but plausible prominent. FIX: keep (note locus mechanism).
+
+nyeong  | njʌŋ           | njVN = n+j+ʌ+ŋ  | ʌ: F1 ~570 (506/630 peaks), F2 WEAK in
+        |                               | 750-1250 band, DOMINANT peak 2374 (= F3
+        |                               | target 2270 +4.6%), mid-third 628/2391,
+        |                               | 88 ms unstressed, per 0.80
+        | VERDICT: MISMATCH. Nucleus target obscured: strong ~2374 resonance with
+        |   F2-region suppressed (ŋ-coda zero + j-onset domination over 88 ms
+        |   unstressed nucleus = undershoot). Same phoneme in yeo renders clean
+        |   590/1034, so phone choice V is right, realization here is not.
+        | FIX M3 (minimal input lever = stress): `%an "njVN "hasejo` (promote
+        |   nyeong to primary; durations use per-unit mark, prosody.rs:172-174).
+        |   Predicted: nucleus ~88 -> ~130-160 ms steady-state emerges, F2 hump
+        |   2374 -> ~1150-1250, F3 prominence drops toward -20 dB.
+        |   GATE-FLAG HIGH: total samples != 17446, ALL downstream spans shift;
+        |   halves (+2.95 dB)/balance/spark all move; boundary pins invalidated.
+        |   0.0.0.33.2 must fully re-measure. (Conservative alternative: accept as
+        |   heavy palatal coarticulation of casual /jʌ/; coordinator decides.)
+
+ha      | ɦa            | "ha = h+a       | h: noise pole 2665 (0 dB) + a-poles
+        |                               | 716/1222, periodic 0.37; a: F1 700, F2
+        |                               | hump ~1400 (pre-s locus), 118 ms primary
+        | VERDICT: MISMATCH (consonant voicing) + MATCH (vowel). Input h =
+        |   voiceless [h]; standard intervocalic (post-ŋ, intervocalic) = [ɦ].
+        |   h DOES carry following-vowel formants (716 ~= a F1 700) per design;
+        |   defect is voicing only (periodic 0.37, noise-dominated).
+        |   Vowel a: F1 -1% vs 706, F2 = alveolar-locus design (pre-s). MATCH.
+        | FIX M2: `%an njVN "h\asejo` (h\ -> ɦ; exists: xsampa.rs:274,
+        |   lookup lib.rs:308, longest-match tokenizer xsampa.rs:53-63 safe).
+        |   Predicted: periodicity 0.37 -> vowel-like ~0.7, 2665 pole softens,
+        |   h->a RMS step smooths (-22.2 -> nearer -21.3).
+        |   GATE-FLAG: annyeong halves +2.95 dB; mid-file energy shift, mild risk.
+
+se      | se            | se = s+e        | e: F1 534 F2 1744, 66 ms unstressed,
+        |                               | per 0.76; s: HF pole 4193, RMS -11.8
+        | VERDICT: MATCH. F2 -2% vs engine reduced-e target 1785, -9% vs Korean
+        |   1919. F1 +9% (4th-harmonic quantization at f0~133). 66 ms = natural
+        |   unstressed reduction (x0.55). s manner/place correct (loud HF parallel
+        |   fricative). FIX: keep.
+
+jo      | jo            | jo = j+o        | o: F1 477 F2 1072 (-15 dB hump, genuine
+        |                               | resonance), 94 ms unstressed, per 0.65;
+        |                               | j onset 41 ms (F2 2526 = palatal ✓)
+        | VERDICT: MATCH (phone identity + F1 +5%) with F2 aspect NO-GO N1:
+        |   1072 = engine reduced-o target 1085 EXACT, but +43% vs Korean ㅗ 750.
+        |   No input symbol renders [o]+F2-750 (O = ɔ wrong height; u worse).
+        | FIX: none (NO-GO N1, vowels.rs:43) — keep `o`. STOP that item.
+
+[yeoboseyo] /jʌ.bo.se.jo/ (lenis ㅂ intervocalic -> [b] ✓ input b correct)
+
+yeo  | jʌ           | %jV = j+ʌ       | ʌ: F1 590 F2 1034 (-13.8 dB clean hump)
+     |                              | F3 2246, 130 ms secondary, per 0.92
+     | VERDICT: MATCH. F1 -2% vs engine 600 and Korean ~600; F2 -10% vs engine
+     |   1150, -1.5% vs Korean ~1050. Cleanest nucleus of the audit. FIX: keep.
+
+bo   | bo ([b] allo.)| "bo = b+o      | o: F1 468, F2 broad weak 750-1400 (band-max
+     |                              | 1390 = 9th-harmonic artifact, -23 dB, no sharp
+     |                              | resonance); 103 ms primary, per 0.70; b 41 ms
+     | VERDICT: MATCH (broad). F1 +6% vs Korean 441, exact vs engine 480. F2 energy
+     |   spans both references without a sharp off-target resonance; midpoint
+     |   control identical (468/1398). b manner correct. FIX: keep (note: F2 weak,
+     |   transition shoulders into s widen the average; no input lever).
+
+se   | se           | %se = s+e       | e: F1 501, true F2 ~1954-2080 (band-max 2713
+     |                              | is F3 = target 2700 artifact), 129 ms, per 0.56
+     | VERDICT: MATCH. F1 +5% vs Korean 479; F2 +2..+8% vs 1919; F3 exact.
+     |   (Band-max picker grabbed F3 because F3 -12.2 dB > F2 -16.8 dB; peak list
+     |   resolves.) FIX: keep.
+
+jo   | jo           | %jo = j+o       | o: F1 479 F2 948 (-14.4 dB hump), 175 ms
+     |                              | secondary+final, per 0.77
+     | VERDICT: MATCH (phone identity + F1 +9%) with F2 aspect NO-GO N1:
+     |   948 = engine o target 950 EXACT, +26% vs Korean 750 (+1.3 SD).
+     |   Renders textbook GA [o]; Korean ㅗ is backer. Input-unfixable.
+     | FIX: none (NO-GO N1) — keep `o`. STOP that item.
+
+Stress-placement audit: hello " on loU = GA /həˈloʊ/ ✓. Korean strings carry
+%/": Korean has NO phonemic stress; marks are engine-prosody scaffolding
+(unstressed x0.55 -> natural short 66 ms se; secondary keeps nuclei audible
+under declination+floor stack per 0.0.0.21.1 ruling). No change proposed: any
+stress edit = certain gate breakage (duration + gain overhaul). Accepted
+approximation, documented.
+
+Duration plausibility: nuclei 66-231 ms; unstressed short (66/88/94 ms) =
+natural reduction; stressed/secondary long (103-231 ms) ✓. an-a 179 ms noted
+prominent (initial + secondary) but plausible. No duration MISMATCH.
+Consonant manner/place: n/ŋ murmur low RMS correct positions (45-52 ms);
+alveolar-vs-velar contrast below DFT-peak resolution (noted limitation); s
+voiceless alveolar HF correct x2/x1; b voiced lenis correct; j palatal correct
+(associated undershoot in 41 ms unstressed onsets noted); l clear 288/1384
+pinned; h(fricative path + upper pole) by design.
+
+--------------------------------------------------------------------------------
+MISMATCH LIST (input-fixable; NOT applied — 0.0.0.33.2 owns regen)
+--------------------------------------------------------------------------------
+M1. hello/he: current E (ɛ) vs expected ə. Fix: `h@ "loU`.
+    Predicted: F1 575->~520, F2 1592->~1470, nucleus slightly shorter/quieter.
+    Gate risk: hello halves (-3.54 dB vs ±5 dB bound) rises. FLAG.
+M2. annyeong/ha-onset: current h (voiceless) vs expected [ɦ] (intervocalic voicing).
+    Fix: `%an njVN "h\asejo`. Predicted: periodicity 0.37->~0.7, noise pole
+    softens, h->a RMS step smooths. Gate risk: annyeong halves (+2.95 dB) mild shift. FLAG.
+M3. annyeong/nyeong nucleus: rendered F2-region suppressed + dominant 2374 (F3)
+    vs expected ㅓ ~600/1050 (same V renders 590/1034 in yeo). Fix (only minimal
+    input lever): `%an "njVN "hasejo` (stress promotion lengthens/unreduces nucleus).
+    Predicted: F2 hump -> ~1150-1250, F3 prominence drops, nucleus ~88->~130-160 ms.
+    Gate risk: HIGH — sample count changes, all spans/halves/balance/spark move. FLAG.
+
+NO-GO LIST (needs ENGINE code beyond input choice — listed, NOT fixed)
+--------------------------------------------------------------------------------
+N1. Korean /o/ F2 backness (annyeong jo-o +26..+43%, yeobo jo-o +26% vs e-csd 750):
+    engine CloseMid-Back-rounded target F2 = 950, reduced 1085
+    (crates/articul-dsp/src/vowels.rs:43 target cell; :107-113 reduction 0.3
+    toward 520/1400). Renders GA-exact [o]; Korean ㅗ is backer. No X-SAMPA symbol
+    gives [o]+F2-750 (O = ɔ wrong height per xsampa.rs:302; u worse). STOP item, keep `o`.
+    (bo-o 468/broad-750-1400 graded MATCH-broad, same cause, no sharp resonance.)
+No other NO-GO: E/@/h/h\/V/N/o/e/j/n/s/b/l all exist with correct IPA targets
+(xsampa.rs:230-308; lookup lib.rs:244-350); tokenizer longest-match handles h\
+(xsampa.rs:53-63); stress attach per xsampa.rs:24-89.
+
+Gate-break plausibility of ALL three fixes: M1 shifts hello halves toward bound;
+M2 shifts annyeong mid-file energy; M3 with certainty moves samples/halves/RMS/
+centroid/spark (sample-count change). NONE applied here. 0.0.0.33.2 must re-render
++ full gates + TIs-TIN hash confirm + halves/RMS/centroid/spark vs baselines.
+
+--------------------------------------------------------------------------------
+REFERENCE TABLE (values + sources)
+--------------------------------------------------------------------------------
+GA male (adult):
+  ə:  500/1500/2500  — neutral tube + schwa example; Manitoba adult-male table
+  ɛ:  600/1930       — Manitoba table (F1/F2)
+  ʌ:  680/1310       — Manitoba table
+  o:  430/980        — Manitoba table; ʊ: 400/1100 (GOAT o->ʊ direction)
+  e:  405/2080       — Manitoba table
+  Source 1: University of Manitoba, "Acoustic Phonetics: Formants" (L. Russell),
+    home.cc.umanitoba.ca/~krussll/phonetics/acoustic/formants.html (adult-male
+    Canadian-English figures; GA-adjacent reference).
+  Source 2 (canonical GA): Hillenbrand, Getty, Clark & Wheeler (1995), "Acoustic
+    characteristics of American English vowels", JASA 97:3099-3111 (values
+    consistent with Source 1 within inter-study range).
+Korean male:
+  a:  705.9/1152.7   e: 479.2/1918.6   o: 441.1/749.7 (±SD 88-218)
+  Source: normative large-sample Korean vowel study, e-csd.org/upload/csd-31-1-119.pdf
+    (Communication Sciences & Disorders; male means: a_F1 705.9±151.5,
+    a_F2 1152.7±183.4; e_F1 479.2±97.7, e_F2 1918.6±217.8; o_F1 441.1±88.1,
+    o_F2 749.7±156.2).
+  ʌ (ㅓ): ~600 / ~950-1150 APPROX — Yang, B. (1996), "A comparative study of
+    American English and Korean vowels...", J. Phonetics 24:245-261 (Fig. 4 Korean
+    male space: ㅓ back-mid between ㅏ and ㅗ) anchored to GA ʌ 680/1310; explicit
+    range used because no exact published male mean was retrievable offline.
+Engine own-targets cited for mechanism notes (all match rendered within picking
+error): vowels.rs:15-62 (F1/F2 cells), :63-79 (F3), :90-105 locus pulls
+(alveolar 0.3*F2+1100), :107-113 unstressed 30% centralization to 520/1400;
+prosody.rs:172-174 unstressed x0.55; GOAT F1 500->400/F2 900->1100 (CHANGELOG
+0.0.0.19); clear-l 300/1400 (0.0.0.20.x pin); h cascade+upper (todo 0.0.0.18.x).
+X-SAMPA map: N->ŋ (:259), h\->ɦ (:274), U->ʊ (:289), @->ə (:296), E->ɛ (:297),
+V->ʌ (:301), O->ɔ (:302); lookup h 307/ɦ 308, vowels 309-336.

@@ -1,0 +1,60 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.83s
+     Running unittests src\lib.rs (target\debug\deps\articul_front-f5c3b4887d233ab0.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\integration.rs (target\debug\deps\integration-a473cdf337513b39.exe)
+
+running 2 tests
+test sentence_produces_phonemes_with_prosody ... ok
+test digits_do_not_break_pipeline ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\normalize.rs (target\debug\deps\normalize-8c80ea6a9b088e38.exe)
+
+running 4 tests
+test drops_empty_input ... ok
+test preserves_case ... ok
+test keeps_punctuation_for_transcriber ... ok
+test splits_on_whitespace ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\prosody.rs (target\debug\deps\prosody-794f4189c96b22bd.exe)
+
+running 4 tests
+test faster_rate_shortens_durations ... ok
+test f0_declines_across_utterance ... ok
+test long_vowel_gets_more_time ... ok
+test plan_length_matches_input ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\xsampa.rs (target\debug\deps\xsampa-6ed8007bf6312db7.exe)
+
+running 12 tests
+test aspiration_suffix_sets_flag ... ok
+test length_mark_sets_long ... ok
+test backslash_forms_resolve ... ok
+test implosive_suffix_resolves ... ok
+test dental_suffix_shifts_place ... ok
+test nasal_suffix_marks_nasal ... ok
+test lower_letters_match_ipa ... ok
+test question_mark_is_glottal_stop ... ok
+test table_is_replaceable ... ok
+test skips_unknown_chars ... ok
+test upper_letters_are_distinct_phonemes ... ok
+test ejective_suffix_resolves ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests articul_front
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

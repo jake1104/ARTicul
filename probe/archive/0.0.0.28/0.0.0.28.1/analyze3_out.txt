@@ -1,0 +1,23 @@
+=== PROPOSAL DELTAS (new-old dB per segment) ===
+fixed_sentence: +6.00 +2.25 +3.50 +6.00 +3.75 +6.00
+demo_hello: +5.00 +2.25 +4.50 +1.50 +3.75
+creak_probe: +4.00 +0.50
+gain_probe: +1.75 +0.50 +2.75
+cluster_probe: +2.50 +0.50 +4.50 +1.50 +4.00
+pause_probe: +1.75 +2.25 +1.00 +3.25
+annyeong: +0.00 +4.50 +5.00 +5.00 +3.75 +6.00 +6.00 +3.50 +6.00 +6.00 +6.00 +6.00
+yeobo: +3.50 +0.50 +1.00 +1.50 +4.50 +2.50 +6.00 +3.50
+=== GRID: cap x prescale on proposal (simulated outputs) ===
+gates: rms>=0.10 peak<=0.99 trough>=-14 tail>=0.03 halves|d|<=5 spark_uncl<0.9
+cap=16.0 pre=1.25: hello[rms=0.234 tr=-3.2 tail=0.155 halves=-3.1 spark=0.963 cl=11 maxgdb=14.3 fail] annye[rms=0.120 tr=-12.2 tail=0.154 halves=+3.0 spark=0.980 cl=8 maxgdb=16.0 fail] yeobo[rms=0.135 tr=-10.3 tail=0.079 halves=-2.4 spark=0.867 cl=19 maxgdb=16.0 PASS]
+cap=16.0 pre=1.10: hello[rms=0.207 tr=-3.2 tail=0.137 halves=-3.1 spark=0.979 cl=4 maxgdb=14.3 fail] annye[rms=0.106 tr=-12.2 tail=0.137 halves=+3.1 spark=0.863 cl=3 maxgdb=16.0 PASS] yeobo[rms=0.119 tr=-10.3 tail=0.069 halves=-2.3 spark=0.763 cl=10 maxgdb=16.0 PASS]
+cap=16.0 pre=1.00: hello[rms=0.188 tr=-3.2 tail=0.124 halves=-3.1 spark=0.983 cl=1 maxgdb=14.3 fail] annye[rms=0.096 tr=-12.2 tail=0.125 halves=+3.1 spark=0.784 cl=1 maxgdb=16.0 fail] yeobo[rms=0.109 tr=-10.4 tail=0.063 halves=-2.2 spark=0.957 cl=1 maxgdb=16.0 fail]
+cap=12.0 pre=1.25: hello[rms=0.234 tr=-3.2 tail=0.153 halves=-3.1 spark=0.963 cl=11 maxgdb=12.0 fail] annye[rms=0.118 tr=-12.3 tail=0.151 halves=+2.9 spark=0.980 cl=8 maxgdb=12.0 fail] yeobo[rms=0.129 tr=-10.3 tail=0.055 halves=-3.4 spark=0.867 cl=19 maxgdb=12.0 PASS]
+cap=12.0 pre=1.10: hello[rms=0.206 tr=-3.2 tail=0.134 halves=-3.2 spark=0.979 cl=4 maxgdb=12.0 fail] annye[rms=0.104 tr=-12.3 tail=0.134 halves=+3.0 spark=0.863 cl=3 maxgdb=12.0 PASS] yeobo[rms=0.114 tr=-10.3 tail=0.048 halves=-3.3 spark=0.763 cl=10 maxgdb=12.0 PASS]
+cap=12.0 pre=1.00: hello[rms=0.187 tr=-3.2 tail=0.122 halves=-3.2 spark=0.983 cl=1 maxgdb=12.0 fail] annye[rms=0.094 tr=-12.4 tail=0.122 halves=+3.0 spark=0.784 cl=1 maxgdb=12.0 fail] yeobo[rms=0.104 tr=-10.4 tail=0.044 halves=-3.2 spark=0.957 cl=1 maxgdb=12.0 fail]
+cap=10.0 pre=1.25: hello[rms=0.233 tr=-3.2 tail=0.149 halves=-3.2 spark=0.963 cl=11 maxgdb=10.0 fail] annye[rms=0.113 tr=-12.8 tail=0.148 halves=+3.5 spark=0.980 cl=8 maxgdb=10.0 fail] yeobo[rms=0.125 tr=-11.5 tail=0.043 halves=-4.0 spark=0.867 cl=19 maxgdb=10.0 PASS]
+cap=10.0 pre=1.10: hello[rms=0.205 tr=-3.2 tail=0.131 halves=-3.3 spark=0.979 cl=4 maxgdb=10.0 fail] annye[rms=0.100 tr=-12.8 tail=0.131 halves=+3.5 spark=0.863 cl=3 maxgdb=10.0 fail] yeobo[rms=0.111 tr=-11.5 tail=0.038 halves=-3.8 spark=0.763 cl=10 maxgdb=10.0 PASS]
+cap=10.0 pre=1.00: hello[rms=0.187 tr=-3.2 tail=0.119 halves=-3.3 spark=0.983 cl=1 maxgdb=10.0 fail] annye[rms=0.091 tr=-12.8 tail=0.120 halves=+3.5 spark=0.784 cl=1 maxgdb=10.0 fail] yeobo[rms=0.101 tr=-11.6 tail=0.035 halves=-3.8 spark=0.958 cl=1 maxgdb=10.0 fail]
+cap= 8.0 pre=1.25: hello[rms=0.232 tr=-3.2 tail=0.146 halves=-3.3 spark=0.963 cl=11 maxgdb=8.0 fail] annye[rms=0.109 tr=-13.0 tail=0.145 halves=+4.0 spark=0.981 cl=8 maxgdb=8.0 fail] yeobo[rms=0.120 tr=-12.7 tail=0.034 halves=-4.2 spark=0.867 cl=19 maxgdb=8.0 PASS]
+cap= 8.0 pre=1.10: hello[rms=0.205 tr=-3.2 tail=0.129 halves=-3.3 spark=0.979 cl=4 maxgdb=8.0 fail] annye[rms=0.096 tr=-13.0 tail=0.128 halves=+4.0 spark=0.863 cl=3 maxgdb=8.0 fail] yeobo[rms=0.107 tr=-12.8 tail=0.030 halves=-4.1 spark=0.763 cl=10 maxgdb=8.0 PASS]
+cap= 8.0 pre=1.00: hello[rms=0.186 tr=-3.2 tail=0.117 halves=-3.3 spark=0.983 cl=1 maxgdb=8.0 fail] annye[rms=0.087 tr=-13.0 tail=0.117 halves=+4.0 spark=0.784 cl=1 maxgdb=8.0 fail] yeobo[rms=0.097 tr=-12.8 tail=0.028 halves=-4.0 spark=0.958 cl=1 maxgdb=8.0 fail]

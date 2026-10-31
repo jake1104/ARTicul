@@ -1,0 +1,10 @@
+Task 0.0.0.11.4 nuclear accent with final fall
+TDD RED: 4 new prosody tests failed on old linear F0 (1.0-0.2*pos): baseline first 120 vs ~134.7, nucleus 96 vs ~151.2, final 96 vs ~80.1, bare-input peak at index 0 vs last vowel.
+GREEN: plan() now computes semitone F0: three-part declination baseline (+2st hold below 20%, linear fall to -1st at 80%, hold after), nucleus = last Primary vowel else last Secondary else last vowel gets +5st H*, post-nuclear segments interpolate linearly in st domain from nucleus peak to -7st at utterance end (deaccent + final fall). No-vowel utterances keep baseline with -7st final. Single-vowel and nucleus-final utterances keep +5st with no fall.
+Ruling: nucleus-final utterances keep the accent and skip the fall; precise st targets are asserted within 2-3Hz; prenuclear accents are out of scope (12.1).
+Files: crates/articul-front/src/prosody.rs, crates/articul-front/tests/prosody.rs.
+Tests: prosody.rs 13 passed (9 existing incl. f0_declines_across_utterance, 4 new); full workspace suite green.
+Gates: fmt clean, clippy -D warnings clean, test workspace green, release build green.
+Measured CLI regression: synthesize TIs TIN default voice: 7897 samples (durations unchanged), sha256 57367d5c598bd9e8d4c093b9410a1b9984fe8814259b25815add678d2b2dd8f4, deterministic across runs (11.3 bytes differed: expected, F0 contour changed). Python parity 4/4 PASS (synthesize len=3286, vowel-a f2/f1=0.131 in [0.05,0.5]).
+Probe: probe/0.0.0.11.4/regression-a.wav, regression-b.wav (identical).
+Logs: logs/0.0.0.11.4/ (red, green, fmt, fmt-check, clippy, test-workspace, release, cli-regression-a, cli-regression-b, cli-regression, py-build, py-copy, parity).

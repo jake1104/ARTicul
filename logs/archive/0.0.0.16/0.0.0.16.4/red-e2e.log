@@ -1,0 +1,24 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.89s
+     Running tests\nasal.rs (target\debug\deps\nasal-12e2452b50d01e8a.exe)
+
+running 2 tests
+test nasal_zero_dips_harder_than_oral ... FAILED
+test alveolar_context_lifts_f2_over_labial ... ok
+
+failures:
+
+---- nasal_zero_dips_harder_than_oral stdout ----
+
+thread 'nasal_zero_dips_harder_than_oral' (14992) panicked at crates\articul-cli\tests\nasal.rs:26:5:
+m 0.30058002 vs b 0.30057982
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    nasal_zero_dips_harder_than_oral
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-cli --test nasal`

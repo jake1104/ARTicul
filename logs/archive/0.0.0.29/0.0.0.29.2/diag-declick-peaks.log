@@ -1,0 +1,14 @@
+annyeong-s11 win=[15373,15593) d0val=0.1071
+  rank d=7 (0.32ms) val=0.9608 
+  rank d=28 (1.27ms) val=0.9553 
+  rank d=6 (0.27ms) val=0.9496 
+  rank d=29 (1.32ms) val=0.9218 
+  rank d=5 (0.23ms) val=0.8932 
+  clamped-in-window=0
+yeobo-s7 win=[10807,11027) d0val=0.0901
+  rank d=7 (0.32ms) val=0.9311 
+  rank d=6 (0.27ms) val=0.9233 
+  rank d=28 (1.27ms) val=0.8931 
+  rank d=5 (0.23ms) val=0.8741 
+  rank d=29 (1.32ms) val=0.8730 
+  clamped-in-window=0

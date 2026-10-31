@@ -1,0 +1,8 @@
+annyeong a-u0 full F1=721 F2=860 F3=2616 | mid-third F1=720 F2=865 F3=2609
+annyeong V-u4 full F1=504 F2=2374 F3=2482 | mid-third F1=628 F2=2391 F3=3315
+annyeong a-u7 full F1=702 F2=813 F3=2630 | mid-third F1=769 F2=834 F3=3280
+annyeong o-u11 full F1=477 F2=1072 F3=2256 | mid-third F1=455 F2=1090 F3=2355
+yeobo V-u1 full F1=590 F2=1034 F3=2246 | mid-third F1=589 F2=1035 F3=2295
+yeobo o-u3 full F1=469 F2=1390 F3=2301 | mid-third F1=468 F2=1398 F3=2302
+yeobo o-u7 full F1=479 F2=953 F3=2335 | mid-third F1=470 F2=948 F3=2306
+hello E-u1 full F1=575 F2=1592 F3=2672 | mid-third F1=579 F2=1594 F3=3225

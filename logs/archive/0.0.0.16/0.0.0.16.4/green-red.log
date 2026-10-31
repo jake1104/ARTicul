@@ -1,0 +1,12 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.49s
+     Running tests\vowel_reduction.rs (target\debug\deps\vowel_reduction-c6e6f61e6e5fd9f6.exe)
+
+running 4 tests
+test consonant_has_no_reduced_targets ... ok
+test unstressed_a_centralizes ... ok
+test stressed_vowel_keeps_full_targets ... ok
+test unstressed_i_centralizes ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

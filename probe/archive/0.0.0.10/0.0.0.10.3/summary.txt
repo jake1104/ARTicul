@@ -1,0 +1,4 @@
+Task 0.0.0.10.3 end-to-end revalidation (superseded by .4/.5, kept as record)
+First pass after LF mapping v1 (tp 0.59-0.8, ta 0.02-0.06): null test green, synth_vowels green, gates green.
+Regression re-baselined post-LF: 'TIs TIN' 11468 samples, sha256 c5767f82...3925ba (deterministic).
+hello.wav regenerated: 10762 samples.

@@ -1,0 +1,31 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.70s
+     Running tests\glide.rs (target\debug\deps\glide-33896f7d641bca3b.exe)
+
+running 4 tests
+test glide_keeps_length_and_stays_finite ... ok
+test falling_glide_lengthens_periods ... FAILED
+test rising_glide_shortens_periods ... FAILED
+test flat_glide_matches_flat_period_count ... ok
+
+failures:
+
+---- falling_glide_lengthens_periods stdout ----
+
+thread 'falling_glide_lengthens_periods' (12632) panicked at crates\articul-dsp\tests\glide.rs:33:24:
+range end index 5 out of range for slice of length 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- rising_glide_shortens_periods stdout ----
+
+thread 'rising_glide_shortens_periods' (468) panicked at crates\articul-dsp\tests\glide.rs:42:24:
+range end index 5 out of range for slice of length 0
+
+
+failures:
+    falling_glide_lengthens_periods
+    rising_glide_shortens_periods
+
+test result: FAILED. 2 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-dsp --test glide`

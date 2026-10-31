@@ -1,0 +1,20 @@
+samples=9792 total_ms=444.08 sr=22050
+l-window nominal: 167.0-237.0 ms (samples 3682-5225)
+interior steady: 182.0-222.0 ms (N=882)
+F1 peak: 301.5 Hz (-25.79 dB)
+F2 peak: 915.2 Hz (-53.01 dB)
+F3 peak: 2885.4 Hz (-54.04 dB)
+F1 bandwidth (-3dB): 53.8 Hz (274.5-328.4 Hz)
+F2-region (1.2-1.6kHz) median: -56.35 dB
+valley (1.9-2.5kHz) median: -57.16 dB
+F3-region (2.5-2.9kHz) median: -56.91 dB
+notch depth (median envelope): 0.25 dB
+2-3kHz minimum: 2842.4 Hz (-68.96 dB)
+neighbor peak lo: 1049.7 Hz (-53.15 dB)
+neighbor peak hi: 2885.4 Hz (-54.04 dB)
+notch depth vs lo: 15.80 dB
+notch depth vs hi: 14.91 dB
+notch depth (min side): 14.91 dB
+RMS plateau: median -26.54 dBFS, longest +-1dB run 3 frames = 15.0 ms
+E-l edge 167.0 ms: before -29.78 dB, after -30.07 dB, slope -0.29 dB/10ms
+l-o edge 237.0 ms: before -24.43 dB, after -23.93 dB, slope +0.50 dB/10ms

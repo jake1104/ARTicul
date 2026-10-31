@@ -1,0 +1,4 @@
+hello samples=9792 rms=0.1831 peak=0.9890 tailrms=0.1234 trough=-2.76 halves=5.16
+annyeong samples=17446 rms=0.1037 peak=0.9890 tailrms=0.1334 trough=-12.31 halves=-3.64
+yeobo samples=14666 rms=0.1146 peak=0.9890 tailrms=0.0501 trough=-10.40 halves=6.36
+regression-a samples=8822 rms=0.0931 peak=0.9890 tailrms=0.0357 trough=-21.69 halves=0.37

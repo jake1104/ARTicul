@@ -1,0 +1,8 @@
+Task 0.0.0.16.1 excitation naturalness (dsp, duration-free)
+TDD RED: new voice_quality tests failed to compile (no generate_creak); behavioral RED pending compile.
+GREEN: GlottalSource gains deterministic seeded jitter (0.8%/period, white) + shimmer (3.0%/period) + flow-gated aspiration noise (0.3 + 0.7*flow) in all four generate paths; generate_creak alternates period multipliers 1.0 vs 1/(1+0.6d) with depth ramped in over the final 60%, wired in render_unit for utterance-final voiced segments.
+Ruling (systematic debugging, isolated per knob): deterministic flutter (1.5%@6Hz) was REMOVED after single-knob tests proved it alone trips the no-deep-notches gate (notch 0.012 at 990Hz): coherent slow FM interferes across a 1s analysis window (analysis artifact, inaudible in running speech), while white jitter/shimmer pass with margin. Slow pitch movement stays covered by F0 glide + declination. Kept threshold tests honest: dsp creak test uses max/min ratio (threshold crossings dilute alternation); e2e creak uses autocorr spread after measurement showed crossing-count metrics confound formant ringing with F0.
+Gates: fmt clean, clippy -D warnings clean, test workspace green, release build green.
+Measured CLI regression: synthesize TIs TIN default voice: 8536 samples (unchanged: no duration change), sha256 fedc6e749240b34c74b6f88f27ab10fe2c054f798015066390b48e3c0c76142f, deterministic across runs. Python parity 4/4 PASS (synthesize len=3043, vowel-a f2/f1=0.265).
+Probe: probe/0.0.0.16.1/regression-a.wav, regression-b.wav (identical). No demo change.
+Logs: logs/0.0.0.16.1/ (red, green*, fmt-check, clippy x2, test-workspace x2, isolate-*, release, cli-regression-a, cli-regression-b, cli-regression, py-build, py-copy, parity, tail-debug*).

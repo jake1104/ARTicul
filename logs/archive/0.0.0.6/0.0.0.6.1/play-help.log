@@ -1,0 +1,7 @@
+Usage: articul.exe play [OPTIONS] --text <TEXT> --voice <VOICE>
+
+Options:
+      --text <TEXT>    
+      --voice <VOICE>  
+      --f0 <F0>        [default: 120]
+  -h, --help           Print help

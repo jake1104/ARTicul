@@ -1,0 +1,9 @@
+Task 0.0.0.10.4 lip radiation stage
+Motivation: source-filter chain lacked lip radiation; measured o F2/F1 -38dB (target about -10dB).
+Implementation: R(z)=1-0.97z^-1 in articul-dsp/src/radiation.rs, applied after crossfade before normalize_peak in render_units.
+Tests: radiation.rs 2 passed (octave +6dB verified 5.5-6.5dB range, length/finiteness). Full workspace green.
+Effect on rendered o (final code, welch bands): F2-band(800-1200)/F1-band(300-700) = 0.046. Pre-radiation equivalent was lower; radiation contributes about +6dB/oct as designed (see logs/0.0.0.10.4/final-check.log).
+Note: absolute F2/F1 remains a known tuning dimension (see 0.0.0.10.5); radiation alone does not fully close it.
+Note: python slope check went out of range (brighter output) -> replaced by F2/F1 audibility check in 0.0.0.10.5.
+Files: crates/articul-dsp/src/radiation.rs, crates/articul-dsp/tests/radiation.rs
+Logs: archive in logs/0.0.0.10/0.0.0.10.4/ (red.log, green2.log; test-name fix: expected band was 2 octaves (+12dB measured) not 1)

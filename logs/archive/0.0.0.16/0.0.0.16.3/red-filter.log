@@ -1,0 +1,21 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+error[E0599]: no method named `step` found for struct `CascadeFilter` in the current scope
+  --> crates\articul-dsp\tests\filter_interp.rs:19:45
+   |
+19 |     let b: Vec<f32> = tone.iter().map(|s| f.step(*s)).collect();
+   |                                             ^^^^ method not found in `CascadeFilter`
+
+error[E0599]: no method named `retune` found for struct `CascadeFilter` in the current scope
+  --> crates\articul-dsp\tests\filter_interp.rs:32:7
+   |
+32 |     g.retune(&[(1000.0, 120.0)]);
+   |       ^^^^^^ method not found in `CascadeFilter`
+
+error[E0599]: no method named `retune` found for struct `ParallelFilter` in the current scope
+  --> crates\articul-dsp\tests\filter_interp.rs:43:7
+   |
+43 |     g.retune(&[(6000.0, 500.0, 1.0)]);
+   |       ^^^^^^ method not found in `ParallelFilter`
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `articul-dsp` (test "filter_interp") due to 3 previous errors

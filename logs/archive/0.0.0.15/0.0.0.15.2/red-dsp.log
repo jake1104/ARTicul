@@ -1,0 +1,51 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+error[E0599]: no method named `generate_glide` found for struct `GlottalSource` in the current scope
+  --> crates\articul-dsp\tests\glide.rs:24:26
+   |
+24 |     let out = src(120.0).generate_glide(0.2, 22050, 100.0);
+   |                          ^^^^^^^^^^^^^^
+   |
+help: there is a method `generate` with a similar name, but with different arguments
+  --> E:\01_coding\ARTicul\crates\articul-dsp\src\source.rs:12:5
+   |
+12 |     pub fn generate(&self, duration_secs: f32, sample_rate: u32) -> Vec<f32> {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no method named `generate_glide` found for struct `GlottalSource` in the current scope
+  --> crates\articul-dsp\tests\glide.rs:31:26
+   |
+31 |     let out = src(132.0).generate_glide(0.2, 22050, 108.0);
+   |                          ^^^^^^^^^^^^^^
+   |
+help: there is a method `generate` with a similar name, but with different arguments
+  --> E:\01_coding\ARTicul\crates\articul-dsp\src\source.rs:12:5
+   |
+12 |     pub fn generate(&self, duration_secs: f32, sample_rate: u32) -> Vec<f32> {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no method named `generate_glide` found for struct `GlottalSource` in the current scope
+  --> crates\articul-dsp\tests\glide.rs:40:26
+   |
+40 |     let out = src(108.0).generate_glide(0.2, 22050, 132.0);
+   |                          ^^^^^^^^^^^^^^
+   |
+help: there is a method `generate` with a similar name, but with different arguments
+  --> E:\01_coding\ARTicul\crates\articul-dsp\src\source.rs:12:5
+   |
+12 |     pub fn generate(&self, duration_secs: f32, sample_rate: u32) -> Vec<f32> {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no method named `generate_glide` found for struct `GlottalSource` in the current scope
+  --> crates\articul-dsp\tests\glide.rs:49:29
+   |
+49 |     let glided = src(120.0).generate_glide(0.2, 22050, 120.0);
+   |                             ^^^^^^^^^^^^^^
+   |
+help: there is a method `generate` with a similar name, but with different arguments
+  --> E:\01_coding\ARTicul\crates\articul-dsp\src\source.rs:12:5
+   |
+12 |     pub fn generate(&self, duration_secs: f32, sample_rate: u32) -> Vec<f32> {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `articul-dsp` (test "glide") due to 4 previous errors

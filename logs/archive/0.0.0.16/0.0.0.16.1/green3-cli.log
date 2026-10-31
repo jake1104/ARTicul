@@ -1,0 +1,24 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.05s
+     Running tests\cf0.rs (target\debug\deps\cf0-411ea725cfca2caf.exe)
+
+running 3 tests
+test cf0_threshold_selects_flat_or_decay ... ok
+test final_voiced_segment_runs_irregular ... ok
+test vowel_onset_after_voiceless_obstruent_runs_faster ... FAILED
+
+failures:
+
+---- vowel_onset_after_voiceless_obstruent_runs_faster stdout ----
+
+thread 'vowel_onset_after_voiceless_obstruent_runs_faster' (22076) panicked at crates\articul-cli\tests\cf0.rs:87:5:
+f0 lift ratio=1.2195122
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    vowel_onset_after_voiceless_obstruent_runs_faster
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-cli --test cf0`

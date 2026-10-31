@@ -1,0 +1,84 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.46s
+     Running unittests src\lib.rs (target\debug\deps\articul_dsp-6710147bf3d1db5d.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\aspiration.rs (target\debug\deps\aspiration-d5e5fe99da4a896e.exe)
+
+running 3 tests
+test aspirated_boosts_noise ... ok
+test nasalized_vowel_does_not_boost_aspiration ... ok
+test unaspirated_keeps_base_noise ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\cascade.rs (target\debug\deps\cascade-b7b706dba30e66b5.exe)
+
+running 3 tests
+test impulse_response_decays ... ok
+test cascade_preserves_length_and_stays_finite ... ok
+test single_resonator_prefers_its_formant ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\cpp_parity.rs (target\debug\deps\cpp_parity-4b11e5f649705130.exe)
+
+running 2 tests
+test cpp_flag_consistent ... ok
+test cpp_matches_rust_single_resonator ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\nasal_frication.rs (target\debug\deps\nasal_frication-473092003e2000c8.exe)
+
+running 5 tests
+test frication_level_boosted_for_voiceless_fricative ... ok
+test frication_silence_at_zero_level ... ok
+test frication_noisy_at_positive_level ... ok
+test nasal_branch_needed_for_m_not_p ... ok
+test nasal_widens_bandwidth ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\parallel.rs (target\debug\deps\parallel-7f18fc147ce3a55c.exe)
+
+running 3 tests
+test amplitude_scales_linearly ... ok
+test parallel_sum_matches_single_sum ... ok
+test zero_amplitude_gives_silence ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\source.rs (target\debug\deps\source-08ed8aee80e5d624.exe)
+
+running 3 tests
+test aspiration_adds_energy_to_closed_phase ... ok
+test pulse_peak_count_matches_f0 ... ok
+test pulse_train_length_matches_duration ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\spectrum.rs (target\debug\deps\spectrum-8e23dc6e0c262f97.exe)
+
+running 1 test
+test glottal_spectrum_falls_about_12db_per_oct ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\stability.rs (target\debug\deps\stability-33b69d81e7ae3102.exe)
+
+running 2 tests
+test impulse_peak_near_formant ... ok
+test grid_stable_and_decaying ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+   Doc-tests articul_dsp
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

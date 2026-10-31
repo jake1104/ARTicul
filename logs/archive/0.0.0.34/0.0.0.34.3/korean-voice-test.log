@@ -1,0 +1,15 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.24s
+     Running tests\korean_voice.rs (target\debug\deps\korean_voice-6a17673f94fbbfeb.exe)
+
+running 8 tests
+test sha256_self_check ... ok
+test korean_a_f1f2_neutral ... ok
+test korean_e_f2_neutral ... ok
+test korean_o_f2_neutral ... ok
+test tis_tin_unchanged_default_voice ... ok
+test hello_unchanged_default_voice ... ok
+test korean_flat_f0_no_nucleus_yeobo ... ok
+test korean_flat_f0_no_nucleus_annyeong ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+

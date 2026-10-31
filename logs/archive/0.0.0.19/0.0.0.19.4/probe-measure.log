@@ -1,0 +1,33 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.38s
+     Running tests\probe_tmp.rs (target\debug\deps\probe_tmp-ad5f2852fd454213.exe)
+
+running 1 test
+TEXT="la i=0 sym=l dur=70 stress=Unstressed pause=false
+TEXT="la i=1 sym=a dur=246 stress=Primary pause=false
+TEXT="la out_len=6792
+TEXT="la lateral_window=110..1258 len=1148
+TEXT="la peak_near_300=Some(296.08154)
+TEXT="la peak_near_1400=Some(1343.1335)
+TEXT="la peak_near_2800=Some(2807.3914)
+TEXT=hE "loU i=0 sym=h dur=78 stress=Unstressed pause=false
+TEXT=hE "loU i=1 sym=? dur=89 stress=Unstressed pause=false
+TEXT=hE "loU i=2 sym=l dur=70 stress=Unstressed pause=false
+TEXT=hE "loU i=3 sym=o dur=148 stress=Primary pause=false
+TEXT=hE "loU i=4 sym=? dur=83 stress=Unstressed pause=false
+TEXT=hE "loU out_len=9792
+TEXT=hE "loU lateral_window=3792..4764 len=972
+TEXT=hE "loU peak_near_300=Some(293.3899)
+TEXT=hE "loU peak_near_1400=Some(1340.4419)
+TEXT=hE "loU peak_near_2800=Some(2858.5327)
+TEXT=la i=0 sym=l dur=54 stress=Unstressed pause=false
+TEXT=la i=1 sym=a dur=135 stress=Unstressed pause=false
+TEXT=la out_len=3992
+TEXT=la lateral_window=110..905 len=795
+TEXT=la peak_near_300=Some(444.1223)
+TEXT=la peak_near_1400=Some(1477.7161)
+TEXT=la peak_near_2800=Some(2454.7852)
+test probe_measure ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.88s
+

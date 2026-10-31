@@ -1,0 +1,27 @@
+0.0.0.35.3 demo measurements (all 22050Hz mono 16-bit; tool probe/0.0.0.35.3/measure_35_3.py)
+=== Part A: new demos (report-only vs 34.3/33.2 baselines) ===
+== hello: bytes=18482 sha256=e7dac81264390236bbaac4fef757d230ca913f26098fccca55852eedea623e7e
+   samples=9219 (418.1ms) rms=0.1321 (-17.58dBFS) peak=0.9890 clamp>=0.985:1
+   halves -16.91/-18.37 diff=-1.47 (|diff|<=5 -> PASS; 2nd>-32 -> PASS) centroid=2274.7Hz trough=-1.33dB tail-third-rms=0.1017
+== annyeong: bytes=57430 sha256=7ceec7dfc84e9b572a23a0d6506aa58133767c47e142549d2743c1f26c63b200
+   samples=28693 (1301.3ms) rms=0.0652 (-23.72dBFS) peak=0.9890 clamp>=0.985:3
+   halves -26.41/-22.07 diff=+4.34 (|diff|<=5 -> PASS; 2nd>-32 -> PASS) centroid=5536.5Hz trough=-15.89dB tail-third-rms=0.0860
+== yeobo: bytes=37800 sha256=bef5da97fd661df974a41d8ad87178505ada043dcfb06b405e7567e9212db1cb
+   samples=18878 (856.1ms) rms=0.0669 (-23.50dBFS) peak=0.9890 clamp>=0.985:3
+   halves -24.86/-22.46 diff=+2.39 (|diff|<=5 -> PASS; 2nd>-32 -> PASS) centroid=6125.8Hz trough=-15.94dB tail-third-rms=0.0364
+=== Part B: hello GOAT F2 (span per 33.2: o_start=1720+1389+1544-3*176) ===
+hello F2 trajectory [908.4, 963.5, 1018.5, 1018.5, 1018.5, 1128.7]
+hello F2 rise overall 220.2 (gate >=100 -> PASS; monotonic 50Hz tol -> PASS)
+=== Part C: lifelike spot-check on sustain_a.wav (rendered a:a:) ===
+sustain samples=5844
+jitter: n_periods=12 local_jitter=0.0129 (band 0.005-0.010 -> FAIL)
+k1: n_frames=6 circular_std=0.297 rad (>0.14 gate; >0.12 floor -> PASS)
+microtremor: n_win=23 detrended_rel_std=0.0076 (>=0.004 -> PASS)
+=== Part D: spot table (six eval corpus items, report-only) ===
+fixed_sentence samples= 8822 rms= -20.59dBFS centroid=  6215.6Hz sha=9385ab30c7a9c46f
+demo_hello     samples= 9792 rms= -16.75dBFS centroid=  2289.6Hz sha=8d74b77f52e8bbef
+creak_probe    samples= 6439 rms= -10.03dBFS centroid=  1280.8Hz sha=1dadf81f42173e83
+gain_probe     samples= 5072 rms= -12.98dBFS centroid=  2027.9Hz sha=d5eff43fc9c9be01
+cluster_probe  samples= 7785 rms= -18.82dBFS centroid=  5161.1Hz sha=f3ac9931300ed5b9
+pause_probe    samples= 8535 rms= -13.68dBFS centroid=  1892.7Hz sha=dc2910ec61068d6a
+demo_hello spot-vs-live byte-identical: False (expected False: spot uses old input hE loU, live uses h@ loU)

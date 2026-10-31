@@ -1,0 +1,11 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.16s
+     Running tests\fricative_shaping.rs (target\debug\deps\fricative_shaping-e6026bd374c43275.exe)
+
+running 3 tests
+test postalveolar_peak_sits_below_alveolar ... ok
+test sibilant_shaping_carries_more_high_frequency_than_weak ... ok
+test voiced_pair_splits_the_same_way ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

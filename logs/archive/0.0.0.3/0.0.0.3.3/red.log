@@ -1,0 +1,9 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+error[E0425]: cannot find function `spectral_slope_db_per_oct` in crate `articul_dsp`
+  --> crates\articul-dsp\tests\spectrum.rs:12:30
+   |
+12 |     let slope = articul_dsp::spectral_slope_db_per_oct(&out, 22050);
+   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^ not found in `articul_dsp`
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `articul-dsp` (test "spectrum") due to 1 previous error

@@ -1,0 +1,1893 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+   Compiling articul-py v0.0.0 (E:\01_coding\ARTicul\crates\articul-py)
+    Finished `release` profile [optimized] target(s) in 13.58s
+fixed_sentence rc=0 samples=8822 sha=cd82781276c13d4a
+demo_hello rc=0 samples=9792 sha=2b348b80b8d6355c
+creak_probe rc=0 samples=6439 sha=251b54fd270bffe6
+gain_probe rc=0 samples=5072 sha=8882869cd6298fb5
+cluster_probe rc=0 samples=7785 sha=caeefdebf1923766
+pause_probe rc=0 samples=8535 sha=bb3563403667293d
+annyeong rc=0 samples=17446 sha=e6898c0f4f047533
+yeobo rc=0 samples=14666 sha=3134b4a5736a3922
+old_input rc=0 samples=7852 sha=9f55ab0852ad1d81
+fixed_sentence full-sha match CFBA: False
+identity demo_hello vs demo/hello.wav: False (sizes 19628/19628)
+identity annyeong vs demo/annyeonghaseyo.wav: False (sizes 34936/34936)
+identity yeobo vs demo/yeoboseyo.wav: False (sizes 29376/29376)
+done
+== fixed_sentence n=8822 groups=6
+start1 pos=1544 unclamped=0.175944 clamped=0 ok
+start2 pos=2823 unclamped=0.059648 clamped=0 ok
+start3 pos=4279 unclamped=0.807442 clamped=1 ok
+start4 pos=5536 unclamped=0.224106 clamped=0 ok
+start5 pos=7389 unclamped=0.298725 clamped=0 ok
+== demo_hello n=9792 groups=4
+start1 pos=1544 unclamped=0.866704 clamped=0 ok
+start2 pos=3330 unclamped=0.629216 clamped=0 ok
+start3 pos=4698 unclamped=0.389303 clamped=0 ok
+== creak_probe n=6439 groups=2
+start1 pos=1015 unclamped=0.515603 clamped=0 ok
+== gain_probe n=5072 groups=3
+start1 pos=1588 unclamped=0.646756 clamped=0 ok
+start2 pos=2448 unclamped=0.460247 clamped=0 ok
+== cluster_probe n=7785 groups=5
+start1 pos=1544 unclamped=0.947793 clamped=1 SPARK
+start2 pos=2294 unclamped=0.227626 clamped=0 ok
+start3 pos=2912 unclamped=0.300506 clamped=0 ok
+start4 pos=6308 unclamped=0.299977 clamped=0 ok
+== pause_probe n=8535 groups=4
+start1 pos=1169 unclamped=0.619135 clamped=0 ok
+start2 pos=4521 unclamped=0.974763 clamped=0 SPARK
+start3 pos=5602 unclamped=0.742798 clamped=0 ok
+== annyeong n=17446 groups=12
+start1 pos=3771 unclamped=0.224992 clamped=0 ok
+start2 pos=4742 unclamped=0.234145 clamped=0 ok
+start3 pos=5558 unclamped=0.193356 clamped=0 ok
+start4 pos=6286 unclamped=0.189461 clamped=0 ok
+start5 pos=8050 unclamped=0.177905 clamped=0 ok
+start6 pos=8866 unclamped=0.107255 clamped=0 ok
+start7 pos=9837 unclamped=0.336970 clamped=0 ok
+start8 pos=12263 unclamped=0.088106 clamped=0 ok
+start9 pos=13366 unclamped=0.712409 clamped=0 ok
+start10 pos=14645 unclamped=0.305560 clamped=0 ok
+start11 pos=15373 unclamped=0.960809 clamped=0 SPARK
+== yeobo n=14666 groups=8
+start1 pos=772 unclamped=0.231015 clamped=0 ok
+start2 pos=3463 unclamped=0.245514 clamped=0 ok
+start3 pos=4191 unclamped=0.461823 clamped=0 ok
+start4 pos=6286 unclamped=0.090193 clamped=0 ok
+start5 pos=7411 unclamped=0.563032 clamped=0 ok
+start6 pos=10079 unclamped=0.211080 clamped=0 ok
+start7 pos=10807 unclamped=0.931132 clamped=0 SPARK
+== old_input n=7852 groups=5
+start1 pos=1544 unclamped=0.970538 clamped=1 SPARK
+start2 pos=4962 unclamped=0.324777 clamped=0 ok
+start3 pos=5889 unclamped=0.348533 clamped=0 ok
+start4 pos=6022 unclamped=0.417243 clamped=0 ok
+engine-vs-probe match: ALL OK (mismatches=0)
+=== PER-ITEM PLANNED (V2 table) ===
+fixed_sentence n=6 min=-6.00 max=-2.25 spread=3.75 worst_step=3.75(u0->u1) floor_n=3 declmax=-2.5 fin_n=1
+   step u0(\u03b8)->u1(\u026a): +3.75dB
+   step u1(\u026a)->u2(s): -1.25dB
+   step u2(s)->u3(\u03b8): -2.50dB
+   step u3(\u03b8)->u4(\u026a): +2.25dB
+   step u4(\u026a)->u5(\u014b): -2.25dB
+demo_hello n=5 min=-6.00 max=-1.50 spread=4.50 worst_step=3.75(u0->u1) floor_n=1 declmax=-2.0 fin_n=0
+   step u0(h)->u1(\u025b): +3.75dB
+   step u1(\u025b)->u2(l): -2.25dB
+   step u2(l)->u3(o): +3.00dB
+   step u3(o)->u4(\u028a): -2.25dB
+creak_probe n=2 min=-4.00 max=-0.50 spread=3.50 worst_step=3.50(u0->u1) floor_n=0 declmax=-0.5 fin_n=0
+   step u0(m)->u1(a): +3.50dB
+gain_probe n=3 min=-2.75 max=-0.50 spread=2.25 worst_step=2.25(u1->u2) floor_n=0 declmax=-1.0 fin_n=0
+   step u0(a)->u1(p): +1.25dB
+   step u1(p)->u2(a): -2.25dB
+cluster_probe n=5 min=-4.50 max=-0.50 spread=4.00 worst_step=4.00(u1->u2) floor_n=0 declmax=-2.0 fin_n=1
+   step u0(s)->u1(p): +2.00dB
+   step u1(p)->u2(r): -4.00dB
+   step u2(r)->u3(i): +3.00dB
+   step u3(i)->u4(t): -2.50dB
+pause_probe n=4 min=-3.25 max=-1.00 spread=2.25 worst_step=2.25(u2->u3) floor_n=0 declmax=-1.5 fin_n=0
+   step u0(a)->u1(a): -0.50dB
+   step u1(a)->u2(p): +1.25dB
+   step u2(p)->u3(a): -2.25dB
+annyeong n=12 min=-6.00 max=0.00 spread=6.00 worst_step=4.50(u0->u1) floor_n=6 declmax=-5.5 fin_n=0
+   step u0(a)->u1(n): -4.50dB
+   step u1(n)->u2(n): -0.50dB
+   step u2(n)->u3(j): +0.00dB
+   step u3(j)->u4(\u028c): +1.25dB
+   step u4(\u028c)->u5(\u014b): -2.25dB
+   step u5(\u014b)->u6(h): +0.00dB
+   step u6(h)->u7(a): +2.50dB
+   step u7(a)->u8(s): -2.50dB
+   step u8(s)->u9(e): +0.00dB
+   step u9(e)->u10(j): +0.00dB
+   step u10(j)->u11(o): +0.00dB
+yeobo n=8 min=-6.00 max=-0.50 spread=5.50 worst_step=3.50(u5->u6) floor_n=1 declmax=-3.5 fin_n=0
+   step u0(j)->u1(\u028c): +3.00dB
+   step u1(\u028c)->u2(b): -0.50dB
+   step u2(b)->u3(o): -0.50dB
+   step u3(o)->u4(s): -3.00dB
+   step u4(s)->u5(e): +2.00dB
+   step u5(e)->u6(j): -3.50dB
+   step u6(j)->u7(o): +2.50dB
+old_input n=5 min=-6.00 max=-0.50 spread=5.50 worst_step=5.50(u0->u1) floor_n=1 declmax=-2.0 fin_n=0
+   step u0(h)->u1(\u025b): +5.50dB
+   step u1(\u025b)->u2(l): -4.00dB
+   step u2(l)->u3(\u0259): +1.25dB
+   step u3(\u0259)->u4(\u028a): -0.50dB
+GLOBAL planned: min=-6.00 max=0.00 spread=6.00 n=50 floor_n=12 (>=floor -6: 12) near0(>=-1)=8
+=== PER-ARM (planned, incl decl/fin/floor) ===
+   approximant        n= 7 min= -6.00 max= -3.50 mean= -4.86
+   h-fric             n= 3 min= -6.00 max= -6.00 mean= -6.00
+   nasal              n= 5 min= -6.00 max= -4.00 mean= -5.10
+   other-stop         n= 5 min= -4.00 max= -0.50 mean= -1.40
+   sibilant           n= 4 min= -6.00 max= -2.50 mean= -4.12
+   stressed-vowel     n=10 min= -3.50 max=  0.00 mean= -1.55
+   unstressed-vowel   n=14 min= -6.00 max= -1.75 mean= -3.32
+   weak-fric          n= 2 min= -6.00 max= -6.00 mean= -6.00
+=== FLOOR HITS (-6) ===
+   fixed_sentence: u0(\u03b8,weak-fric,base=-9.0,decl=-0.0,fin=0.0), u3(\u03b8,weak-fric,base=-9.0,decl=-1.5,fin=0.0), u5(\u014b,nasal,base=-4.0,decl=-2.5,fin=-2.0)
+   demo_hello: u0(h,h-fric,base=-10.0,decl=-0.0,fin=0.0)
+   annyeong: u5(\u014b,nasal,base=-4.0,decl=-2.5,fin=0.0), u6(h,h-fric,base=-10.0,decl=-3.0,fin=0.0), u8(s,sibilant,base=-2.5,decl=-4.0,fin=0.0), u9(e,unstressed-vowel,base=-1.8,decl=-4.5,fin=0.0), u10(j,approximant,base=-3.5,decl=-5.0,fin=0.0), u11(o,unstressed-vowel,base=-1.8,decl=-5.5,fin=0.0)
+   yeobo: u6(j,approximant,base=-3.5,decl=-3.0,fin=0.0)
+   old_input: u0(h,h-fric,base=-10.0,decl=-0.0,fin=0.0)
+=== DECLINATION CAP (idx>=12 -> decl=-6.0) ===
+   segments at decl cap: 0
+   deepest decl in corpus: -5.5 dB
+=== UNCLIPPED SPREAD (base+decl+fin, floor removed) ===
+   min=-13.00 max=0.00 spread=13.00; floor hides 7.00dB
+=== DYNAMIC-RANGE SPLIT (planned side) ===
+   arm-base values in corpus: [-10.0, -9.0, -4.0, -3.5, -2.5, -1.8, 0.0] (range 10.0 dB)
+   decl values in corpus: min -5.5 max -0.0 (range 5.5 dB)
+   fin values in corpus: [-2.0, 0.0]
+   FINAL FADE (post-gain, engine FINAL_FADE_DB=-12dB over final<=150ms): up to -12dB depth on the final segment tail
+  File "E:\01_coding\ARTicul\probe\0.0.0.30.1\analyze_level.py", line 40
+    float(np.max(np.abs(y - ref))))))
+                                    ^
+SyntaxError: unmatched ')'
+Traceback (most recent call last):
+  File "E:\01_coding\ARTicul\probe\0.0.0.30.1\analyze_level.py", line 7, in <module>
+    from gchain import *
+  File "E:\01_coding\ARTicul\probe\0.0.0.30.1\gchain.py", line 232
+    return float(np.sqrt((np.asarray(v) * np.asarray(v)).mean())) if len(v) else 0.0)
+                                                                                    ^
+SyntaxError: unmatched ')'
+=== WAV vs F32 CROSS-CHECK (quantization bound) ===
+fixed_sentence max|wav-f32|=3.80e-05 OK
+demo_hello max|wav-f32|=3.68e-05 OK
+creak_probe max|wav-f32|=4.35e-05 OK
+gain_probe max|wav-f32|=2.99e-05 OK
+cluster_probe max|wav-f32|=3.95e-05 OK
+pause_probe max|wav-f32|=4.11e-05 OK
+annyeong max|wav-f32|=3.89e-05 OK
+yeobo max|wav-f32|=4.05e-05 OK
+old_input max|wav-f32|=3.74e-05 OK
+=== 28.3-vs-CURRENT DELTA (demos on disk are 28.3) ===
+demo_hello: rms 0.1831 -> 0.1659 (-0.86dB), peak 0.9890 -> 0.8667, maxabs-diff 1.0003
+annyeong: rms 0.1037 -> 0.0953 (-0.73dB), peak 0.9890 -> 0.9608, maxabs-diff 0.6710
+yeobo: rms 0.1146 -> 0.0980 (-1.36dB), peak 0.9890 -> 0.9311, maxabs-diff 0.9424
+=== FULL-CHAIN INVERSION (leveler + coherence) ===
+fixed_sentence inw=21 G=0.3750(-8.52dB) resid=2.55e-05 fwdres=2.55e-05
+   makeup dB: max= 12.00 mean=  9.95 p50= 12.00 frac>=12(cap)=0.667
+   makeup lin: max= 3.98x mean= 3.40x | TOTAL lift max= 1.49x mean= 1.27x frac>=4x=0.000
+   coherence: target=0.0590 range -6.00..+6.00dB nclipped=4 Gc=1.2059
+demo_hello inw=23 G=47810.5535(+93.59dB) resid=1.22e-01 fwdres=1.22e-01
+   makeup dB: max= 11.57 mean=  2.39 p50=  1.36 frac>=12(cap)=0.000
+   makeup lin: max= 3.66x mean= 1.40x | TOTAL lift max=174920.59x mean=66708.45x frac>=4x=1.000
+   coherence: target=0.2174 range -0.25..+0.42dB nclipped=0 Gc=0.9767
+creak_probe inw=15 G=1.1186(+0.97dB) resid=1.70e-05 fwdres=1.70e-05
+   makeup dB: max=  7.65 mean=  0.95 p50=  1.01 frac>=12(cap)=0.000
+   makeup lin: max= 2.28x mean= 1.15x | TOTAL lift max= 2.55x mean= 1.29x frac>=4x=0.000
+   coherence: target=0.2525 range +0.00..+0.00dB nclipped=0 Gc=1.0000
+gain_probe inw=12 G=1087900000.0000(+180.73dB) resid=3.42e-01 fwdres=3.42e-01
+   makeup dB: max= 12.00 mean= 12.00 p50= 12.00 frac>=12(cap)=1.000
+   makeup lin: max= 3.98x mean= 3.94x | TOTAL lift max=4331007908.33x mean=4288707608.04x frac>=4x=1.000
+   coherence: target=0.0000 range -1.67..+1.42dB nclipped=0 Gc=84969.8684
+cluster_probe inw=18 G=0.3250(-9.76dB) resid=1.77e-05 fwdres=1.77e-05
+   makeup dB: max= 12.00 mean=  9.21 p50= 12.00 frac>=12(cap)=0.556
+   makeup lin: max= 3.98x mean= 3.20x | TOTAL lift max= 1.29x mean= 1.04x frac>=4x=0.000
+   coherence: target=0.0707 range -6.00..+6.00dB nclipped=3 Gc=1.0719
+pause_probe inw=20 G=0.0292(-30.68dB) resid=1.42e-04 fwdres=1.42e-04
+   makeup dB: max= 12.00 mean=  6.33 p50=  5.65 frac>=12(cap)=0.400
+   makeup lin: max= 3.98x mean= 2.46x | TOTAL lift max= 0.12x mean= 0.07x frac>=4x=0.000
+   coherence: target=0.1405 range -6.00..+6.00dB nclipped=3 Gc=1.6171
+annyeong inw=40 G=1.5490(+3.80dB) resid=2.82e-02 fwdres=2.82e-02
+   makeup dB: max= 12.00 mean= 10.35 p50= 12.00 frac>=12(cap)=0.575
+   makeup lin: max= 3.98x mean= 3.46x | TOTAL lift max= 6.17x mean= 5.37x frac>=4x=0.875
+   coherence: target=0.0833 range -6.00..+6.00dB nclipped=2 Gc=1.0921
+yeobo inw=34 G=15.7704(+23.96dB) resid=5.79e-02 fwdres=5.79e-02
+   makeup dB: max= 12.00 mean= 10.66 p50= 12.00 frac>=12(cap)=0.676
+   makeup lin: max= 3.98x mean= 3.57x | TOTAL lift max=62.78x mean=56.37x frac>=4x=1.000
+   coherence: target=0.1029 range -6.00..+6.00dB nclipped=3 Gc=0.9907
+old_input inw=18 G=2.0185(+6.10dB) resid=1.76e-05 fwdres=1.76e-05
+   makeup dB: max= 12.00 mean=  2.77 p50=  1.44 frac>=12(cap)=0.111
+   makeup lin: max= 3.74x mean= 1.52x | TOTAL lift max= 7.54x mean= 3.07x frac>=4x=0.222
+   coherence: target=0.1677 range -1.74..+0.98dB nclipped=0 Gc=0.9356
+=== CLAMP CENSUS (global |x|>=0.985) + SPARK WINDOWS (gate mirror) ===
+demo_hello n=9792 clamp_n=0 worst_win=0.8667 mean_win=0.6284
+   start1 pos=1544 unclamped=0.8667 clamped=0 ok
+   start2 pos=3330 unclamped=0.6292 clamped=0 ok
+   start3 pos=4698 unclamped=0.3893 clamped=0 ok
+annyeong n=17446 clamp_n=0 worst_win=0.9608 mean_win=0.3210
+   start1 pos=3771 unclamped=0.2250 clamped=0 ok
+   start2 pos=4742 unclamped=0.2341 clamped=0 ok
+   start3 pos=5558 unclamped=0.1934 clamped=0 ok
+   start4 pos=6286 unclamped=0.1895 clamped=0 ok
+   start5 pos=8050 unclamped=0.1779 clamped=0 ok
+   start6 pos=8866 unclamped=0.1072 clamped=0 ok
+   start7 pos=9837 unclamped=0.3370 clamped=0 ok
+   start8 pos=12263 unclamped=0.0881 clamped=0 ok
+   start9 pos=13366 unclamped=0.7124 clamped=0 ok
+   start10 pos=14645 unclamped=0.3055 clamped=0 ok
+   start11 pos=15373 unclamped=0.9608 clamped=0 SPARK
+yeobo n=14666 clamp_n=0 worst_win=0.9311 mean_win=0.3905
+   start1 pos=772 unclamped=0.2310 clamped=0 ok
+   start2 pos=3463 unclamped=0.2455 clamped=0 ok
+   start3 pos=4191 unclamped=0.4618 clamped=0 ok
+   start4 pos=6286 unclamped=0.0902 clamped=0 ok
+   start5 pos=7411 unclamped=0.5630 clamped=0 ok
+   start6 pos=10079 unclamped=0.2111 clamped=0 ok
+   start7 pos=10807 unclamped=0.9311 clamped=0 SPARK
+fixed_sentence n=8822 clamp_n=1 worst_win=0.8074 mean_win=0.3132
+   start1 pos=1544 unclamped=0.1759 clamped=0 ok
+   start2 pos=2823 unclamped=0.0597 clamped=0 ok
+   start3 pos=4279 unclamped=0.8074 clamped=1 ok
+   start4 pos=5536 unclamped=0.2241 clamped=0 ok
+   start5 pos=7389 unclamped=0.2987 clamped=0 ok
+cluster_probe n=7785 clamp_n=1 worst_win=0.9478 mean_win=0.4440
+   start1 pos=1544 unclamped=0.9478 clamped=1 SPARK
+   start2 pos=2294 unclamped=0.2276 clamped=0 ok
+   start3 pos=2912 unclamped=0.3005 clamped=0 ok
+   start4 pos=6308 unclamped=0.3000 clamped=0 ok
+pause_probe n=8535 clamp_n=2 worst_win=0.9747 mean_win=0.7789
+   start1 pos=1169 unclamped=0.6191 clamped=0 ok
+   start2 pos=4521 unclamped=0.9747 clamped=0 SPARK
+   start3 pos=5602 unclamped=0.7428 clamped=0 ok
+creak_probe n=6439 clamp_n=23 worst_win=0.5156 mean_win=0.5156
+   start1 pos=1015 unclamped=0.5156 clamped=0 ok
+gain_probe n=5072 clamp_n=0 worst_win=0.6467 mean_win=0.5535
+   start1 pos=1588 unclamped=0.6467 clamped=0 ok
+   start2 pos=2448 unclamped=0.4602 clamped=0 ok
+old_input n=7852 clamp_n=1 worst_win=0.9705 mean_win=0.5153
+   start1 pos=1544 unclamped=0.9705 clamped=1 SPARK
+   start2 pos=4962 unclamped=0.3248 clamped=0 ok
+   start3 pos=5889 unclamped=0.3485 clamped=0 ok
+   start4 pos=6022 unclamped=0.4172 clamped=0 ok
+=== CURRENT-TREE GATE METRICS (28.3 baselines in parens) ===
+demo_hello halves=-3.03 (28.3 -3.16) trough=-2.71 (-2.76) rms=0.1659 (0.1831) tail=0.1129
+annyeong halves=+1.55 (28.3 +2.99) trough=-5.20 (-12.31) rms=0.0953 (0.1037) tail=0.1092
+yeobo halves=-0.19 (28.3 -3.11) trough=-7.61 (-10.40) rms=0.0980 (0.1146) tail=0.0858
+done level
+it=0 maxpre=8.667e-01 maxf=0.9890 G=1.245e+00 Gc=9.760e-01 cresid=1.971e-01
+   ratio: frac<0.25=0.000 frac>4=0.000 fracneg=0.000
+it=1 maxpre=7.680e-01 maxf=0.9890 G=1.413e+00 Gc=9.770e-01 cresid=1.223e-01
+   ratio: frac<0.25=0.000 frac>4=0.000 fracneg=0.000
+it=2 maxpre=8.763e-01 maxf=0.9890 G=1.611e+00 Gc=9.771e-01 cresid=1.369e-01
+   ratio: frac<0.25=0.000 frac>4=0.000 fracneg=0.000
+it=3 maxpre=8.630e-01 maxf=0.9890 G=1.837e+00 Gc=9.771e-01 cresid=1.223e-01
+   ratio: frac<0.25=0.000 frac>4=0.000 fracneg=0.000
+it=4 maxpre=8.130e-01 maxf=0.9890 G=2.097e+00 Gc=9.769e-01 cresid=1.223e-01
+   ratio: frac<0.25=0.000 frac>4=0.000 fracneg=0.000
+it=5 maxpre=7.315e-01 maxf=0.9890 G=2.392e+00 Gc=9.768e-01 cresid=1.223e-01
+   ratio: frac<0.25=0.000 frac>4=0.000 fracneg=0.000
+it=6 maxpre=6.466e-01 maxf=0.9890 G=2.730e+00 Gc=9.767e-01 cresid=1.223e-01
+   ratio: frac<0.25=0.000 frac>4=0.000 fracneg=0.000
+it=7 maxpre=5.679e-01 maxf=0.9890 G=3.115e+00 Gc=9.767e-01 cresid=1.223e-01
+   ratio: frac<0.25=0.000 frac>4=0.000 fracneg=0.000
+it=8 maxpre=4.976e-01 maxf=0.9890 G=3.555e+00 Gc=9.766e-01 cresid=1.223e-01
+   ratio: frac<0.25=0.000 frac>4=0.000 fracneg=0.000
+it=9 maxpre=4.358e-01 maxf=0.9890 G=4.057e+00 Gc=9.766e-01 cresid=1.223e-01
+   ratio: frac<0.25=0.000 frac>4=0.000 fracneg=0.000
+it=10 maxpre=3.816e-01 maxf=0.9890 G=4.629e+00 Gc=9.766e-01 cresid=1.223e-01
+   ratio: frac<0.25=0.000 frac>4=0.000 fracneg=0.000
+it=11 maxpre=3.342e-01 maxf=0.9890 G=5.283e+00 Gc=9.766e-01 cresid=1.223e-01
+   ratio: frac<0.25=0.000 frac>4=0.000 fracneg=0.000
+=== WAV vs F32 CROSS-CHECK (quantization bound) ===
+fixed_sentence max|wav-f32|=3.80e-05 OK
+demo_hello max|wav-f32|=3.68e-05 OK
+creak_probe max|wav-f32|=4.35e-05 OK
+gain_probe max|wav-f32|=2.99e-05 OK
+cluster_probe max|wav-f32|=3.95e-05 OK
+pause_probe max|wav-f32|=4.11e-05 OK
+annyeong max|wav-f32|=3.89e-05 OK
+yeobo max|wav-f32|=4.05e-05 OK
+old_input max|wav-f32|=3.74e-05 OK
+=== 28.3-vs-CURRENT DELTA (demos on disk are 28.3) ===
+demo_hello: rms 0.1831 -> 0.1659 (-0.86dB), peak 0.9890 -> 0.8667, maxabs-diff 1.0003
+annyeong: rms 0.1037 -> 0.0953 (-0.73dB), peak 0.9890 -> 0.9608, maxabs-diff 0.6710
+yeobo: rms 0.1146 -> 0.0980 (-1.36dB), peak 0.9890 -> 0.9311, maxabs-diff 0.9424
+=== FULL-CHAIN INVERSION (leveler + coherence) ===
+fixed_sentence inw=21 G=0.6538(-3.69dB) resid=1.53e-05 fwdres=1.53e-05
+   makeup dB: max= 12.00 mean=  9.95 p50= 12.00 frac>=12(cap)=0.667
+   makeup lin: max= 3.98x mean= 3.40x | TOTAL lift max= 2.60x mean= 2.22x frac>=4x=0.000
+   coherence: target=0.0590 range -6.00..+6.00dB nclipped=4 Gc=1.2059
+demo_hello inw=23 G=2.0553(+6.26dB) resid=1.53e-05 fwdres=1.22e-01
+   makeup dB: max= 11.71 mean=  2.42 p50=  1.37 frac>=12(cap)=0.000
+   makeup lin: max= 3.72x mean= 1.40x | TOTAL lift max= 7.64x mean= 2.88x frac>=4x=0.130
+   coherence: target=0.1905 range -0.25..+0.42dB nclipped=0 Gc=0.9768
+creak_probe inw=15 G=1.3428(+2.56dB) resid=1.53e-05 fwdres=9.72e-02
+   makeup dB: max=  7.60 mean=  0.94 p50=  1.01 frac>=12(cap)=0.000
+   makeup lin: max= 2.27x mean= 1.15x | TOTAL lift max= 3.05x mean= 1.54x frac>=4x=0.000
+   coherence: target=0.2525 range +0.00..+0.00dB nclipped=0 Gc=1.0000
+gain_probe inw=12 G=3.2455(+10.23dB) resid=1.53e-05 fwdres=4.21e-01
+   makeup dB: max= 12.00 mean=  9.16 p50= 11.99 frac>=12(cap)=0.500
+   makeup lin: max= 3.98x mean= 3.14x | TOTAL lift max=12.92x mean=10.19x frac>=4x=0.917
+   coherence: target=0.0812 range -6.00..+6.00dB nclipped=3 Gc=1.9953
+cluster_probe inw=18 G=0.7919(-2.03dB) resid=1.67e-05 fwdres=6.12e-02
+   makeup dB: max= 12.00 mean=  9.21 p50= 12.00 frac>=12(cap)=0.556
+   makeup lin: max= 3.98x mean= 3.20x | TOTAL lift max= 3.15x mean= 2.53x frac>=4x=0.000
+   coherence: target=0.0707 range -6.00..+6.00dB nclipped=3 Gc=1.0718
+pause_probe inw=20 G=2.1109(+6.49dB) resid=1.53e-05 fwdres=1.43e-02
+   makeup dB: max= 12.00 mean=  6.32 p50=  5.54 frac>=12(cap)=0.400
+   makeup lin: max= 3.98x mean= 2.45x | TOTAL lift max= 8.40x mean= 5.18x frac>=4x=0.500
+   coherence: target=0.1404 range -6.00..+6.00dB nclipped=3 Gc=1.6170
+annyeong inw=40 G=0.9418(-0.52dB) resid=1.53e-05 fwdres=3.37e-02
+   makeup dB: max= 12.00 mean= 10.35 p50= 12.00 frac>=12(cap)=0.575
+   makeup lin: max= 3.98x mean= 3.46x | TOTAL lift max= 3.75x mean= 3.26x frac>=4x=0.000
+   coherence: target=0.0833 range -6.00..+6.00dB nclipped=2 Gc=1.0610
+yeobo inw=34 G=0.9737(-0.23dB) resid=1.55e-05 fwdres=9.59e-02
+   makeup dB: max= 12.00 mean= 10.66 p50= 12.00 frac>=12(cap)=0.676
+   makeup lin: max= 3.98x mean= 3.57x | TOTAL lift max= 3.88x mean= 3.48x frac>=4x=0.000
+   coherence: target=0.1029 range -6.00..+6.00dB nclipped=3 Gc=0.9327
+old_input inw=18 G=1.7268(+4.74dB) resid=5.09e-06 fwdres=1.79e-02
+   makeup dB: max= 12.00 mean=  2.77 p50=  1.44 frac>=12(cap)=0.111
+   makeup lin: max= 3.74x mean= 1.52x | TOTAL lift max= 6.45x mean= 2.63x frac>=4x=0.111
+   coherence: target=0.1677 range -1.75..+0.98dB nclipped=0 Gc=0.9353
+=== CLAMP CENSUS (global |x|>=0.985) + SPARK WINDOWS (gate mirror) ===
+demo_hello n=9792 clamp_n=0 worst_win=0.8667 mean_win=0.6284
+   start1 pos=1544 unclamped=0.8667 clamped=0 ok
+   start2 pos=3330 unclamped=0.6292 clamped=0 ok
+   start3 pos=4698 unclamped=0.3893 clamped=0 ok
+annyeong n=17446 clamp_n=0 worst_win=0.9608 mean_win=0.3210
+   start1 pos=3771 unclamped=0.2250 clamped=0 ok
+   start2 pos=4742 unclamped=0.2341 clamped=0 ok
+   start3 pos=5558 unclamped=0.1934 clamped=0 ok
+   start4 pos=6286 unclamped=0.1895 clamped=0 ok
+   start5 pos=8050 unclamped=0.1779 clamped=0 ok
+   start6 pos=8866 unclamped=0.1072 clamped=0 ok
+   start7 pos=9837 unclamped=0.3370 clamped=0 ok
+   start8 pos=12263 unclamped=0.0881 clamped=0 ok
+   start9 pos=13366 unclamped=0.7124 clamped=0 ok
+   start10 pos=14645 unclamped=0.3055 clamped=0 ok
+   start11 pos=15373 unclamped=0.9608 clamped=0 SPARK
+yeobo n=14666 clamp_n=0 worst_win=0.9311 mean_win=0.3905
+   start1 pos=772 unclamped=0.2310 clamped=0 ok
+   start2 pos=3463 unclamped=0.2455 clamped=0 ok
+   start3 pos=4191 unclamped=0.4618 clamped=0 ok
+   start4 pos=6286 unclamped=0.0902 clamped=0 ok
+   start5 pos=7411 unclamped=0.5630 clamped=0 ok
+   start6 pos=10079 unclamped=0.2111 clamped=0 ok
+   start7 pos=10807 unclamped=0.9311 clamped=0 SPARK
+fixed_sentence n=8822 clamp_n=1 worst_win=0.8074 mean_win=0.3132
+   start1 pos=1544 unclamped=0.1759 clamped=0 ok
+   start2 pos=2823 unclamped=0.0597 clamped=0 ok
+   start3 pos=4279 unclamped=0.8074 clamped=1 ok
+   start4 pos=5536 unclamped=0.2241 clamped=0 ok
+   start5 pos=7389 unclamped=0.2987 clamped=0 ok
+cluster_probe n=7785 clamp_n=1 worst_win=0.9478 mean_win=0.4440
+   start1 pos=1544 unclamped=0.9478 clamped=1 SPARK
+   start2 pos=2294 unclamped=0.2276 clamped=0 ok
+   start3 pos=2912 unclamped=0.3005 clamped=0 ok
+   start4 pos=6308 unclamped=0.3000 clamped=0 ok
+pause_probe n=8535 clamp_n=2 worst_win=0.9747 mean_win=0.7789
+   start1 pos=1169 unclamped=0.6191 clamped=0 ok
+   start2 pos=4521 unclamped=0.9747 clamped=0 SPARK
+   start3 pos=5602 unclamped=0.7428 clamped=0 ok
+creak_probe n=6439 clamp_n=23 worst_win=0.5156 mean_win=0.5156
+   start1 pos=1015 unclamped=0.5156 clamped=0 ok
+gain_probe n=5072 clamp_n=0 worst_win=0.6467 mean_win=0.5535
+   start1 pos=1588 unclamped=0.6467 clamped=0 ok
+   start2 pos=2448 unclamped=0.4602 clamped=0 ok
+old_input n=7852 clamp_n=1 worst_win=0.9705 mean_win=0.5153
+   start1 pos=1544 unclamped=0.9705 clamped=1 SPARK
+   start2 pos=4962 unclamped=0.3248 clamped=0 ok
+   start3 pos=5889 unclamped=0.3485 clamped=0 ok
+   start4 pos=6022 unclamped=0.4172 clamped=0 ok
+=== CURRENT-TREE GATE METRICS (28.3 baselines in parens) ===
+demo_hello halves=-3.03 (28.3 -3.16) trough=-2.71 (-2.76) rms=0.1659 (0.1831) tail=0.1129
+annyeong halves=+1.55 (28.3 +2.99) trough=-5.20 (-12.31) rms=0.0953 (0.1037) tail=0.1092
+yeobo halves=-0.19 (28.3 -3.11) trough=-7.61 (-10.40) rms=0.0980 (0.1146) tail=0.0858
+done level
+gain_probe frozen_n=2 globalymax=0.6467 globalfmax=0.9890
+   s=1855 y=[-0.6126,-0.6316,-0.6164,-0.5679,-0.4937] f=[-0.6126,-0.6316,-0.989 ,-0.989 ,-0.4937] starts=[]
+   s=1856 y=[-0.6316,-0.6164,-0.5679,-0.4937,-0.4051] f=[-0.6316,-0.989 ,-0.989 ,-0.4937,-0.4051] starts=[]
+demo_hello frozen_n=1 globalymax=0.8667 globalfmax=0.9890
+   s=1612 y=[0.1154,0.6944,0.8667,0.7141,0.1137] f=[0.1154,0.6944,0.989 ,0.7141,0.1137] starts=[]
+annyeong frozen_n=1 globalymax=0.9608 globalfmax=0.9890
+   s=15401 y=[-0.6178,-0.8382,-0.9553,-0.9218,-0.7452] f=[-0.6178,-0.8382,-0.989 ,-0.9218,-0.7452] starts=[]
+yeobo frozen_n=1 globalymax=0.9311 globalfmax=0.9890
+   s=10835 y=[-0.5742,-0.7791,-0.8931,-0.873 ,-0.7254] f=[-0.5742,-0.7791,-0.989 ,-0.873 ,-0.7254] starts=[]
+creak_probe frozen_n=30 globalymax=0.9890 globalfmax=0.9890
+   s=1409 y=[0.9356,0.9722,0.989 ,0.989 ,0.989 ] f=[0.9356,0.9722,0.9838,0.989 ,0.989 ] starts=[]
+   s=1410 y=[0.9722,0.989 ,0.989 ,0.989 ,0.964 ] f=[0.9722,0.9838,0.989 ,0.989 ,0.964 ] starts=[]
+   s=1411 y=[0.989 ,0.989 ,0.989 ,0.964 ,0.7458] f=[0.9838,0.989 ,0.989 ,0.964 ,0.7458] starts=[]
+   s=1554 y=[0.7678,0.9679,0.989 ,0.989 ,0.989 ] f=[0.7678,0.9679,0.9793,0.9792,0.9791] starts=[]
+   s=1555 y=[0.9679,0.989 ,0.989 ,0.989 ,0.989 ] f=[0.9679,0.9793,0.9792,0.9791,0.9789] starts=[]
+   s=1556 y=[0.989 ,0.989 ,0.989 ,0.989 ,0.9375] f=[0.9793,0.9792,0.9791,0.9789,0.9375] starts=[]
+   s=1557 y=[0.989 ,0.989 ,0.989 ,0.9375,0.748 ] f=[0.9792,0.9791,0.9789,0.9375,0.748 ] starts=[]
+   s=1702 y=[0.9311,0.9629,0.989 ,0.989 ,0.9279] f=[0.9311,0.9629,0.96  ,0.9598,0.9279] starts=[]
+   s=1703 y=[0.9629,0.989 ,0.989 ,0.9279,0.6937] f=[0.9629,0.96  ,0.9598,0.9279,0.6937] starts=[]
+   s=1848 y=[0.9361,0.9682,0.989 ,0.989 ,0.9554] f=[0.9361,0.9682,0.9512,0.9512,0.9554] starts=[]
+   s=1849 y=[0.9682,0.989 ,0.989 ,0.9554,0.7539] f=[0.9682,0.9512,0.9512,0.9554,0.7539] starts=[]
+   s=1994 y=[0.9503,0.9743,0.9887,0.8716,0.6792] f=[0.9503,0.9743,0.9498,0.8716,0.6792] starts=[]
+=== WAV vs F32 CROSS-CHECK (quantization bound) ===
+fixed_sentence max|wav-f32|=3.80e-05 OK
+demo_hello max|wav-f32|=3.68e-05 OK
+creak_probe max|wav-f32|=4.35e-05 OK
+gain_probe max|wav-f32|=2.99e-05 OK
+cluster_probe max|wav-f32|=3.95e-05 OK
+pause_probe max|wav-f32|=4.11e-05 OK
+annyeong max|wav-f32|=3.89e-05 OK
+yeobo max|wav-f32|=4.05e-05 OK
+old_input max|wav-f32|=3.74e-05 OK
+=== 28.3-vs-CURRENT DELTA (demos on disk are 28.3) ===
+demo_hello: rms 0.1831 -> 0.1659 (-0.86dB), peak 0.9890 -> 0.8667, maxabs-diff 1.0003
+annyeong: rms 0.1037 -> 0.0953 (-0.73dB), peak 0.9890 -> 0.9608, maxabs-diff 0.6710
+yeobo: rms 0.1146 -> 0.0980 (-1.36dB), peak 0.9890 -> 0.9311, maxabs-diff 0.9424
+=== FULL-CHAIN INVERSION (leveler + coherence) ===
+fixed_sentence inw=21 G=0.7986(-1.95dB) resid=1.53e-05 fwdres=1.53e-05
+   makeup dB: max= 12.00 mean=  9.94 p50= 12.00 frac>=12(cap)=0.667
+   makeup lin: max= 3.98x mean= 3.40x | TOTAL lift max= 3.18x mean= 2.71x frac>=4x=0.000
+   coherence: target=0.0590 range -6.00..+6.00dB nclipped=4 Gc=1.2059
+demo_hello inw=23 G=1.0588(+0.50dB) resid=1.17e-01 fwdres=1.22e-01
+   makeup dB: max= 11.55 mean=  2.39 p50=  1.36 frac>=12(cap)=0.000
+   makeup lin: max= 3.65x mean= 1.39x | TOTAL lift max= 3.86x mean= 1.48x frac>=4x=0.000
+   coherence: target=0.2175 range -0.26..+0.43dB nclipped=0 Gc=0.9763
+creak_probe inw=15 G=1.0631(+0.53dB) resid=1.53e-05 fwdres=1.53e-05
+   makeup dB: max=  7.63 mean=  0.95 p50=  1.01 frac>=12(cap)=0.000
+   makeup lin: max= 2.28x mean= 1.15x | TOTAL lift max= 2.42x mean= 1.22x frac>=4x=0.000
+   coherence: target=0.2525 range +0.00..+0.00dB nclipped=0 Gc=1.0000
+gain_probe inw=12 G=1.3657(+2.71dB) resid=3.34e-01 fwdres=3.42e-01
+   makeup dB: max=  6.50 mean=  1.45 p50=  1.09 frac>=12(cap)=0.000
+   makeup lin: max= 2.03x mean= 1.20x | TOTAL lift max= 2.77x mean= 1.64x frac>=4x=0.000
+   coherence: target=0.2198 range -0.82..+0.61dB nclipped=0 Gc=1.0986
+cluster_probe inw=18 G=0.9828(-0.15dB) resid=1.53e-05 fwdres=1.53e-05
+   makeup dB: max= 12.00 mean=  9.20 p50= 12.00 frac>=12(cap)=0.556
+   makeup lin: max= 3.98x mean= 3.20x | TOTAL lift max= 3.91x mean= 3.14x frac>=4x=0.000
+   coherence: target=0.0707 range -6.00..+6.00dB nclipped=3 Gc=1.0718
+pause_probe inw=20 G=0.8144(-1.78dB) resid=1.02e-04 fwdres=1.02e-04
+   makeup dB: max= 12.00 mean=  6.33 p50=  5.65 frac>=12(cap)=0.400
+   makeup lin: max= 3.98x mean= 2.46x | TOTAL lift max= 3.24x mean= 2.00x frac>=4x=0.000
+   coherence: target=0.1405 range -6.00..+6.00dB nclipped=3 Gc=1.6170
+annyeong inw=40 G=0.7276(-2.76dB) resid=2.81e-02 fwdres=2.82e-02
+   makeup dB: max= 12.00 mean= 10.35 p50= 12.00 frac>=12(cap)=0.575
+   makeup lin: max= 3.98x mean= 3.46x | TOTAL lift max= 2.90x mean= 2.52x frac>=4x=0.000
+   coherence: target=0.0833 range -6.00..+6.00dB nclipped=2 Gc=1.0922
+yeobo inw=34 G=0.7829(-2.13dB) resid=5.74e-02 fwdres=5.79e-02
+   makeup dB: max= 12.00 mean= 10.66 p50= 12.00 frac>=12(cap)=0.676
+   makeup lin: max= 3.98x mean= 3.57x | TOTAL lift max= 3.12x mean= 2.80x frac>=4x=0.000
+   coherence: target=0.1029 range -6.00..+6.00dB nclipped=3 Gc=0.9907
+old_input inw=18 G=0.9949(-0.04dB) resid=1.56e-06 fwdres=1.56e-06
+   makeup dB: max= 12.00 mean=  2.77 p50=  1.44 frac>=12(cap)=0.111
+   makeup lin: max= 3.74x mean= 1.52x | TOTAL lift max= 3.72x mean= 1.51x frac>=4x=0.000
+   coherence: target=0.1677 range -1.74..+0.97dB nclipped=0 Gc=0.9354
+=== CLAMP CENSUS (global |x|>=0.985) + SPARK WINDOWS (gate mirror) ===
+demo_hello n=9792 clamp_n=0 worst_win=0.8667 mean_win=0.6284
+   start1 pos=1544 unclamped=0.8667 clamped=0 ok
+   start2 pos=3330 unclamped=0.6292 clamped=0 ok
+   start3 pos=4698 unclamped=0.3893 clamped=0 ok
+annyeong n=17446 clamp_n=0 worst_win=0.9608 mean_win=0.3210
+   start1 pos=3771 unclamped=0.2250 clamped=0 ok
+   start2 pos=4742 unclamped=0.2341 clamped=0 ok
+   start3 pos=5558 unclamped=0.1934 clamped=0 ok
+   start4 pos=6286 unclamped=0.1895 clamped=0 ok
+   start5 pos=8050 unclamped=0.1779 clamped=0 ok
+   start6 pos=8866 unclamped=0.1072 clamped=0 ok
+   start7 pos=9837 unclamped=0.3370 clamped=0 ok
+   start8 pos=12263 unclamped=0.0881 clamped=0 ok
+   start9 pos=13366 unclamped=0.7124 clamped=0 ok
+   start10 pos=14645 unclamped=0.3055 clamped=0 ok
+   start11 pos=15373 unclamped=0.9608 clamped=0 SPARK
+yeobo n=14666 clamp_n=0 worst_win=0.9311 mean_win=0.3905
+   start1 pos=772 unclamped=0.2310 clamped=0 ok
+   start2 pos=3463 unclamped=0.2455 clamped=0 ok
+   start3 pos=4191 unclamped=0.4618 clamped=0 ok
+   start4 pos=6286 unclamped=0.0902 clamped=0 ok
+   start5 pos=7411 unclamped=0.5630 clamped=0 ok
+   start6 pos=10079 unclamped=0.2111 clamped=0 ok
+   start7 pos=10807 unclamped=0.9311 clamped=0 SPARK
+fixed_sentence n=8822 clamp_n=1 worst_win=0.8074 mean_win=0.3132
+   start1 pos=1544 unclamped=0.1759 clamped=0 ok
+   start2 pos=2823 unclamped=0.0597 clamped=0 ok
+   start3 pos=4279 unclamped=0.8074 clamped=1 ok
+   start4 pos=5536 unclamped=0.2241 clamped=0 ok
+   start5 pos=7389 unclamped=0.2987 clamped=0 ok
+cluster_probe n=7785 clamp_n=1 worst_win=0.9478 mean_win=0.4440
+   start1 pos=1544 unclamped=0.9478 clamped=1 SPARK
+   start2 pos=2294 unclamped=0.2276 clamped=0 ok
+   start3 pos=2912 unclamped=0.3005 clamped=0 ok
+   start4 pos=6308 unclamped=0.3000 clamped=0 ok
+pause_probe n=8535 clamp_n=2 worst_win=0.9747 mean_win=0.7789
+   start1 pos=1169 unclamped=0.6191 clamped=0 ok
+   start2 pos=4521 unclamped=0.9747 clamped=0 SPARK
+   start3 pos=5602 unclamped=0.7428 clamped=0 ok
+creak_probe n=6439 clamp_n=23 worst_win=0.5156 mean_win=0.5156
+   start1 pos=1015 unclamped=0.5156 clamped=0 ok
+gain_probe n=5072 clamp_n=0 worst_win=0.6467 mean_win=0.5535
+   start1 pos=1588 unclamped=0.6467 clamped=0 ok
+   start2 pos=2448 unclamped=0.4602 clamped=0 ok
+old_input n=7852 clamp_n=1 worst_win=0.9705 mean_win=0.5153
+   start1 pos=1544 unclamped=0.9705 clamped=1 SPARK
+   start2 pos=4962 unclamped=0.3248 clamped=0 ok
+   start3 pos=5889 unclamped=0.3485 clamped=0 ok
+   start4 pos=6022 unclamped=0.4172 clamped=0 ok
+=== CURRENT-TREE GATE METRICS (28.3 baselines in parens) ===
+demo_hello halves=-3.03 (28.3 -3.16) trough=-2.71 (-2.76) rms=0.1659 (0.1831) tail=0.1129
+annyeong halves=+1.55 (28.3 +2.99) trough=-5.20 (-12.31) rms=0.0953 (0.1037) tail=0.1092
+yeobo halves=-0.19 (28.3 -3.11) trough=-7.61 (-10.40) rms=0.0980 (0.1146) tail=0.0858
+done level
+demo_hello it=150 G=2.0553 gdbmax=11.71 gdbmean=2.42 resid=1.53e-05
+demo_hello it=250 G=2.0547 gdbmax=11.72 gdbmean=2.42 resid=1.53e-05
+annyeong it=150 G=0.9418 gdbmax=12.00 gdbmean=10.35 resid=1.53e-05
+annyeong it=250 G=0.9418 gdbmax=12.00 gdbmean=10.35 resid=1.53e-05
+yeobo it=150 G=0.9737 gdbmax=12.00 gdbmean=10.66 resid=1.55e-05
+yeobo it=250 G=0.9739 gdbmax=12.00 gdbmean=10.66 resid=1.55e-05
+gain_probe it=150 G=3.2455 gdbmax=12.00 gdbmean=9.16 resid=1.53e-05
+gain_probe it=250 G=3.2455 gdbmax=12.00 gdbmean=9.16 resid=1.53e-05
+=== WAV vs F32 CROSS-CHECK (quantization bound) ===
+fixed_sentence max|wav-f32|=3.80e-05 OK
+demo_hello max|wav-f32|=3.68e-05 OK
+creak_probe max|wav-f32|=4.35e-05 OK
+gain_probe max|wav-f32|=2.99e-05 OK
+cluster_probe max|wav-f32|=3.95e-05 OK
+pause_probe max|wav-f32|=4.11e-05 OK
+annyeong max|wav-f32|=3.89e-05 OK
+yeobo max|wav-f32|=4.05e-05 OK
+old_input max|wav-f32|=3.74e-05 OK
+=== 28.3-vs-CURRENT DELTA (demos on disk are 28.3) ===
+demo_hello: rms 0.1831 -> 0.1659 (-0.86dB), peak 0.9890 -> 0.8667, maxabs-diff 1.0003
+annyeong: rms 0.1037 -> 0.0953 (-0.73dB), peak 0.9890 -> 0.9608, maxabs-diff 0.6710
+yeobo: rms 0.1146 -> 0.0980 (-1.36dB), peak 0.9890 -> 0.9311, maxabs-diff 0.9424
+=== FULL-CHAIN INVERSION (leveler + coherence) ===
+fixed_sentence inw=21 G=0.6538(-3.69dB) resid=1.53e-05 fwdres=1.53e-05
+   makeup dB: max= 12.00 mean=  9.95 p50= 12.00 frac>=12(cap)=0.667
+   makeup lin: max= 3.98x mean= 3.40x | TOTAL lift max= 2.60x mean= 2.22x frac>=4x=0.000
+   coherence: target=0.0590 range -6.00..+6.00dB nclipped=4 Gc=1.2059
+demo_hello inw=23 G=2.0553(+6.26dB) resid=1.53e-05 fwdres=1.22e-01
+   makeup dB: max= 11.71 mean=  2.42 p50=  1.37 frac>=12(cap)=0.000
+   makeup lin: max= 3.72x mean= 1.40x | TOTAL lift max= 7.64x mean= 2.88x frac>=4x=0.130
+   coherence: target=0.1905 range -0.25..+0.42dB nclipped=0 Gc=0.9768
+creak_probe inw=15 G=1.3428(+2.56dB) resid=1.53e-05 fwdres=9.72e-02
+   makeup dB: max=  7.60 mean=  0.94 p50=  1.01 frac>=12(cap)=0.000
+   makeup lin: max= 2.27x mean= 1.15x | TOTAL lift max= 3.05x mean= 1.54x frac>=4x=0.000
+   coherence: target=0.2525 range +0.00..+0.00dB nclipped=0 Gc=1.0000
+gain_probe inw=12 G=3.2455(+10.23dB) resid=1.53e-05 fwdres=4.21e-01
+   makeup dB: max= 12.00 mean=  9.16 p50= 11.99 frac>=12(cap)=0.500
+   makeup lin: max= 3.98x mean= 3.14x | TOTAL lift max=12.92x mean=10.19x frac>=4x=0.917
+   coherence: target=0.0812 range -6.00..+6.00dB nclipped=3 Gc=1.9953
+cluster_probe inw=18 G=0.7919(-2.03dB) resid=1.67e-05 fwdres=6.12e-02
+   makeup dB: max= 12.00 mean=  9.21 p50= 12.00 frac>=12(cap)=0.556
+   makeup lin: max= 3.98x mean= 3.20x | TOTAL lift max= 3.15x mean= 2.53x frac>=4x=0.000
+   coherence: target=0.0707 range -6.00..+6.00dB nclipped=3 Gc=1.0718
+pause_probe inw=20 G=2.1109(+6.49dB) resid=1.53e-05 fwdres=1.43e-02
+   makeup dB: max= 12.00 mean=  6.32 p50=  5.54 frac>=12(cap)=0.400
+   makeup lin: max= 3.98x mean= 2.45x | TOTAL lift max= 8.40x mean= 5.18x frac>=4x=0.500
+   coherence: target=0.1404 range -6.00..+6.00dB nclipped=3 Gc=1.6170
+annyeong inw=40 G=0.9418(-0.52dB) resid=1.53e-05 fwdres=3.37e-02
+   makeup dB: max= 12.00 mean= 10.35 p50= 12.00 frac>=12(cap)=0.575
+   makeup lin: max= 3.98x mean= 3.46x | TOTAL lift max= 3.75x mean= 3.26x frac>=4x=0.000
+   coherence: target=0.0833 range -6.00..+6.00dB nclipped=2 Gc=1.0610
+yeobo inw=34 G=0.9737(-0.23dB) resid=1.55e-05 fwdres=9.59e-02
+   makeup dB: max= 12.00 mean= 10.66 p50= 12.00 frac>=12(cap)=0.676
+   makeup lin: max= 3.98x mean= 3.57x | TOTAL lift max= 3.88x mean= 3.48x frac>=4x=0.000
+   coherence: target=0.1029 range -6.00..+6.00dB nclipped=3 Gc=0.9327
+old_input inw=18 G=1.7268(+4.74dB) resid=5.09e-06 fwdres=1.79e-02
+   makeup dB: max= 12.00 mean=  2.77 p50=  1.44 frac>=12(cap)=0.111
+   makeup lin: max= 3.74x mean= 1.52x | TOTAL lift max= 6.45x mean= 2.63x frac>=4x=0.111
+   coherence: target=0.1677 range -1.75..+0.98dB nclipped=0 Gc=0.9353
+=== CLAMP CENSUS (global |x|>=0.985) + SPARK WINDOWS (gate mirror) ===
+demo_hello n=9792 clamp_n=0 worst_win=0.8667 mean_win=0.6284
+   start1 pos=1544 unclamped=0.8667 clamped=0 ok
+   start2 pos=3330 unclamped=0.6292 clamped=0 ok
+   start3 pos=4698 unclamped=0.3893 clamped=0 ok
+annyeong n=17446 clamp_n=0 worst_win=0.9608 mean_win=0.3210
+   start1 pos=3771 unclamped=0.2250 clamped=0 ok
+   start2 pos=4742 unclamped=0.2341 clamped=0 ok
+   start3 pos=5558 unclamped=0.1934 clamped=0 ok
+   start4 pos=6286 unclamped=0.1895 clamped=0 ok
+   start5 pos=8050 unclamped=0.1779 clamped=0 ok
+   start6 pos=8866 unclamped=0.1072 clamped=0 ok
+   start7 pos=9837 unclamped=0.3370 clamped=0 ok
+   start8 pos=12263 unclamped=0.0881 clamped=0 ok
+   start9 pos=13366 unclamped=0.7124 clamped=0 ok
+   start10 pos=14645 unclamped=0.3055 clamped=0 ok
+   start11 pos=15373 unclamped=0.9608 clamped=0 SPARK
+yeobo n=14666 clamp_n=0 worst_win=0.9311 mean_win=0.3905
+   start1 pos=772 unclamped=0.2310 clamped=0 ok
+   start2 pos=3463 unclamped=0.2455 clamped=0 ok
+   start3 pos=4191 unclamped=0.4618 clamped=0 ok
+   start4 pos=6286 unclamped=0.0902 clamped=0 ok
+   start5 pos=7411 unclamped=0.5630 clamped=0 ok
+   start6 pos=10079 unclamped=0.2111 clamped=0 ok
+   start7 pos=10807 unclamped=0.9311 clamped=0 SPARK
+fixed_sentence n=8822 clamp_n=1 worst_win=0.8074 mean_win=0.3132
+   start1 pos=1544 unclamped=0.1759 clamped=0 ok
+   start2 pos=2823 unclamped=0.0597 clamped=0 ok
+   start3 pos=4279 unclamped=0.8074 clamped=1 ok
+   start4 pos=5536 unclamped=0.2241 clamped=0 ok
+   start5 pos=7389 unclamped=0.2987 clamped=0 ok
+cluster_probe n=7785 clamp_n=1 worst_win=0.9478 mean_win=0.4440
+   start1 pos=1544 unclamped=0.9478 clamped=1 SPARK
+   start2 pos=2294 unclamped=0.2276 clamped=0 ok
+   start3 pos=2912 unclamped=0.3005 clamped=0 ok
+   start4 pos=6308 unclamped=0.3000 clamped=0 ok
+pause_probe n=8535 clamp_n=2 worst_win=0.9747 mean_win=0.7789
+   start1 pos=1169 unclamped=0.6191 clamped=0 ok
+   start2 pos=4521 unclamped=0.9747 clamped=0 SPARK
+   start3 pos=5602 unclamped=0.7428 clamped=0 ok
+creak_probe n=6439 clamp_n=23 worst_win=0.5156 mean_win=0.5156
+   start1 pos=1015 unclamped=0.5156 clamped=0 ok
+gain_probe n=5072 clamp_n=0 worst_win=0.6467 mean_win=0.5535
+   start1 pos=1588 unclamped=0.6467 clamped=0 ok
+   start2 pos=2448 unclamped=0.4602 clamped=0 ok
+old_input n=7852 clamp_n=1 worst_win=0.9705 mean_win=0.5153
+   start1 pos=1544 unclamped=0.9705 clamped=1 SPARK
+   start2 pos=4962 unclamped=0.3248 clamped=0 ok
+   start3 pos=5889 unclamped=0.3485 clamped=0 ok
+   start4 pos=6022 unclamped=0.4172 clamped=0 ok
+=== CURRENT-TREE GATE METRICS (28.3 baselines in parens) ===
+demo_hello halves=-3.03 (28.3 -3.16) trough=-2.71 (-2.76) rms=0.1659 (0.1831) tail=0.1129
+annyeong halves=+1.55 (28.3 +2.99) trough=-5.20 (-12.31) rms=0.0953 (0.1037) tail=0.1092
+yeobo halves=-0.19 (28.3 -3.11) trough=-7.61 (-10.40) rms=0.0980 (0.1146) tail=0.0858
+done level
+=== TABLE EFFECTIVE STATS (new planned gains) ===
+V2 eff planned: min=-6.00 max=0.00 spread=6.00
+F1 eff planned: min=-6.00 max=0.00 spread=6.00
+F3 eff planned: min=-6.00 max=0.00 spread=6.00
+control table=V2 cap=12 pre=1.10 coh=True max|dd|=0.000
+A table=F1 cap=12 pre=1.10 coh=True max|dd|=2.000
+B table=F3 cap=12 pre=1.10 coh=True max|dd|=2.500
+C table=F3 cap=6 pre=0.95 coh=True max|dd|=2.500
+D table=F3 cap=6 pre=0.95 coh=False max|dd|=2.500
+E table=F3 cap=6 pre=1.00 coh=False max|dd|=2.500
+F table=F3 cap=8 pre=0.95 coh=False max|dd|=2.500
+=== CONTROL vs ENGINE (validation; dd=0 so residual = inversion+replica only) ===
+fixed_sentence max|sim-eng|=1.68e-05 rms_sim=0.0810 rms_eng=0.0810
+demo_hello max|sim-eng|=1.22e-01 rms_sim=0.1660 rms_eng=0.1659
+creak_probe max|sim-eng|=9.72e-02 rms_sim=0.3480 rms_eng=0.3481
+gain_probe max|sim-eng|=4.21e-01 rms_sim=0.1581 rms_eng=0.1573
+cluster_probe max|sim-eng|=7.50e-02 rms_sim=0.0916 rms_eng=0.0916
+Traceback (most recent call last):
+pause_probe max|sim-eng|=6.43e-01 rms_sim=0.2058 rms_eng=0.2063
+annyeong max|sim-eng|=3.37e-02 rms_sim=0.0953 rms_eng=0.0953
+yeobo max|sim-eng|=9.59e-02 rms_sim=0.0980 rms_eng=0.0980
+old_input max|sim-eng|=1.79e-02 rms_sim=0.2070 rms_eng=0.2070
+=== GATE METRICS PER COMBO (demos + old pin + eval tails) ===
+--- control (table V2, cap+12 prescale1.10 cohTrue) ---
+  File "E:\01_coding\ARTicul\probe\0.0.0.30.1\analyze_flat.py", line 192, in <module>
+    h0, h1 = rms(f[:n // 2]), rms(f[n // 2])
+                              ^^^^^^^^^^^^^^
+  File "E:\01_coding\ARTicul\probe\0.0.0.30.1\gchain.py", line 241, in rms
+    return float(np.sqrt((np.asarray(v) * np.asarray(v)).mean())) if len(v) else 0.0
+                                                                     ^^^^^^
+TypeError: object of type 'numpy.float64' has no len()
+=== TABLE EFFECTIVE STATS (new planned gains) ===
+V2 eff planned: min=-6.00 max=0.00 spread=6.00
+F1 eff planned: min=-6.00 max=0.00 spread=6.00
+F3 eff planned: min=-6.00 max=0.00 spread=6.00
+control table=V2 cap=12 pre=1.10 coh=True max|dd|=0.000
+A table=F1 cap=12 pre=1.10 coh=True max|dd|=2.000
+B table=F3 cap=12 pre=1.10 coh=True max|dd|=2.500
+C table=F3 cap=6 pre=0.95 coh=True max|dd|=2.500
+D table=F3 cap=6 pre=0.95 coh=False max|dd|=2.500
+E table=F3 cap=6 pre=1.00 coh=False max|dd|=2.500
+F table=F3 cap=8 pre=0.95 coh=False max|dd|=2.500
+=== CONTROL vs ENGINE (validation; dd=0 so residual = inversion+replica only) ===
+fixed_sentence max|sim-eng|=1.68e-05 rms_sim=0.0810 rms_eng=0.0810
+demo_hello max|sim-eng|=1.22e-01 rms_sim=0.1660 rms_eng=0.1659
+creak_probe max|sim-eng|=9.72e-02 rms_sim=0.3480 rms_eng=0.3481
+gain_probe max|sim-eng|=4.21e-01 rms_sim=0.1581 rms_eng=0.1573
+cluster_probe max|sim-eng|=7.50e-02 rms_sim=0.0916 rms_eng=0.0916
+pause_probe max|sim-eng|=6.43e-01 rms_sim=0.2058 rms_eng=0.2063
+annyeong max|sim-eng|=3.37e-02 rms_sim=0.0953 rms_eng=0.0953
+yeobo max|sim-eng|=9.59e-02 rms_sim=0.0980 rms_eng=0.0980
+old_input max|sim-eng|=1.79e-02 rms_sim=0.2070 rms_eng=0.2070
+=== CONTROL SPARK vs ENGINE SPARK (bias calibration) ===
+demo_hello s1 eng=0.8667 sim=0.8261 d=-0.0406
+demo_hello s2 eng=0.6292 sim=0.6292 d=+0.0000
+demo_hello s3 eng=0.3893 sim=0.3893 d=-0.0000
+annyeong s1 eng=0.2250 sim=0.2250 d=+0.0000
+annyeong s2 eng=0.2341 sim=0.2341 d=+0.0000
+annyeong s3 eng=0.1934 sim=0.1934 d=+0.0000
+annyeong s4 eng=0.1895 sim=0.1895 d=-0.0000
+annyeong s5 eng=0.1779 sim=0.1779 d=-0.0000
+annyeong s6 eng=0.1072 sim=0.1072 d=-0.0000
+annyeong s7 eng=0.3370 sim=0.3370 d=+0.0000
+annyeong s8 eng=0.0881 sim=0.0881 d=+0.0000
+annyeong s9 eng=0.7124 sim=0.7124 d=-0.0000
+annyeong s10 eng=0.3055 sim=0.3055 d=-0.0000
+annyeong s11 eng=0.9608 sim=0.9608 d=-0.0000
+yeobo s1 eng=0.2310 sim=0.2310 d=-0.0000
+yeobo s2 eng=0.2455 sim=0.2455 d=+0.0000
+yeobo s3 eng=0.4618 sim=0.4618 d=+0.0000
+yeobo s4 eng=0.0902 sim=0.0902 d=+0.0000
+yeobo s5 eng=0.5630 sim=0.5630 d=-0.0000
+yeobo s6 eng=0.2111 sim=0.2111 d=-0.0000
+yeobo s7 eng=0.9311 sim=0.9311 d=+0.0000
+--- control (table V2, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-3.04 trough=-2.71 rms=0.1660 tail=0.1129 sparkmax=0.8261 clamp=1
+annyeong halves=+1.55 trough=-5.20 rms=0.0953 tail=0.1093 sparkmax=0.9608 clamp=1
+yeobo halves=-0.18 trough=-7.61 rms=0.0980 tail=0.0860 sparkmax=0.9311 clamp=1
+demo_hello balance w0=-13.71 w1=-16.05 diff=-2.34 passes
+old_input balance w0=-12.28 w1=-16.05 diff=-3.77 passes
+gain_probe apa ratio=0.823 FAIL
+hello lateral gap=-0.97dB PASS<8
+coherence-RMS steps>4dB: 1 ['annyeong b11 -4.32']
+fixed_sentence makeup max=12.00 mean=9.95 capfrac=0.667 G=-3.69dB
+demo_hello makeup max=11.71 mean=2.42 capfrac=0.000 G=+6.26dB
+creak_probe makeup max=7.60 mean=0.94 capfrac=0.000 G=+2.56dB
+gain_probe makeup max=12.00 mean=9.16 capfrac=0.500 G=+10.23dB
+cluster_probe makeup max=12.00 mean=9.21 capfrac=0.556 G=-2.03dB
+pause_probe makeup max=12.00 mean=6.32 capfrac=0.400 G=+6.49dB
+annyeong makeup max=12.00 mean=10.35 capfrac=0.575 G=-0.52dB
+yeobo makeup max=12.00 mean=10.66 capfrac=0.676 G=-0.23dB
+old_input makeup max=12.00 mean=2.77 capfrac=0.111 G=+4.74dB
+--- A (table F1, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-2.65 trough=-2.72 rms=0.1696 tail=0.1184 sparkmax=0.8266 clamp=1
+annyeong halves=+1.82 trough=-5.75 rms=0.1010 tail=0.1163 sparkmax=0.9472 clamp=1
+yeobo halves=+0.06 trough=-7.72 rms=0.0976 tail=0.0892 sparkmax=0.9290 clamp=1
+demo_hello balance w0=-13.66 w1=-15.69 diff=-2.03 passes
+old_input balance w0=-12.35 w1=-15.94 diff=-3.58 passes
+gain_probe apa ratio=0.801 FAIL
+hello lateral gap=-0.54dB PASS<8
+coherence-RMS steps>4dB: 0 (none)
+fixed_sentence makeup max=12.00 mean=9.91 capfrac=0.667 G=-4.24dB
+demo_hello makeup max=10.91 mean=2.24 capfrac=0.000 G=+6.23dB
+creak_probe makeup max=7.60 mean=0.95 capfrac=0.000 G=+2.31dB
+gain_probe makeup max=12.00 mean=9.16 capfrac=0.500 G=+9.95dB
+cluster_probe makeup max=12.00 mean=9.10 capfrac=0.556 G=-2.04dB
+pause_probe makeup max=12.00 mean=6.40 capfrac=0.400 G=+5.72dB
+annyeong makeup max=12.00 mean=10.38 capfrac=0.675 G=-1.98dB
+yeobo makeup max=12.00 mean=10.69 capfrac=0.735 G=-1.22dB
+old_input makeup max=12.00 mean=2.73 capfrac=0.111 G=+4.62dB
+--- B (table F3, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-2.81 trough=-2.72 rms=0.1703 tail=0.1185 sparkmax=0.8276 clamp=1
+annyeong halves=+1.83 trough=-5.77 rms=0.1010 tail=0.1165 sparkmax=0.9463 clamp=1
+yeobo halves=+0.01 trough=-7.98 rms=0.0961 tail=0.0867 sparkmax=0.9304 clamp=1
+demo_hello balance w0=-13.57 w1=-15.72 diff=-2.15 passes
+old_input balance w0=-12.48 w1=-15.84 diff=-3.36 passes
+gain_probe apa ratio=0.813 FAIL
+hello lateral gap=-0.75dB PASS<8
+coherence-RMS steps>4dB: 0 (none)
+fixed_sentence makeup max=12.00 mean=9.92 capfrac=0.667 G=-4.79dB
+demo_hello makeup max=10.58 mean=2.17 capfrac=0.000 G=+6.16dB
+creak_probe makeup max=7.60 mean=0.93 capfrac=0.000 G=+2.31dB
+gain_probe makeup max=12.00 mean=9.04 capfrac=0.500 G=+10.01dB
+cluster_probe makeup max=12.00 mean=9.17 capfrac=0.556 G=-2.52dB
+pause_probe makeup max=12.00 mean=6.41 capfrac=0.400 G=+5.17dB
+annyeong makeup max=12.00 mean=10.44 capfrac=0.675 G=-2.48dB
+yeobo makeup max=12.00 mean=10.76 capfrac=0.735 G=-1.75dB
+old_input makeup max=12.00 mean=2.69 capfrac=0.111 G=+4.62dB
+--- C (table F3, cap+6 prescale0.95 cohTrue) ---
+demo_hello halves=-2.95 trough=-2.74 rms=0.1536 tail=0.1035 sparkmax=0.7529 clamp=1
+annyeong halves=+3.28 trough=-5.72 rms=0.0940 tail=0.1187 sparkmax=0.9447 clamp=1
+yeobo halves=-0.30 trough=-5.04 rms=0.1116 tail=0.0716 sparkmax=0.9234 clamp=1
+demo_hello balance w0=-14.40 w1=-16.56 diff=-2.15 passes
+old_input balance w0=-13.33 w1=-16.97 diff=-3.64 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-0.74dB PASS<8
+coherence-RMS steps>4dB: 1 ['annyeong b11 -6.05']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-3.14dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+4.89dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.04dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+8.94dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.89dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+4.91dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.53dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-3.00dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.37dB
+--- D (table F3, cap+6 prescale0.95 cohFalse) ---
+demo_hello halves=-2.91 trough=-2.61 rms=0.1539 tail=0.1041 sparkmax=0.9395 clamp=0
+annyeong halves=+10.03 trough=-11.76 rms=0.0681 tail=0.1076 sparkmax=0.9395 clamp=0
+yeobo halves=-2.05 trough=-12.19 rms=0.0778 tail=0.0218 sparkmax=0.9395 clamp=0
+demo_hello balance w0=-14.68 w1=-16.33 diff=-1.65 passes
+old_input balance w0=-13.04 w1=-15.83 diff=-2.79 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.40']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-3.14dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+4.89dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.04dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+8.94dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.89dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+4.91dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.53dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-3.00dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.37dB
+--- E (table F3, cap+6 prescale1.00 cohFalse) ---
+demo_hello halves=-2.91 trough=-2.61 rms=0.1620 tail=0.1095 sparkmax=0.7360 clamp=1
+annyeong halves=+10.03 trough=-11.76 rms=0.0717 tail=0.1132 sparkmax=0.8063 clamp=1
+yeobo halves=-2.05 trough=-12.19 rms=0.0819 tail=0.0230 sparkmax=0.8728 clamp=1
+demo_hello balance w0=-14.23 w1=-15.89 diff=-1.65 passes
+old_input balance w0=-12.59 w1=-15.39 diff=-2.79 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.40']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-2.69dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+5.33dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.48dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+9.38dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.45dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+5.35dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.09dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-2.56dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.81dB
+--- F (table F3, cap+8 prescale0.95 cohFalse) ---
+demo_hello halves=-2.83 trough=-2.61 rms=0.1545 tail=0.1063 sparkmax=0.9395 clamp=0
+annyeong halves=+8.47 trough=-11.47 rms=0.0713 tail=0.1082 sparkmax=0.9395 clamp=0
+yeobo halves=-2.12 trough=-10.99 rms=0.0818 tail=0.0275 sparkmax=0.9396 clamp=0
+demo_hello balance w0=-14.67 w1=-16.33 diff=-1.66 passes
+old_input balance w0=-13.04 w1=-15.75 diff=-2.71 passes
+gain_probe apa ratio=0.856 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.31']
+fixed_sentence makeup max=8.00 mean=6.85 capfrac=0.857 G=-4.70dB
+demo_hello makeup max=8.00 mean=2.03 capfrac=0.087 G=+4.89dB
+creak_probe makeup max=7.60 mean=0.93 capfrac=0.000 G=+1.04dB
+gain_probe makeup max=8.00 mean=6.48 capfrac=0.667 G=+8.88dB
+cluster_probe makeup max=8.00 mean=6.40 capfrac=0.778 G=-3.33dB
+pause_probe makeup max=8.00 mean=4.67 capfrac=0.500 G=+4.48dB
+annyeong makeup max=8.00 mean=7.36 capfrac=0.900 G=-3.74dB
+yeobo makeup max=8.00 mean=7.35 capfrac=0.882 G=-3.01dB
+old_input makeup max=8.00 mean=2.24 capfrac=0.111 G=+3.36dB
+done flat
+u0 gain=0.0000dB dur=139ms stress=Primary
+u1 gain=-0.5000dB dur=52ms stress=Unstressed
+u2 gain=-2.7500dB dur=102ms stress=Unstressed
+samples=6109 ratio=2.4834 PASS
+u0 gain=0.0000dB dur=139ms stress=Primary
+u1 gain=-0.5000dB dur=52ms stress=Unstressed
+u2 gain=-2.7500dB dur=102ms stress=Unstressed
+samples=6109 ratio=2.4834 PASS
+=== TABLE EFFECTIVE STATS (new planned gains) ===
+V2 eff planned: min=-6.00 max=0.00 spread=6.00
+F1 eff planned: min=-6.00 max=0.00 spread=6.00
+F3 eff planned: min=-6.00 max=0.00 spread=6.00
+control table=V2 cap=12 pre=1.10 coh=True max|dd|=0.000
+A table=F1 cap=12 pre=1.10 coh=True max|dd|=2.000
+B table=F3 cap=12 pre=1.10 coh=True max|dd|=2.500
+C table=F3 cap=6 pre=0.95 coh=True max|dd|=2.500
+D table=F3 cap=6 pre=0.95 coh=False max|dd|=2.500
+E table=F3 cap=6 pre=1.00 coh=False max|dd|=2.500
+F table=F3 cap=8 pre=0.95 coh=False max|dd|=2.500
+=== CONTROL vs ENGINE (validation; dd=0 so residual = inversion+replica only) ===
+fixed_sentence max|sim-eng|=1.68e-05 rms_sim=0.0810 rms_eng=0.0810
+demo_hello max|sim-eng|=1.22e-01 rms_sim=0.1660 rms_eng=0.1659
+creak_probe max|sim-eng|=9.72e-02 rms_sim=0.3480 rms_eng=0.3481
+gain_probe max|sim-eng|=4.21e-01 rms_sim=0.1581 rms_eng=0.1573
+cluster_probe max|sim-eng|=7.50e-02 rms_sim=0.0916 rms_eng=0.0916
+pause_probe max|sim-eng|=6.43e-01 rms_sim=0.2058 rms_eng=0.2063
+annyeong max|sim-eng|=3.37e-02 rms_sim=0.0953 rms_eng=0.0953
+yeobo max|sim-eng|=9.59e-02 rms_sim=0.0980 rms_eng=0.0980
+old_input max|sim-eng|=1.79e-02 rms_sim=0.2070 rms_eng=0.2070
+=== CONTROL SPARK vs ENGINE SPARK (bias calibration) ===
+demo_hello s1 eng=0.8667 sim=0.8261 d=-0.0406
+demo_hello s2 eng=0.6292 sim=0.6292 d=+0.0000
+demo_hello s3 eng=0.3893 sim=0.3893 d=-0.0000
+annyeong s1 eng=0.2250 sim=0.2250 d=+0.0000
+annyeong s2 eng=0.2341 sim=0.2341 d=+0.0000
+annyeong s3 eng=0.1934 sim=0.1934 d=+0.0000
+annyeong s4 eng=0.1895 sim=0.1895 d=-0.0000
+annyeong s5 eng=0.1779 sim=0.1779 d=-0.0000
+annyeong s6 eng=0.1072 sim=0.1072 d=-0.0000
+annyeong s7 eng=0.3370 sim=0.3370 d=+0.0000
+annyeong s8 eng=0.0881 sim=0.0881 d=+0.0000
+annyeong s9 eng=0.7124 sim=0.7124 d=-0.0000
+annyeong s10 eng=0.3055 sim=0.3055 d=-0.0000
+annyeong s11 eng=0.9608 sim=0.9608 d=-0.0000
+yeobo s1 eng=0.2310 sim=0.2310 d=-0.0000
+yeobo s2 eng=0.2455 sim=0.2455 d=+0.0000
+yeobo s3 eng=0.4618 sim=0.4618 d=+0.0000
+yeobo s4 eng=0.0902 sim=0.0902 d=+0.0000
+yeobo s5 eng=0.5630 sim=0.5630 d=-0.0000
+yeobo s6 eng=0.2111 sim=0.2111 d=-0.0000
+yeobo s7 eng=0.9311 sim=0.9311 d=+0.0000
+--- control (table V2, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-3.04 trough=-2.71 rms=0.1660 tail=0.1129 sparkmax=0.8261 clamp=1
+annyeong halves=+1.55 trough=-5.20 rms=0.0953 tail=0.1093 sparkmax=0.9608 clamp=1
+yeobo halves=-0.18 trough=-7.61 rms=0.0980 tail=0.0860 sparkmax=0.9311 clamp=1
+demo_hello balance w0=-13.71 w1=-16.05 diff=-2.34 passes
+old_input balance w0=-12.28 w1=-16.05 diff=-3.77 passes
+gain_probe apa ratio=0.823 FAIL
+hello lateral gap=-0.97dB PASS<8
+coherence-RMS steps>4dB: 1 ['annyeong b11 -4.32']
+fixed_sentence makeup max=12.00 mean=9.95 capfrac=0.667 G=-3.69dB
+demo_hello makeup max=11.71 mean=2.42 capfrac=0.000 G=+6.26dB
+creak_probe makeup max=7.60 mean=0.94 capfrac=0.000 G=+2.56dB
+gain_probe makeup max=12.00 mean=9.16 capfrac=0.500 G=+10.23dB
+cluster_probe makeup max=12.00 mean=9.21 capfrac=0.556 G=-2.03dB
+pause_probe makeup max=12.00 mean=6.32 capfrac=0.400 G=+6.49dB
+annyeong makeup max=12.00 mean=10.35 capfrac=0.575 G=-0.52dB
+yeobo makeup max=12.00 mean=10.66 capfrac=0.676 G=-0.23dB
+old_input makeup max=12.00 mean=2.77 capfrac=0.111 G=+4.74dB
+--- A (table F1, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-2.65 trough=-2.72 rms=0.1696 tail=0.1184 sparkmax=0.8266 clamp=1
+annyeong halves=+1.82 trough=-5.75 rms=0.1010 tail=0.1163 sparkmax=0.9472 clamp=1
+yeobo halves=+0.06 trough=-7.72 rms=0.0976 tail=0.0892 sparkmax=0.9290 clamp=1
+demo_hello balance w0=-13.66 w1=-15.69 diff=-2.03 passes
+old_input balance w0=-12.35 w1=-15.94 diff=-3.58 passes
+gain_probe apa ratio=0.801 FAIL
+hello lateral gap=-0.54dB PASS<8
+coherence-RMS steps>4dB: 0 (none)
+fixed_sentence makeup max=12.00 mean=9.91 capfrac=0.667 G=-4.24dB
+demo_hello makeup max=10.91 mean=2.24 capfrac=0.000 G=+6.23dB
+creak_probe makeup max=7.60 mean=0.95 capfrac=0.000 G=+2.31dB
+gain_probe makeup max=12.00 mean=9.16 capfrac=0.500 G=+9.95dB
+cluster_probe makeup max=12.00 mean=9.10 capfrac=0.556 G=-2.04dB
+pause_probe makeup max=12.00 mean=6.40 capfrac=0.400 G=+5.72dB
+annyeong makeup max=12.00 mean=10.38 capfrac=0.675 G=-1.98dB
+yeobo makeup max=12.00 mean=10.69 capfrac=0.735 G=-1.22dB
+old_input makeup max=12.00 mean=2.73 capfrac=0.111 G=+4.62dB
+--- B (table F3, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-2.81 trough=-2.72 rms=0.1703 tail=0.1185 sparkmax=0.8276 clamp=1
+annyeong halves=+1.83 trough=-5.77 rms=0.1010 tail=0.1165 sparkmax=0.9463 clamp=1
+yeobo halves=+0.01 trough=-7.98 rms=0.0961 tail=0.0867 sparkmax=0.9304 clamp=1
+demo_hello balance w0=-13.57 w1=-15.72 diff=-2.15 passes
+old_input balance w0=-12.48 w1=-15.84 diff=-3.36 passes
+gain_probe apa ratio=0.813 FAIL
+hello lateral gap=-0.75dB PASS<8
+coherence-RMS steps>4dB: 0 (none)
+fixed_sentence makeup max=12.00 mean=9.92 capfrac=0.667 G=-4.79dB
+demo_hello makeup max=10.58 mean=2.17 capfrac=0.000 G=+6.16dB
+creak_probe makeup max=7.60 mean=0.93 capfrac=0.000 G=+2.31dB
+gain_probe makeup max=12.00 mean=9.04 capfrac=0.500 G=+10.01dB
+cluster_probe makeup max=12.00 mean=9.17 capfrac=0.556 G=-2.52dB
+pause_probe makeup max=12.00 mean=6.41 capfrac=0.400 G=+5.17dB
+annyeong makeup max=12.00 mean=10.44 capfrac=0.675 G=-2.48dB
+yeobo makeup max=12.00 mean=10.76 capfrac=0.735 G=-1.75dB
+old_input makeup max=12.00 mean=2.69 capfrac=0.111 G=+4.62dB
+--- C (table F3, cap+6 prescale0.95 cohTrue) ---
+demo_hello halves=-2.95 trough=-2.74 rms=0.1536 tail=0.1035 sparkmax=0.7529 clamp=1
+annyeong halves=+3.28 trough=-5.72 rms=0.0940 tail=0.1187 sparkmax=0.9447 clamp=1
+yeobo halves=-0.30 trough=-5.04 rms=0.1116 tail=0.0716 sparkmax=0.9234 clamp=1
+demo_hello balance w0=-14.40 w1=-16.56 diff=-2.15 passes
+old_input balance w0=-13.33 w1=-16.97 diff=-3.64 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-0.74dB PASS<8
+coherence-RMS steps>4dB: 1 ['annyeong b11 -6.05']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-3.14dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+4.89dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.04dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+8.94dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.89dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+4.91dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.53dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-3.00dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.37dB
+--- D (table F3, cap+6 prescale0.95 cohFalse) ---
+demo_hello halves=-2.91 trough=-2.61 rms=0.1539 tail=0.1041 sparkmax=0.9395 clamp=0
+annyeong halves=+10.03 trough=-11.76 rms=0.0681 tail=0.1076 sparkmax=0.9395 clamp=0
+yeobo halves=-2.05 trough=-12.19 rms=0.0778 tail=0.0218 sparkmax=0.9395 clamp=0
+demo_hello balance w0=-14.68 w1=-16.33 diff=-1.65 passes
+old_input balance w0=-13.04 w1=-15.83 diff=-2.79 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.40']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-3.14dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+4.89dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.04dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+8.94dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.89dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+4.91dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.53dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-3.00dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.37dB
+--- E (table F3, cap+6 prescale1.00 cohFalse) ---
+demo_hello halves=-2.91 trough=-2.61 rms=0.1620 tail=0.1095 sparkmax=0.7360 clamp=1
+annyeong halves=+10.03 trough=-11.76 rms=0.0717 tail=0.1132 sparkmax=0.8063 clamp=1
+yeobo halves=-2.05 trough=-12.19 rms=0.0819 tail=0.0230 sparkmax=0.8728 clamp=1
+demo_hello balance w0=-14.23 w1=-15.89 diff=-1.65 passes
+old_input balance w0=-12.59 w1=-15.39 diff=-2.79 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.40']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-2.69dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+5.33dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.48dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+9.38dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.45dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+5.35dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.09dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-2.56dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.81dB
+--- F (table F3, cap+8 prescale0.95 cohFalse) ---
+demo_hello halves=-2.83 trough=-2.61 rms=0.1545 tail=0.1063 sparkmax=0.9395 clamp=0
+annyeong halves=+8.47 trough=-11.47 rms=0.0713 tail=0.1082 sparkmax=0.9395 clamp=0
+yeobo halves=-2.12 trough=-10.99 rms=0.0818 tail=0.0275 sparkmax=0.9396 clamp=0
+demo_hello balance w0=-14.67 w1=-16.33 diff=-1.66 passes
+old_input balance w0=-13.04 w1=-15.75 diff=-2.71 passes
+gain_probe apa ratio=0.856 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.31']
+fixed_sentence makeup max=8.00 mean=6.85 capfrac=0.857 G=-4.70dB
+demo_hello makeup max=8.00 mean=2.03 capfrac=0.087 G=+4.89dB
+creak_probe makeup max=7.60 mean=0.93 capfrac=0.000 G=+1.04dB
+gain_probe makeup max=8.00 mean=6.48 capfrac=0.667 G=+8.88dB
+cluster_probe makeup max=8.00 mean=6.40 capfrac=0.778 G=-3.33dB
+pause_probe makeup max=8.00 mean=4.67 capfrac=0.500 G=+4.48dB
+annyeong makeup max=8.00 mean=7.36 capfrac=0.900 G=-3.74dB
+yeobo makeup max=8.00 mean=7.35 capfrac=0.882 G=-3.01dB
+old_input makeup max=8.00 mean=2.24 capfrac=0.111 G=+3.36dB
+done flat
+apa testplan inversion resid=5.18e-07 (f32 domain, coherence ON)
+F3d25 eff spread -6.00..0.00 = 6.00 dB
+F4d25 eff spread -6.00..0.00 = 6.00 dB
+F3d10 eff spread -6.00..0.00 = 6.00 dB
+F4d10 eff spread -6.00..0.00 = 6.00 dB
+F3d00 eff spread -6.00..0.00 = 6.00 dB
+F4d00 eff spread -6.00..0.00 = 6.00 dB
+=== GRID (coh OFF, prescale 0.90) ===
+F3d25 | cap6 | de h=-2.9 t=-2.6 r=0.146 tail=0.099 cl=0 | an h=+10.0 t=-11.8 r=0.065 tail=0.102 cl=0 | ye h=-2.0 t=-12.2 r=0.074 tail=0.021 cl=0 | oldpin=-2.79 LOST | apa=2.53 | latgap=-1.3 | cohviol=2 an b11 -8.2,ye b6 -5.4 | de mk=6 an mk=6 ye mk=6
+F3d25 | cap8 | de h=-2.8 t=-2.6 r=0.146 tail=0.101 cl=0 | an h=+8.5 t=-11.5 r=0.068 tail=0.102 cl=0 | ye h=-2.1 t=-11.0 r=0.078 tail=0.026 cl=0 | oldpin=-2.71 LOST | apa=2.30 | latgap=-1.3 | cohviol=2 an b11 -8.2,ye b6 -5.3 | de mk=8 an mk=8 ye mk=8
+F3d25 | cap10 | de h=-2.8 t=-2.6 r=0.147 tail=0.102 cl=0 | an h=+6.8 t=-11.3 r=0.072 tail=0.105 cl=0 | ye h=-2.2 t=-9.7 r=0.083 tail=0.033 cl=0 | oldpin=-2.64 LOST | apa=2.23 | latgap=-1.3 | cohviol=2 an b11 -8.1,ye b6 -5.2 | de mk=10 an mk=10 ye mk=10
+F4d25 | cap6 | de h=-3.2 t=-2.8 r=0.150 tail=0.101 cl=0 | an h=+10.0 t=-11.7 r=0.064 tail=0.102 cl=0 | ye h=-2.1 t=-12.6 r=0.073 tail=0.020 cl=0 | oldpin=-2.29 LOST | apa=2.46 | latgap=-2.0 | cohviol=2 an b11 -8.7,ye b6 -4.4 | de mk=6 an mk=6 ye mk=6
+F4d25 | cap8 | de h=-3.1 t=-2.8 r=0.151 tail=0.103 cl=0 | an h=+8.4 t=-11.4 r=0.067 tail=0.103 cl=0 | ye h=-2.1 t=-11.4 r=0.076 tail=0.026 cl=0 | oldpin=-2.24 LOST | apa=2.26 | latgap=-2.0 | cohviol=2 an b11 -8.7,ye b6 -4.3 | de mk=8 an mk=8 ye mk=8
+F4d25 | cap10 | de h=-3.0 t=-2.8 r=0.151 tail=0.104 cl=0 | an h=+6.8 t=-11.2 r=0.072 tail=0.105 cl=0 | ye h=-2.2 t=-10.1 r=0.081 tail=0.032 cl=0 | oldpin=-2.17 LOST | apa=2.19 | latgap=-2.0 | cohviol=2 an b11 -8.4,ye b6 -4.2 | de mk=10 an mk=10 ye mk=10
+F3d10 | cap6 | de h=-2.6 t=-2.5 r=0.149 tail=0.103 cl=0 | an h=+10.9 t=-11.6 r=0.064 tail=0.102 cl=0 | ye h=-1.9 t=-12.0 r=0.074 tail=0.022 cl=0 | oldpin=-2.53 LOST | apa=2.49 | latgap=-1.2 | cohviol=2 an b11 -8.0,ye b6 -5.2 | de mk=6 an mk=6 ye mk=6
+F3d10 | cap8 | de h=-2.6 t=-2.5 r=0.150 tail=0.105 cl=0 | an h=+9.3 t=-11.3 r=0.067 tail=0.103 cl=0 | ye h=-2.0 t=-10.8 r=0.077 tail=0.027 cl=0 | oldpin=-2.48 LOST | apa=2.28 | latgap=-1.2 | cohviol=2 an b11 -8.0,ye b6 -5.2 | de mk=8 an mk=8 ye mk=8
+F3d10 | cap10 | de h=-2.5 t=-2.5 r=0.150 tail=0.106 cl=0 | an h=+7.7 t=-11.2 r=0.071 tail=0.105 cl=0 | ye h=-2.0 t=-9.5 r=0.083 tail=0.034 cl=0 | oldpin=-2.40 LOST | apa=2.21 | latgap=-1.2 | cohviol=2 an b11 -7.8,ye b6 -5.1 | de mk=10 an mk=10 ye mk=10
+F4d10 | cap6 | de h=-2.9 t=-2.7 r=0.153 tail=0.105 cl=0 | an h=+10.9 t=-11.5 r=0.064 tail=0.102 cl=0 | ye h=-2.0 t=-12.4 r=0.073 tail=0.021 cl=0 | oldpin=-2.07 LOST | apa=2.41 | latgap=-1.7 | cohviol=2 an b11 -8.5,ye b6 -4.3 | de mk=6 an mk=6 ye mk=6
+F4d10 | cap8 | de h=-2.8 t=-2.7 r=0.154 tail=0.108 cl=0 | an h=+9.3 t=-11.3 r=0.066 tail=0.103 cl=0 | ye h=-2.0 t=-11.2 r=0.076 tail=0.027 cl=0 | oldpin=-2.02 LOST | apa=2.24 | latgap=-1.7 | cohviol=2 an b11 -8.5,ye b6 -4.2 | de mk=8 an mk=8 ye mk=8
+F4d10 | cap10 | de h=-2.8 t=-2.7 r=0.154 tail=0.108 cl=0 | an h=+7.6 t=-11.1 r=0.071 tail=0.106 cl=0 | ye h=-2.0 t=-9.9 r=0.081 tail=0.033 cl=0 | oldpin=-1.94 LOST | apa=2.17 | latgap=-1.7 | cohviol=2 an b11 -8.0,ye b6 -4.1 | de mk=10 an mk=10 ye mk=10
+F3d00 | cap6 | de h=-2.5 t=-2.5 r=0.151 tail=0.106 cl=0 | an h=+11.5 t=-11.5 r=0.063 tail=0.102 cl=0 | ye h=-1.9 t=-11.9 r=0.074 tail=0.022 cl=0 | oldpin=-2.38 LOST | apa=2.46 | latgap=-1.1 | cohviol=2 an b11 -7.9,ye b6 -5.1 | de mk=6 an mk=6 ye mk=6
+F3d00 | cap8 | de h=-2.4 t=-2.5 r=0.152 tail=0.108 cl=0 | an h=+9.9 t=-11.3 r=0.066 tail=0.103 cl=0 | ye h=-1.9 t=-10.7 r=0.077 tail=0.028 cl=0 | oldpin=-2.33 LOST | apa=2.26 | latgap=-1.1 | cohviol=2 an b11 -7.9,ye b6 -5.1 | de mk=8 an mk=8 ye mk=8
+F3d00 | cap10 | de h=-2.4 t=-2.5 r=0.152 tail=0.109 cl=0 | an h=+8.3 t=-11.1 r=0.070 tail=0.106 cl=0 | ye h=-1.8 t=-9.4 r=0.082 tail=0.035 cl=0 | oldpin=-2.25 LOST | apa=2.19 | latgap=-1.1 | cohviol=2 an b11 -7.6,ye b6 -5.0 | de mk=10 an mk=10 ye mk=10
+F4d00 | cap6 | de h=-2.7 t=-2.6 r=0.156 tail=0.109 cl=0 | an h=+11.4 t=-11.4 r=0.063 tail=0.102 cl=0 | ye h=-1.9 t=-12.3 r=0.073 tail=0.022 cl=0 | oldpin=-1.92 LOST | apa=2.38 | latgap=-1.6 | cohviol=2 an b11 -8.4,ye b6 -4.1 | de mk=6 an mk=6 ye mk=6
+F4d00 | cap8 | de h=-2.6 t=-2.6 r=0.156 tail=0.111 cl=0 | an h=+9.8 t=-11.2 r=0.066 tail=0.103 cl=0 | ye h=-1.9 t=-11.1 r=0.076 tail=0.027 cl=0 | oldpin=-1.86 LOST | apa=2.23 | latgap=-1.6 | cohviol=2 an b11 -8.4,ye b6 -4.1 | de mk=8 an mk=8 ye mk=8
+F4d00 | cap10 | de h=-2.6 t=-2.6 r=0.156 tail=0.111 cl=0 | an h=+8.2 t=-11.0 r=0.070 tail=0.106 cl=0 | ye h=-1.9 t=-9.8 r=0.081 tail=0.034 cl=0 | oldpin=-1.79 LOST | apa=2.16 | latgap=-1.6 | cohviol=1 an b11 -7.8 | de mk=9 an mk=10 ye mk=10
+done grid2
+=== TABLE EFFECTIVE STATS (new planned gains) ===
+V2 eff planned: min=-6.00 max=0.00 spread=6.00
+F1 eff planned: min=-6.00 max=0.00 spread=6.00
+F3 eff planned: min=-6.00 max=0.00 spread=6.00
+control table=V2 cap=12 pre=1.10 coh=True max|dd|=0.000
+A table=F1 cap=12 pre=1.10 coh=True max|dd|=2.000
+B table=F3 cap=12 pre=1.10 coh=True max|dd|=2.500
+C table=F3 cap=6 pre=0.95 coh=True max|dd|=2.500
+D table=F3 cap=6 pre=0.95 coh=False max|dd|=2.500
+E table=F3 cap=6 pre=1.00 coh=False max|dd|=2.500
+F table=F3 cap=8 pre=0.95 coh=False max|dd|=2.500
+=== CONTROL vs ENGINE (validation; dd=0 so residual = inversion+replica only) ===
+fixed_sentence max|sim-eng|=1.68e-05 rms_sim=0.0810 rms_eng=0.0810
+demo_hello max|sim-eng|=1.22e-01 rms_sim=0.1660 rms_eng=0.1659
+creak_probe max|sim-eng|=9.72e-02 rms_sim=0.3480 rms_eng=0.3481
+gain_probe max|sim-eng|=4.21e-01 rms_sim=0.1581 rms_eng=0.1573
+cluster_probe max|sim-eng|=7.50e-02 rms_sim=0.0916 rms_eng=0.0916
+pause_probe max|sim-eng|=6.43e-01 rms_sim=0.2058 rms_eng=0.2063
+annyeong max|sim-eng|=3.37e-02 rms_sim=0.0953 rms_eng=0.0953
+yeobo max|sim-eng|=9.59e-02 rms_sim=0.0980 rms_eng=0.0980
+old_input max|sim-eng|=1.79e-02 rms_sim=0.2070 rms_eng=0.2070
+=== CONTROL SPARK vs ENGINE SPARK (bias calibration) ===
+demo_hello s1 eng=0.8667 sim=0.8261 d=-0.0406
+demo_hello s2 eng=0.6292 sim=0.6292 d=+0.0000
+demo_hello s3 eng=0.3893 sim=0.3893 d=-0.0000
+annyeong s1 eng=0.2250 sim=0.2250 d=+0.0000
+annyeong s2 eng=0.2341 sim=0.2341 d=+0.0000
+annyeong s3 eng=0.1934 sim=0.1934 d=+0.0000
+annyeong s4 eng=0.1895 sim=0.1895 d=-0.0000
+annyeong s5 eng=0.1779 sim=0.1779 d=-0.0000
+annyeong s6 eng=0.1072 sim=0.1072 d=-0.0000
+annyeong s7 eng=0.3370 sim=0.3370 d=+0.0000
+annyeong s8 eng=0.0881 sim=0.0881 d=+0.0000
+annyeong s9 eng=0.7124 sim=0.7124 d=-0.0000
+annyeong s10 eng=0.3055 sim=0.3055 d=-0.0000
+annyeong s11 eng=0.9608 sim=0.9608 d=-0.0000
+yeobo s1 eng=0.2310 sim=0.2310 d=-0.0000
+yeobo s2 eng=0.2455 sim=0.2455 d=+0.0000
+yeobo s3 eng=0.4618 sim=0.4618 d=+0.0000
+yeobo s4 eng=0.0902 sim=0.0902 d=+0.0000
+yeobo s5 eng=0.5630 sim=0.5630 d=-0.0000
+yeobo s6 eng=0.2111 sim=0.2111 d=-0.0000
+yeobo s7 eng=0.9311 sim=0.9311 d=+0.0000
+--- control (table V2, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-3.04 trough=-2.71 rms=0.1660 tail=0.1129 sparkmax=0.8261 clamp=1
+annyeong halves=+1.55 trough=-5.20 rms=0.0953 tail=0.1093 sparkmax=0.9608 clamp=1
+yeobo halves=-0.18 trough=-7.61 rms=0.0980 tail=0.0860 sparkmax=0.9311 clamp=1
+demo_hello balance w0=-13.71 w1=-16.05 diff=-2.34 passes
+old_input balance w0=-12.28 w1=-16.05 diff=-3.77 passes
+gain_probe apa ratio=0.823 FAIL
+hello lateral gap=-0.97dB PASS<8
+coherence-RMS steps>4dB: 1 ['annyeong b11 -4.32']
+fixed_sentence makeup max=12.00 mean=9.95 capfrac=0.667 G=-3.69dB
+demo_hello makeup max=11.71 mean=2.42 capfrac=0.000 G=+6.26dB
+creak_probe makeup max=7.60 mean=0.94 capfrac=0.000 G=+2.56dB
+gain_probe makeup max=12.00 mean=9.16 capfrac=0.500 G=+10.23dB
+cluster_probe makeup max=12.00 mean=9.21 capfrac=0.556 G=-2.03dB
+pause_probe makeup max=12.00 mean=6.32 capfrac=0.400 G=+6.49dB
+annyeong makeup max=12.00 mean=10.35 capfrac=0.575 G=-0.52dB
+yeobo makeup max=12.00 mean=10.66 capfrac=0.676 G=-0.23dB
+old_input makeup max=12.00 mean=2.77 capfrac=0.111 G=+4.74dB
+--- A (table F1, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-2.65 trough=-2.72 rms=0.1696 tail=0.1184 sparkmax=0.8266 clamp=1
+annyeong halves=+1.82 trough=-5.75 rms=0.1010 tail=0.1163 sparkmax=0.9472 clamp=1
+yeobo halves=+0.06 trough=-7.72 rms=0.0976 tail=0.0892 sparkmax=0.9290 clamp=1
+demo_hello balance w0=-13.66 w1=-15.69 diff=-2.03 passes
+old_input balance w0=-12.35 w1=-15.94 diff=-3.58 passes
+gain_probe apa ratio=0.801 FAIL
+hello lateral gap=-0.54dB PASS<8
+coherence-RMS steps>4dB: 0 (none)
+fixed_sentence makeup max=12.00 mean=9.91 capfrac=0.667 G=-4.24dB
+demo_hello makeup max=10.91 mean=2.24 capfrac=0.000 G=+6.23dB
+creak_probe makeup max=7.60 mean=0.95 capfrac=0.000 G=+2.31dB
+gain_probe makeup max=12.00 mean=9.16 capfrac=0.500 G=+9.95dB
+cluster_probe makeup max=12.00 mean=9.10 capfrac=0.556 G=-2.04dB
+pause_probe makeup max=12.00 mean=6.40 capfrac=0.400 G=+5.72dB
+annyeong makeup max=12.00 mean=10.38 capfrac=0.675 G=-1.98dB
+yeobo makeup max=12.00 mean=10.69 capfrac=0.735 G=-1.22dB
+old_input makeup max=12.00 mean=2.73 capfrac=0.111 G=+4.62dB
+--- B (table F3, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-2.81 trough=-2.72 rms=0.1703 tail=0.1185 sparkmax=0.8276 clamp=1
+annyeong halves=+1.83 trough=-5.77 rms=0.1010 tail=0.1165 sparkmax=0.9463 clamp=1
+yeobo halves=+0.01 trough=-7.98 rms=0.0961 tail=0.0867 sparkmax=0.9304 clamp=1
+demo_hello balance w0=-13.57 w1=-15.72 diff=-2.15 passes
+old_input balance w0=-12.48 w1=-15.84 diff=-3.36 passes
+gain_probe apa ratio=0.813 FAIL
+hello lateral gap=-0.75dB PASS<8
+coherence-RMS steps>4dB: 0 (none)
+fixed_sentence makeup max=12.00 mean=9.92 capfrac=0.667 G=-4.79dB
+demo_hello makeup max=10.58 mean=2.17 capfrac=0.000 G=+6.16dB
+creak_probe makeup max=7.60 mean=0.93 capfrac=0.000 G=+2.31dB
+gain_probe makeup max=12.00 mean=9.04 capfrac=0.500 G=+10.01dB
+cluster_probe makeup max=12.00 mean=9.17 capfrac=0.556 G=-2.52dB
+pause_probe makeup max=12.00 mean=6.41 capfrac=0.400 G=+5.17dB
+annyeong makeup max=12.00 mean=10.44 capfrac=0.675 G=-2.48dB
+yeobo makeup max=12.00 mean=10.76 capfrac=0.735 G=-1.75dB
+old_input makeup max=12.00 mean=2.69 capfrac=0.111 G=+4.62dB
+--- C (table F3, cap+6 prescale0.95 cohTrue) ---
+demo_hello halves=-2.95 trough=-2.74 rms=0.1536 tail=0.1035 sparkmax=0.7529 clamp=1
+annyeong halves=+3.28 trough=-5.72 rms=0.0940 tail=0.1187 sparkmax=0.9447 clamp=1
+yeobo halves=-0.30 trough=-5.04 rms=0.1116 tail=0.0716 sparkmax=0.9234 clamp=1
+demo_hello balance w0=-14.40 w1=-16.56 diff=-2.15 passes
+old_input balance w0=-13.33 w1=-16.97 diff=-3.64 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-0.74dB PASS<8
+coherence-RMS steps>4dB: 1 ['annyeong b11 -6.05']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-3.14dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+4.89dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.04dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+8.94dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.89dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+4.91dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.53dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-3.00dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.37dB
+--- D (table F3, cap+6 prescale0.95 cohFalse) ---
+demo_hello halves=-2.91 trough=-2.61 rms=0.1539 tail=0.1041 sparkmax=0.9395 clamp=0
+annyeong halves=+10.03 trough=-11.76 rms=0.0681 tail=0.1076 sparkmax=0.9395 clamp=0
+yeobo halves=-2.05 trough=-12.19 rms=0.0778 tail=0.0218 sparkmax=0.9395 clamp=0
+demo_hello balance w0=-14.68 w1=-16.33 diff=-1.65 passes
+old_input balance w0=-13.04 w1=-15.83 diff=-2.79 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.40']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-3.14dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+4.89dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.04dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+8.94dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.89dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+4.91dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.53dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-3.00dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.37dB
+--- E (table F3, cap+6 prescale1.00 cohFalse) ---
+demo_hello halves=-2.91 trough=-2.61 rms=0.1620 tail=0.1095 sparkmax=0.7360 clamp=1
+annyeong halves=+10.03 trough=-11.76 rms=0.0717 tail=0.1132 sparkmax=0.8063 clamp=1
+yeobo halves=-2.05 trough=-12.19 rms=0.0819 tail=0.0230 sparkmax=0.8728 clamp=1
+demo_hello balance w0=-14.23 w1=-15.89 diff=-1.65 passes
+old_input balance w0=-12.59 w1=-15.39 diff=-2.79 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.40']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-2.69dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+5.33dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.48dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+9.38dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.45dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+5.35dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.09dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-2.56dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.81dB
+--- F (table F3, cap+8 prescale0.95 cohFalse) ---
+demo_hello halves=-2.83 trough=-2.61 rms=0.1545 tail=0.1063 sparkmax=0.9395 clamp=0
+annyeong halves=+8.47 trough=-11.47 rms=0.0713 tail=0.1082 sparkmax=0.9395 clamp=0
+yeobo halves=-2.12 trough=-10.99 rms=0.0818 tail=0.0275 sparkmax=0.9396 clamp=0
+demo_hello balance w0=-14.67 w1=-16.33 diff=-1.66 passes
+old_input balance w0=-13.04 w1=-15.75 diff=-2.71 passes
+gain_probe apa ratio=0.856 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.31']
+fixed_sentence makeup max=8.00 mean=6.85 capfrac=0.857 G=-4.70dB
+demo_hello makeup max=8.00 mean=2.03 capfrac=0.087 G=+4.89dB
+creak_probe makeup max=7.60 mean=0.93 capfrac=0.000 G=+1.04dB
+gain_probe makeup max=8.00 mean=6.48 capfrac=0.667 G=+8.88dB
+cluster_probe makeup max=8.00 mean=6.40 capfrac=0.778 G=-3.33dB
+pause_probe makeup max=8.00 mean=4.67 capfrac=0.500 G=+4.48dB
+annyeong makeup max=8.00 mean=7.36 capfrac=0.900 G=-3.74dB
+yeobo makeup max=8.00 mean=7.35 capfrac=0.882 G=-3.01dB
+old_input makeup max=8.00 mean=2.24 capfrac=0.111 G=+3.36dB
+done flat
+apa testplan inversion resid=5.18e-07 (f32 domain, coherence ON)
+F3d25 eff spread -6.00..0.00 = 6.00 dB
+F4d25 eff spread -6.00..0.00 = 6.00 dB
+F3d10 eff spread -6.00..0.00 = 6.00 dB
+F4d10 eff spread -6.00..0.00 = 6.00 dB
+F3d00 eff spread -6.00..0.00 = 6.00 dB
+F4d00 eff spread -6.00..0.00 = 6.00 dB
+=== GRID (coh OFF, prescale 0.90) ===
+F3d25 | cap6 | de h=-2.9 t=-2.6 r=0.146 tail=0.099 cl=0 | an h=+10.0 t=-11.8 r=0.065 tail=0.102 cl=0 | ye h=-2.0 t=-12.2 r=0.074 tail=0.021 cl=0 | oldpin=-2.79 LOST | apa=2.53 | latgap=-1.3 | cohviol=2 an b11 -8.2,ye b6 -5.4 | de mk=6 an mk=6 ye mk=6
+F3d25 | cap8 | de h=-2.8 t=-2.6 r=0.146 tail=0.101 cl=0 | an h=+8.5 t=-11.5 r=0.068 tail=0.102 cl=0 | ye h=-2.1 t=-11.0 r=0.078 tail=0.026 cl=0 | oldpin=-2.71 LOST | apa=2.30 | latgap=-1.3 | cohviol=2 an b11 -8.2,ye b6 -5.3 | de mk=8 an mk=8 ye mk=8
+F3d25 | cap10 | de h=-2.8 t=-2.6 r=0.147 tail=0.102 cl=0 | an h=+6.8 t=-11.3 r=0.072 tail=0.105 cl=0 | ye h=-2.2 t=-9.7 r=0.083 tail=0.033 cl=0 | oldpin=-2.64 LOST | apa=2.23 | latgap=-1.3 | cohviol=2 an b11 -8.1,ye b6 -5.2 | de mk=10 an mk=10 ye mk=10
+F4d25 | cap6 | de h=-3.2 t=-2.8 r=0.150 tail=0.101 cl=0 | an h=+10.0 t=-11.7 r=0.064 tail=0.102 cl=0 | ye h=-2.1 t=-12.6 r=0.073 tail=0.020 cl=0 | oldpin=-2.29 LOST | apa=2.46 | latgap=-2.0 | cohviol=2 an b11 -8.7,ye b6 -4.4 | de mk=6 an mk=6 ye mk=6
+F4d25 | cap8 | de h=-3.1 t=-2.8 r=0.151 tail=0.103 cl=0 | an h=+8.4 t=-11.4 r=0.067 tail=0.103 cl=0 | ye h=-2.1 t=-11.4 r=0.076 tail=0.026 cl=0 | oldpin=-2.24 LOST | apa=2.26 | latgap=-2.0 | cohviol=2 an b11 -8.7,ye b6 -4.3 | de mk=8 an mk=8 ye mk=8
+F4d25 | cap10 | de h=-3.0 t=-2.8 r=0.151 tail=0.104 cl=0 | an h=+6.8 t=-11.2 r=0.072 tail=0.105 cl=0 | ye h=-2.2 t=-10.1 r=0.081 tail=0.032 cl=0 | oldpin=-2.17 LOST | apa=2.19 | latgap=-2.0 | cohviol=2 an b11 -8.4,ye b6 -4.2 | de mk=10 an mk=10 ye mk=10
+F3d10 | cap6 | de h=-2.6 t=-2.5 r=0.149 tail=0.103 cl=0 | an h=+10.9 t=-11.6 r=0.064 tail=0.102 cl=0 | ye h=-1.9 t=-12.0 r=0.074 tail=0.022 cl=0 | oldpin=-2.53 LOST | apa=2.49 | latgap=-1.2 | cohviol=2 an b11 -8.0,ye b6 -5.2 | de mk=6 an mk=6 ye mk=6
+F3d10 | cap8 | de h=-2.6 t=-2.5 r=0.150 tail=0.105 cl=0 | an h=+9.3 t=-11.3 r=0.067 tail=0.103 cl=0 | ye h=-2.0 t=-10.8 r=0.077 tail=0.027 cl=0 | oldpin=-2.48 LOST | apa=2.28 | latgap=-1.2 | cohviol=2 an b11 -8.0,ye b6 -5.2 | de mk=8 an mk=8 ye mk=8
+F3d10 | cap10 | de h=-2.5 t=-2.5 r=0.150 tail=0.106 cl=0 | an h=+7.7 t=-11.2 r=0.071 tail=0.105 cl=0 | ye h=-2.0 t=-9.5 r=0.083 tail=0.034 cl=0 | oldpin=-2.40 LOST | apa=2.21 | latgap=-1.2 | cohviol=2 an b11 -7.8,ye b6 -5.1 | de mk=10 an mk=10 ye mk=10
+F4d10 | cap6 | de h=-2.9 t=-2.7 r=0.153 tail=0.105 cl=0 | an h=+10.9 t=-11.5 r=0.064 tail=0.102 cl=0 | ye h=-2.0 t=-12.4 r=0.073 tail=0.021 cl=0 | oldpin=-2.07 LOST | apa=2.41 | latgap=-1.7 | cohviol=2 an b11 -8.5,ye b6 -4.3 | de mk=6 an mk=6 ye mk=6
+F4d10 | cap8 | de h=-2.8 t=-2.7 r=0.154 tail=0.108 cl=0 | an h=+9.3 t=-11.3 r=0.066 tail=0.103 cl=0 | ye h=-2.0 t=-11.2 r=0.076 tail=0.027 cl=0 | oldpin=-2.02 LOST | apa=2.24 | latgap=-1.7 | cohviol=2 an b11 -8.5,ye b6 -4.2 | de mk=8 an mk=8 ye mk=8
+F4d10 | cap10 | de h=-2.8 t=-2.7 r=0.154 tail=0.108 cl=0 | an h=+7.6 t=-11.1 r=0.071 tail=0.106 cl=0 | ye h=-2.0 t=-9.9 r=0.081 tail=0.033 cl=0 | oldpin=-1.94 LOST | apa=2.17 | latgap=-1.7 | cohviol=2 an b11 -8.0,ye b6 -4.1 | de mk=10 an mk=10 ye mk=10
+F3d00 | cap6 | de h=-2.5 t=-2.5 r=0.151 tail=0.106 cl=0 | an h=+11.5 t=-11.5 r=0.063 tail=0.102 cl=0 | ye h=-1.9 t=-11.9 r=0.074 tail=0.022 cl=0 | oldpin=-2.38 LOST | apa=2.46 | latgap=-1.1 | cohviol=2 an b11 -7.9,ye b6 -5.1 | de mk=6 an mk=6 ye mk=6
+F3d00 | cap8 | de h=-2.4 t=-2.5 r=0.152 tail=0.108 cl=0 | an h=+9.9 t=-11.3 r=0.066 tail=0.103 cl=0 | ye h=-1.9 t=-10.7 r=0.077 tail=0.028 cl=0 | oldpin=-2.33 LOST | apa=2.26 | latgap=-1.1 | cohviol=2 an b11 -7.9,ye b6 -5.1 | de mk=8 an mk=8 ye mk=8
+F3d00 | cap10 | de h=-2.4 t=-2.5 r=0.152 tail=0.109 cl=0 | an h=+8.3 t=-11.1 r=0.070 tail=0.106 cl=0 | ye h=-1.8 t=-9.4 r=0.082 tail=0.035 cl=0 | oldpin=-2.25 LOST | apa=2.19 | latgap=-1.1 | cohviol=2 an b11 -7.6,ye b6 -5.0 | de mk=10 an mk=10 ye mk=10
+F4d00 | cap6 | de h=-2.7 t=-2.6 r=0.156 tail=0.109 cl=0 | an h=+11.4 t=-11.4 r=0.063 tail=0.102 cl=0 | ye h=-1.9 t=-12.3 r=0.073 tail=0.022 cl=0 | oldpin=-1.92 LOST | apa=2.38 | latgap=-1.6 | cohviol=2 an b11 -8.4,ye b6 -4.1 | de mk=6 an mk=6 ye mk=6
+F4d00 | cap8 | de h=-2.6 t=-2.6 r=0.156 tail=0.111 cl=0 | an h=+9.8 t=-11.2 r=0.066 tail=0.103 cl=0 | ye h=-1.9 t=-11.1 r=0.076 tail=0.027 cl=0 | oldpin=-1.86 LOST | apa=2.23 | latgap=-1.6 | cohviol=2 an b11 -8.4,ye b6 -4.1 | de mk=8 an mk=8 ye mk=8
+F4d00 | cap10 | de h=-2.6 t=-2.6 r=0.156 tail=0.111 cl=0 | an h=+8.2 t=-11.0 r=0.070 tail=0.106 cl=0 | ye h=-1.9 t=-9.8 r=0.081 tail=0.034 cl=0 | oldpin=-1.79 LOST | apa=2.16 | latgap=-1.6 | cohviol=1 an b11 -7.8 | de mk=9 an mk=10 ye mk=10
+done grid2
+=== OPTION 1: F4d10 + fade/h variants, pre 0.90, coh OFF ===
+fade-12 h-8 cap6 | de h=-2.8 t=-2.6 r=0.158 tl=0.109 sp=0.890 cl=0 cv=0 | an h=+10.8 t=-11.5 r=0.063 tl=0.102 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-12.4 r=0.073 tl=0.021 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-2.06 LOST | apa=2.41 | 
+fade-12 h-8 cap8 | de h=-2.7 t=-2.6 r=0.159 tl=0.112 sp=0.890 cl=0 cv=0 | an h=+9.2 t=-11.3 r=0.066 tl=0.103 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-11.2 r=0.076 tl=0.027 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-2.01 LOST | apa=2.24 | 
+fade-12 h-6 cap6 | de h=-2.8 t=-2.6 r=0.158 tl=0.109 sp=0.890 cl=0 cv=0 | an h=+10.8 t=-11.5 r=0.063 tl=0.102 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-12.4 r=0.073 tl=0.021 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-2.06 LOST | apa=2.41 | 
+fade-12 h-6 cap8 | de h=-2.7 t=-2.6 r=0.159 tl=0.112 sp=0.890 cl=0 cv=0 | an h=+9.2 t=-11.3 r=0.066 tl=0.103 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-11.2 r=0.076 tl=0.027 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-2.01 LOST | apa=2.24 | 
+fade-12 h-4 cap6 | de h=-3.4 t=-2.8 r=0.134 tl=0.089 sp=0.890 cl=0 cv=0 | an h=+10.9 t=-11.5 r=0.064 tl=0.102 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-12.4 r=0.073 tl=0.021 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-2.32 LOST | apa=2.41 | 
+fade-12 h-4 cap8 | de h=-3.3 t=-2.8 r=0.135 tl=0.091 sp=0.890 cl=0 cv=0 | an h=+9.3 t=-11.3 r=0.066 tl=0.103 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-11.2 r=0.076 tl=0.027 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-2.27 LOST | apa=2.24 | 
+fade-8 h-8 cap6 | de h=-2.7 t=-2.6 r=0.159 tl=0.113 sp=0.890 cl=0 cv=0 | an h=+10.8 t=-11.5 r=0.063 tl=0.102 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-12.4 r=0.073 tl=0.021 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-1.95 LOST | apa=2.41 | 
+fade-8 h-8 cap8 | de h=-2.7 t=-2.6 r=0.159 tl=0.113 sp=0.890 cl=0 cv=0 | an h=+9.2 t=-11.3 r=0.066 tl=0.103 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-11.2 r=0.076 tl=0.027 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-1.87 LOST | apa=2.24 | 
+fade-8 h-6 cap6 | de h=-2.7 t=-2.6 r=0.159 tl=0.113 sp=0.890 cl=0 cv=0 | an h=+10.8 t=-11.5 r=0.063 tl=0.102 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-12.4 r=0.073 tl=0.021 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-1.95 LOST | apa=2.41 | 
+fade-8 h-6 cap8 | de h=-2.7 t=-2.6 r=0.159 tl=0.113 sp=0.890 cl=0 cv=0 | an h=+9.2 t=-11.3 r=0.066 tl=0.103 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-11.2 r=0.076 tl=0.027 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-1.87 LOST | apa=2.24 | 
+fade-8 h-4 cap6 | de h=-3.3 t=-2.8 r=0.135 tl=0.092 sp=0.890 cl=0 cv=0 | an h=+10.9 t=-11.5 r=0.064 tl=0.102 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-12.4 r=0.073 tl=0.021 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-2.22 LOST | apa=2.41 | 
+fade-8 h-4 cap8 | de h=-3.2 t=-2.8 r=0.136 tl=0.094 sp=0.890 cl=0 cv=0 | an h=+9.3 t=-11.3 r=0.066 tl=0.103 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-11.2 r=0.076 tl=0.027 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-2.14 LOST | apa=2.24 | 
+fade-6 h-8 cap6 | de h=-2.6 t=-2.6 r=0.159 tl=0.114 sp=0.890 cl=0 cv=0 | an h=+10.8 t=-11.5 r=0.063 tl=0.102 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-12.4 r=0.073 tl=0.022 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-1.86 LOST | apa=2.41 | 
+fade-6 h-8 cap8 | de h=-2.6 t=-2.6 r=0.160 tl=0.114 sp=0.890 cl=0 cv=0 | an h=+9.3 t=-11.3 r=0.066 tl=0.103 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-11.2 r=0.076 tl=0.027 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-1.75 LOST | apa=2.24 | 
+fade-6 h-6 cap6 | de h=-2.6 t=-2.6 r=0.159 tl=0.114 sp=0.890 cl=0 cv=0 | an h=+10.8 t=-11.5 r=0.063 tl=0.102 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-12.4 r=0.073 tl=0.022 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-1.86 LOST | apa=2.41 | 
+fade-6 h-6 cap8 | de h=-2.6 t=-2.6 r=0.160 tl=0.114 sp=0.890 cl=0 cv=0 | an h=+9.3 t=-11.3 r=0.066 tl=0.103 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-11.2 r=0.076 tl=0.027 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-1.75 LOST | apa=2.24 | 
+fade-6 h-4 cap6 | de h=-3.2 t=-2.8 r=0.135 tl=0.094 sp=0.890 cl=0 cv=0 | an h=+10.9 t=-11.5 r=0.064 tl=0.102 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-12.4 r=0.073 tl=0.022 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-2.12 LOST | apa=2.41 | 
+fade-6 h-4 cap8 | de h=-3.2 t=-2.8 r=0.136 tl=0.094 sp=0.890 cl=0 cv=0 | an h=+9.3 t=-11.3 r=0.066 tl=0.103 sp=0.890 cl=0 cv=1 FAIL | ye h=-2.0 t=-11.2 r=0.076 tl=0.027 sp=0.890 cl=0 cv=1 FAIL(tail) | oldpin=-2.02 LOST | apa=2.24 | 
+=== OPTION 2: coh ON x cap x prescale on F3d25/F4d10 ===
+F3d25 cap8 pre0.95 | de h=-2.9 t=-2.7 r=0.154 tl=0.106 sp=0.7523 cl=1 cv=0 | an h=+2.9 t=-5.9 r=0.104 tl=0.125 sp=0.9406 cl=1 cv=1 FAIL | ye h=-0.4 t=-5.7 r=0.121 tl=0.088 sp=0.9429 cl=1 cv=0 FAIL | 
+F3d25 cap8 pre1.10 | de h=-2.9 t=-2.7 r=0.170 tl=0.117 sp=0.8276 cl=1 cv=0 | an h=+2.9 t=-5.9 r=0.109 tl=0.131 sp=0.9454 cl=1 cv=1 FAIL | ye h=-0.4 t=-5.7 r=0.121 tl=0.088 sp=0.9429 cl=1 cv=0 FAIL | 
+F3d25 cap10 pre0.95 | de h=-2.8 t=-2.7 r=0.155 tl=0.107 sp=0.7523 cl=1 cv=0 | an h=+2.4 t=-6.0 r=0.115 tl=0.135 sp=0.9447 cl=2 cv=1 FAIL | ye h=-0.3 t=-7.1 r=0.107 tl=0.087 sp=0.9304 cl=1 cv=0 FAIL | 
+F3d25 cap10 pre1.10 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 | an h=+2.3 t=-6.0 r=0.116 tl=0.135 sp=0.9460 cl=1 cv=1 FAIL | ye h=-0.3 t=-7.1 r=0.107 tl=0.087 sp=0.9304 cl=1 cv=0 FAIL | 
+F3d25 cap12 pre0.95 | de h=-2.8 t=-2.7 r=0.155 tl=0.108 sp=0.7523 cl=1 cv=0 | an h=+1.8 t=-5.8 r=0.101 tl=0.117 sp=0.9463 cl=1 cv=0 FAIL | ye h=+0.0 t=-8.0 r=0.096 tl=0.087 sp=0.9304 cl=1 cv=0 FAIL | 
+F3d25 cap12 pre1.10 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 | an h=+1.8 t=-5.8 r=0.101 tl=0.117 sp=0.9463 cl=1 cv=0 FAIL | ye h=+0.0 t=-8.0 r=0.096 tl=0.087 sp=0.9304 cl=1 cv=0 FAIL | 
+F4d10 cap8 pre0.95 | de h=-2.9 t=-2.8 r=0.157 tl=0.109 sp=0.7532 cl=1 cv=0 | an h=+2.9 t=-5.9 r=0.103 tl=0.125 sp=0.9350 cl=1 cv=1 FAIL | ye h=-0.1 t=-5.8 r=0.111 tl=0.084 sp=0.9327 cl=1 cv=0 FAIL | 
+F4d10 cap8 pre1.10 | de h=-2.8 t=-2.7 r=0.172 tl=0.120 sp=0.8285 cl=1 cv=0 | an h=+2.9 t=-5.9 r=0.108 tl=0.132 sp=0.9510 cl=1 cv=1 FAIL | ye h=-0.1 t=-5.8 r=0.110 tl=0.084 sp=0.9327 cl=1 cv=0 FAIL | 
+F4d10 cap10 pre0.95 | de h=-2.8 t=-2.8 r=0.157 tl=0.110 sp=0.7532 cl=1 cv=0 | an h=+2.5 t=-6.1 r=0.112 tl=0.132 sp=0.9603 cl=1 cv=0 FAIL | ye h=+0.0 t=-7.1 r=0.098 tl=0.083 sp=0.9327 cl=1 cv=0 FAIL | 
+F4d10 cap10 pre1.10 | de h=-2.8 t=-2.7 r=0.173 tl=0.121 sp=0.8285 cl=1 cv=0 | an h=+2.5 t=-6.1 r=0.112 tl=0.132 sp=0.9368 cl=1 cv=0 FAIL | ye h=-0.0 t=-7.1 r=0.098 tl=0.083 sp=0.9327 cl=1 cv=0 FAIL | 
+F4d10 cap12 pre0.95 | de h=-2.8 t=-2.8 r=0.157 tl=0.110 sp=0.7532 cl=1 cv=0 | an h=+2.1 t=-5.9 r=0.098 tl=0.115 sp=0.9376 cl=1 cv=0 FAIL | ye h=+0.1 t=-8.3 r=0.093 tl=0.085 sp=0.9249 cl=1 cv=0 FAIL | 
+F4d10 cap12 pre1.10 | de h=-2.8 t=-2.7 r=0.173 tl=0.121 sp=0.8285 cl=1 cv=0 | an h=+2.1 t=-5.9 r=0.098 tl=0.115 sp=0.9376 cl=1 cv=0 FAIL | ye h=+0.1 t=-8.3 r=0.093 tl=0.085 sp=0.9249 cl=1 cv=0 FAIL | 
+done grid3
+=== TABLE EFFECTIVE STATS (new planned gains) ===
+V2 eff planned: min=-6.00 max=0.00 spread=6.00
+F1 eff planned: min=-6.00 max=0.00 spread=6.00
+F3 eff planned: min=-6.00 max=0.00 spread=6.00
+control table=V2 cap=12 pre=1.10 coh=True max|dd|=0.000
+A table=F1 cap=12 pre=1.10 coh=True max|dd|=2.000
+B table=F3 cap=12 pre=1.10 coh=True max|dd|=2.500
+C table=F3 cap=6 pre=0.95 coh=True max|dd|=2.500
+D table=F3 cap=6 pre=0.95 coh=False max|dd|=2.500
+E table=F3 cap=6 pre=1.00 coh=False max|dd|=2.500
+F table=F3 cap=8 pre=0.95 coh=False max|dd|=2.500
+=== CONTROL vs ENGINE (validation; dd=0 so residual = inversion+replica only) ===
+fixed_sentence max|sim-eng|=1.68e-05 rms_sim=0.0810 rms_eng=0.0810
+demo_hello max|sim-eng|=1.22e-01 rms_sim=0.1660 rms_eng=0.1659
+creak_probe max|sim-eng|=9.72e-02 rms_sim=0.3480 rms_eng=0.3481
+gain_probe max|sim-eng|=4.21e-01 rms_sim=0.1581 rms_eng=0.1573
+cluster_probe max|sim-eng|=7.50e-02 rms_sim=0.0916 rms_eng=0.0916
+pause_probe max|sim-eng|=6.43e-01 rms_sim=0.2058 rms_eng=0.2063
+annyeong max|sim-eng|=3.37e-02 rms_sim=0.0953 rms_eng=0.0953
+yeobo max|sim-eng|=9.59e-02 rms_sim=0.0980 rms_eng=0.0980
+old_input max|sim-eng|=1.79e-02 rms_sim=0.2070 rms_eng=0.2070
+=== CONTROL SPARK vs ENGINE SPARK (bias calibration) ===
+demo_hello s1 eng=0.8667 sim=0.8261 d=-0.0406
+demo_hello s2 eng=0.6292 sim=0.6292 d=+0.0000
+demo_hello s3 eng=0.3893 sim=0.3893 d=-0.0000
+annyeong s1 eng=0.2250 sim=0.2250 d=+0.0000
+annyeong s2 eng=0.2341 sim=0.2341 d=+0.0000
+annyeong s3 eng=0.1934 sim=0.1934 d=+0.0000
+annyeong s4 eng=0.1895 sim=0.1895 d=-0.0000
+annyeong s5 eng=0.1779 sim=0.1779 d=-0.0000
+annyeong s6 eng=0.1072 sim=0.1072 d=-0.0000
+annyeong s7 eng=0.3370 sim=0.3370 d=+0.0000
+annyeong s8 eng=0.0881 sim=0.0881 d=+0.0000
+annyeong s9 eng=0.7124 sim=0.7124 d=-0.0000
+annyeong s10 eng=0.3055 sim=0.3055 d=-0.0000
+annyeong s11 eng=0.9608 sim=0.9608 d=-0.0000
+yeobo s1 eng=0.2310 sim=0.2310 d=-0.0000
+yeobo s2 eng=0.2455 sim=0.2455 d=+0.0000
+yeobo s3 eng=0.4618 sim=0.4618 d=+0.0000
+yeobo s4 eng=0.0902 sim=0.0902 d=+0.0000
+yeobo s5 eng=0.5630 sim=0.5630 d=-0.0000
+yeobo s6 eng=0.2111 sim=0.2111 d=-0.0000
+yeobo s7 eng=0.9311 sim=0.9311 d=+0.0000
+--- control (table V2, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-3.04 trough=-2.71 rms=0.1660 tail=0.1129 sparkmax=0.8261 clamp=1
+annyeong halves=+1.55 trough=-5.20 rms=0.0953 tail=0.1093 sparkmax=0.9608 clamp=1
+yeobo halves=-0.18 trough=-7.61 rms=0.0980 tail=0.0860 sparkmax=0.9311 clamp=1
+demo_hello balance w0=-13.71 w1=-16.05 diff=-2.34 passes
+old_input balance w0=-12.28 w1=-16.05 diff=-3.77 passes
+gain_probe apa ratio=0.823 FAIL
+hello lateral gap=-0.97dB PASS<8
+coherence-RMS steps>4dB: 1 ['annyeong b11 -4.32']
+fixed_sentence makeup max=12.00 mean=9.95 capfrac=0.667 G=-3.69dB
+demo_hello makeup max=11.71 mean=2.42 capfrac=0.000 G=+6.26dB
+creak_probe makeup max=7.60 mean=0.94 capfrac=0.000 G=+2.56dB
+gain_probe makeup max=12.00 mean=9.16 capfrac=0.500 G=+10.23dB
+cluster_probe makeup max=12.00 mean=9.21 capfrac=0.556 G=-2.03dB
+pause_probe makeup max=12.00 mean=6.32 capfrac=0.400 G=+6.49dB
+annyeong makeup max=12.00 mean=10.35 capfrac=0.575 G=-0.52dB
+yeobo makeup max=12.00 mean=10.66 capfrac=0.676 G=-0.23dB
+old_input makeup max=12.00 mean=2.77 capfrac=0.111 G=+4.74dB
+--- A (table F1, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-2.65 trough=-2.72 rms=0.1696 tail=0.1184 sparkmax=0.8266 clamp=1
+annyeong halves=+1.82 trough=-5.75 rms=0.1010 tail=0.1163 sparkmax=0.9472 clamp=1
+yeobo halves=+0.06 trough=-7.72 rms=0.0976 tail=0.0892 sparkmax=0.9290 clamp=1
+demo_hello balance w0=-13.66 w1=-15.69 diff=-2.03 passes
+old_input balance w0=-12.35 w1=-15.94 diff=-3.58 passes
+gain_probe apa ratio=0.801 FAIL
+hello lateral gap=-0.54dB PASS<8
+coherence-RMS steps>4dB: 0 (none)
+fixed_sentence makeup max=12.00 mean=9.91 capfrac=0.667 G=-4.24dB
+demo_hello makeup max=10.91 mean=2.24 capfrac=0.000 G=+6.23dB
+creak_probe makeup max=7.60 mean=0.95 capfrac=0.000 G=+2.31dB
+gain_probe makeup max=12.00 mean=9.16 capfrac=0.500 G=+9.95dB
+cluster_probe makeup max=12.00 mean=9.10 capfrac=0.556 G=-2.04dB
+pause_probe makeup max=12.00 mean=6.40 capfrac=0.400 G=+5.72dB
+annyeong makeup max=12.00 mean=10.38 capfrac=0.675 G=-1.98dB
+yeobo makeup max=12.00 mean=10.69 capfrac=0.735 G=-1.22dB
+old_input makeup max=12.00 mean=2.73 capfrac=0.111 G=+4.62dB
+--- B (table F3, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-2.81 trough=-2.72 rms=0.1703 tail=0.1185 sparkmax=0.8276 clamp=1
+annyeong halves=+1.83 trough=-5.77 rms=0.1010 tail=0.1165 sparkmax=0.9463 clamp=1
+yeobo halves=+0.01 trough=-7.98 rms=0.0961 tail=0.0867 sparkmax=0.9304 clamp=1
+demo_hello balance w0=-13.57 w1=-15.72 diff=-2.15 passes
+old_input balance w0=-12.48 w1=-15.84 diff=-3.36 passes
+gain_probe apa ratio=0.813 FAIL
+hello lateral gap=-0.75dB PASS<8
+coherence-RMS steps>4dB: 0 (none)
+fixed_sentence makeup max=12.00 mean=9.92 capfrac=0.667 G=-4.79dB
+demo_hello makeup max=10.58 mean=2.17 capfrac=0.000 G=+6.16dB
+creak_probe makeup max=7.60 mean=0.93 capfrac=0.000 G=+2.31dB
+gain_probe makeup max=12.00 mean=9.04 capfrac=0.500 G=+10.01dB
+cluster_probe makeup max=12.00 mean=9.17 capfrac=0.556 G=-2.52dB
+pause_probe makeup max=12.00 mean=6.41 capfrac=0.400 G=+5.17dB
+annyeong makeup max=12.00 mean=10.44 capfrac=0.675 G=-2.48dB
+yeobo makeup max=12.00 mean=10.76 capfrac=0.735 G=-1.75dB
+old_input makeup max=12.00 mean=2.69 capfrac=0.111 G=+4.62dB
+--- C (table F3, cap+6 prescale0.95 cohTrue) ---
+demo_hello halves=-2.95 trough=-2.74 rms=0.1536 tail=0.1035 sparkmax=0.7529 clamp=1
+annyeong halves=+3.28 trough=-5.72 rms=0.0940 tail=0.1187 sparkmax=0.9447 clamp=1
+yeobo halves=-0.30 trough=-5.04 rms=0.1116 tail=0.0716 sparkmax=0.9234 clamp=1
+demo_hello balance w0=-14.40 w1=-16.56 diff=-2.15 passes
+old_input balance w0=-13.33 w1=-16.97 diff=-3.64 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-0.74dB PASS<8
+coherence-RMS steps>4dB: 1 ['annyeong b11 -6.05']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-3.14dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+4.89dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.04dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+8.94dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.89dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+4.91dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.53dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-3.00dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.37dB
+--- D (table F3, cap+6 prescale0.95 cohFalse) ---
+demo_hello halves=-2.91 trough=-2.61 rms=0.1539 tail=0.1041 sparkmax=0.9395 clamp=0
+annyeong halves=+10.03 trough=-11.76 rms=0.0681 tail=0.1076 sparkmax=0.9395 clamp=0
+yeobo halves=-2.05 trough=-12.19 rms=0.0778 tail=0.0218 sparkmax=0.9395 clamp=0
+demo_hello balance w0=-14.68 w1=-16.33 diff=-1.65 passes
+old_input balance w0=-13.04 w1=-15.83 diff=-2.79 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.40']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-3.14dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+4.89dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.04dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+8.94dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.89dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+4.91dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.53dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-3.00dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.37dB
+--- E (table F3, cap+6 prescale1.00 cohFalse) ---
+demo_hello halves=-2.91 trough=-2.61 rms=0.1620 tail=0.1095 sparkmax=0.7360 clamp=1
+annyeong halves=+10.03 trough=-11.76 rms=0.0717 tail=0.1132 sparkmax=0.8063 clamp=1
+yeobo halves=-2.05 trough=-12.19 rms=0.0819 tail=0.0230 sparkmax=0.8728 clamp=1
+demo_hello balance w0=-14.23 w1=-15.89 diff=-1.65 passes
+old_input balance w0=-12.59 w1=-15.39 diff=-2.79 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.40']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-2.69dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+5.33dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.48dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+9.38dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.45dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+5.35dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.09dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-2.56dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.81dB
+--- F (table F3, cap+8 prescale0.95 cohFalse) ---
+demo_hello halves=-2.83 trough=-2.61 rms=0.1545 tail=0.1063 sparkmax=0.9395 clamp=0
+annyeong halves=+8.47 trough=-11.47 rms=0.0713 tail=0.1082 sparkmax=0.9395 clamp=0
+yeobo halves=-2.12 trough=-10.99 rms=0.0818 tail=0.0275 sparkmax=0.9396 clamp=0
+demo_hello balance w0=-14.67 w1=-16.33 diff=-1.66 passes
+old_input balance w0=-13.04 w1=-15.75 diff=-2.71 passes
+gain_probe apa ratio=0.856 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.31']
+fixed_sentence makeup max=8.00 mean=6.85 capfrac=0.857 G=-4.70dB
+demo_hello makeup max=8.00 mean=2.03 capfrac=0.087 G=+4.89dB
+creak_probe makeup max=7.60 mean=0.93 capfrac=0.000 G=+1.04dB
+gain_probe makeup max=8.00 mean=6.48 capfrac=0.667 G=+8.88dB
+cluster_probe makeup max=8.00 mean=6.40 capfrac=0.778 G=-3.33dB
+pause_probe makeup max=8.00 mean=4.67 capfrac=0.500 G=+4.48dB
+annyeong makeup max=8.00 mean=7.36 capfrac=0.900 G=-3.74dB
+yeobo makeup max=8.00 mean=7.35 capfrac=0.882 G=-3.01dB
+old_input makeup max=8.00 mean=2.24 capfrac=0.111 G=+3.36dB
+done flat
+apa testplan inversion resid=5.18e-07 (f32 domain, coherence ON)
+F3d25 eff spread -6.00..0.00 = 6.00 dB
+F4d25 eff spread -6.00..0.00 = 6.00 dB
+F3d10 eff spread -6.00..0.00 = 6.00 dB
+F4d10 eff spread -6.00..0.00 = 6.00 dB
+F3d00 eff spread -6.00..0.00 = 6.00 dB
+F4d00 eff spread -6.00..0.00 = 6.00 dB
+=== GRID (coh OFF, prescale 0.90) ===
+F3d25 | cap6 | de h=-2.9 t=-2.6 r=0.146 tail=0.099 cl=0 | an h=+10.0 t=-11.8 r=0.065 tail=0.102 cl=0 | ye h=-2.0 t=-12.2 r=0.074 tail=0.021 cl=0 | oldpin=-2.79 LOST | apa=2.53 | latgap=-1.3 | cohviol=2 an b11 -8.2,ye b6 -5.4 | de mk=6 an mk=6 ye mk=6
+F3d25 | cap8 | de h=-2.8 t=-2.6 r=0.146 tail=0.101 cl=0 | an h=+8.5 t=-11.5 r=0.068 tail=0.102 cl=0 | ye h=-2.1 t=-11.0 r=0.078 tail=0.026 cl=0 | oldpin=-2.71 LOST | apa=2.30 | latgap=-1.3 | cohviol=2 an b11 -8.2,ye b6 -5.3 | de mk=8 an mk=8 ye mk=8
+F3d25 | cap10 | de h=-2.8 t=-2.6 r=0.147 tail=0.102 cl=0 | an h=+6.8 t=-11.3 r=0.072 tail=0.105 cl=0 | ye h=-2.2 t=-9.7 r=0.083 tail=0.033 cl=0 | oldpin=-2.64 LOST | apa=2.23 | latgap=-1.3 | cohviol=2 an b11 -8.1,ye b6 -5.2 | de mk=10 an mk=10 ye mk=10
+F4d25 | cap6 | de h=-3.2 t=-2.8 r=0.150 tail=0.101 cl=0 | an h=+10.0 t=-11.7 r=0.064 tail=0.102 cl=0 | ye h=-2.1 t=-12.6 r=0.073 tail=0.020 cl=0 | oldpin=-2.29 LOST | apa=2.46 | latgap=-2.0 | cohviol=2 an b11 -8.7,ye b6 -4.4 | de mk=6 an mk=6 ye mk=6
+F4d25 | cap8 | de h=-3.1 t=-2.8 r=0.151 tail=0.103 cl=0 | an h=+8.4 t=-11.4 r=0.067 tail=0.103 cl=0 | ye h=-2.1 t=-11.4 r=0.076 tail=0.026 cl=0 | oldpin=-2.24 LOST | apa=2.26 | latgap=-2.0 | cohviol=2 an b11 -8.7,ye b6 -4.3 | de mk=8 an mk=8 ye mk=8
+F4d25 | cap10 | de h=-3.0 t=-2.8 r=0.151 tail=0.104 cl=0 | an h=+6.8 t=-11.2 r=0.072 tail=0.105 cl=0 | ye h=-2.2 t=-10.1 r=0.081 tail=0.032 cl=0 | oldpin=-2.17 LOST | apa=2.19 | latgap=-2.0 | cohviol=2 an b11 -8.4,ye b6 -4.2 | de mk=10 an mk=10 ye mk=10
+F3d10 | cap6 | de h=-2.6 t=-2.5 r=0.149 tail=0.103 cl=0 | an h=+10.9 t=-11.6 r=0.064 tail=0.102 cl=0 | ye h=-1.9 t=-12.0 r=0.074 tail=0.022 cl=0 | oldpin=-2.53 LOST | apa=2.49 | latgap=-1.2 | cohviol=2 an b11 -8.0,ye b6 -5.2 | de mk=6 an mk=6 ye mk=6
+F3d10 | cap8 | de h=-2.6 t=-2.5 r=0.150 tail=0.105 cl=0 | an h=+9.3 t=-11.3 r=0.067 tail=0.103 cl=0 | ye h=-2.0 t=-10.8 r=0.077 tail=0.027 cl=0 | oldpin=-2.48 LOST | apa=2.28 | latgap=-1.2 | cohviol=2 an b11 -8.0,ye b6 -5.2 | de mk=8 an mk=8 ye mk=8
+F3d10 | cap10 | de h=-2.5 t=-2.5 r=0.150 tail=0.106 cl=0 | an h=+7.7 t=-11.2 r=0.071 tail=0.105 cl=0 | ye h=-2.0 t=-9.5 r=0.083 tail=0.034 cl=0 | oldpin=-2.40 LOST | apa=2.21 | latgap=-1.2 | cohviol=2 an b11 -7.8,ye b6 -5.1 | de mk=10 an mk=10 ye mk=10
+F4d10 | cap6 | de h=-2.9 t=-2.7 r=0.153 tail=0.105 cl=0 | an h=+10.9 t=-11.5 r=0.064 tail=0.102 cl=0 | ye h=-2.0 t=-12.4 r=0.073 tail=0.021 cl=0 | oldpin=-2.07 LOST | apa=2.41 | latgap=-1.7 | cohviol=2 an b11 -8.5,ye b6 -4.3 | de mk=6 an mk=6 ye mk=6
+F4d10 | cap8 | de h=-2.8 t=-2.7 r=0.154 tail=0.108 cl=0 | an h=+9.3 t=-11.3 r=0.066 tail=0.103 cl=0 | ye h=-2.0 t=-11.2 r=0.076 tail=0.027 cl=0 | oldpin=-2.02 LOST | apa=2.24 | latgap=-1.7 | cohviol=2 an b11 -8.5,ye b6 -4.2 | de mk=8 an mk=8 ye mk=8
+F4d10 | cap10 | de h=-2.8 t=-2.7 r=0.154 tail=0.108 cl=0 | an h=+7.6 t=-11.1 r=0.071 tail=0.106 cl=0 | ye h=-2.0 t=-9.9 r=0.081 tail=0.033 cl=0 | oldpin=-1.94 LOST | apa=2.17 | latgap=-1.7 | cohviol=2 an b11 -8.0,ye b6 -4.1 | de mk=10 an mk=10 ye mk=10
+F3d00 | cap6 | de h=-2.5 t=-2.5 r=0.151 tail=0.106 cl=0 | an h=+11.5 t=-11.5 r=0.063 tail=0.102 cl=0 | ye h=-1.9 t=-11.9 r=0.074 tail=0.022 cl=0 | oldpin=-2.38 LOST | apa=2.46 | latgap=-1.1 | cohviol=2 an b11 -7.9,ye b6 -5.1 | de mk=6 an mk=6 ye mk=6
+F3d00 | cap8 | de h=-2.4 t=-2.5 r=0.152 tail=0.108 cl=0 | an h=+9.9 t=-11.3 r=0.066 tail=0.103 cl=0 | ye h=-1.9 t=-10.7 r=0.077 tail=0.028 cl=0 | oldpin=-2.33 LOST | apa=2.26 | latgap=-1.1 | cohviol=2 an b11 -7.9,ye b6 -5.1 | de mk=8 an mk=8 ye mk=8
+F3d00 | cap10 | de h=-2.4 t=-2.5 r=0.152 tail=0.109 cl=0 | an h=+8.3 t=-11.1 r=0.070 tail=0.106 cl=0 | ye h=-1.8 t=-9.4 r=0.082 tail=0.035 cl=0 | oldpin=-2.25 LOST | apa=2.19 | latgap=-1.1 | cohviol=2 an b11 -7.6,ye b6 -5.0 | de mk=10 an mk=10 ye mk=10
+F4d00 | cap6 | de h=-2.7 t=-2.6 r=0.156 tail=0.109 cl=0 | an h=+11.4 t=-11.4 r=0.063 tail=0.102 cl=0 | ye h=-1.9 t=-12.3 r=0.073 tail=0.022 cl=0 | oldpin=-1.92 LOST | apa=2.38 | latgap=-1.6 | cohviol=2 an b11 -8.4,ye b6 -4.1 | de mk=6 an mk=6 ye mk=6
+F4d00 | cap8 | de h=-2.6 t=-2.6 r=0.156 tail=0.111 cl=0 | an h=+9.8 t=-11.2 r=0.066 tail=0.103 cl=0 | ye h=-1.9 t=-11.1 r=0.076 tail=0.027 cl=0 | oldpin=-1.86 LOST | apa=2.23 | latgap=-1.6 | cohviol=2 an b11 -8.4,ye b6 -4.1 | de mk=8 an mk=8 ye mk=8
+F4d00 | cap10 | de h=-2.6 t=-2.6 r=0.156 tail=0.111 cl=0 | an h=+8.2 t=-11.0 r=0.070 tail=0.106 cl=0 | ye h=-1.9 t=-9.8 r=0.081 tail=0.034 cl=0 | oldpin=-1.79 LOST | apa=2.16 | latgap=-1.6 | cohviol=1 an b11 -7.8 | de mk=9 an mk=10 ye mk=10
+done grid2
+======================================================================
+COMBO P1 arms=F3d25 cap=12 pre=1.25 coh=True
+eff planned spread: min=-6.00 max=0.00 spread=6.00
+max adjacent table step: 5.75 dB (junction bound 5.0)
+floor(-6) hits: [('fixed_sentence', [(0, 'weak-fric'), (3, 'weak-fric'), (5, 'nasal')]), ('demo_hello', [(0, 'h-fric')]), ('annyeong', [(6, 'h-fric')]), ('old_input', [(0, 'h-fric')])]
+demo_hello halves=-2.80(<=5) trough=-2.72(>=-14) rms=0.1934(>=0.095,>=0.10?) tail=0.1346 sparkmax=0.9404(<0.9) clamp=1
+    s1 pos=1544 pk=0.9404 cl=1
+    s2 pos=3330 pk=0.7249 cl=0
+    s3 pos=4698 pk=0.4577 cl=0
+    makeup dB max=10.58 mean=2.17 min=-1.09 capfrac=0.000 G=+7.27dB
+    coherence dB min=-0.57 max=+0.92
+annyeong halves=+1.82(<=5) trough=-5.75(>=-14) rms=0.1009(>=0.095,>=0.10?) tail=0.1163 sparkmax=0.9463(<0.9) clamp=1
+    s1 pos=3771 pk=0.2467 cl=0
+    s2 pos=4742 pk=0.2667 cl=0
+    s3 pos=5558 pk=0.2006 cl=0
+    s4 pos=6286 pk=0.1961 cl=0
+    s5 pos=8050 pk=0.1844 cl=0
+    s6 pos=8866 pk=0.1107 cl=0
+    s7 pos=9837 pk=0.3633 cl=0
+    s8 pos=12263 pk=0.0986 cl=0
+    s9 pos=13366 pk=0.7324 cl=0
+    s10 pos=14645 pk=0.3237 cl=0
+    s11 pos=15373 pk=0.9463 cl=1
+    makeup dB max=12.00 mean=10.44 min=-1.24 capfrac=0.675 G=-1.37dB
+    coherence dB min=-6.00 max=+6.00
+    cohstep b11 -3.68
+yeobo halves=-0.00(<=5) trough=-7.98(>=-14) rms=0.0959(>=0.095,>=0.10?) tail=0.0867 sparkmax=0.9304(<0.9) clamp=1
+    s1 pos=772 pk=0.2213 cl=0
+    s2 pos=3463 pk=0.2230 cl=0
+    s3 pos=4191 pk=0.4488 cl=0
+    s4 pos=6286 pk=0.0901 cl=0
+    s5 pos=7411 pk=0.5057 cl=0
+    s6 pos=10079 pk=0.2028 cl=0
+    s7 pos=10807 pk=0.9304 cl=1
+    makeup dB max=12.00 mean=10.76 min=-0.83 capfrac=0.735 G=-0.64dB
+    coherence dB min=-6.00 max=+6.00
+demo_hello balance diff=-2.14 
+old_input balance diff=-3.35 (violator LOST)
+apa_testplan ratio=2.463 (>1.8)
+hello lateral gap=-0.75 (<8)
+fixed_sentence eval rms=0.0825 (report-only)
+creak_probe eval rms=0.3925 (report-only)
+gain_probe eval rms=0.1824 (report-only)
+cluster_probe eval rms=0.0962 (report-only)
+pause_probe eval rms=0.2186 (report-only)
+======================================================================
+COMBO P2 arms=F4d10 cap=12 pre=1.25 coh=True
+eff planned spread: min=-6.00 max=0.00 spread=6.00
+max adjacent table step: 5.90 dB (junction bound 5.0)
+floor(-6) hits: [('demo_hello', [(0, 'h-fric')]), ('annyeong', [(6, 'h-fric')]), ('old_input', [(0, 'h-fric')])]
+demo_hello halves=-2.82(<=5) trough=-2.74(>=-14) rms=0.1960(>=0.095,>=0.10?) tail=0.1373 sparkmax=0.9415(<0.9) clamp=1
+    s1 pos=1544 pk=0.9415 cl=1
+    s2 pos=3330 pk=0.7306 cl=0
+    s3 pos=4698 pk=0.4630 cl=0
+    makeup dB max=9.77 mean=1.97 min=-1.08 capfrac=0.000 G=+7.19dB
+    coherence dB min=-0.96 max=+1.42
+annyeong halves=+2.06(<=5) trough=-5.85(>=-14) rms=0.0978(>=0.095,>=0.10?) tail=0.1143 sparkmax=0.9376(<0.9) clamp=1
+    s1 pos=3771 pk=0.2354 cl=0
+    s2 pos=4742 pk=0.2640 cl=0
+    s3 pos=5558 pk=0.1911 cl=0
+    s4 pos=6286 pk=0.1869 cl=0
+    s5 pos=8050 pk=0.1757 cl=0
+    s6 pos=8866 pk=0.1053 cl=0
+    s7 pos=9837 pk=0.3561 cl=0
+    s8 pos=12263 pk=0.0982 cl=0
+    s9 pos=13366 pk=0.7102 cl=0
+    s10 pos=14645 pk=0.3045 cl=0
+    s11 pos=15373 pk=0.9376 cl=1
+    makeup dB max=12.00 mean=10.50 min=-1.25 capfrac=0.675 G=-3.06dB
+    coherence dB min=-6.00 max=+6.00
+yeobo halves=+0.11(<=5) trough=-8.33(>=-14) rms=0.0927(>=0.095,>=0.10?) tail=0.0848 sparkmax=0.9246(<0.9) clamp=1
+    s1 pos=772 pk=0.2122 cl=0
+    s2 pos=3463 pk=0.2205 cl=0
+    s3 pos=4191 pk=0.4347 cl=0
+    s4 pos=6286 pk=0.0879 cl=0
+    s5 pos=7411 pk=0.4974 cl=0
+    s6 pos=10079 pk=0.2021 cl=0
+    s7 pos=10807 pk=0.9246 cl=1
+    makeup dB max=12.00 mean=10.82 min=-0.83 capfrac=0.765 G=-1.76dB
+    coherence dB min=-6.00 max=+6.00
+    cohstep b7 -3.09
+demo_hello balance diff=-2.14 
+old_input balance diff=-2.93 (violator LOST)
+apa_testplan ratio=2.456 (>1.8)
+hello lateral gap=-0.79 (<8)
+fixed_sentence eval rms=0.0852 (report-only)
+creak_probe eval rms=0.3957 (report-only)
+gain_probe eval rms=0.1828 (report-only)
+cluster_probe eval rms=0.0974 (report-only)
+pause_probe eval rms=0.2316 (report-only)
+======================================================================
+COMBO P0 arms=F3d25 cap=12 pre=1.10 coh=True
+eff planned spread: min=-6.00 max=0.00 spread=6.00
+max adjacent table step: 5.75 dB (junction bound 5.0)
+floor(-6) hits: [('fixed_sentence', [(0, 'weak-fric'), (3, 'weak-fric'), (5, 'nasal')]), ('demo_hello', [(0, 'h-fric')]), ('annyeong', [(6, 'h-fric')]), ('old_input', [(0, 'h-fric')])]
+demo_hello halves=-2.81(<=5) trough=-2.72(>=-14) rms=0.1703(>=0.095,>=0.10?) tail=0.1185 sparkmax=0.8276(<0.9) clamp=1
+    s1 pos=1544 pk=0.8276 cl=1
+    s2 pos=3330 pk=0.6379 cl=0
+    s3 pos=4698 pk=0.4028 cl=0
+    makeup dB max=10.58 mean=2.17 min=-1.09 capfrac=0.000 G=+6.16dB
+    coherence dB min=-0.57 max=+0.92
+annyeong halves=+1.83(<=5) trough=-5.77(>=-14) rms=0.1010(>=0.095,>=0.10?) tail=0.1165 sparkmax=0.9463(<0.9) clamp=1
+    s1 pos=3771 pk=0.2467 cl=0
+    s2 pos=4742 pk=0.2667 cl=0
+    s3 pos=5558 pk=0.2006 cl=0
+    s4 pos=6286 pk=0.1961 cl=0
+    s5 pos=8050 pk=0.1844 cl=0
+    s6 pos=8866 pk=0.1107 cl=0
+    s7 pos=9837 pk=0.3633 cl=0
+    s8 pos=12263 pk=0.0986 cl=0
+    s9 pos=13366 pk=0.7480 cl=0
+    s10 pos=14645 pk=0.3237 cl=0
+    s11 pos=15373 pk=0.9463 cl=1
+    makeup dB max=12.00 mean=10.44 min=-1.24 capfrac=0.675 G=-2.48dB
+    coherence dB min=-6.00 max=+6.00
+    cohstep b11 -3.68
+yeobo halves=+0.01(<=5) trough=-7.98(>=-14) rms=0.0961(>=0.095,>=0.10?) tail=0.0867 sparkmax=0.9304(<0.9) clamp=1
+    s1 pos=772 pk=0.2217 cl=0
+    s2 pos=3463 pk=0.2233 cl=0
+    s3 pos=4191 pk=0.4495 cl=0
+    s4 pos=6286 pk=0.0901 cl=0
+    s5 pos=7411 pk=0.5581 cl=0
+    s6 pos=10079 pk=0.2028 cl=0
+    s7 pos=10807 pk=0.9304 cl=1
+    makeup dB max=12.00 mean=10.76 min=-0.83 capfrac=0.735 G=-1.75dB
+    coherence dB min=-6.00 max=+6.00
+demo_hello balance diff=-2.15 
+old_input balance diff=-3.36 (violator LOST)
+apa_testplan ratio=2.463 (>1.8)
+hello lateral gap=-0.75 (<8)
+fixed_sentence eval rms=0.0805 (report-only)
+creak_probe eval rms=0.3488 (report-only)
+gain_probe eval rms=0.1619 (report-only)
+cluster_probe eval rms=0.0921 (report-only)
+pause_probe eval rms=0.2189 (report-only)
+done final
+=== TABLE EFFECTIVE STATS (new planned gains) ===
+V2 eff planned: min=-6.00 max=0.00 spread=6.00
+F1 eff planned: min=-6.00 max=0.00 spread=6.00
+F3 eff planned: min=-6.00 max=0.00 spread=6.00
+control table=V2 cap=12 pre=1.10 coh=True max|dd|=0.000
+A table=F1 cap=12 pre=1.10 coh=True max|dd|=2.000
+B table=F3 cap=12 pre=1.10 coh=True max|dd|=2.500
+C table=F3 cap=6 pre=0.95 coh=True max|dd|=2.500
+D table=F3 cap=6 pre=0.95 coh=False max|dd|=2.500
+E table=F3 cap=6 pre=1.00 coh=False max|dd|=2.500
+F table=F3 cap=8 pre=0.95 coh=False max|dd|=2.500
+=== CONTROL vs ENGINE (validation; dd=0 so residual = inversion+replica only) ===
+fixed_sentence max|sim-eng|=1.68e-05 rms_sim=0.0810 rms_eng=0.0810
+demo_hello max|sim-eng|=1.22e-01 rms_sim=0.1660 rms_eng=0.1659
+creak_probe max|sim-eng|=9.72e-02 rms_sim=0.3480 rms_eng=0.3481
+gain_probe max|sim-eng|=4.21e-01 rms_sim=0.1581 rms_eng=0.1573
+cluster_probe max|sim-eng|=7.50e-02 rms_sim=0.0916 rms_eng=0.0916
+pause_probe max|sim-eng|=6.43e-01 rms_sim=0.2058 rms_eng=0.2063
+annyeong max|sim-eng|=3.37e-02 rms_sim=0.0953 rms_eng=0.0953
+yeobo max|sim-eng|=9.59e-02 rms_sim=0.0980 rms_eng=0.0980
+old_input max|sim-eng|=1.79e-02 rms_sim=0.2070 rms_eng=0.2070
+=== CONTROL SPARK vs ENGINE SPARK (bias calibration) ===
+demo_hello s1 eng=0.8667 sim=0.8261 d=-0.0406
+demo_hello s2 eng=0.6292 sim=0.6292 d=+0.0000
+demo_hello s3 eng=0.3893 sim=0.3893 d=-0.0000
+annyeong s1 eng=0.2250 sim=0.2250 d=+0.0000
+annyeong s2 eng=0.2341 sim=0.2341 d=+0.0000
+annyeong s3 eng=0.1934 sim=0.1934 d=+0.0000
+annyeong s4 eng=0.1895 sim=0.1895 d=-0.0000
+annyeong s5 eng=0.1779 sim=0.1779 d=-0.0000
+annyeong s6 eng=0.1072 sim=0.1072 d=-0.0000
+annyeong s7 eng=0.3370 sim=0.3370 d=+0.0000
+annyeong s8 eng=0.0881 sim=0.0881 d=+0.0000
+annyeong s9 eng=0.7124 sim=0.7124 d=-0.0000
+annyeong s10 eng=0.3055 sim=0.3055 d=-0.0000
+annyeong s11 eng=0.9608 sim=0.9608 d=-0.0000
+yeobo s1 eng=0.2310 sim=0.2310 d=-0.0000
+yeobo s2 eng=0.2455 sim=0.2455 d=+0.0000
+yeobo s3 eng=0.4618 sim=0.4618 d=+0.0000
+yeobo s4 eng=0.0902 sim=0.0902 d=+0.0000
+yeobo s5 eng=0.5630 sim=0.5630 d=-0.0000
+yeobo s6 eng=0.2111 sim=0.2111 d=-0.0000
+yeobo s7 eng=0.9311 sim=0.9311 d=+0.0000
+--- control (table V2, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-3.04 trough=-2.71 rms=0.1660 tail=0.1129 sparkmax=0.8261 clamp=1
+annyeong halves=+1.55 trough=-5.20 rms=0.0953 tail=0.1093 sparkmax=0.9608 clamp=1
+yeobo halves=-0.18 trough=-7.61 rms=0.0980 tail=0.0860 sparkmax=0.9311 clamp=1
+demo_hello balance w0=-13.71 w1=-16.05 diff=-2.34 passes
+old_input balance w0=-12.28 w1=-16.05 diff=-3.77 passes
+gain_probe apa ratio=0.823 FAIL
+hello lateral gap=-0.97dB PASS<8
+coherence-RMS steps>4dB: 1 ['annyeong b11 -4.32']
+fixed_sentence makeup max=12.00 mean=9.95 capfrac=0.667 G=-3.69dB
+demo_hello makeup max=11.71 mean=2.42 capfrac=0.000 G=+6.26dB
+creak_probe makeup max=7.60 mean=0.94 capfrac=0.000 G=+2.56dB
+gain_probe makeup max=12.00 mean=9.16 capfrac=0.500 G=+10.23dB
+cluster_probe makeup max=12.00 mean=9.21 capfrac=0.556 G=-2.03dB
+pause_probe makeup max=12.00 mean=6.32 capfrac=0.400 G=+6.49dB
+annyeong makeup max=12.00 mean=10.35 capfrac=0.575 G=-0.52dB
+yeobo makeup max=12.00 mean=10.66 capfrac=0.676 G=-0.23dB
+old_input makeup max=12.00 mean=2.77 capfrac=0.111 G=+4.74dB
+--- A (table F1, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-2.65 trough=-2.72 rms=0.1696 tail=0.1184 sparkmax=0.8266 clamp=1
+annyeong halves=+1.82 trough=-5.75 rms=0.1010 tail=0.1163 sparkmax=0.9472 clamp=1
+yeobo halves=+0.06 trough=-7.72 rms=0.0976 tail=0.0892 sparkmax=0.9290 clamp=1
+demo_hello balance w0=-13.66 w1=-15.69 diff=-2.03 passes
+old_input balance w0=-12.35 w1=-15.94 diff=-3.58 passes
+gain_probe apa ratio=0.801 FAIL
+hello lateral gap=-0.54dB PASS<8
+coherence-RMS steps>4dB: 0 (none)
+fixed_sentence makeup max=12.00 mean=9.91 capfrac=0.667 G=-4.24dB
+demo_hello makeup max=10.91 mean=2.24 capfrac=0.000 G=+6.23dB
+creak_probe makeup max=7.60 mean=0.95 capfrac=0.000 G=+2.31dB
+gain_probe makeup max=12.00 mean=9.16 capfrac=0.500 G=+9.95dB
+cluster_probe makeup max=12.00 mean=9.10 capfrac=0.556 G=-2.04dB
+pause_probe makeup max=12.00 mean=6.40 capfrac=0.400 G=+5.72dB
+annyeong makeup max=12.00 mean=10.38 capfrac=0.675 G=-1.98dB
+yeobo makeup max=12.00 mean=10.69 capfrac=0.735 G=-1.22dB
+old_input makeup max=12.00 mean=2.73 capfrac=0.111 G=+4.62dB
+--- B (table F3, cap+12 prescale1.10 cohTrue) ---
+demo_hello halves=-2.81 trough=-2.72 rms=0.1703 tail=0.1185 sparkmax=0.8276 clamp=1
+annyeong halves=+1.83 trough=-5.77 rms=0.1010 tail=0.1165 sparkmax=0.9463 clamp=1
+yeobo halves=+0.01 trough=-7.98 rms=0.0961 tail=0.0867 sparkmax=0.9304 clamp=1
+demo_hello balance w0=-13.57 w1=-15.72 diff=-2.15 passes
+old_input balance w0=-12.48 w1=-15.84 diff=-3.36 passes
+gain_probe apa ratio=0.813 FAIL
+hello lateral gap=-0.75dB PASS<8
+coherence-RMS steps>4dB: 0 (none)
+fixed_sentence makeup max=12.00 mean=9.92 capfrac=0.667 G=-4.79dB
+demo_hello makeup max=10.58 mean=2.17 capfrac=0.000 G=+6.16dB
+creak_probe makeup max=7.60 mean=0.93 capfrac=0.000 G=+2.31dB
+gain_probe makeup max=12.00 mean=9.04 capfrac=0.500 G=+10.01dB
+cluster_probe makeup max=12.00 mean=9.17 capfrac=0.556 G=-2.52dB
+pause_probe makeup max=12.00 mean=6.41 capfrac=0.400 G=+5.17dB
+annyeong makeup max=12.00 mean=10.44 capfrac=0.675 G=-2.48dB
+yeobo makeup max=12.00 mean=10.76 capfrac=0.735 G=-1.75dB
+old_input makeup max=12.00 mean=2.69 capfrac=0.111 G=+4.62dB
+--- C (table F3, cap+6 prescale0.95 cohTrue) ---
+demo_hello halves=-2.95 trough=-2.74 rms=0.1536 tail=0.1035 sparkmax=0.7529 clamp=1
+annyeong halves=+3.28 trough=-5.72 rms=0.0940 tail=0.1187 sparkmax=0.9447 clamp=1
+yeobo halves=-0.30 trough=-5.04 rms=0.1116 tail=0.0716 sparkmax=0.9234 clamp=1
+demo_hello balance w0=-14.40 w1=-16.56 diff=-2.15 passes
+old_input balance w0=-13.33 w1=-16.97 diff=-3.64 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-0.74dB PASS<8
+coherence-RMS steps>4dB: 1 ['annyeong b11 -6.05']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-3.14dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+4.89dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.04dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+8.94dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.89dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+4.91dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.53dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-3.00dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.37dB
+--- D (table F3, cap+6 prescale0.95 cohFalse) ---
+demo_hello halves=-2.91 trough=-2.61 rms=0.1539 tail=0.1041 sparkmax=0.9395 clamp=0
+annyeong halves=+10.03 trough=-11.76 rms=0.0681 tail=0.1076 sparkmax=0.9395 clamp=0
+yeobo halves=-2.05 trough=-12.19 rms=0.0778 tail=0.0218 sparkmax=0.9395 clamp=0
+demo_hello balance w0=-14.68 w1=-16.33 diff=-1.65 passes
+old_input balance w0=-13.04 w1=-15.83 diff=-2.79 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.40']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-3.14dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+4.89dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.04dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+8.94dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.89dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+4.91dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.53dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-3.00dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.37dB
+--- E (table F3, cap+6 prescale1.00 cohFalse) ---
+demo_hello halves=-2.91 trough=-2.61 rms=0.1620 tail=0.1095 sparkmax=0.7360 clamp=1
+annyeong halves=+10.03 trough=-11.76 rms=0.0717 tail=0.1132 sparkmax=0.8063 clamp=1
+yeobo halves=-2.05 trough=-12.19 rms=0.0819 tail=0.0230 sparkmax=0.8728 clamp=1
+demo_hello balance w0=-14.23 w1=-15.89 diff=-1.65 passes
+old_input balance w0=-12.59 w1=-15.39 diff=-2.79 passes
+gain_probe apa ratio=0.950 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.40']
+fixed_sentence makeup max=6.00 mean=5.14 capfrac=0.857 G=-2.69dB
+demo_hello makeup max=6.00 mean=1.82 capfrac=0.130 G=+5.33dB
+creak_probe makeup max=6.00 mean=0.82 capfrac=0.067 G=+1.48dB
+gain_probe makeup max=6.00 mean=4.99 capfrac=0.750 G=+9.38dB
+cluster_probe makeup max=6.00 mean=4.84 capfrac=0.778 G=-1.45dB
+pause_probe makeup max=6.00 mean=3.67 capfrac=0.500 G=+5.35dB
+annyeong makeup max=6.00 mean=5.55 capfrac=0.925 G=-3.09dB
+yeobo makeup max=6.00 mean=5.56 capfrac=0.912 G=-2.56dB
+old_input makeup max=6.00 mean=2.01 capfrac=0.167 G=+3.81dB
+--- F (table F3, cap+8 prescale0.95 cohFalse) ---
+demo_hello halves=-2.83 trough=-2.61 rms=0.1545 tail=0.1063 sparkmax=0.9395 clamp=0
+annyeong halves=+8.47 trough=-11.47 rms=0.0713 tail=0.1082 sparkmax=0.9395 clamp=0
+yeobo halves=-2.12 trough=-10.99 rms=0.0818 tail=0.0275 sparkmax=0.9396 clamp=0
+demo_hello balance w0=-14.67 w1=-16.33 diff=-1.66 passes
+old_input balance w0=-13.04 w1=-15.75 diff=-2.71 passes
+gain_probe apa ratio=0.856 FAIL
+hello lateral gap=-1.33dB PASS<8
+coherence-RMS steps>4dB: 2 ['annyeong b11 -8.19', 'yeobo b6 -5.31']
+fixed_sentence makeup max=8.00 mean=6.85 capfrac=0.857 G=-4.70dB
+demo_hello makeup max=8.00 mean=2.03 capfrac=0.087 G=+4.89dB
+creak_probe makeup max=7.60 mean=0.93 capfrac=0.000 G=+1.04dB
+gain_probe makeup max=8.00 mean=6.48 capfrac=0.667 G=+8.88dB
+cluster_probe makeup max=8.00 mean=6.40 capfrac=0.778 G=-3.33dB
+pause_probe makeup max=8.00 mean=4.67 capfrac=0.500 G=+4.48dB
+annyeong makeup max=8.00 mean=7.36 capfrac=0.900 G=-3.74dB
+yeobo makeup max=8.00 mean=7.35 capfrac=0.882 G=-3.01dB
+old_input makeup max=8.00 mean=2.24 capfrac=0.111 G=+3.36dB
+done flat
+apa testplan inversion resid=5.18e-07 (f32 domain, coherence ON)
+F3d25 eff spread -6.00..0.00 = 6.00 dB
+F4d25 eff spread -6.00..0.00 = 6.00 dB
+F3d10 eff spread -6.00..0.00 = 6.00 dB
+F4d10 eff spread -6.00..0.00 = 6.00 dB
+F3d00 eff spread -6.00..0.00 = 6.00 dB
+F4d00 eff spread -6.00..0.00 = 6.00 dB
+=== GRID (coh OFF, prescale 0.90) ===
+F3d25 | cap6 | de h=-2.9 t=-2.6 r=0.146 tail=0.099 cl=0 | an h=+10.0 t=-11.8 r=0.065 tail=0.102 cl=0 | ye h=-2.0 t=-12.2 r=0.074 tail=0.021 cl=0 | oldpin=-2.79 LOST | apa=2.53 | latgap=-1.3 | cohviol=2 an b11 -8.2,ye b6 -5.4 | de mk=6 an mk=6 ye mk=6
+F3d25 | cap8 | de h=-2.8 t=-2.6 r=0.146 tail=0.101 cl=0 | an h=+8.5 t=-11.5 r=0.068 tail=0.102 cl=0 | ye h=-2.1 t=-11.0 r=0.078 tail=0.026 cl=0 | oldpin=-2.71 LOST | apa=2.30 | latgap=-1.3 | cohviol=2 an b11 -8.2,ye b6 -5.3 | de mk=8 an mk=8 ye mk=8
+F3d25 | cap10 | de h=-2.8 t=-2.6 r=0.147 tail=0.102 cl=0 | an h=+6.8 t=-11.3 r=0.072 tail=0.105 cl=0 | ye h=-2.2 t=-9.7 r=0.083 tail=0.033 cl=0 | oldpin=-2.64 LOST | apa=2.23 | latgap=-1.3 | cohviol=2 an b11 -8.1,ye b6 -5.2 | de mk=10 an mk=10 ye mk=10
+F4d25 | cap6 | de h=-3.2 t=-2.8 r=0.150 tail=0.101 cl=0 | an h=+10.0 t=-11.7 r=0.064 tail=0.102 cl=0 | ye h=-2.1 t=-12.6 r=0.073 tail=0.020 cl=0 | oldpin=-2.29 LOST | apa=2.46 | latgap=-2.0 | cohviol=2 an b11 -8.7,ye b6 -4.4 | de mk=6 an mk=6 ye mk=6
+F4d25 | cap8 | de h=-3.1 t=-2.8 r=0.151 tail=0.103 cl=0 | an h=+8.4 t=-11.4 r=0.067 tail=0.103 cl=0 | ye h=-2.1 t=-11.4 r=0.076 tail=0.026 cl=0 | oldpin=-2.24 LOST | apa=2.26 | latgap=-2.0 | cohviol=2 an b11 -8.7,ye b6 -4.3 | de mk=8 an mk=8 ye mk=8
+F4d25 | cap10 | de h=-3.0 t=-2.8 r=0.151 tail=0.104 cl=0 | an h=+6.8 t=-11.2 r=0.072 tail=0.105 cl=0 | ye h=-2.2 t=-10.1 r=0.081 tail=0.032 cl=0 | oldpin=-2.17 LOST | apa=2.19 | latgap=-2.0 | cohviol=2 an b11 -8.4,ye b6 -4.2 | de mk=10 an mk=10 ye mk=10
+F3d10 | cap6 | de h=-2.6 t=-2.5 r=0.149 tail=0.103 cl=0 | an h=+10.9 t=-11.6 r=0.064 tail=0.102 cl=0 | ye h=-1.9 t=-12.0 r=0.074 tail=0.022 cl=0 | oldpin=-2.53 LOST | apa=2.49 | latgap=-1.2 | cohviol=2 an b11 -8.0,ye b6 -5.2 | de mk=6 an mk=6 ye mk=6
+F3d10 | cap8 | de h=-2.6 t=-2.5 r=0.150 tail=0.105 cl=0 | an h=+9.3 t=-11.3 r=0.067 tail=0.103 cl=0 | ye h=-2.0 t=-10.8 r=0.077 tail=0.027 cl=0 | oldpin=-2.48 LOST | apa=2.28 | latgap=-1.2 | cohviol=2 an b11 -8.0,ye b6 -5.2 | de mk=8 an mk=8 ye mk=8
+F3d10 | cap10 | de h=-2.5 t=-2.5 r=0.150 tail=0.106 cl=0 | an h=+7.7 t=-11.2 r=0.071 tail=0.105 cl=0 | ye h=-2.0 t=-9.5 r=0.083 tail=0.034 cl=0 | oldpin=-2.40 LOST | apa=2.21 | latgap=-1.2 | cohviol=2 an b11 -7.8,ye b6 -5.1 | de mk=10 an mk=10 ye mk=10
+F4d10 | cap6 | de h=-2.9 t=-2.7 r=0.153 tail=0.105 cl=0 | an h=+10.9 t=-11.5 r=0.064 tail=0.102 cl=0 | ye h=-2.0 t=-12.4 r=0.073 tail=0.021 cl=0 | oldpin=-2.07 LOST | apa=2.41 | latgap=-1.7 | cohviol=2 an b11 -8.5,ye b6 -4.3 | de mk=6 an mk=6 ye mk=6
+F4d10 | cap8 | de h=-2.8 t=-2.7 r=0.154 tail=0.108 cl=0 | an h=+9.3 t=-11.3 r=0.066 tail=0.103 cl=0 | ye h=-2.0 t=-11.2 r=0.076 tail=0.027 cl=0 | oldpin=-2.02 LOST | apa=2.24 | latgap=-1.7 | cohviol=2 an b11 -8.5,ye b6 -4.2 | de mk=8 an mk=8 ye mk=8
+F4d10 | cap10 | de h=-2.8 t=-2.7 r=0.154 tail=0.108 cl=0 | an h=+7.6 t=-11.1 r=0.071 tail=0.106 cl=0 | ye h=-2.0 t=-9.9 r=0.081 tail=0.033 cl=0 | oldpin=-1.94 LOST | apa=2.17 | latgap=-1.7 | cohviol=2 an b11 -8.0,ye b6 -4.1 | de mk=10 an mk=10 ye mk=10
+F3d00 | cap6 | de h=-2.5 t=-2.5 r=0.151 tail=0.106 cl=0 | an h=+11.5 t=-11.5 r=0.063 tail=0.102 cl=0 | ye h=-1.9 t=-11.9 r=0.074 tail=0.022 cl=0 | oldpin=-2.38 LOST | apa=2.46 | latgap=-1.1 | cohviol=2 an b11 -7.9,ye b6 -5.1 | de mk=6 an mk=6 ye mk=6
+F3d00 | cap8 | de h=-2.4 t=-2.5 r=0.152 tail=0.108 cl=0 | an h=+9.9 t=-11.3 r=0.066 tail=0.103 cl=0 | ye h=-1.9 t=-10.7 r=0.077 tail=0.028 cl=0 | oldpin=-2.33 LOST | apa=2.26 | latgap=-1.1 | cohviol=2 an b11 -7.9,ye b6 -5.1 | de mk=8 an mk=8 ye mk=8
+F3d00 | cap10 | de h=-2.4 t=-2.5 r=0.152 tail=0.109 cl=0 | an h=+8.3 t=-11.1 r=0.070 tail=0.106 cl=0 | ye h=-1.8 t=-9.4 r=0.082 tail=0.035 cl=0 | oldpin=-2.25 LOST | apa=2.19 | latgap=-1.1 | cohviol=2 an b11 -7.6,ye b6 -5.0 | de mk=10 an mk=10 ye mk=10
+F4d00 | cap6 | de h=-2.7 t=-2.6 r=0.156 tail=0.109 cl=0 | an h=+11.4 t=-11.4 r=0.063 tail=0.102 cl=0 | ye h=-1.9 t=-12.3 r=0.073 tail=0.022 cl=0 | oldpin=-1.92 LOST | apa=2.38 | latgap=-1.6 | cohviol=2 an b11 -8.4,ye b6 -4.1 | de mk=6 an mk=6 ye mk=6
+F4d00 | cap8 | de h=-2.6 t=-2.6 r=0.156 tail=0.111 cl=0 | an h=+9.8 t=-11.2 r=0.066 tail=0.103 cl=0 | ye h=-1.9 t=-11.1 r=0.076 tail=0.027 cl=0 | oldpin=-1.86 LOST | apa=2.23 | latgap=-1.6 | cohviol=2 an b11 -8.4,ye b6 -4.1 | de mk=8 an mk=8 ye mk=8
+F4d00 | cap10 | de h=-2.6 t=-2.6 r=0.156 tail=0.111 cl=0 | an h=+8.2 t=-11.0 r=0.070 tail=0.106 cl=0 | ye h=-1.9 t=-9.8 r=0.081 tail=0.034 cl=0 | oldpin=-1.79 LOST | apa=2.16 | latgap=-1.6 | cohviol=1 an b11 -7.8 | de mk=9 an mk=10 ye mk=10
+done grid2
+== annyeong F4d10 cap8 pre0.90 cohOFF (annyeong halves driver hunt)
+  u0(a) dur=179ms gain=+0.0 outRMS=0.0257 (-31.8dBFS)
+  u1(n) dur=52ms gain=-2.6 outRMS=0.0299 (-30.5dBFS)
+  u2(n) dur=45ms gain=-2.7 outRMS=0.0328 (-29.7dBFS)
+  u3(j) dur=41ms gain=-2.3 outRMS=0.0344 (-29.3dBFS)
+  u4(\u028c) dur=88ms gain=-1.1 outRMS=0.0340 (-29.4dBFS)
+  u5(\u014b) dur=45ms gain=-3.0 outRMS=0.0323 (-29.8dBFS)
+  u6(h) dur=52ms gain=-6.0 outRMS=0.0351 (-29.1dBFS)
+  u7(a) dur=118ms gain=-0.7 outRMS=0.0552 (-25.2dBFS)
+  u8(s) dur=58ms gain=-2.3 outRMS=0.2079 (-13.6dBFS)
+  u9(e) dur=66ms gain=-1.6 outRMS=0.1003 (-20.0dBFS)
+  u10(j) dur=41ms gain=-3.0 outRMS=0.0528 (-25.5dBFS)
+  u11(o) dur=94ms gain=-1.9 outRMS=0.0302 (-30.4dBFS)
+== yeobo F4d10 cap8 pre0.90 cohOFF (annyeong halves driver hunt)
+  u0(j) dur=43ms gain=-2.0 outRMS=0.0427 (-27.4dBFS)
+  u1(\u028c) dur=130ms gain=-0.1 outRMS=0.0377 (-28.5dBFS)
+  u2(b) dur=41ms gain=-0.2 outRMS=0.0431 (-27.3dBFS)
+  u3(o) dur=103ms gain=-0.3 outRMS=0.0493 (-26.1dBFS)
+  u4(s) dur=59ms gain=-1.9 outRMS=0.2257 (-12.9dBFS)
+  u5(e) dur=129ms gain=-0.5 outRMS=0.0790 (-22.0dBFS)
+  u6(j) dur=41ms gain=-2.6 outRMS=0.0446 (-27.0dBFS)
+  u7(o) dur=175ms gain=-0.7 outRMS=0.0246 (-32.2dBFS)
+F4d10 cap12 pre0.95 | de h=-2.8 t=-2.8 r=0.157 tl=0.110 sp=0.7532 cl=1 cv=0 | an h=+2.1 t=-5.9 r=0.098 tl=0.115 sp=0.9376 cl=1 cv=0 FAIL | ye h=+0.1 t=-8.3 r=0.093 tl=0.085 sp=0.9249 cl=1 cv=0 FAIL | 
+F4d10 cap12 pre1.10 | de h=-2.8 t=-2.7 r=0.173 tl=0.121 sp=0.8285 cl=1 cv=0 | an h=+2.1 t=-5.9 r=0.098 tl=0.115 sp=0.9376 cl=1 cv=0 FAIL | ye h=+0.1 t=-8.3 r=0.093 tl=0.085 sp=0.9249 cl=1 cv=0 FAIL | 
+done grid3
+F3d25 sib-2 cap8 | de h=-2.9 t=-2.7 r=0.170 tl=0.117 sp=0.8276 cl=1 cv=0 G=+6.2 mkmax=8 | an h=+2.9 t=-5.9 r=0.109 tl=0.131 sp=0.9454 cl=1 cv=1 G=-2.5 mkmax=8 FAIL | ye h=-0.4 t=-5.7 r=0.121 tl=0.088 sp=0.9429 cl=1 cv=0 G=-1.7 mkmax=8 FAIL | apa=2.61 | oldpin=-3.55 LOST | 
+F3d25 sib-2 cap12 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 G=+6.2 mkmax=11 | an h=+1.8 t=-5.8 r=0.101 tl=0.117 sp=0.9463 cl=1 cv=0 G=-2.5 mkmax=12 FAIL | ye h=+0.0 t=-8.0 r=0.096 tl=0.087 sp=0.9304 cl=1 cv=0 G=-1.7 mkmax=12 FAIL | apa=2.46 | oldpin=-3.36 LOST | 
+F3d25 sib-4 cap8 | de h=-2.9 t=-2.7 r=0.170 tl=0.117 sp=0.8276 cl=1 cv=0 G=+6.2 mkmax=8 | an h=+2.4 t=-5.7 r=0.117 tl=0.135 sp=0.9441 cl=1 cv=1 G=-0.3 mkmax=8 FAIL | ye h=-0.2 t=-5.7 r=0.108 tl=0.087 sp=0.9304 cl=1 cv=0 G=+0.4 mkmax=8 FAIL | apa=2.61 | oldpin=-3.55 LOST | 
+F3d25 sib-4 cap12 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 G=+6.2 mkmax=11 | an h=+1.7 t=-5.7 r=0.089 tl=0.103 sp=0.9424 cl=1 cv=0 G=-0.3 mkmax=12 FAIL | ye h=+0.6 t=-7.0 r=0.091 tl=0.089 sp=0.9241 cl=1 cv=0 G=+0.4 mkmax=12 FAIL | apa=2.46 | oldpin=-3.36 LOST | 
+F3d25 sib-6 cap8 | de h=-2.9 t=-2.7 r=0.170 tl=0.117 sp=0.8276 cl=1 cv=0 G=+6.2 mkmax=8 | an h=+2.4 t=-5.7 r=0.117 tl=0.135 sp=0.9441 cl=1 cv=1 G=-0.3 mkmax=8 FAIL | ye h=-0.1 t=-5.8 r=0.102 tl=0.087 sp=0.9304 cl=1 cv=0 G=+1.5 mkmax=8 FAIL | apa=2.61 | oldpin=-3.55 LOST | 
+F3d25 sib-6 cap12 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 G=+6.2 mkmax=11 | an h=+1.7 t=-5.7 r=0.089 tl=0.103 sp=0.9424 cl=1 cv=0 G=-0.3 mkmax=12 FAIL | ye h=+0.9 t=-6.5 r=0.090 tl=0.092 sp=0.9172 cl=1 cv=0 G=+1.5 mkmax=12 FAIL | apa=2.46 | oldpin=-3.36 LOST | 
+F3d25 sib-8 cap8 | de h=-2.9 t=-2.7 r=0.170 tl=0.117 sp=0.8276 cl=1 cv=0 G=+6.2 mkmax=8 | an h=+2.4 t=-5.7 r=0.117 tl=0.135 sp=0.9441 cl=1 cv=1 G=-0.3 mkmax=8 FAIL | ye h=-0.1 t=-5.8 r=0.102 tl=0.087 sp=0.9304 cl=1 cv=0 G=+1.5 mkmax=8 FAIL | apa=2.61 | oldpin=-3.55 LOST | 
+F3d25 sib-8 cap12 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 G=+6.2 mkmax=11 | an h=+1.7 t=-5.7 r=0.089 tl=0.103 sp=0.9424 cl=1 cv=0 G=-0.3 mkmax=12 FAIL | ye h=+0.9 t=-6.5 r=0.090 tl=0.092 sp=0.9172 cl=1 cv=0 G=+1.5 mkmax=12 FAIL | apa=2.46 | oldpin=-3.36 LOST | 
+F4d10 sib-1.5 cap8 | de h=-2.8 t=-2.7 r=0.172 tl=0.120 sp=0.8285 cl=1 cv=0 G=+6.1 mkmax=8 | an h=+2.9 t=-5.9 r=0.108 tl=0.132 sp=0.9510 cl=1 cv=1 G=-4.2 mkmax=8 FAIL | ye h=-0.1 t=-5.8 r=0.110 tl=0.084 sp=0.9327 cl=1 cv=0 G=-2.9 mkmax=8 FAIL | apa=2.57 | oldpin=-3.14 LOST | 
+F4d10 sib-1.5 cap12 | de h=-2.8 t=-2.7 r=0.173 tl=0.121 sp=0.8285 cl=1 cv=0 G=+6.1 mkmax=10 | an h=+2.1 t=-5.9 r=0.098 tl=0.115 sp=0.9376 cl=1 cv=0 G=-4.2 mkmax=12 FAIL | ye h=+0.1 t=-8.3 r=0.093 tl=0.085 sp=0.9249 cl=1 cv=0 G=-2.9 mkmax=12 FAIL | apa=2.46 | oldpin=-2.94 LOST | 
+F4d10 sib-4 cap8 | de h=-2.8 t=-2.7 r=0.172 tl=0.120 sp=0.8285 cl=1 cv=0 G=+6.1 mkmax=8 | an h=+2.4 t=-5.7 r=0.110 tl=0.128 sp=0.9332 cl=1 cv=0 G=-1.4 mkmax=8 FAIL | ye h=+0.1 t=-5.8 r=0.095 tl=0.083 sp=0.9327 cl=1 cv=0 G=-0.2 mkmax=8 FAIL | apa=2.57 | oldpin=-3.14 LOST | 
+F4d10 sib-4 cap12 | de h=-2.8 t=-2.7 r=0.173 tl=0.121 sp=0.8285 cl=1 cv=0 G=+6.1 mkmax=10 | an h=+1.8 t=-5.7 r=0.089 tl=0.104 sp=0.9400 cl=1 cv=0 G=-1.4 mkmax=12 FAIL | ye h=+0.7 t=-7.1 r=0.089 tl=0.089 sp=0.9135 cl=1 cv=0 G=-0.2 mkmax=12 FAIL | apa=2.46 | oldpin=-2.94 LOST | 
+F4d10 sib-6 cap8 | de h=-2.8 t=-2.7 r=0.172 tl=0.120 sp=0.8285 cl=1 cv=0 G=+6.1 mkmax=8 | an h=+2.2 t=-6.1 r=0.104 tl=0.119 sp=0.9320 cl=1 cv=0 G=-0.0 mkmax=8 FAIL | ye h=+0.2 t=-5.8 r=0.094 tl=0.085 sp=0.9235 cl=1 cv=0 G=+1.5 mkmax=8 FAIL | apa=2.57 | oldpin=-3.14 LOST | 
+F4d10 sib-6 cap12 | de h=-2.8 t=-2.7 r=0.173 tl=0.121 sp=0.8285 cl=1 cv=0 G=+6.1 mkmax=10 | an h=+1.8 t=-6.1 r=0.089 tl=0.104 sp=0.9415 cl=1 cv=0 G=-0.0 mkmax=12 FAIL | ye h=+1.3 t=-6.3 r=0.088 tl=0.094 sp=0.9022 cl=1 cv=0 G=+1.5 mkmax=12 FAIL | apa=2.46 | oldpin=-2.94 LOST | 
+F4d10 sib-8 cap8 | de h=-2.8 t=-2.7 r=0.172 tl=0.120 sp=0.8285 cl=1 cv=0 G=+6.1 mkmax=8 | an h=+2.2 t=-6.1 r=0.104 tl=0.119 sp=0.9320 cl=1 cv=0 G=-0.0 mkmax=8 FAIL | ye h=+0.2 t=-5.8 r=0.094 tl=0.085 sp=0.9235 cl=1 cv=0 G=+1.5 mkmax=8 FAIL | apa=2.57 | oldpin=-3.14 LOST | 
+F4d10 sib-8 cap12 | de h=-2.8 t=-2.7 r=0.173 tl=0.121 sp=0.8285 cl=1 cv=0 G=+6.1 mkmax=10 | an h=+1.8 t=-6.1 r=0.089 tl=0.104 sp=0.9415 cl=1 cv=0 G=-0.0 mkmax=12 FAIL | ye h=+1.3 t=-6.3 r=0.088 tl=0.094 sp=0.9022 cl=1 cv=0 G=+1.5 mkmax=12 FAIL | apa=2.46 | oldpin=-2.94 LOST | 
+done grid4
+F4d10 cap12 pre1.10 | de h=-2.8 t=-2.7 r=0.173 tl=0.121 sp=0.8285 cl=1 cv=0 | an h=+2.1 t=-5.9 r=0.098 tl=0.115 sp=0.9376 cl=1 cv=0 FAIL | ye h=+0.1 t=-8.3 r=0.093 tl=0.085 sp=0.9249 cl=1 cv=0 FAIL | 
+done grid3
+cohcap6 lvlcap12 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 | an h=+1.8 t=-5.8 r=0.101 tl=0.117 sp=0.9463 cl=1 cv=0 FAIL | ye h=+0.0 t=-8.0 r=0.096 tl=0.087 sp=0.9304 cl=1 cv=0 FAIL | apa=2.46 | 
+cohcap6 lvlcap14 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 | an h=+1.7 t=-5.3 r=0.090 tl=0.105 sp=0.9449 cl=1 cv=0 FAIL | ye h=+0.6 t=-8.1 r=0.090 tl=0.090 sp=0.9237 cl=1 cv=0 FAIL | apa=2.49 | 
+cohcap6 lvlcap16 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 | an h=+1.9 t=-5.3 r=0.091 tl=0.107 sp=0.9475 cl=1 cv=0 FAIL | ye h=+1.4 t=-8.1 r=0.089 tl=0.097 sp=0.9080 cl=1 cv=0 FAIL | apa=2.50 | 
+cohcap3 lvlcap12 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 | an h=+2.6 t=-7.6 r=0.113 tl=0.140 sp=0.9799 cl=2 cv=1 FAIL | ye h=-1.4 t=-7.9 r=0.136 tl=0.089 sp=0.9759 cl=1 cv=0 FAIL | apa=2.46 | 
+cohcap3 lvlcap14 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 | an h=+2.3 t=-7.0 r=0.101 tl=0.124 sp=0.9791 cl=2 cv=1 FAIL | ye h=-1.0 t=-8.0 r=0.126 tl=0.093 sp=0.9243 cl=1 cv=0 FAIL | apa=2.49 | 
+cohcap3 lvlcap16 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 | an h=+2.3 t=-6.9 r=0.103 tl=0.126 sp=0.9791 cl=2 cv=0 FAIL | ye h=-0.4 t=-8.0 r=0.114 tl=0.096 sp=0.9169 cl=1 cv=0 FAIL | apa=2.50 | 
+cohcap2 lvlcap12 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 | an h=+2.9 t=-8.3 r=0.107 tl=0.137 sp=0.9480 cl=1 cv=1 FAIL | ye h=-1.7 t=-7.9 r=0.128 tl=0.075 sp=0.9558 cl=1 cv=1 FAIL | apa=2.46 | 
+cohcap2 lvlcap14 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 | an h=+2.5 t=-7.9 r=0.112 tl=0.140 sp=0.9636 cl=1 cv=1 FAIL | ye h=-1.4 t=-7.9 r=0.136 tl=0.090 sp=0.9572 cl=1 cv=0 FAIL | apa=2.49 | 
+cohcap2 lvlcap16 | de h=-2.8 t=-2.7 r=0.170 tl=0.118 sp=0.8276 cl=1 cv=0 | an h=+2.4 t=-7.9 r=0.113 tl=0.141 sp=0.9636 cl=1 cv=0 FAIL | ye h=-0.8 t=-7.9 r=0.129 tl=0.098 sp=0.9169 cl=1 cv=0 FAIL | apa=2.50 | 
+done grid5
+F3d00 | cap8 | de h=-2.4 t=-2.5 r=0.152 tail=0.108 cl=0 | an h=+9.9 t=-11.3 r=0.066 tail=0.103 cl=0 | ye h=-1.9 t=-10.7 r=0.077 tail=0.028 cl=0 | oldpin=-2.33 LOST | apa=2.26 | latgap=-1.1 | cohviol=2 an b11 -7.9,ye b6 -5.1 | de mk=8 an mk=8 ye mk=8
+F3d00 | cap10 | de h=-2.4 t=-2.5 r=0.152 tail=0.109 cl=0 | an h=+8.3 t=-11.1 r=0.070 tail=0.106 cl=0 | ye h=-1.8 t=-9.4 r=0.082 tail=0.035 cl=0 | oldpin=-2.25 LOST | apa=2.19 | latgap=-1.1 | cohviol=2 an b11 -7.6,ye b6 -5.0 | de mk=10 an mk=10 ye mk=10
+F4d00 | cap6 | de h=-2.7 t=-2.6 r=0.156 tail=0.109 cl=0 | an h=+11.4 t=-11.4 r=0.063 tail=0.102 cl=0 | ye h=-1.9 t=-12.3 r=0.073 tail=0.022 cl=0 | oldpin=-1.92 LOST | apa=2.38 | latgap=-1.6 | cohviol=2 an b11 -8.4,ye b6 -4.1 | de mk=6 an mk=6 ye mk=6
+F4d00 | cap8 | de h=-2.6 t=-2.6 r=0.156 tail=0.111 cl=0 | an h=+9.8 t=-11.2 r=0.066 tail=0.103 cl=0 | ye h=-1.9 t=-11.1 r=0.076 tail=0.027 cl=0 | oldpin=-1.86 LOST | apa=2.23 | latgap=-1.6 | cohviol=2 an b11 -8.4,ye b6 -4.1 | de mk=8 an mk=8 ye mk=8
+F4d00 | cap10 | de h=-2.6 t=-2.6 r=0.156 tail=0.111 cl=0 | an h=+8.2 t=-11.0 r=0.070 tail=0.106 cl=0 | ye h=-1.9 t=-9.8 r=0.081 tail=0.034 cl=0 | oldpin=-1.79 LOST | apa=2.16 | latgap=-1.6 | cohviol=1 an b11 -7.8 | de mk=9 an mk=10 ye mk=10
+done grid2
+== V2 max adjacent planned steps ==
+  cluster_probe u1->u2 -4.00
+  annyeong u0->u1 -4.50
+  old_input u0->u1 +5.50
+  old_input u1->u2 -4.00
+  annyeong u0->u1 -4.50
+== F3d25 max adjacent planned steps ==
+  fixed_sentence u0->u1 +4.50
+  demo_hello u0->u1 +4.50
+  annyeong u6->u7 +4.25
+  old_input u0->u1 +5.75
+  demo_hello u0->u1 +4.50
+  annyeong u6->u7 +4.25
+== F4d10 max adjacent planned steps ==
+  demo_hello u0->u1 +5.15
+  annyeong u6->u7 +5.30
+  old_input u0->u1 +5.90
+  demo_hello u0->u1 +5.15
+  annyeong u6->u7 +5.30
+== gain.rs re-derivation map (F3d25; unit idx/total as in tests) ==
+  stressed-vowel a 0/3     expect +0.00
+  unstressed-vowel a 0/3   expect -1.25
+  nasal m 0/3              expect -3.50
+  sonorant l 0/3           expect -3.00
+  sibilant s 0/3           expect -2.00
+  weak f 0/3               expect -6.00
+  voiced-sib z 0/3         expect -6.00
+  voiced-weak v 0/3        expect -6.00
+  plosive t 0/2            expect +0.00
+  aspirated h_h 0/3        expect -1.50
+  decl a-uns 2/10          expect -1.75
+  declcap a-uns 20/30      expect -4.25
+  final-cons t 4/5         expect -3.00
+  final-vowel a 4/5        expect -2.25

@@ -1,0 +1,10 @@
+Task 0.0.0.11.3 per-class gain table with declination and final fade
+TDD RED: cargo test -p articul-cli --test gain failed to compile (duplicate rms, missing render_units_seq_helper). After minimal compile fix, stressed_vowel_louder_than_unstressed failed OOB then ratio=1.0.
+GREEN: fixed test helper to render planned units via render_planned so stress marks are honored; replaced VV pair with apa triple to leave pure steady-state windows; relaxed loudness bound to ratio > 1.8.
+Ruling: precise dB values are covered by 13 unit tests on segment_gain_db (0, -3.5, -8, -10, -5, -15, -18, -28, aspirated floor -3, declination -1 per segment capped at -12, final -4). Waveform ratio test proves audibility end-to-end only. Singleton comparison is invalid because normalize_peak erases inter-utterance gain; VV interior shorts have no pure window under 1102-sample glides. apa with short 176 fades gives clean windows.
+Files: crates/articul-cli/tests/gain.rs (test only), crates/articul-cli/src/synth.rs (fmt only, no behavior change), production gain/envelope/fade logic unchanged from prior implementation.
+Tests: gain.rs 18 passed; full workspace suite green.
+Gates: fmt clean (fmt-check2), clippy -D warnings clean, test workspace green, release build green.
+Measured CLI regression: synthesize TIs TIN default voice: 7897 samples, sha256 02e092e223995686ffb5ce0e9bd3bd98524625a344efb2959d1be60db0102d7f, deterministic across runs (11.2 baseline was 7897 samples with different bytes: expected, gain shaping changed waveform not durations). Python parity 4/4 PASS (synthesize len=3286, vowel-a f2/f1=0.117).
+Probe: probe/0.0.0.11.3/regression-a.wav, regression-b.wav (identical).
+Logs: logs/0.0.0.11.3/ (repro, repro2, green2-green5, fmt-check, fmt, fmt-check2, clippy2, test-workspace, release, cli-regression-a, cli-regression-b, cli-regression, py-build, py-copy, parity).

@@ -1,0 +1,50 @@
+[sample_rate]
+hz = 22050
+
+[source]
+f0_hz = 110.0
+open_quotient = 0.55
+asymmetry = 0.75
+aspiration_noise = 0.08
+
+[cascade_formants]
+[[cascade_formants.formant]]
+index = 1
+freq_hz = 450.0
+bw_hz = 50.0
+[[cascade_formants.formant]]
+index = 2
+freq_hz = 1400.0
+bw_hz = 80.0
+[[cascade_formants.formant]]
+index = 3
+freq_hz = 2400.0
+bw_hz = 110.0
+[[cascade_formants.formant]]
+index = 4
+freq_hz = 3200.0
+bw_hz = 140.0
+[[cascade_formants.formant]]
+index = 5
+freq_hz = 4100.0
+bw_hz = 190.0
+[[cascade_formants.formant]]
+index = 6
+freq_hz = 4800.0
+bw_hz = 900.0
+
+[parallel_formants]
+[[parallel_formants.formant]]
+index = 1
+freq_hz = 450.0
+bw_hz = 50.0
+amplitude = 0.7
+[[parallel_formants.formant]]
+index = 2
+freq_hz = 1400.0
+bw_hz = 80.0
+amplitude = 0.5
+
+[prosody]
+rate = 1.0
+pitch_scale = 1.0

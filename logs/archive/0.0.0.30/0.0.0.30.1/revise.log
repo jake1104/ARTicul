@@ -1,0 +1,134 @@
+0.0.0.30.1 REVISION ROUND (takeover): extended-grid search for a passing point
+Method: validated output-domain replica (gchain.py, 28.1 precedent). No engine/source/test edits.
+
+VALIDATION RESIDUALS (control = zero deltas, current tree wavs as truth):
+  de s1 eng=0.8667 sim=0.8261 d=-0.0406
+  de s2 eng=0.6292 sim=0.6292 d=+0.0000
+  de s3 eng=0.3893 sim=0.3893 d=-0.0000
+  an s1 eng=0.2250 sim=0.2250 d=+0.0000
+  an s2 eng=0.2341 sim=0.2341 d=+0.0000
+  an s3 eng=0.1934 sim=0.1934 d=+0.0000
+  an s4 eng=0.1895 sim=0.1895 d=-0.0000
+  an s5 eng=0.1779 sim=0.1779 d=-0.0000
+  an s6 eng=0.1072 sim=0.1072 d=-0.0000
+  an s7 eng=0.3370 sim=0.3370 d=+0.0000
+  an s8 eng=0.0881 sim=0.0881 d=+0.0000
+  an s9 eng=0.7124 sim=0.7124 d=-0.0000
+  an s10 eng=0.3055 sim=0.3055 d=-0.0000
+  an s11 eng=0.9608 sim=0.9608 d=-0.0000
+  ye s1 eng=0.2310 sim=0.2310 d=-0.0000
+  ye s2 eng=0.2455 sim=0.2455 d=+0.0000
+  ye s3 eng=0.4618 sim=0.4618 d=+0.0000
+  ye s4 eng=0.0902 sim=0.0902 d=+0.0000
+  ye s5 eng=0.5630 sim=0.5630 d=-0.0000
+  ye s6 eng=0.2111 sim=0.2111 d=-0.0000
+  ye s7 eng=0.9311 sim=0.9311 d=+0.0000
+  max|sim-eng| spark valleys+peaks, 21 windows: 0.0406
+  RMS control-vs-engine: hello/annyeong/yeobo exact to 4 decimals (0.1660/0.0953/0.0980).
+  Declared simulator error bounds: spark peak +/-0.05 (covers max resid 0.0406); audio +/-0.5dB (28.1 method bound, smoothing neglected at step edges).
+  Required margin for acceptance: >=2x bound -> spark sim<=0.80; RMS >=+1.0dB over gate; trough >=-13.0; tail >=0.0336; |halves|<=4.0.
+
+P0 RESTATEMENT (F3d25 + cap12 + pre1.10 + atk12 + cohON), per-window sparks:
+  de halves=-2.81 trough=-2.72 rms=0.1703 tail=0.1185 sparkmax=0.8276 clamp=1 cohviol=0
+    windows: s1=0.8276 s2=0.6379 s3=0.4028
+  an halves=+1.83 trough=-5.77 rms=0.1010 tail=0.1165 sparkmax=0.9463 clamp=1 cohviol=0
+    windows: s1=0.2467 s2=0.2667 s3=0.2006 s4=0.1961 s5=0.1844 s6=0.1107 s7=0.3633 s8=0.0986 s9=0.7480 s10=0.3237 s11=0.9463
+  ye halves=+0.01 trough=-7.98 rms=0.0961 tail=0.0867 sparkmax=0.9304 clamp=1 cohviol=0
+    windows: s1=0.2217 s2=0.2233 s3=0.4495 s4=0.0901 s5=0.5581 s6=0.2028 s7=0.9304
+  apa testplan ratio=2.463 (gate >1.8)
+
+LEVELER SWEEP at F3d25 (cap x prescale x attack). Gate bar: |halves|<=5, trough>=-14, rms>=0.10, tail(ye)>=0.03, spark<0.9 all 21, cohviol=0, apa>1.8.
+atk12 cap8 pre1.00 | de sp=0.7523 r=0.1545 t=-2.7 h=-2.9 cv=0 | an sp=0.9406 r=0.1035 t=-5.9 h=+2.9 cv=1* | ye sp=0.9429 r=0.1213 t=-5.7 h=-0.4 cv=0* | 
+atk12 cap8 pre1.05 | de sp=0.7900 r=0.1622 t=-2.7 h=-2.9 cv=0 | an sp=0.8793 r=0.1087 t=-5.9 h=+2.9 cv=1* | ye sp=0.9429 r=0.1213 t=-5.7 h=-0.4 cv=0* | 
+atk12 cap8 pre1.10 | de sp=0.8276 r=0.1699 t=-2.7 h=-2.9 cv=0 | an sp=0.9454 r=0.1088 t=-5.9 h=+2.9 cv=1* | ye sp=0.9429 r=0.1213 t=-5.7 h=-0.4 cv=0* | 
+atk12 cap10 pre1.00 | de sp=0.7523 r=0.1548 t=-2.7 h=-2.8 cv=0 | an sp=0.9447 r=0.1155 t=-6.0 h=+2.4 cv=1* | ye sp=0.9304 r=0.1074 t=-7.1 h=-0.3 cv=0* | 
+atk12 cap10 pre1.05 | de sp=0.7900 r=0.1625 t=-2.7 h=-2.8 cv=0 | an sp=0.9460 r=0.1156 t=-6.0 h=+2.3 cv=1* | ye sp=0.9304 r=0.1074 t=-7.1 h=-0.3 cv=0* | 
+atk12 cap10 pre1.10 | de sp=0.8276 r=0.1702 t=-2.7 h=-2.8 cv=0 | an sp=0.9460 r=0.1156 t=-6.0 h=+2.3 cv=1* | ye sp=0.9304 r=0.1074 t=-7.1 h=-0.3 cv=0* | 
+atk12 cap12 pre1.00 | de sp=0.7523 r=0.1549 t=-2.7 h=-2.8 cv=0 | an sp=0.9463 r=0.1010 t=-5.8 h=+1.8 cv=0* | ye sp=0.9304 r=0.0962 t=-8.0 h=+0.0 cv=0* | 
+atk12 cap12 pre1.05 | de sp=0.7900 r=0.1626 t=-2.7 h=-2.8 cv=0 | an sp=0.9463 r=0.1010 t=-5.8 h=+1.8 cv=0* | ye sp=0.9304 r=0.0961 t=-8.0 h=+0.0 cv=0* | 
+atk12 cap12 pre1.10 | de sp=0.8276 r=0.1703 t=-2.7 h=-2.8 cv=0 | an sp=0.9463 r=0.1010 t=-5.8 h=+1.8 cv=0* | ye sp=0.9304 r=0.0961 t=-8.0 h=+0.0 cv=0* | 
+atk40 cap8 pre1.00 | de sp=0.7449 r=0.1524 t=-2.8 h=-3.3 cv=0 | an sp=0.9443 r=0.0958 t=-5.8 h=+3.2 cv=1* | ye sp=0.9155 r=0.1211 t=-5.0 h=-0.5 cv=0* | 
+atk40 cap8 pre1.05 | de sp=0.7821 r=0.1600 t=-2.8 h=-3.3 cv=0 | an sp=0.8820 r=0.1003 t=-5.8 h=+3.2 cv=1* | ye sp=0.9155 r=0.1211 t=-5.0 h=-0.5 cv=0* | 
+atk40 cap8 pre1.10 | de sp=0.8194 r=0.1676 t=-2.8 h=-3.3 cv=0 | an sp=0.9417 r=0.1003 t=-5.8 h=+3.2 cv=1* | ye sp=0.9155 r=0.1211 t=-5.0 h=-0.5 cv=0* | 
+atk40 cap10 pre1.00 | de sp=0.7449 r=0.1527 t=-2.8 h=-3.2 cv=0 | an sp=0.9392 r=0.1068 t=-6.0 h=+2.8 cv=1* | ye sp=0.9304 r=0.1158 t=-5.5 h=-0.5 cv=0* | 
+atk40 cap10 pre1.05 | de sp=0.7821 r=0.1603 t=-2.8 h=-3.2 cv=0 | an sp=0.9097 r=0.1122 t=-6.0 h=+2.7 cv=1* | ye sp=0.9304 r=0.1158 t=-5.5 h=-0.5 cv=0* | 
+atk40 cap10 pre1.10 | de sp=0.8194 r=0.1679 t=-2.8 h=-3.2 cv=0 | an sp=0.9468 r=0.1125 t=-6.0 h=+2.7 cv=1* | ye sp=0.9304 r=0.1158 t=-5.5 h=-0.5 cv=0* | 
+atk40 cap12 pre1.00 | de sp=0.7449 r=0.1528 t=-2.8 h=-3.2 cv=0 | an sp=0.9511 r=0.1091 t=-5.8 h=+2.2 cv=1* | ye sp=0.9304 r=0.1030 t=-6.7 h=-0.3 cv=0* | 
+atk40 cap12 pre1.05 | de sp=0.7821 r=0.1604 t=-2.8 h=-3.2 cv=0 | an sp=0.9511 r=0.1091 t=-5.8 h=+2.2 cv=1* | ye sp=0.9304 r=0.1030 t=-6.7 h=-0.3 cv=0* | 
+atk40 cap12 pre1.10 | de sp=0.8194 r=0.1680 t=-2.8 h=-3.2 cv=0 | an sp=0.9511 r=0.1091 t=-5.8 h=+2.1 cv=1* | ye sp=0.9304 r=0.1030 t=-6.7 h=-0.3 cv=0* | 
+
+TABLE-ARM SWEEP part 1 (single-arm -/+1dB from F3d25; bar = same as leveler sweep):
+unstrV+ cap12 pre1.10 | de sp=0.8293 r=0.1748 cv=0 | an sp=0.9358 r=0.0984 cv=0* | ye sp=0.9304 r=0.0961 cv=0* | apa=2.46 | 
+unstrV+ cap8 pre1.05 | de sp=0.7916 r=0.1666 cv=0 | an sp=0.9303 r=0.1137 cv=1* | ye sp=0.9429 r=0.1213 cv=0* | apa=2.58 | 
+unstrV- cap12 pre1.10 | de sp=0.8254 r=0.1667 cv=0 | an sp=0.9573 r=0.1033 cv=1* | ye sp=0.9304 r=0.0961 cv=0* | apa=2.47 | 
+unstrV- cap8 pre1.05 | de sp=0.7879 r=0.1586 cv=0 | an sp=0.8798 r=0.1040 cv=1* | ye sp=0.9429 r=0.1213 cv=0* | apa=2.69 | 
+sib+ cap12 pre1.10 | de sp=0.8276 r=0.1703 cv=0 | an sp=0.9474 r=0.1072 cv=1* | ye sp=0.9304 r=0.1020 cv=0* | apa=2.46 | 
+sib+ cap8 pre1.05 | de sp=0.7900 r=0.1622 cv=0 | an sp=0.9801 r=0.1012 cv=1* | ye sp=0.9080 r=0.1187 cv=0* | apa=2.61 | 
+sib- cap12 pre1.10 | de sp=0.8276 r=0.1703 cv=0 | an sp=0.9463 r=0.0947 cv=0* | ye sp=0.9288 r=0.0925 cv=0* | apa=2.46 | 
+sib- cap8 pre1.05 | de sp=0.7900 r=0.1622 cv=0 | an sp=0.9828 r=0.1164 cv=1* | ye sp=0.9304 r=0.1140 cv=0* | apa=2.61 | 
+approx+ cap12 pre1.10 | de sp=0.8275 r=0.1685 cv=0 | an sp=0.9511 r=0.0973 cv=0* | ye sp=0.9276 r=0.0918 cv=0* | apa=2.46 | 
+approx+ cap8 pre1.05 | de sp=0.7899 r=0.1605 cv=0 | an sp=0.8820 r=0.1090 cv=1* | ye sp=0.9331 r=0.1107 cv=0* | apa=2.61 | 
+approx- cap12 pre1.10 | de sp=0.8277 r=0.1724 cv=0 | an sp=0.9434 r=0.1028 cv=0* | ye sp=0.9276 r=0.1049 cv=0* | apa=2.46 | 
+approx- cap8 pre1.05 | de sp=0.7901 r=0.1642 cv=0 | an sp=0.8765 r=0.1084 cv=1* | ye sp=0.9361 r=0.1260 cv=0* | apa=2.61 | 
+nasal+ cap12 pre1.10 | de sp=0.8276 r=0.1703 cv=0 | an sp=0.9505 r=0.1006 cv=0* | ye sp=0.9304 r=0.0961 cv=0* | apa=2.46 | 
+nasal+ cap8 pre1.05 | de sp=0.7900 r=0.1622 cv=0 | an sp=0.8826 r=0.1090 cv=1* | ye sp=0.9429 r=0.1213 cv=0* | apa=2.61 | 
+nasal- cap12 pre1.10 | de sp=0.8276 r=0.1703 cv=0 | an sp=0.9424 r=0.1014 cv=0* | ye sp=0.9304 r=0.0961 cv=0* | apa=2.46 | 
+nasal- cap8 pre1.05 | de sp=0.7900 r=0.1622 cv=0 | an sp=0.9834 r=0.1081 cv=1* | ye sp=0.9429 r=0.1213 cv=0* | apa=2.61 | 
+
+TABLE-ARM SWEEP part 2 (h/decl/fin/floor variants; same bar):
+h+ cap12 pre1.10 | de sp=0.8276 r=0.1703 t=-2.7 h=-2.8 cv=0 | an sp=0.9463 r=0.1010 t=-5.8 h=+1.8 cv=0* | ye sp=0.9304 r=0.0961 t=-8.0 h=+0.0 cv=0* | apa=2.46 | 
+h+ cap8 pre1.05 | de sp=0.7900 r=0.1622 t=-2.7 h=-2.9 cv=0 | an sp=0.8793 r=0.1087 t=-5.9 h=+2.9 cv=1* | ye sp=0.9429 r=0.1213 t=-5.7 h=-0.4 cv=0* | apa=2.61 | 
+h- cap12 pre1.10 | de sp=0.8276 r=0.1703 t=-2.7 h=-2.8 cv=0 | an sp=0.9463 r=0.1010 t=-5.8 h=+1.8 cv=0* | ye sp=0.9304 r=0.0961 t=-8.0 h=+0.0 cv=0* | apa=2.46 | 
+h- cap8 pre1.05 | de sp=0.7900 r=0.1622 t=-2.7 h=-2.9 cv=0 | an sp=0.8793 r=0.1087 t=-5.9 h=+2.9 cv=1* | ye sp=0.9429 r=0.1213 t=-5.7 h=-0.4 cv=0* | apa=2.61 | 
+decl15 cap12 pre1.10 | de sp=0.8277 r=0.1718 t=-2.7 h=-2.6 cv=0 | an sp=0.9381 r=0.1003 t=-6.0 h=+2.0 cv=0* | ye sp=0.9301 r=0.0943 t=-8.0 h=+0.1 cv=0* | apa=2.46 | 
+decl15 cap8 pre1.05 | de sp=0.7901 r=0.1637 t=-2.7 h=-2.7 cv=0 | an sp=0.9820 r=0.1083 t=-6.0 h=+3.1 cv=1* | ye sp=0.9301 r=0.1185 t=-5.7 h=-0.3 cv=0* | apa=2.59 | 
+decl35 cap12 pre1.10 | de sp=0.8274 r=0.1689 t=-2.7 h=-3.0 cv=0 | an sp=0.9564 r=0.0999 t=-5.5 h=+1.6 cv=1* | ye sp=0.9307 r=0.0981 t=-7.9 h=-0.1 cv=0* | apa=2.47 | 
+decl35 cap8 pre1.05 | de sp=0.7898 r=0.1607 t=-2.7 h=-3.0 cv=0 | an sp=0.9838 r=0.1086 t=-5.9 h=+2.8 cv=1* | ye sp=0.9707 r=0.1242 t=-5.7 h=-0.5 cv=0* | apa=2.62 | 
+fin1 cap12 pre1.10 | de sp=0.8276 r=0.1703 t=-2.7 h=-2.8 cv=0 | an sp=0.9463 r=0.1010 t=-5.8 h=+1.8 cv=0* | ye sp=0.9304 r=0.0961 t=-8.0 h=+0.0 cv=0* | apa=2.46 | 
+fin1 cap8 pre1.05 | de sp=0.7900 r=0.1622 t=-2.7 h=-2.9 cv=0 | an sp=0.8793 r=0.1087 t=-5.9 h=+2.9 cv=1* | ye sp=0.9429 r=0.1213 t=-5.7 h=-0.4 cv=0* | apa=2.61 | 
+fin3 cap12 pre1.10 | de sp=0.8276 r=0.1703 t=-2.7 h=-2.8 cv=0 | an sp=0.9463 r=0.1010 t=-5.8 h=+1.8 cv=0* | ye sp=0.9304 r=0.0961 t=-8.0 h=+0.0 cv=0* | apa=2.46 | 
+fin3 cap8 pre1.05 | de sp=0.7900 r=0.1622 t=-2.7 h=-2.9 cv=0 | an sp=0.8793 r=0.1087 t=-5.9 h=+2.9 cv=1* | ye sp=0.9429 r=0.1213 t=-5.7 h=-0.4 cv=0* | apa=2.61 | 
+floor5 cap12 pre1.10 | de sp=0.8255 r=0.1653 t=-2.7 h=-3.0 cv=0 | an sp=0.9488 r=0.0991 t=-5.7 h=+1.8 cv=0* | ye sp=0.9304 r=0.0961 t=-8.0 h=+0.0 cv=0* | apa=2.46 | 
+floor5 cap8 pre1.05 | de sp=0.7880 r=0.1571 t=-2.7 h=-3.1 cv=0 | an sp=0.8815 r=0.1089 t=-5.9 h=+2.9 cv=1* | ye sp=0.9429 r=0.1213 t=-5.7 h=-0.4 cv=0* | apa=2.61 | 
+floor7 cap12 pre1.10 | de sp=0.8291 r=0.1764 t=-2.7 h=-2.6 cv=0 | an sp=0.9456 r=0.1011 t=-5.8 h=+1.9 cv=0* | ye sp=0.9304 r=0.0961 t=-8.0 h=+0.0 cv=0* | apa=2.46 | 
+floor7 cap8 pre1.05 | de sp=0.7915 r=0.1682 t=-2.7 h=-2.6 cv=0 | an sp=0.8777 r=0.1085 t=-5.9 h=+3.0 cv=1* | ye sp=0.9429 r=0.1213 t=-5.7 h=-0.4 cv=0* | apa=2.61 | 
+
+COMBO PROBES (two-arm, hot-peak-setter direction, cap8/pre1.05):
+sib+decl15 | de sp=0.7901 r=0.1637 t=-2.7 h=-2.7 cv=0 | an sp=0.9748 r=0.1009 t=-6.2 h=+3.2 cv=1* | ye sp=0.9296 r=0.1196 t=-5.8 h=-0.3 cv=0* | apa=2.59 | 
+sib+unstrV+ | de sp=0.7916 r=0.1666 t=-2.6 h=-2.8 cv=0 | an sp=0.9781 r=0.1056 t=-6.0 h=+3.0 cv=1* | ye sp=0.9080 r=0.1187 t=-5.8 h=-0.4 cv=0* | apa=2.58 | 
+sib+approx- | de sp=0.7901 r=0.1642 t=-2.7 h=-2.6 cv=0 | an sp=0.9781 r=0.1009 t=-6.1 h=+3.2 cv=1* | ye sp=0.9062 r=0.1178 t=-5.7 h=-0.5 cv=0* | apa=2.61 | 
+sib+decl15@40 | de sp=0.7823 r=0.1614 t=-2.8 h=-3.1 cv=0 | an sp=0.9801 r=0.0942 t=-6.2 h=+3.6 cv=1* | ye sp=0.9145 r=0.1129 t=-5.2 h=-0.4 cv=0* | apa=2.45 | 
+sib+floor7 | de sp=0.7915 r=0.1682 t=-2.7 h=-2.6 cv=0 | an sp=0.9790 r=0.1011 t=-6.1 h=+3.1 cv=1* | ye sp=0.9080 r=0.1187 t=-5.8 h=-0.4 cv=0* | apa=2.61 | 
+sib+nasal+ | de sp=0.7900 r=0.1622 t=-2.7 h=-2.9 cv=0 | an sp=0.9845 r=0.1018 t=-5.9 h=+3.0 cv=1* | ye sp=0.9080 r=0.1187 t=-5.8 h=-0.4 cv=0* | apa=2.61 | 
+
+SEARCHED SPACE TALLY (new this round): 18 leveler + 32 single-arm x2 corners + 6 combos = 56 points.
+Prior (probe.log): grid3-option2 12 + grid4 sib-cool 16 + grid5 redistrib 9 + combos A-F 6 + grid2 cohOFF 18 = ~61.
+Total ~117 simulation points. ALLPASS count under task bar: ZERO.
+
+PARETO FRONTIER (which gates conflict, with numbers):
+  F1 spark-vs-spark: yeobo s7 in [0.9062,0.9707] over all 56 new points, NEVER <0.9; leveler-invariant
+     (cap 8->12, pre 1.00->1.10, atk 12->40 move s7 by <=0.03). annyeong s11 in [0.8765,0.9845].
+     Anti-correlated: sib+ cools ye s7 0.9429->0.9080 but heats an s11 0.8793->0.9801 (cap8/pre1.05).
+     Best joint spark point is P0 itself (0.9463/0.9304) -- still double-RED.
+  F2 RMS(yeobo>=0.10) vs SPARK: yeobo RMS>=0.10 needs cap8 rescue (0.118-0.126); at cap12 it is
+     0.094-0.096 RAW FAIL (P0 0.0961, -0.35dB). But cap8 always fires annyeong cohviol=1 AND leaves s11 RED.
+  F3 COHVIOL(b11<=4dB) vs SPARK(s11<0.9): b11 needs >=+4dB tail lift (cap>=10 rescue); the same lift
+     pushes the s11 onset to 0.94+. At cap8 the lift collapses and b11 step fires (-6.05 class, cv=1).
+  F4 RMS(annyeong>=0.10) vs CAP: cap12/pre1.10 gives 0.1010 (+0.09dB: sub-error-bar, fails 2x margin which
+     needs >=0.1122); cap8 gives 0.104-0.109 but with cohviol=1. No corner gives RMS+margin AND cv=0 AND spark<0.9.
+  Structural cause (confirms 29.2 Round-4): coherence peakcap (0.9/peak, +-6dB) + Gc rescale re-pin tail
+  onsets to ~0.9 under EVERY setting; one scalar gain per segment cannot satisfy RMS-fill (+6dB needed)
+  and spark-avoidance (binds at +5.3dB) simultaneously. Parametric search cannot cross this; it is not a tuning gap.
+
+MARGIN CHECK (2x error bound: spark sim<=0.80, RMS>=+1.0dB, trough>=-13.0, tail>=0.0336, |halves|<=4.0):
+  MOOT -- no point passes the raw gates, so no point passes with margins. Closest spark (0.9062) misses
+  the raw bound by 0.0062 and the margin bound by 0.1062. Closest yeobo RMS at cap12 (0.0961) misses raw by
+  -0.35dB. Engine baseline itself fails the task bar (yeobo 0.0980, annyeong 0.0953, s11/s7 RED).
+
+CERTIFICATION: the searched space (table arms within +-1dB of F3d25, cap {8,10,12}, prescale {1.0,1.05,1.10},
+attack {12ms,40ms}, cohON, validated replica with stated residuals) contains NO passing point.
+RECOMMENDATION: close 0.0.0.30 with no implementation. Flattening buys join cooling (s9 fixed, b11 fixed,
+steps 4.50dB junction-safe) + gate fixes, NOT rescue removal -- rescue need is excitation/fade/floor-driven
+and every rescue shrink re-fires RMS/cohviol/spark elsewhere (whack-a-mole measured in ~117 points).
+Next: user decision -- (B) accept current sound as-is, or (C) new probe on tail-onset mechanism (fade-tip +
+h-floor + /s/-pinned-G stack), not another parametric sweep.

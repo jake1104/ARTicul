@@ -1,0 +1,8 @@
+Task 0.0.0.12.4 regression re-baseline with demo regeneration
+Gates: fmt --check clean, clippy --workspace --all-targets -- -D warnings clean, cargo test --workspace green (EXIT 0), release build green.
+Fixed-sentence regression: synthesize TIs TIN default voice: 8536 samples, sha256 3255c3a5c465470273dd0ff2dc356a837ffe396f9d748e8d27261414a3dda314, deterministic across two runs (matches 12.3 hash; 12.2 baseline was 8536 samples with hash 9f04...: CF0 reshaped the I vowels after T without changing durations; 11.5 baseline was 7897 samples).
+Demo: demo/hello.wav regenerated from X-SAMPA '"hE l@U' with default voice: 7323 samples at 22050Hz (was 7345: l@U is disyllabic so x0.9 now applies, partly offset by final-rhyme lengthening on U).
+Python parity 4/4 PASS (synthesize len=3043, vowel-a f2/f1=0.127).
+Probe: probe/0.0.0.12.4/regression-a.wav, regression-b.wav (identical).
+Logs: logs/0.0.0.12.4/ (fmt-check, clippy, test-workspace, release, cli-regression-a, cli-regression-b, cli-regression, demo, demo-check, py-build, py-copy, parity).
+Archive: probe/0.0.0.12.1 through 0.0.0.12.4 moved to probe/archive/0.0.0.12/; logs likewise to logs/archive/0.0.0.12/.

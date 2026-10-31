@@ -1,0 +1,8 @@
+Task 0.0.0.11.1 stress mark plumbing
+TDD RED: tests/stress.rs fails to compile (no Stress export, transcribe/plan arity mismatch, no ProsodicPhoneme.stress).
+GREEN: new Stress enum (Unstressed/Secondary/Primary) in articul-front lib root; transcribe() returns (Vec<Phoneme>, Vec<Stress>) with " attaching to the following vowel nucleus and % to its nucleus, consonants get Unstressed, trailing marker dropped, last marker wins; apply_suffixes no longer swallows "/% so a"bi-style marks reach the next vowel; plan() takes &[Stress], stores per-unit stress (length-mismatched input defaults to Unstressed), durations and F0 unchanged.
+Files: crates/articul-front/src/{lib,xsampa,prosody}.rs, tests/{stress,xsampa,prosody,integration}.rs, crates/articul-cli/src/synth.rs (call-site threading only).
+Tests: 9 new stress tests pass; full workspace suite green, no warnings. Behavior preserved: CLI regression 'TIs TIN' 11468 samples sha256 5D1BB5F6...74E893880 deterministic, identical to pre-change baseline; python parity 4/4 PASS (synthesize len=4234, vowel-a f2/f1=0.125).
+Gates: fmt clean, clippy -D warnings clean, test workspace green, release build green.
+Note: no commits (AGENTS.md restricts git actions to explicit requests); test expectation fixed once for two-mark input (marks attach per vowel, per spec).
+Logs: logs/0.0.0.11.1/ (red, green, green2, fmt-check, clippy, test-workspace, release, parity, cli-regression).

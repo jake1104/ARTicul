@@ -1,0 +1,5 @@
+signal forensics demo/hello.wav vs regression-a.wav
+hello: sr=22050 frames=8248 dur=0.374s peak=0.9000 rms=0.0386 dc=+0.00587 clip=0.0000 zcr=0.1061 cent=3351.5Hz b0-300=0.276 b300-3400=0.666 b4k+=0.055 sil=0.000 wrms=0.026/0.044/0.054
+regression-a: sr=22050 frames=8822 dur=0.400s peak=0.9000 rms=0.0882 dc=+0.00139 clip=0.0000 zcr=0.2459 cent=6544.4Hz b0-300=0.002 b300-3400=0.016 b4k+=0.961 sil=0.750 wrms=0.013/0.175/0.011/0.006
+verdict hello: not speech-like (flat static-like bed, no syllable modulation)
+verdict regression-a: noise-like (HF burst in silence, 96pct energy above 4kHz)

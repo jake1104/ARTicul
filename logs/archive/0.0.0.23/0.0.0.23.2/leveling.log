@@ -1,0 +1,23 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.20s
+     Running tests\leveling.rs (target\debug\deps\leveling-84ed11da9d3cc29e.exe)
+
+running 3 tests
+test tail_not_buried ... ok
+test intra_word_troughs_bounded ... FAILED
+test demo_rms_audible ... ok
+
+failures:
+
+---- intra_word_troughs_bounded stdout ----
+
+thread 'intra_word_troughs_bounded' (17008) panicked at crates\articul-cli\tests\leveling.rs:57:9:
+trough -15.6dB deeper than -12dB for %an njVN "hasejo
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    intra_word_troughs_bounded
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+error: test failed, to rerun pass `-p articul-cli --test leveling`

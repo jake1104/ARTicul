@@ -1,0 +1,6 @@
+Task 0.0.0.8.3 release stabilization (re-verified after X-SAMPA rework)
+Gates: fmt clean, clippy clean, test workspace 29 suites ok, release build ok, Python validation 4 PASS (slope -8.53)
+Closed history moved to CHANGELOG.md [0.1.0]. README gained X-SAMPA input section and Python usage.
+todo.md retains standing rules only; 8 cascades removed by line-index surgery (edit-tool exact-match failed on the 8KB block; verified standing-rule bytes via repr first, then trimmed lines 13-190, verified by read). No open cascade remains.
+Ruling: input is X-SAMPA phonetic symbols, not English orthography. Front-end reworked: case-sensitive normalize, Xsampa transcriber (94 tokens, feature-driving suffixes), phonetic regression fixture 'TIs TIN' (12348 samples, sha256 af43b111...55836).
+Logs: logs/0.0.0.8.3/ (fmt-rework, clippy-rework, test-rework, release-rework)

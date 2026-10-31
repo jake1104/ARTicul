@@ -1,0 +1,32 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.49s
+     Running tests\tmp_hfprobe.rs (target\debug\deps\tmp_hfprobe-9c842af7deaeba9b.exe)
+
+running 1 test
+hE "loU gi1 pos=1544 hf=0.024286 flattops=0
+hE "loU gi2 pos=3330 hf=0.061846 flattops=0
+hE "loU gi3 pos=4698 hf=0.091836 flattops=0
+%an njVN "hasejo gi1 pos=3771 hf=0.096931 flattops=0
+%an njVN "hasejo gi2 pos=4742 hf=0.023086 flattops=0
+%an njVN "hasejo gi3 pos=5558 hf=0.011035 flattops=0
+%an njVN "hasejo gi4 pos=6286 hf=0.044364 flattops=0
+%an njVN "hasejo gi5 pos=8050 hf=0.012405 flattops=0
+%an njVN "hasejo gi6 pos=8866 hf=0.143941 flattops=0
+%an njVN "hasejo gi7 pos=9837 hf=0.004949 flattops=0
+%an njVN "hasejo gi8 pos=12263 hf=0.827051 flattops=0
+%an njVN "hasejo gi9 pos=13366 hf=0.947012 flattops=0
+%an njVN "hasejo gi10 pos=14645 hf=0.023858 flattops=0
+%an njVN "hasejo gi11 pos=15373 hf=0.057696 flattops=0
+%jV"bo%se%jo gi1 pos=772 hf=0.041408 flattops=0
+%jV"bo%se%jo gi2 pos=3463 hf=0.055768 flattops=0
+%jV"bo%se%jo gi3 pos=4191 hf=0.053132 flattops=0
+%jV"bo%se%jo gi4 pos=6286 hf=0.851076 flattops=0
+%jV"bo%se%jo gi5 pos=7411 hf=0.973155 flattops=0
+%jV"bo%se%jo gi6 pos=10079 hf=0.134914 flattops=0
+%jV"bo%se%jo gi7 pos=10807 hf=0.054703 flattops=0
+MEAN_HF=0.215926 TOTAL_FLATTOPS=0 N=21
+BOUND_07=0.151148
+test tmp_hf_measure ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+

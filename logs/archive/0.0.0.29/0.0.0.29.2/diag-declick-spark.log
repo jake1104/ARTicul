@@ -1,0 +1,36 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.19s
+     Running tests\junction_nospark.rs (target\debug\deps\junction_nospark-3771d5965d00ece3.exe)
+
+running 1 test
+test no_fullscale_sparks_at_starts ... FAILED
+
+failures:
+
+---- no_fullscale_sparks_at_starts stdout ----
+
+thread 'no_fullscale_sparks_at_starts' (23508) panicked at crates\articul-cli\tests\junction_nospark.rs:122:17:
+join transient at non-initial segment start 11 of %an njVN "hasejo: unclamped peak 0.9608 >= 0.9 (clamped=0)
+hE "loU start1 pos=1544 unclamped=0.8667 clamped=0
+hE "loU start2 pos=3330 unclamped=0.6292 clamped=0
+hE "loU start3 pos=4698 unclamped=0.3893 clamped=0
+%an njVN "hasejo start1 pos=3771 unclamped=0.2250 clamped=0
+%an njVN "hasejo start2 pos=4742 unclamped=0.2341 clamped=0
+%an njVN "hasejo start3 pos=5558 unclamped=0.1934 clamped=0
+%an njVN "hasejo start4 pos=6286 unclamped=0.1895 clamped=0
+%an njVN "hasejo start5 pos=8050 unclamped=0.1779 clamped=0
+%an njVN "hasejo start6 pos=8866 unclamped=0.1073 clamped=0
+%an njVN "hasejo start7 pos=9837 unclamped=0.3370 clamped=0
+%an njVN "hasejo start8 pos=12263 unclamped=0.0881 clamped=0
+%an njVN "hasejo start9 pos=13366 unclamped=0.7124 clamped=0
+%an njVN "hasejo start10 pos=14645 unclamped=0.3056 clamped=0
+%an njVN "hasejo start11 pos=15373 unclamped=0.9608 clamped=0
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    no_fullscale_sparks_at_starts
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p articul-cli --test junction_nospark`

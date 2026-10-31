@@ -1,0 +1,4 @@
+regression-r3-a.wav samples=8822 sr=22050 sha256=b832514d56698cce417ed3d16ba549312c7ab8573811457fff49a12107c24620
+regression-r3-b.wav samples=8822 sr=22050 sha256=b832514d56698cce417ed3d16ba549312c7ab8573811457fff49a12107c24620
+byte-identical: True
+differs from 0.0.0.22.4 baseline 870D...: True

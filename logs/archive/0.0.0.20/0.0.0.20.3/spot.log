@@ -1,0 +1,7 @@
+fixed_sentence samples= 8822 rms= -21.04dBFS centroid=  6522.6Hz notch_mid40ms=+2.08dB sha=3d31d08a3be49623
+demo_hello     samples= 9792 rms= -25.53dBFS centroid=  3269.0Hz notch_mid40ms=+5.76dB sha=745258174f710e91
+creak_probe    samples= 6439 rms= -12.27dBFS centroid=  1231.1Hz notch_mid40ms=-8.54dB sha=601b14cad2dbec85
+gain_probe     samples= 5072 rms= -29.08dBFS centroid=  4046.8Hz notch_mid40ms=-0.36dB sha=5247ad8ba98db48c
+cluster_probe  samples= 7785 rms= -19.56dBFS centroid=  6005.5Hz notch_mid40ms=-3.03dB sha=6620d9c52aa668c6
+pause_probe    samples= 8535 rms= -23.60dBFS centroid=  2794.7Hz notch_mid40ms=-13.60dB sha=8203685c0f29122b
+demo_hello spot-vs-live byte-identical: True

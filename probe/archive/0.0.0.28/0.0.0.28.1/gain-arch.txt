@@ -1,0 +1,209 @@
+0.0.0.28.1 gain-architecture probe: source-table spread vs leveler makeup
+================================================================================
+READ-ONLY probe — no engine source/config/demo/todo/README edits. New files only
+under probe/0.0.0.28.1/ (+ logs/0.0.0.28.1/probe.log). Engine code was linked
+read-only by two throwaway probe binaries (plandump, f32dump) and reverted by
+construction (nothing to revert: no engine file was ever written).
+
+Method
+------
+1. Planned gains: probe binary calls articul_cli::segment_gain_db per segment for
+   all 6 eval-corpus items + 3 demos + old input ("hE l@U); probe-side arm
+   decomposition (base/declination/final/floor) asserted equal to the engine
+   value on all 50 segments (50/50 match=OK, plan.txt).
+2. Renders: release articul.exe, fresh, into probe/0.0.0.28.1/. Byte-identical to
+   shipped demos (fc /b, sizes 19628/34936/29376 = 9792/17446/14666 samples);
+   fixed_sentence sha 2ad4f841 == pinned hash 2AD4 (current tree confirmed).
+3. Leveler: exact float64 port of level_output (tamer 5ms ring; 20ms windows;
+   causal-only follower atk 12ms / rel 8ms; knee -0.2x above -12dB,
+   2.4-0.85x below, extra -0.5x above -3dB; cap +16dB; 10ms gain smoothing;
+   per-sample interp; prescale 1.25*0.989/max + clamp +-0.989). Pre-leveler
+   signal recovered by per-sample fixed-point inversion; forward residual on
+   unclamped samples <= 1.4e-4 (pause_probe 8e-4: silence-zero guard).
+   Cross-check: f32 renders via render_sentence (f32dump, no i16 quantization)
+   reproduce wav-based spark peaks to <= 1e-4; BASE sim (zero deltas) reproduces
+   production spark peaks to 5e-5 (hello s1 0.9481 vs 0.948047).
+4. Proposal: per-segment deltas applied to recovered pre (output-domain ownership,
+   linear crossfade across fade zones; GOAT internal edge sharp; +-20ms
+   smoothing reshape neglected, bounded err ~0.5dB at step edges), forward
+   through parametrized replica (cap_db, prescale). Cap x prescale grid measured.
+
+1. Planned-gain distribution (production table, dB)
+---------------------------------------------------
+item            n   min    max   spread  worst adjacent step        floor_n
+fixed_sentence  6  -12.0  -4.5   7.5    +7.5 u0(th)->u1(I)             3
+demo_hello      5  -10.0  -3.0   7.0    +6.0 u2(l)->u3(o)              0
+creak_probe     2   -8.0  -1.0   7.0    +7.0 u0(m)->u1(a)              0
+gain_probe      3   -5.5  -1.0   4.5    -4.5 u1(p)->u2(a)              0
+cluster_probe   5   -9.0  -1.0   8.0    -8.0 u1(p)->u2(r)              0
+pause_probe     4   -6.5  -2.0   4.5    -4.5 u2(p)->u3(a)              0
+annyeong       12  -12.0   0.0  12.0    -9.0 u0(a)->u1(n)              6
+yeobo           8  -12.0  -1.0  11.0    -7.0 u5(e)->u6(j)              1
+old_input       5  -10.0  -1.0   9.0    +9.0 u0(h)->u1(E)              0
+GLOBAL (50 segs): min -12.0, max 0.0, clipped spread 12.0 dB.
+UNCLIPPED spread (base+decl+fin, floor removed): min -21.0 (fixed u3 th:
+-18-3), max 0.0 (annyeong u0 a) = 21.0 dB. The floor hides 9.0 dB.
+
+Histogram (50 segs, corpus + old input):
+  at floor -12: 10 (20%) | (-12,-9]: 9 (18%) | (-9,-6]: 12 (24%)
+  (-6,-3]: 11 (22%) | (-3,-1]: 7 (14%) | >-1: 1 (2%). Near 0dB (>= -1.0): 6 (12%).
+
+Arm ranges, planned (incl decl/fin/floor), n=segments:
+  stressed-vowel      9:   0.0 ..  -7.0  (declination drags tail)
+  unstressed-vowel   12:  -3.5 .. -12.0
+  sibilant            4:  -5.0 .. -12.0
+  approximant         6:  -7.0 .. -12.0
+  nasal               5:  -8.0 .. -12.0
+  h-fric              2: -10.0 .. -12.0
+  weak-fric           2: -12.0 .. -12.0  (always floored in corpus)
+  other-stop          5:  -8.0 ..  -1.0
+  (latfric voiced/unvoiced arms never fire in corpus/demo/old inputs.)
+
+Spread dominance: (1) table arm bases span 18 dB in-corpus (0 .. -18 weak-fric;
+-28 latfric-voiced exists but never fires); single biggest arm gap 13 dB
+sibilant -5 vs weak -18. (2) Declination -1dB/seg to index 12 pushes 10/50 segs
+(20%) into the -12 floor (annyeong 6/12 segs floored: decl -5..-11 dominates).
+(3) Final -4dB fires twice (fixed u5 ng, cluster u4 t).
+
+2. Leveler makeup distribution (production; per 20ms window; estimated)
+------------------------------------------------------------------------
+item            win  maxDB  meanDB  p50DB  >=12dB   atCap16  G(lin/dB)   liftMax  liftMean lift>=8x
+fixed_sentence  21   16.0   11.83   14.49   66.7%   38.1%   0.521/-5.66   3.29x    2.35x    0.0%
+demo_hello      23   13.1    2.74    1.52    4.3%    0.0%   1.236/+1.84   5.41x    1.84x    0.0%
+creak_probe     15    7.4    1.00    1.25    0.0%    0.0%   1.185/+1.48   2.64x    1.37x    0.0%
+gain_probe      12    7.1    1.21    0.95    0.0%    0.0%   4.162/+12.39  9.01x    4.92x    8.3%
+cluster_probe   18   16.0   10.64   12.51   55.6%   16.7%   0.696/-3.15  4.39x    2.77x    0.0%
+pause_probe     20   16.0    5.09    1.93   25.0%   20.0%   2.659/+8.49  16.77x   6.45x   25.0%
+annyeong        40   16.0    7.83    8.65   22.5%   10.0%   0.916/-0.76  5.78x    2.64x    0.0%
+yeobo           34   16.0    9.81   10.50   41.2%   29.4%   1.009/+0.08  6.37x    3.65x    0.0%
+old_input       18   16.0    4.10    --      --      binds  1.035/+0.30   --       --       --
+Per-window makeup alone never exceeds 6.31x (16dB cap binds on 6/9 inputs).
+The task's "8-10x lifts" are TOTAL lift (makeup x prescale G): gain_probe 9.01x,
+pause_probe silence 16.77x, yeobo 6.37x, annyeong 5.78x, hello 5.41x.
+G range 0.52..4.16: the prescale, not the knee, delivers the largest lifts
+(gain_probe +12.39dB, pause +8.49dB on quiet peak-normalized files).
+
+Clamp engagement, production (|x| >= 0.985): fixed 5, hello 6, creak 117,
+gain 1, cluster 12, pause 1, annyeong 8, yeobo 12, old 4. Structural note: G =
+prescale*0.989/maxv maps the max sample to 1.236 > 0.989 ALWAYS (prescale>1),
+so >=1 clamped sample per render is by construction, not a symptom.
+
+3. Spark windows, current (f32 gate-exact, 10ms from non-initial starts)
+-----------------------------------------------------------------------
+hello:   s1 0.948047/cl4 SPARK | s2 0.936042/cl1 SPARK | s3 0.509791/cl1 ok
+annyeong:s9 0.980562/cl1 SPARK (next hottest s11 0.7608; rest <= 0.60)
+yeobo:   s5 0.895336/cl2 PASS (margin 0.005dB) | s7 0.726408 ok
+bonus (non-gated inputs, same mirror): cluster s1 0.966348/cl7; fixed s3
+0.864275/cl1 (near); old s1 0.972729/cl3.
+
+REFINED MECHANISM (replaces the task hypothesis): at every spark window the
+makeup gain is ~0dB or negative (hello s1 -0.76dB, s2 +1.10dB, s3 +1.33dB;
+annyeong s9 -0.87dB; yeobo s5 -0.36dB; pre-leveler content estimates 0.84-1.18,
+i.e. already hot). The global max sample sits INSIDE the worst windows
+(hello max pos 1583 in s1 [1544,1764): h-burst tail, E-onset only 0.52;
+annyeong max 13327 just before s9 [13366,..): /s/ body; yeobo max 7229 in /s/
+group 4; fixed/cluster maxes in /s/ groups). So sparks are peak-anchored:
+G pins the max to clamp and runner-ups 0.2-2dB below it read as sparks. The
+leveler is not lifting boundary content into the clamp at these windows; the
+1.25x prescale is. Within-burst runner-up ratios are gain-invariant (same
+segment shape, G renormalizes), which bounds what any table change can do
+(see 5).
+
+4. Dynamic-range split (measured)
+---------------------------------
+Total unclipped planned spread 21.0 dB = arm bases (18 dB in-corpus) +
+declination (0..-11 by position) + final (-4, 2 segs); floor -12 clips 9 dB
+off 10 segs. Leveler applied range ~17 dB (fixed gdb -1.2..16 capped; hello
+-0.8..13.1; anny -0.9..16). The two stack at troughs/tails: e.g. fixed
+k23/24 (dip -13dB) sits at cap 15.31dB lift 3.04x; yeobo k48 (dip -6.1dB) at
+15.58dB lift 6.07x; annyeong tail 3 windows pinned at 16.0dB. Tail/RMS gates
+currently consume: tail fill 13-16dB (fade floor + flat floored tail cause),
+RMS operating point G 0.40-4.16 (file-dependent).
+
+5. Proposal simulation (grid measured, f32 chain)
+------------------------------------------------
+HALF = halve every arm attenuation toward 0 (bases: 0, -1.75, -2.5, -3.5, -4,
+-10 h KEPT, -9, voiced-offset -5, latfric -9/-14, aspmax -1.5; decl -0.5/seg;
+final -2; floor -6). h exempted because halving it to -5 moves hello's max
+into s1 (sim: 0.948->0.979); floor -6 still lifts h total -10->-6 (delta +4).
+Grid result: NO table/prescale/cap combination clears hello s1 (0.94-0.98 in
+V1/V2/V4/V6/V7/V8; V8 h-cool to -12 worsens to 0.984: max stays in-window,
+G renormalizes -- gain-invariance confirmed). Prescale-only 1.0: hello 0.8998
+(margin 0.0002dB, worthless), yeobo 0.9745 FAIL (unclamps hotter samples),
+annyeong RMS 0.1035 (margin 0.35dB). Cap 10: all gates pass but annyeong RMS
+margin 0.004dB + report-only breakage (pause trough -15.59, fixed tail 0.026).
+Cap 12 + prescale 1.1 + HALF-keeph (V2) passes everything except hello s1.
+
+6. CONCRETE PROPOSAL (V2 — every number cites the measurement above)
+---------------------------------------------------------------------
+segment_gain_db arms (production -> proposed):
+  stressed-vowel          0.0  ->   0.0   (reference; max of corpus, anny u0)
+  unstressed-vowel       -3.5  ->  -1.75  (12 segs; E-onset deltas +2.25 meas.)
+  sibilant               -5.0  ->  -2.5   (peak-setter /s/ stays max: ranking
+                                          preserved, G absorbs; anny s9 cools
+                                          0.9806->0.8628 via /s/-tail/e-onset
+                                          remix, sim)
+  approximant            -7.0  ->  -3.5   (lateral gap 2.01->0.18dB, sim)
+  nasal                  -8.0  ->  -4.0
+  h-fric                -10.0  -> -10.0   KEEP (halving -> hello 0.979, sim)
+  weak fricative        -18.0  ->  -9.0   (13dB sib/weak gap -> 6.5dB)
+  voiced-fric offset    -10.0  ->  -5.0   (voiced sib -15->-7.5; voiced weak
+                                          -28->-14)
+  latfric unvoiced      -18.0  ->  -9.0   (never fires in corpus; symmetric)
+  latfric voiced        -28.0  -> -14.0   (never fires; symmetric)
+  aspirated max          -3.0  ->  -1.5   (unobservable in corpus; symmetric)
+  declination            -1.0  ->  -0.5   per seg (idx cap 12 -> max -6;
+                                          tail deltas +3.5..+6.0 meas.)
+  final consonant        -4.0  ->  -2.0
+  floor                 -12.0  ->  -6.0   (10/50 segs released; h total lands
+                                          at -6 via this floor, delta +4)
+level_output targets:
+  makeup cap            +16dB  -> +12dB   (tail needs 11-12dB under V2, sim
+                                          pinned at 12 with gate margins below;
+                                          cap 10 thins anny RMS to 0.004dB)
+  prescale              1.25x  ->  1.10x   (ceiling 0.989 kept; anny spark needs
+                                          pre<=1.147, anny RMS needs pre>=1.059
+                                          -> 1.10 +- 0.04 window, computed)
+  tamer/knee/follower/smoothing: UNTOUCHED.
+Predicted margins under V2 (simulated = measured, deterministic):
+  gate                          now        V2       marginV2   bound
+  leveling RMS anny              0.1288     0.1039   +0.33dB    >=0.10 PASS
+  leveling RMS yeobo             0.1378     0.1145   +1.18dB    >=0.10 PASS
+  leveling RMS hello             0.2186     0.2037   +6.18dB    >=0.10 PASS
+  trough anny                   -12.21     -12.35   +1.65dB    >=-14  PASS
+  trough yeobo                   -9.73     -10.35   +3.65dB    >=-14  PASS
+  tail yeobo                     0.0826     0.0481   +4.10dB    >=0.03 PASS
+  halves hello                    -2.28      -2.98   2.02dB     <=5    PASS
+  halves anny                     +1.40      +2.97   2.03dB     <=5    PASS
+  balance hello                   -2.50      -2.62   3.38dB     >=-6   PASS
+  lateral-window hello             2.01       0.18   7.82dB     <8     PASS
+  old-input violator (pin)        -6.95      -6.61   0.61dB     <-6    PIN HELD
+  spark anny s9                   0.9806     0.8628  0.37dB     <0.9   PASS
+  spark yeobo s5                  0.8953     0.7627  1.44dB     <0.9   PASS
+  spark hello s1                  0.9481     0.9406  FAIL       <0.9   STILL RED
+  clamp counts h/a/y             6/8/12     5/3/10  structural (G>1 pins max)
+  max makeup fixed/anny/yeobo    16/16/16   12/12/12 dB (cap; tail budget 0dB:
+                                          anny/yeobo tails pin at 12 -- FLAG,
+                                          output margins 13/4dB comfortable)
+  fraction windows >=8x lift     pause 25% -> 0% everywhere (V2 max lift:
+                                          yeobo 6.07x@cap excluded... all V2
+                                          lifts <8x: frac 0.000 all items)
+Report-only movements (no gates; record for 0.0.0.28.2): fixed_sentence RMS
+0.1078->0.0861 (regression item, hash WILL rotate); creak cl 117->13 (fewer);
+cluster trough -12.58->-14.14, pause trough -12.83->-13.88 (deeper, ungated);
+cluster s1 0.9663->0.8939 (would-pass, ungated input).
+NEGATIVE RESULT (honest): hello s1 cannot go green via any gain/prescale/cap
+move tested (max inside window in all 8 variants incl. h -12 and floor -12
+variants; prescale<=0.95 would do it but breaks anny RMS 0.098<0.10). Spark-gate
+TDD in 0.0.0.28.2 must expect hello s1 red OR scope a burst-shape/tamer
+follow-up (h-burst tail ring-down, tamer 2.2x/0.08 rule) -- coordinator call.
+
+Rejected (measured cause): V1 h-halved (hello 0.9788); V3 pre1.0 (yeobo 0.9574,
+anny RMS 0.0945); V4 milder-uv (hello 0.9655); V5 cap10 (anny RMS 0.0004dB);
+V7 floor-12-kept (anny RMS 0.24dB < V2 0.33dB; fixed trough -25.6); V8 h-12
+(hello 0.9843); prescale-only (yeobo 0.9745, hello margin 0.0002dB).
+
+Files: plan.txt (engine gains + arm split, 50/50 match OK), 9x .wav + 9x .f32
+renders, makeup.npz, analyze*.py + *_out.txt, plandump/ + f32dump/ sources,
+render_all.py. Engine tree untouched (no instrumentation was introduced, so no
+revert/grep-zero step exists; method list above is the proof).

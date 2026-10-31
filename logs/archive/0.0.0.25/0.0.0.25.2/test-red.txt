@@ -1,0 +1,23 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.19s
+     Running tests\junction_nospark.rs (target\debug\deps\junction_nospark-3771d5965d00ece3.exe)
+
+running 1 test
+test no_fullscale_sparks_at_starts ... FAILED
+
+failures:
+
+---- no_fullscale_sparks_at_starts stdout ----
+
+thread 'no_fullscale_sparks_at_starts' (9380) panicked at crates\articul-cli\tests\junction_nospark.rs:98:17:
+spark at non-initial segment start 1 of hE "loU: peak 0.9890 >= 0.9
+hE "loU start1 pos=1544 peak=0.9890
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    no_fullscale_sparks_at_starts
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-cli --test junction_nospark`

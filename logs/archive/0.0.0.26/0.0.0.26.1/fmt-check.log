@@ -1,0 +1,48 @@
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\src\synth.rs:931:
+                             cascade_live = Some(CascadeFilter::from_pairs(pairs, sample_rate));
+                         }
+                         let f = cascade_live.as_mut().unwrap();
+[31m-                        let mut fun = |x: &[f32]| -> Vec<f32> {
+[0m[31m-                            x.iter().map(|v| f.step(*v)).collect()
+[0m[31m-                        };
+[0m[31m-                        render_unit(
+[0m[31m-                            u,
+[0m[31m-                            params,
+[0m[31m-                            &mut fun,
+[0m[31m-                            sample_rate,
+[0m[31m-                            *oi,
+[0m[31m-                            total,
+[0m[31m-                            prev,
+[0m[31m-                        )
+[0m[32m+                        let mut fun =
+[0m[32m+                            |x: &[f32]| -> Vec<f32> { x.iter().map(|v| f.step(*v)).collect() };
+[0m[32m+                        render_unit(u, params, &mut fun, sample_rate, *oi, total, prev)
+[0m                     }
+                     FilterSpec::Parallel(triples) => {
+                         if let Some(f) = parallel_live.as_mut() {
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\src\synth.rs:949:
+                             f.retune(triples, sample_rate);
+                         } else {
+[31m-                            parallel_live =
+[0m[31m-                                Some(ParallelFilter::from_pairs(triples, sample_rate));
+[0m[32m+                            parallel_live = Some(ParallelFilter::from_pairs(triples, sample_rate));
+[0m                         }
+                         let f = parallel_live.as_mut().unwrap();
+[31m-                        let mut fun = |x: &[f32]| -> Vec<f32> {
+[0m[31m-                            x.iter().map(|v| f.step(*v)).collect()
+[0m[31m-                        };
+[0m[31m-                        render_unit(
+[0m[31m-                            u,
+[0m[31m-                            params,
+[0m[31m-                            &mut fun,
+[0m[31m-                            sample_rate,
+[0m[31m-                            *oi,
+[0m[31m-                            total,
+[0m[31m-                            prev,
+[0m[31m-                        )
+[0m[32m+                        let mut fun =
+[0m[32m+                            |x: &[f32]| -> Vec<f32> { x.iter().map(|v| f.step(*v)).collect() };
+[0m[32m+                        render_unit(u, params, &mut fun, sample_rate, *oi, total, prev)
+[0m                     }
+                 };
+                 if let Some((f, b)) = nasal {

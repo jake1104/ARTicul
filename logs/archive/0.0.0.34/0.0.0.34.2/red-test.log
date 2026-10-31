@@ -1,0 +1,50 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+error[E0433]: failed to resolve: could not find `BoundaryTone` in `prosody`
+   --> crates\articul-cli\tests\korean_voice.rs:277:62
+    |
+277 |     let planned = plan_korean("%ho", articul_front::prosody::BoundaryTone::High);
+    |                                                              ^^^^^^^^^^^^ could not find `BoundaryTone` in `prosody`
+
+error[E0433]: failed to resolve: could not find `BoundaryTone` in `prosody`
+   --> crates\articul-cli\tests\korean_voice.rs:286:62
+    |
+286 |     let planned = plan_korean("%ha", articul_front::prosody::BoundaryTone::High);
+    |                                                              ^^^^^^^^^^^^ could not find `BoundaryTone` in `prosody`
+
+error[E0433]: failed to resolve: could not find `BoundaryTone` in `prosody`
+   --> crates\articul-cli\tests\korean_voice.rs:297:62
+    |
+297 |     let planned = plan_korean("%he", articul_front::prosody::BoundaryTone::High);
+    |                                                              ^^^^^^^^^^^^ could not find `BoundaryTone` in `prosody`
+
+error[E0433]: failed to resolve: could not find `BoundaryTone` in `prosody`
+   --> crates\articul-cli\tests\korean_voice.rs:305:61
+    |
+305 |     let planned = plan_korean(text, articul_front::prosody::BoundaryTone::High);
+    |                                                             ^^^^^^^^^^^^ could not find `BoundaryTone` in `prosody`
+
+error[E0412]: cannot find type `BoundaryTone` in module `articul_front::prosody`
+  --> crates\articul-cli\tests\korean_voice.rs:30:62
+   |
+30 | fn plan_korean(text: &str, boundary: articul_front::prosody::BoundaryTone) -> Vec<articul_front::prosody::ProsodicPhoneme> {
+   |                                                              ^^^^^^^^^^^^ not found in `articul_front::prosody`
+
+error[E0425]: cannot find function `plan_utterance_korean` in module `articul_front::prosody`
+   --> crates\articul-cli\tests\korean_voice.rs:33:29
+    |
+ 33 |       articul_front::prosody::plan_utterance_korean(&parsed, 1.0, 1.0, BASE_F0, boundary)
+    |                               ^^^^^^^^^^^^^^^^^^^^^ help: a function with a similar name exists: `plan_utterance`
+    |
+   ::: E:\01_coding\ARTicul\crates\articul-front\src\prosody.rs:371:1
+    |
+371 | / pub fn plan_utterance(
+372 | |     words: &[WordProsody],
+373 | |     rate: f32,
+374 | |     pitch_scale: f32,
+375 | |     base_f0: f32,
+376 | | ) -> Vec<ProsodicPhoneme> {
+    | |_________________________- similarly named function `plan_utterance` defined here
+
+Some errors have detailed explanations: E0412, E0425, E0433.
+For more information about an error, try `rustc --explain E0412`.
+error: could not compile `articul-cli` (test "korean_voice") due to 6 previous errors

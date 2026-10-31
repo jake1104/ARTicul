@@ -1,0 +1,84 @@
+0.0.0.35.1 machineness probe session
+render jobs (exact argv via subprocess, no shell quoting):
+  hello: rc=0 wrote 9219 samples to probe/0.0.0.35.1/fresh_hello.wav 
+  annyeong: rc=0 wrote 28693 samples to probe/0.0.0.35.1/fresh_annyeong.wav 
+  yeobo: rc=0 wrote 18878 samples to probe/0.0.0.35.1/fresh_yeobo.wav 
+  stressed-a: rc=0 wrote 7673 samples to probe/0.0.0.35.1/solo_a_stressed.wav 
+  nospace-aa: rc=0 wrote 5844 samples to probe/0.0.0.35.1/solo_a_nospace.wav 
+
+byte-identity vs shipped demos:
+  probe/0.0.0.35.1/fresh_hello.wav vs demo/hello.wav: 18482 vs 18482 bytes, identical=True sha256=0d45cc72d157177d
+  probe/0.0.0.35.1/fresh_annyeong.wav vs demo/annyeonghaseyo.wav: 57430 vs 57430 bytes, identical=True sha256=96f9352836f044cd
+  probe/0.0.0.35.1/fresh_yeobo.wav vs demo/yeoboseyo.wav: 37800 vs 37800 bytes, identical=True sha256=86390f85fbfe160c
+
+solo double (spaced): 10408 samples (472.0 ms)
+solo nospace a:a:: 5844 samples (265.0 ms)
+  [spaced] 20ms frames (tms rms f0 peak):
+    t=   0.0ms rms=0.2912 f0= 147.00 peak=0.603
+    t=  20.0ms rms=0.2960 f0= 150.00 peak=0.648
+    t=  40.0ms rms=0.3096 f0= 154.20 peak=0.654
+    t=  60.0ms rms=0.3369 f0= 158.63 peak=0.650
+    t=  80.0ms rms=0.3607 f0= 164.55 peak=0.667
+    t= 100.0ms rms=0.4388 f0= 170.93 peak=0.518
+    t= 120.0ms rms=0.3560 f0= 173.62 peak=0.457
+    t= 140.0ms rms=0.2917 f0= 179.27 peak=0.742
+    t= 160.0ms rms=0.0867 f0= 247.75 peak=0.242
+    t= 180.0ms rms=0.0000 f0=    nan peak=0.000
+    t= 200.0ms rms=0.0000 f0=    nan peak=0.000
+    t= 220.0ms rms=0.0000 f0=    nan peak=0.000
+    t= 240.0ms rms=0.0000 f0=    nan peak=0.000
+    t= 260.0ms rms=0.0572 f0= 179.27 peak=0.386
+    t= 280.0ms rms=0.1843 f0= 179.27 peak=0.672
+    t= 300.0ms rms=0.3093 f0= 179.27 peak=0.719
+    t= 320.0ms rms=0.3594 f0= 179.27 peak=0.723
+    t= 340.0ms rms=0.3293 f0= 179.27 peak=0.678
+    t= 360.0ms rms=0.3201 f0= 172.27 peak=0.645
+    t= 380.0ms rms=0.2870 f0= 164.55 peak=0.584
+    t= 400.0ms rms=0.1805 f0= 157.50 peak=0.546
+    t= 420.0ms rms=0.1746 f0=  75.26 peak=0.439
+    t= 440.0ms rms=0.1318 f0= 157.50 peak=0.185
+  [nospace] 20ms frames (tms rms f0 peak):
+    t=   0.0ms rms=0.2315 f0= 147.00 peak=0.603
+    t=  20.0ms rms=0.2263 f0= 147.99 peak=0.640
+    t=  40.0ms rms=0.2348 f0= 147.99 peak=0.655
+    t=  60.0ms rms=0.2163 f0= 150.00 peak=0.649
+    t=  80.0ms rms=0.2800 f0= 150.00 peak=0.215
+    t= 100.0ms rms=0.1835 f0= 151.03 peak=0.633
+    t= 120.0ms rms=0.2206 f0= 152.07 peak=0.664
+    t= 140.0ms rms=0.2192 f0= 151.03 peak=0.664
+    t= 160.0ms rms=0.1816 f0= 146.03 peak=0.479
+    t= 180.0ms rms=0.1623 f0= 138.68 peak=0.554
+    t= 200.0ms rms=0.1250 f0= 135.28 peak=0.425
+    t= 220.0ms rms=0.0956 f0= 121.82 peak=0.270
+    t= 240.0ms rms=0.1080 f0=  60.25 peak=0.345
+nospace seg1 interior [441,3087): F0 guess=148.99Hz (peak=0.739)
+(a)(b) seg1: f0guess=149.0Hz periods=17 mean=145.88samples jitter-local=2.5277%
+(a)(b) seg1: shimmer-local=18.3692% = 1.3028dB (n=17)
+(a)(b) seg1: lag1(periods)=0.3075 lag1(amps)=0.0407
+(c) harmonic phase residual circular-std per harmonic (rad): k1=0.119, k2=0.270, k3=0.191, k4=0.266, k5=0.367, k6=0.416, k7=0.475, k8=0.572
+(c) mean phase residual std (k=1..8) = 0.3346 rad
+(c) inter-period waveform correlation: mean=0.822332 min=0.028521 (n=15 pairs)
+(d) single-segment steady vowel, 4 frames x 30ms:
+    F1 peak-pick: mean=600.0Hz range=18.8Hz std=7.23Hz
+    F2 peak-pick: mean=1262.5Hz range=282.0Hz std=116.26Hz
+    F1-band centroid: mean=604.0Hz range=13.7Hz std=5.57Hz
+    F2-band centroid: mean=1261.6Hz range=102.8Hz std=40.01Hz
+(e-solo) seg1 F0 linear-detrended residual: std=0.0670 st slope=4.0640 st/s (n=11)
+(d2) annyeong planned total=28693 render=28693 drift=0 final-o [24216,28693)
+(d2) annyeong final-o nframes=4: F1cent range=3.2Hz std=1.16 | F2cent range=1.5Hz std=0.64
+(d2) annyeong final-o: F1peak range=0.2Hz std=0.09 | F2peak range=1.7Hz std=0.62
+(d2) yeobo planned total=18877 render=18878 drift=-1 final-o [14312,18877)
+(d2) yeobo final-o nframes=4: F1cent range=3.2Hz std=1.16 | F2cent range=1.5Hz std=0.64
+(d2) yeobo final-o: F1peak range=0.2Hz std=0.09 | F2peak range=1.7Hz std=0.62
+(e) demo residual F0 (20ms win / 10ms hop, 200ms median detrend):
+    hello: voiced frames 30/39, residual std=1.9091 st, max|resid|=8.7673 st
+    hello: F0 p5=82.6 p50=123.9 p95=168.3 Hz
+    annyeong: voiced frames 101/128, residual std=0.3553 st, max|resid|=1.6192 st
+    annyeong: F0 p5=119.8 p50=120.5 p95=143.2 Hz
+    yeobo: voiced frames 68/83, residual std=0.3285 st, max|resid|=1.3324 st
+    yeobo: F0 p5=113.1 p50=128.9 p95=143.2 Hz
+--- jitter3.py (exact-construction jitter + zc cross-check) ---
+construction jitter F0=120: local=0.0420% lag1=-0.0756 (n=119)
+construction jitter F0=149: local=0.0440% lag1=-0.0126 (n=148)
+engine waveform zc: crossings=52 jitter-local=79.8699% (harmonic-interference artifact, see text)
+engine waveform zc detrended: jitter-local=79.8260% slope=-0.07320 samp/period

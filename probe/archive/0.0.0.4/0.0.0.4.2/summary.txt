@@ -1,0 +1,4 @@
+Task 0.0.0.4.2 parallel formant filter bank
+Tests: parallel.rs 3 passed (zero amp silence, linear scaling, sum equals singles)
+Files: crates/articul-dsp/src/parallel.rs (ParallelFilter, frication_noise, nasalize_bandwidths)
+Logs: logs/0.0.0.4.2/

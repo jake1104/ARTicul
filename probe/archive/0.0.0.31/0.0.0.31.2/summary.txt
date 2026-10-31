@@ -1,0 +1,77 @@
+0.0.0.31.2 uniform room bed — summary (NEEDS_CONTEXT, 3-variant fix-round exhausted)
+================================================================================
+
+Bed design (SINGLE mechanism, no per-segment logic, no new comments):
+  crates/articul-cli/src/synth.rs level_output(), lines 1124-1148.
+  White xorshift64* noise with fixed seed 0x9E3779B97F4A7C15 (deterministic per
+  render call) through a single-pole lowpass bed_k = exp(-2*pi*6000/sr),
+  optionally through NotchFilter::new(2500.0, 300.0, sample_rate) — the same
+  shape as lateral_notch() in articul-dsp/src/parallel.rs:63-73 — applied to
+  the bed signal only, normalized to the target dBFS AFTER notching so the
+  final bed RMS is exact, mixed post-peak-scale pre-clamp.
+  Tree keeps variant (iii): -60 dBFS + 2.5 kHz notch.
+
+Step-1 tamer toggle (established, logs/0.0.0.31.2/tamer-toggle.log):
+  hello HF-fraction max/min 6.10 -> 6.08, unchanged; tamer is NOT the injector.
+  Tamer block ORIGINAL (5 ms ring, max(2.2*r, 0.05*p0), 0.08 residual).
+  Zero toggle/bypass remnants.
+
+Red/green refs:
+  red:   logs/0.0.0.31.2/red-baseline.log (pre-bed gate failure by design)
+  audit: logs/0.0.0.31.2/audit.log (full workspace --no-fail-fast)
+  place: logs/0.0.0.31.2/bed-placement.log (base -50 dBFS placements)
+  table: logs/0.0.0.31.2/variant-table.log (3-variant numbers, this round)
+  probe: probe/0.0.0.31.2/scratch_flood.rs (archived scratch flood-check)
+  gate:  crates/articul-cli/tests/room_tone.rs (8515 bytes, bounds unchanged:
+         ratio <= 3.0, RMS lift <= +1 dB)
+
+Fix-round results (coordinator ruling tested exactly these three, IN ORDER):
+  (i)   -60 dBFS broadband:      ratios 4.55 / 2.26 / 8.27 FAIL;
+                                 lateral 3/4 (window -0.25 dB) FAIL.
+  (ii)  -50 dBFS + 2.5 kHz notch: ratios 1.88 / 5.37 / 14.42 FAIL;
+                                 lateral 4/4 PASS.
+  (iii) -60 dBFS + 2.5 kHz notch: ratios 4.51 / 2.31 / 8.34 FAIL;
+                                 lateral 4/4 PASS.
+  (hello / annyeong / yeobo order; RMS lift <= +0.006 dB PASS in all variants.)
+  Notch-sparing fully restores lateral_zero (4/4 in both notch variants) but no
+  level reconciles room_tone: the bed's own HF fraction sits above every natural
+  segment value, so any bed strong enough to compress hello/yeobo minima imprints
+  an even higher maximum on the quietest nuclei (annyeong 'o' 0.00729, yeobo 'o'
+  0.00925 at -50 dBFS).
+
+Gates (final tree = variant iii):
+  room_tone bed_variance_bounded: FAIL (hello 4.51, yeobo 8.34 > 3.0).
+  lateral_zero: 4/4 PASS. All other workspace targets green; fmt clean.
+  Per STOP rule: no fourth variant, no bound changes.
+
+TIs TIN hash: NOT recorded — no variant reached green, so no release renders
+  were produced; hash rotation belongs to the approved redesign.
+
+Revert + Close-out (0.0.0.31.2 recovery, NO new mechanisms):
+  Removed: entire bed implementation from crates/articul-cli/src/synth.rs
+  level_output (bed generation, notch, mixing, normalization — lines formerly
+  1124-1145: xorshift64 bed, 6 kHz single-pole lowpass, 2.5 kHz NotchFilter,
+  -60 dBFS normalization, post-peak-scale pre-clamp mix). Post-removal grep
+  for bed/room_tone identifiers in crates/articul-cli/src/: zero matches.
+  NotchFilter import KEPT (used by tamer/vowel paths, lines 243/587/936/940).
+  Relocated: crates/articul-cli/tests/room_tone.rs ->
+  probe/0.0.0.31.2/junction_room_tone_red.rs (sha256
+  90EA88CBCCE1FA4CE3CBDEAFEC7B7729CCFAD85714BDD1A0B99BA7453CBC0C11),
+  preserved exactly as-is as TDD seed for future work. No other 31.2-added
+  helpers existed under crates/ (scratch_flood already lived in probe/).
+  Verification: cargo fmt --check clean (exit 0); cargo clippy --workspace
+  --all-targets -- -D warnings clean (exit 0); FULL cargo test --workspace
+  ALL green, zero failures — incl. leveling 3/3, halves_gain 2/2,
+  lateral_zero 4/4, junction_smooth 1/1, gain 19/19 (V2), junction_nospark 1/1
+  (s1/s5 pins hold on ENGINE render at baseline). No failing assert to list.
+  Release build green; TIs TIN pair rendered to
+  probe/0.0.0.31.2/verify-revert-283/regression-a.wav + regression-b.wav:
+  8822 samples each, byte-identical (deterministic), sha256
+  cfba9ef28a1a17eee0ba2626b64bb3877f66a51c93fcbdb9ecea3bf99b5b455a
+  == CFBA9EF2...B455A (0.0.0.28.3), exact match.
+  Statement: 0.0.0.31.2 ends with NO production change. The uniform-bed
+  approach is REFUTED — all three notch-sparing variants fail room_tone
+  (bed HF fraction sits above every natural segment value; any bed strong
+  enough to compress hello/yeobo minima imprints an even higher maximum on
+  the quietest nuclei), all variants documented above. Tree restored to the
+  verified-green 0.0.0.28.3 baseline state.

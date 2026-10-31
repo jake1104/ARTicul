@@ -1,0 +1,33 @@
+clamp-census 0.0.0.29.2 diagnostic round MEASUREMENT ONLY no code touched
+fresh renders census-hello census-annyeong census-yeobo current tree round-4 plus de-click
+NOT byte-identical to demo demo is 0.0.0.28.3 pre-normalization hashes differ documented expected
+demo hello CFE3 census 2B34 annyeong demo 7DCE census E689 yeobo demo 2DA3 census 3134
+lengths identical 9792 17446 14666 positions identical
+clamp cutoff 0.985 windows 10ms non-overlapping boundary tol +-10ms 220 samples
+interior inset 30ms 662 samples each edge
+
+a GLOBAL census samples abs GE 0.985
+hello total 0 rate 0.00 per s distribution none
+annyeong total 0 rate 0.00 per s distribution none
+yeobo total 0 rate 0.00 per s distribution none
+clamp never engages current tree de-click plus caps prevent it
+
+b top10 unclamped per 10ms window center_ms value boundary
+hello 74.8 0.8667 BOUNDARY s1 pinned phonetic 154.6 0.6292 BOUNDARY rest interiors LE 0.63
+annyeong 693.4 0.9608 BOUNDARY s11 703.4 0.9553 BOUNDARY s11 613.6 0.7124 BOUNDARY s9 603.6 0.6722 BOUNDARY s9 rest LE 0.37
+yeobo 493.9 0.9311 BOUNDARY s7 334.2 0.5630 BOUNDARY s5pin 344.2 0.4858 BOUNDARY 194.6 0.4618 BOUNDARY s3 rest LE 0.42
+top ranks all boundary in annyeong yeobo hello top is pinned s1
+
+c interior control same loud segments mid-segment GE30ms from any boundary
+annyeong work11 u11 tail interior 0.1459 vs boundary 0.9608 ratio 6.6x ok
+yeobo work7 u7 tail interior 0.1764 vs boundary 0.9311 ratio 5.3x ok
+annyeong work9 e interior short work7 a 0.2058 work0 a 0.1965 all ok
+hello work0 0.4266 work1 0.4249 work3 0.3953 all ok
+yeobo work1 0.2101 work3 0.2144 work5 0.2389 all ok
+every interior control LT 0.43 far below boundary 0.87-0.96
+
+verdict i boundary GTGT interior true join phenomenon
+boundary windows dominate top-10 annyeong top4 yeobo top4 boundary
+interior controls of same segments all LT 0.9 in fact LT 0.43
+gate not vacuous interiors quiet joins hot next fix targets joins
+global clipping harshness not the problem clamp count zero file-wide

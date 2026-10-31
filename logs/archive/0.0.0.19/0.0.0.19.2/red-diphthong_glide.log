@@ -1,0 +1,29 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.09s
+     Running tests\diphthong_glide.rs (target\debug\deps\diphthong_glide-49aa818c8a0209ab.exe)
+
+running 2 tests
+test diphthong_f2_rises_monotonically ... FAILED
+test diphthong_final_80ms_stays_periodic ... FAILED
+
+failures:
+
+---- diphthong_f2_rises_monotonically stdout ----
+
+thread 'diphthong_f2_rises_monotonically' (24304) panicked at crates\articul-cli\tests\diphthong_glide.rs:117:9:
+F2 must rise monotonically within 50Hz tolerance, got [1354.252, 1354.252, 1354.252, 1354.252, 833.3858, 1180.6299]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- diphthong_final_80ms_stays_periodic stdout ----
+
+thread 'diphthong_final_80ms_stays_periodic' (10380) panicked at crates\articul-cli\tests\diphthong_glide.rs:135:5:
+final 80ms must stay periodic without creak, autocorr peak 0.276
+
+
+failures:
+    diphthong_f2_rises_monotonically
+    diphthong_final_80ms_stays_periodic
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+error: test failed, to rerun pass `-p articul-cli --test diphthong_glide`

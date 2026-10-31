@@ -1,0 +1,39 @@
+0.0.0.35.2 summary - per-cycle glottal-source variation (three separable components)
+
+Mechanisms (crates/articul-dsp/src/source.rs; deterministic seeded RNG only)
+(A) Natural-depth cycle jitter: per-cycle period multiplier = white (CYCLE_WHITE_DEPTH 0.005, source.rs:13) + 1/f-ish slow wander (CYCLE_SLOW_DEPTH 0.006, one-pole LP 0.90, source.rs:14-15) + 3.1Hz tremor (CYCLE_TREMOR_DEPTH 0.004, source.rs:16-17), multiplied with the kept per-sample white FM base (JITTER_DEPTH 0.008). CycleState::fresh/on_cycle (source.rs:30,43,59). Applied in all six generate paths (generate, cf0_onset, glide, exp_glide, cf0_exp_glide, cf0_glide; call sites source.rs:107-125,141-161,184-205,233-253,281-303,331-355); generate_creak untouched.
+(B) Pulse-shape wander: slow per-cycle OQ (SHAPE_OQ_DEPTH 0.7, LP 0.95, source.rs:18-19) + asymmetry (SHAPE_ASYM_DEPTH 0.5, LP 0.95, source.rs:20-21) modulation; pulse rebuilt per cycle via lf_pulse_params with per-cycle peak renormalization (pulse_peak source.rs:81). Consecutive pulses are no longer byte-identical.
+(C) Sub-syllabic microtremor: continuous 2.5Hz x 0.009 F0 modulation on top of analytic glides (MICROTREMOR_RATE 2.5, MICROTREMOR_DEPTH 0.009, source.rs:22-23; CycleState::micro source.rs:75), all glide paths; creak untouched. Rate 2.5Hz chosen inside the 2-5Hz band for gate compatibility (korean_o peak centering, junction margin); depth ~0.9% per spec.
+Frozen: filter code, Fujisaki phrase/accent planner, pause logic, gain table, leveler, ceiling, crossfade, envelopes, creak, shimmer (2.0%, explicitly out of scope).
+
+TDD gates (crates/articul-cli/tests/lifelike_source.rs; pinned windows/regions from 0.0.0.35.1)
+T1 jitter_in_natural_band: sustained-vowel interior [441,3087] of flat 149Hz source output (filter LTI preserves cycle timing), fixed-template correlation periods, local jitter band 0.5-1.0%. PRE 0.0002 FAIL, POST 0.0090 PASS (target ~0.7%).
+T2 pulse_shape_varies: source-level k1 phase residual, 441-sample no-overlap frames, tracked autocorr F0, zero-padded 16384 FFT nearest-bin, threshold 0.14 (clearly above the 0.12 rad locked-pulse floor). PRE 0.002 FAIL, POST 0.171 PASS (+43% over 0.12). Rendered 50ms/5ms probe method stays at floor (0.145 to 0.119), confirming the change is cycle-scale, not broadband buzz.
+T3 microtremor_present: rendered a:a: interior [441,3087], 23 x 441-sample windows hop 100 (n>=20), tracked-autocorr F0, linear detrend, std >= 0.4%. PRE 0.0034 FAIL, POST 0.0076 PASS.
+All three gates fail pre-fix (logs/0.0.0.35.2/prefail-lifelike-final.log) and pass post-fix on clean builds. Pre-fix run of each gate verified capable of failing; no gate weakened.
+
+Ablation at canonical point (separate draws, joint physics per probe verdict of coupled symptoms)
+FULL: T1 0.0090, T2 0.171, T3 0.0076.
+ALL-off: T1 0.0002, T2 0.002, T3 0.0034.
+A-off (B+C): T1 0.0087, T2 0.117, T3 0.0071.
+B-off (A+C): T1 0.0016, T2 0.064, T3 0.0041.
+C-off (A+B): T1 0.0087, T2 0.184, T3 0.0138.
+Reading: (B) dominates T1/T2 (B-off drops T1 82%, T2 63%); (A) contributes structurally (1/f + 3.1Hz tremor spectrum) and materially to T2; (C) provides the mandated 2.5Hz FM ((C)-only source shows 0.0010 period jitter vs 0.0002 floor) and interferes phase-dependently with slow shape-bias curvature in the rendered T3 metric (documented coupling, not a defect of the component).
+
+Full suite (cargo test --workspace, clean builds)
+Green: leveling 3/3, halves, diphthong, h_onset, clear_l+coda, voiced_fricative_mix, lateral_zero 4/4, korean_voice 7/8 (tis_tin re-derived, see below), junction_smooth, gain V2, balance, lifelike_source 3/3, source_null 1/1 (method repaired, see below), all others.
+Red (2), both dispositioned, no silent changes:
+1. junction_nospark s1: annyeong OLD-input start1 unclamped peak 0.9230 vs 0.9 bound (clamped=0; all other 20 windows pass incl. named pins s1 0.4541/0.9606, s5 0.9335/0.95, s9 0.9098/0.9220). Peak sits at sample 3787, 160 samples BEFORE the unit boundary inside vowel voicing (probe/0.0.0.35.2/annyeong_old.wav + analysis); original-tree pin passes even at 0.85, so the wander heats this join by ~0.07. No phonetic-pin precedent applies cleanly (s5 was frication; this is a join transient, exactly what the gate polices) and bounds are frozen: NEEDS COORDINATOR RULING (re-derive with justification, targeted mechanism study, or accept-and-track). No operating point in the explored set (micro rates 2.0/2.25/2.5/3.0/3.5/4.0/5.0, depths 0.007-0.009, OQ 0.68-0.8) satisfies T1-band + T2>0.14 + korean_o + this pin jointly; the pin is interference-lottery-sensitive to slow-FM phase.
+2. hello_unchanged_default_voice: render-vs-demo/hello.wav byte mismatch from the mandated sound change. demo/*.wav owned by 0.0.0.35.3 (untouched here); heals on regen.
+Re-derived (sanctioned): tis_tin_unchanged_default_voice pin updated CFBA... to 9385AB30... (test green).
+Method repair (bound unchanged): source_null single-bin harmonic picking assumed perfectly steady F0 and red-flagged FM smearing as notches (failed even with jitter+micro only); replaced exact-bin with +/-1% local-maximum search, same 0.03 bound and harmonic set. Passes pre-fix and post-fix (verified both on clean builds).
+
+TIs TIN hash: 8822 samples (unchanged count), 9385AB30C7A9C46F0DE2BA533E40B2A94BD9D163732F438BB47C5825DFAC41D4 (was CFBA...). CLI regression probe/0.0.0.35.2/regression-a.wav + regression-b.wav byte-identical; samples+sha+determinism in logs/0.0.0.35.2/cli-regression.log.
+
+Outputs: probe/0.0.0.35.2/ (lifwlike gate file in crates, renders, analysis scripts, ablation logs, source snapshots); logs/0.0.0.35.2/ (fmt, clippy, workspace suites incl. clean-build red/green runs, release, cli-regression, prefail/postfix).
+
+Return: NEEDS_CONTEXT (junction s1 0.9230 >= 0.9 failing assert with numbers above + ruling request). All other deliverables complete as specified.
+
+Pin round (coordinator ruling recorded, precedent: hello-s1 0.9606 + yeobo-s5 0.95 + annyeong-s9 0.9220 phonetic pins): ADD annyeong start1 pin <= 0.93 (measured 0.9230 + 0.007 margin; unclamped voiced-tail content 160 samples pre-boundary, clamped=0, same phonetic category as the existing pins - NOT blend arithmetic, which the de-click + carry work already ruled out for d=0 spikes; this peak sits at d=-160). No other bound changes.
+Disposition implemented in crates/articul-cli/tests/junction_nospark.rs (ANNYEONG_S1_BOUND 0.93 + input+index branch for "%an \"njVN \"h\\asejo" gi==1, same selection pattern as existing pins; assert + message only, no production change).
+Suite after pin: cargo test --workspace green EXCEPT hello_unchanged_default_voice (single red, named: render vs demo/hello.wav byte mismatch from the mandated sound change; demo regen owned by 0.0.0.35.3, file untouched here). fmt --check clean, clippy --workspace --all-targets clean. junction_nospark 1/1, lifelike_source 3/3, korean_voice 7/8 (tis_tin re-derived 9385AB30... green).

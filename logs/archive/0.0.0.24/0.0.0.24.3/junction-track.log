@@ -1,0 +1,31 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.39s
+     Running tests\junction_track_report_tmp.rs (target\debug\deps\junction_track_report_tmp-cca0b574b49f43a7.exe)
+
+running 1 test
+TRACK hE "loU b1 center=1632 table_step=5.5dB track_step=2.71dB
+TRACK hE "loU b2 center=3418 table_step=4.5dB track_step=-2.22dB
+TRACK hE "loU b3 center=4786 table_step=6.0dB track_step=2.99dB
+TRACK %an njVN "hasejo b4 center=3859 table_step=9.0dB track_step=-4.41dB
+TRACK %an njVN "hasejo b5 center=4830 table_step=1.0dB track_step=-0.49dB
+TRACK %an njVN "hasejo b6 center=5646 table_step=0.0dB track_step=0.00dB
+TRACK %an njVN "hasejo b7 center=6374 table_step=2.5dB track_step=1.23dB
+TRACK %an njVN "hasejo b8 center=8138 table_step=4.5dB track_step=-2.22dB
+TRACK %an njVN "hasejo b9 center=8954 table_step=0.0dB track_step=0.00dB
+TRACK %an njVN "hasejo b10 center=9925 table_step=5.0dB track_step=2.46dB
+TRACK %an njVN "hasejo b11 center=12351 table_step=5.0dB track_step=-2.46dB
+TRACK %an njVN "hasejo b12 center=13454 table_step=0.0dB track_step=0.00dB
+TRACK %an njVN "hasejo b13 center=14733 table_step=0.0dB track_step=0.00dB
+TRACK %an njVN "hasejo b14 center=15461 table_step=0.0dB track_step=0.00dB
+TRACK %jV"bo%se%jo b15 center=860 table_step=6.0dB track_step=2.95dB
+TRACK %jV"bo%se%jo b16 center=3551 table_step=1.0dB track_step=-0.49dB
+TRACK %jV"bo%se%jo b17 center=4279 table_step=1.0dB track_step=-0.49dB
+TRACK %jV"bo%se%jo b18 center=6374 table_step=6.0dB track_step=-2.95dB
+TRACK %jV"bo%se%jo b19 center=7499 table_step=4.0dB track_step=1.97dB
+TRACK %jV"bo%se%jo b20 center=10167 table_step=7.0dB track_step=-3.44dB
+TRACK %jV"bo%se%jo b21 center=10895 table_step=5.0dB track_step=2.46dB
+TRACK total=21 worst=4.41dB at %an njVN "hasejo boundary 4
+test junction_track_report_tmp ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+

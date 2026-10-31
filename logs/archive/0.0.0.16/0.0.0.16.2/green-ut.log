@@ -1,0 +1,92 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.98s
+     Running tests\utterance.rs (target\debug\deps\utterance-0f2bba251dd69a70.exe)
+
+running 13 tests
+test boundary_grades_coda_lengthening ... FAILED
+test function_word_shortens_unless_emphasized ... FAILED
+test trisyllabic_word_gets_0_8 ... FAILED
+test final_rhyme_lengthens_at_strong_boundary ... FAILED
+test no_lengthening_without_boundary ... FAILED
+test rate_compresses_sublinearly ... ok
+test durations_are_deterministic ... ok
+test comma_inserts_160ms_pause ... ok
+test disyllabic_word_gets_0_9 ... FAILED
+test variance_stays_within_six_percent ... ok
+test utterance_f0_matches_flat_plan ... ok
+test cluster_shortens_non_initial_consonants ... FAILED
+test single_onset_keeps_full_duration ... FAILED
+
+failures:
+
+---- boundary_grades_coda_lengthening stdout ----
+
+thread 'boundary_grades_coda_lengthening' (8148) panicked at crates\articul-front\tests\utterance.rs:39:5:
+assertion `left == right` failed
+  left: 212
+ right: 202
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- function_word_shortens_unless_emphasized stdout ----
+
+thread 'function_word_shortens_unless_emphasized' (13720) panicked at crates\articul-front\tests\utterance.rs:97:5:
+assertion `left == right` failed
+  left: 46
+ right: 44
+
+---- trisyllabic_word_gets_0_8 stdout ----
+
+thread 'trisyllabic_word_gets_0_8' (28244) panicked at crates\articul-front\tests\utterance.rs:82:5:
+assertion `left == right` failed
+  left: 151
+ right: 144
+
+---- final_rhyme_lengthens_at_strong_boundary stdout ----
+
+thread 'final_rhyme_lengthens_at_strong_boundary' (12468) panicked at crates\articul-front\tests\utterance.rs:31:5:
+assertion `left == right` failed
+  left: 246
+ right: 234
+
+---- no_lengthening_without_boundary stdout ----
+
+thread 'no_lengthening_without_boundary' (25296) panicked at crates\articul-front\tests\utterance.rs:48:5:
+assertion `left == right` failed
+  left: 189
+ right: 180
+
+---- disyllabic_word_gets_0_9 stdout ----
+
+thread 'disyllabic_word_gets_0_9' (9752) panicked at crates\articul-front\tests\utterance.rs:74:5:
+assertion `left == right` failed
+  left: 170
+ right: 162
+
+---- cluster_shortens_non_initial_consonants stdout ----
+
+thread 'cluster_shortens_non_initial_consonants' (28416) panicked at crates\articul-front\tests\utterance.rs:58:5:
+assertion `left == right` failed
+  left: 129
+ right: 130
+
+---- single_onset_keeps_full_duration stdout ----
+
+thread 'single_onset_keeps_full_duration' (16552) panicked at crates\articul-front\tests\utterance.rs:67:5:
+assertion `left == right` failed
+  left: 89
+ right: 90
+
+
+failures:
+    boundary_grades_coda_lengthening
+    cluster_shortens_non_initial_consonants
+    disyllabic_word_gets_0_9
+    final_rhyme_lengthens_at_strong_boundary
+    function_word_shortens_unless_emphasized
+    no_lengthening_without_boundary
+    single_onset_keeps_full_duration
+    trisyllabic_word_gets_0_8
+
+test result: FAILED. 5 passed; 8 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-front --test utterance`

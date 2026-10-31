@@ -1,0 +1,26 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.43s
+     Running tests\gain.rs (target\debug\deps\gain-30581dde76d74032.exe)
+
+running 18 tests
+test sonorant_minus_10_db ... ok
+test declination_per_segment ... ok
+test declination_caps_at_12_db ... ok
+test default_plosive_zero_db ... ok
+test final_segment_extra_minus_4_db ... ok
+test aspirated_floor_minus_3_db ... ok
+test nasal_minus_8_db ... ok
+test sibilant_minus_5_db ... ok
+test unstressed_vowel_minus_3_5_db ... ok
+test fricative_onset_ramps_up ... ok
+test voiced_sibilant_minus_15_db ... ok
+test stressed_vowel_at_reference_zero_db ... ok
+test burst_decay_for_unvoiced_plosive ... ok
+test unstressed_consonant_ignores_stress ... ok
+test voiced_weak_fricative_minus_28_db ... ok
+test weak_fricative_minus_18_db ... ok
+test final_fade_quiets_ending ... ok
+test stressed_vowel_louder_than_unstressed ... ok
+
+test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

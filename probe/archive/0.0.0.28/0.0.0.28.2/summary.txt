@@ -1,0 +1,168 @@
+0.0.0.28.2 source rebalance implementation - summary.txt
+=====================================================
+Verdict: NEEDS_CONTEXT. The single coordinated V2 change is implemented
+exactly as specified (every value copied from probe/0.0.0.28.1/gain-arch.txt,
+no improvisation), the TDD gate flips hello s2 and annyeong s9 green, but the
+STOP condition "any other window fails" FIRES on yeobo s5 (0.9336 >= 0.9,
+predicted 0.7627 - simulator miss +1.76dB). No further tuning per task rule.
+Tree retains the V2 implementation at close; TDD gate stays red by design.
+
+Exact table diff (crates/articul-cli/src/synth.rs, segment_gain_db:279)
+---------------------------------------------------------------------------
+arm (planned dB)                     production -> V2 (this tree)
+  stressed-vowel reference              0.0  ->   0.0   (unchanged, synth.rs:283)
+  unstressed-vowel                     -3.5  ->  -1.75  (synth.rs:282)
+  sibilant (alv/postalv/retroflex)     -5.0  ->  -2.5  (synth.rs:296)
+  approximant/lateral/trill/tap        -7.0  ->  -3.5  (synth.rs:287-289)
+  nasal                                -8.0  ->  -4.0  (synth.rs:286)
+  h-fric (glottal+voiceless base)     -10.0  -> -10.0  KEEP (synth.rs:291-293)
+  weak non-sibilant fricative         -18.0  ->  -9.0  (synth.rs:297)
+  voiced fricative offset             -10.0  ->  -5.0  base+offset kept (synth.rs:301-305)
+  lateral-fric unvoiced               -18.0  ->  -9.0  (synth.rs:311)
+  lateral-fric voiced                 -28.0  -> -14.0  (synth.rs:309)
+  aspirated max()                      -3.0  ->  -1.5  max() kept (synth.rs:318)
+  declination per seg (idx.min(12))    -1.0  ->  -0.5  index cap kept (synth.rs:320)
+  final consonant extra                -4.0  ->  -2.0  vowel-skip kept (synth.rs:322)
+  floor max()                         -12.0  ->  -6.0  max() kept (synth.rs:324)
+
+Leveler diff (synth.rs level_output:1040)
+------------------------------------------
+  makeup cap  gdb.min(16.0) -> gdb.min(12.0)  (synth.rs:1102)
+  prescale    1.25 * 0.989/maxv -> 1.10 * 0.989/maxv, clamp +-0.989 kept (synth.rs:1119-1121)
+  tamer/knee/follower/smoothing/fades/pause: untouched.
+
+Red / green refs (logs/0.0.0.28.2/)
+------------------------------------
+  red-junction-nospark.log: TDD gate FIRST, pre-fix - FAILS as required:
+    hello s1 0.9480/4 (passes 0.9606 pin), hello s2 0.9360/1 >= 0.9 FAIL
+    (assert stops at s2; full pre table = 0.0.0.27.1 handoff: s1 0.9480/4,
+    s2 0.9360/1, annyeong s9 0.9806/1).
+  post-junction-nospark.log: post-fix - STILL RED, first failure moved:
+    yeobo s5 0.9336/1 >= 0.9 FAIL (STOP fires here, no further tuning).
+  test-workspace.log: workspace run STOPS at the TDD gate (exit 101), all
+    suites before it green incl. re-derived gain 19/19.
+  test-workspace-nogate.log: gate file moved aside, exit 0 - EVERY other
+    suite green (leveling 3/3, halves 2/2, lateral 4/4, balance, diphthong,
+    h_onset, clear_l+coda, voiced_fricative_mix, junction_smooth 5dB,
+    determinism 2/2, gain 19/19 re-derived).
+  fmt-check.log: cargo fmt --check CLEAN (exit 0). clippy.log: CLEAN (exit 0).
+  build-release.log: release ok (exit 0).
+  cli-regression.log + cli-a.log + cli-b.log: TIs TIN pair 8822 samples,
+    bytes 17688, sha256 CFBA9EF2...B455A BOTH, deterministic True.
+    Hash CHANGED vs 2AD4 (rebalance rotates output), new hash recorded.
+  engine-metrics.log: release-binary ENGINE renders (default voice):
+    rms hello 0.1831 / annyeong 0.1037 / yeobo 0.1146; tail yeobo 0.0501;
+    trough anny -12.31 / yeobo -10.40; halves hello +5.16 / anny -3.64 /
+    yeobo +6.36 (voice-config domain, informational; gates use
+    render_sentence domain and are green).
+
+Per-window unclamped peaks pre vs post (10ms window, gate convention)
+------------------------------------------------------------------------
+hello hE "loU:
+  start1 pos=1544  pre 0.9480 cl=4  post 0.9448 cl=1  PINNED PASS (<=0.9606; predicted 0.9406, +0.04dB)
+  start2 pos=3330  pre 0.9360 cl=1  post 0.8868 cl=0  PASS (was FAIL, now green)
+  start3 pos=4698  pre 0.5098 cl=1  post 0.4255 cl=1  pass
+annyeong %an njVN "hasejo:
+  start1  0.6028 -> 0.4345 (0) pass
+  start2  0.2187 -> 0.2015 (0) pass
+  start3  0.2308 -> 0.2017 (0) pass
+  start4  0.2083 -> 0.1890 (0) pass
+  start5  0.2105 -> 0.1573 (0) pass
+  start6  0.4335 -> 0.3280 (0) pass
+  start7  0.3452 -> 0.3114 (0) pass
+  start8  0.2003 -> 0.1727 (0) pass
+  start9  0.9806 cl=1 -> 0.8627 cl=1 PASS (predicted 0.8628 - exact match, was FAIL, now green)
+  start10 0.2157 -> 0.1742 (0) pass
+  start11 0.7608 -> 0.5639 (0) pass
+yeobo %jV"bo%se%jo:
+  start1 0.4577 -> 0.4113 (0) pass
+  start2 0.3803 -> 0.3062 (0) pass
+  start3 0.5632 -> 0.4666 (0) pass
+  start4 0.2242 -> 0.1952 (0) pass
+  start5 0.8953 cl=2 -> 0.9336 cl=1 FAIL (predicted 0.7627, simulator miss +1.76dB; STOP)
+  start6 0.4840 -> (not reached, assert stops at s5)
+  start7 0.7264 -> (not reached)
+(pre-fix full table from 0.0.0.27.1 handoff; pre-fix red log confirms s1 0.9480/4, s2 0.9360/1.)
+
+STOP analysis (one condition fired, four checked clean)
+--------------------------------------------------------
+FIRED: any-other-window-fails - yeobo s5 0.9336 >= 0.9 (+0.32dB over bound).
+  The V2 simulator predicted 0.7627 (would-pass, margin 1.44dB); the engine
+  reads 0.9336, a +1.76dB miss - 3.5x the acknowledged +-0.5dB smoothing
+  error. Mechanism hypothesis: the global max sample moved under the new
+  table (the /s/ body that pinned G changed rank as neighbors heated
+  asymmetrically), so G renormalized s5 upward; runner-up ratios are NOT
+  gain-invariant here because the pinning max itself relocated. This is the
+  same max-relocation family as the 0.0.0.28.1 negative result (hello s1
+  max-inside-window), now surfacing on yeobo. Any fix needs max-aware scope
+  (tamer/prescale/pinning redesign), frozen-adjacent work - coordinator call.
+CLEAN: hello s1 0.9448 <= 0.9606 pin (held, phonetic h-burst tracked).
+CLEAN: annyeong ENGINE RMS 0.1037 >= 0.10 (release binary, default voice;
+  margin +0.32dB matches the predicted +0.33dB - simulator uncertainty did
+  NOT bite here, but margin stays thin as reviewed).
+CLEAN: yeobo ENGINE tail RMS 0.0501 >= 0.03 (+4.45dB).
+CLEAN: halves gates green (halves_gain 2/2 incl. lateral-window < 8dB).
+
+gain.rs re-derivation table (crates/articul-cli/tests/gain.rs, all hand-derived)
+----------------------------------------------------------------------------------
+  stressed vowel (a,Primary,0,3): base 0, decl 0 -> 0.0 (unchanged).
+  unstressed vowel (a,Unstr,0,3): -1.75 + 0 -> -1.75 (was -3.5).
+  nasal (m,0,3): base -4 + 0 -> -4.0 (was -8.0).
+  sonorant (l,0,3): base -3.5 + 0 -> -3.5 (was -7.0).
+  sibilant (s,0,3): base -2.5 + 0 -> -2.5 (was -5.0).
+  weak fric (f,0,3): base -9 -> floor max(-9,-6) -> -6.0 (was -12.0).
+  voiced sibilant (z,0,3): -2.5 - 5 = -7.5 -> floor -> -6.0 (was -12.0).
+  voiced weak (v,0,3): -9 - 5 = -14 -> floor -> -6.0 (was -12.0).
+  default plosive (t,0,2): other-stop base 0 -> 0.0 (unchanged).
+  stress-invariance (t plain vs marked): 0.0 vs 0.0 (unchanged).
+  aspirated (h_h,0,3): base -10 (h-fric) -> max(-1.5) -> decl 0 -> -1.5 (was -3.0).
+  declination (a Unstr,2,10): -1.75 - 2*0.5 = -2.75 (was -5.5).
+  decl cap (a Unstr,20,30): -1.75 - 12*0.5 = -7.75 -> floor -> -6.0 (was -12.0).
+  final consonant (t,4,5): 0 - 4*0.5 = -2, final -2 -> -4.0 (was -8.0).
+  final vowel skip (a Unstr,4,5): -1.75 - 2 = -3.75, no final (was -7.5).
+  Result: gain.rs 19/19 green (test-workspace-nogate.log).
+
+Gates (summary)
+-----------------
+  fmt --check: CLEAN. clippy -D warnings: CLEAN. gain re-derived 19/19: GREEN.
+  leveling 3/3, halves, lateral 4/4, balance, diphthong, h_onset, clear_l+coda,
+  voiced_fricative_mix, junction_smooth, determinism: ALL GREEN (nogate run exit 0).
+  TDD junction_nospark: RED by STOP rule (yeobo s5 only; 20/21 windows pass).
+  release build: ok. TIs TIN hash: CFBA9EF28A1A17EEE0BA2626B64BB3877F66A51C93FCBDB9ECEA3BF99B5B455A.
+
+Constraints honored
+--------------------
+  No source-code comments (grep // synth.rs: 0). PowerShell 5.1, no &&; no
+  colons in log filenames. num-bigint/traits untouched. todo/CHANGELOG/README/
+  docs/demo untouched (demo sizes 19628/34936/29376 unchanged); spectra/F0/
+  excitation/filter/crossfade code untouched; eval_reference.py not re-run.
+  Only files changed: synth.rs (table + leveler), gain.rs (expectations),
+  tests/junction_nospark.rs (new gate file).
+
+Pin-round section (fix-round, test file ONLY - no production change)
+---------------------------------------------------------------------
+  Ruling (coordinator decision, recorded - precedent: hello-s1 pin, itself
+  pre-registered): yeobo s5 gets the SAME tracked-not-gated treatment as
+  hello s1, for a stronger reason. s5's max sits inside a phonetic sibilant
+  /s/ body (clamped=2 pre-change; /s/ legitimately peaks near full scale -
+  established in 0.0.0.25 attempt 4: /s/ windows carry HF 0.95-0.97 that must
+  NOT be removed). The unclamped < 0.9 gate targets JOIN transients, and it
+  cannot distinguish a loud fricative body from a join overshoot. s5 0.8953
+  -> 0.9336 (+0.4dB) is a level shift of legitimate content, not a new
+  transient (contrast annyeong s9: 0.9806 -> 0.8627, a genuine -1.1dB join
+  fix on the same phoneme class).
+  Change (crates/articul-cli/tests/junction_nospark.rs ONLY, identified by
+  input+index like the hello s1 pin, no magic position):
+    const YEOBO_S5_BOUND: f32 = 0.95 (post 0.9336 + headroom; future hotter
+    /s/ flags); bound selected when text == "%jV\"bo%se%jo" && gi == 5.
+    hello s1 pin (<=0.9606) and the other 19 windows (< 0.9) unchanged.
+    No other gate file touched; ALL production code untouched.
+  Acceptance: FULL cargo test --workspace exit 0, ALL green
+    (logs/0.0.0.28.2/test-workspace-pin.log) - incl. junction_nospark
+    no_fullscale_sparks_at_starts ok with pins (hello s1 0.9448 <= 0.9606,
+    yeobo s5 0.9336 <= 0.95, other 19 < 0.9).
+    fmt --check CLEAN (fmt-pin.log, exit 0). clippy -D warnings CLEAN
+    (clippy-pin.log, exit 0).
+  No release rebuild (no production change): TIs TIN hash CFBA9EF2...B455A
+  STANDS per prior logs/0.0.0.28.2/cli-regression.log; no re-render performed.
+  Pin values: hello s1 0.9448 (bound 0.9606), yeobo s5 0.9336 (bound 0.95).

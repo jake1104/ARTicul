@@ -1,0 +1,27 @@
+
+running 1 test
+SPARK h@ "loU start1 pos=1544 unclamped=0.5733 clamped=0 bound=0.9606
+SPARK h@ "loU start2 pos=2757 unclamped=0.8246 clamped=0 bound=0.9
+SPARK h@ "loU start3 pos=4125 unclamped=0.4353 clamped=1 bound=0.9
+SPARK %an "njVN "h\asejo start1 pos=3771 unclamped=0.5262 clamped=0 bound=0.9
+SPARK %an "njVN "h\asejo start2 pos=4742 unclamped=0.2166 clamped=0 bound=0.9
+SPARK %an "njVN "h\asejo start3 pos=5558 unclamped=0.2091 clamped=0 bound=0.9
+SPARK %an "njVN "h\asejo start4 pos=6286 unclamped=0.5963 clamped=0 bound=0.9
+SPARK %an "njVN "h\asejo start5 pos=9638 unclamped=0.3604 clamped=0 bound=0.9
+SPARK %an "njVN "h\asejo start6 pos=10565 unclamped=0.1553 clamped=0 bound=0.9
+SPARK %an "njVN "h\asejo start7 pos=11492 unclamped=0.2174 clamped=0 bound=0.9
+SPARK %an "njVN "h\asejo start8 pos=13918 unclamped=0.1994 clamped=0 bound=0.9
+SPARK %an "njVN "h\asejo start9 pos=15021 unclamped=0.9120 clamped=1 bound=0.922
+SPARK %an "njVN "h\asejo start10 pos=16300 unclamped=0.1771 clamped=0 bound=0.9
+SPARK %an "njVN "h\asejo start11 pos=17028 unclamped=0.6114 clamped=0 bound=0.9
+SPARK %jV"bo%se%jo start1 pos=772 unclamped=0.4113 clamped=0 bound=0.9
+SPARK %jV"bo%se%jo start2 pos=3463 unclamped=0.3062 clamped=0 bound=0.9
+SPARK %jV"bo%se%jo start3 pos=4191 unclamped=0.4666 clamped=0 bound=0.9
+SPARK %jV"bo%se%jo start4 pos=6286 unclamped=0.1952 clamped=0 bound=0.9
+SPARK %jV"bo%se%jo start5 pos=7411 unclamped=0.9336 clamped=1 bound=0.95
+SPARK %jV"bo%se%jo start6 pos=10079 unclamped=0.2601 clamped=0 bound=0.9
+SPARK %jV"bo%se%jo start7 pos=10807 unclamped=0.5377 clamped=0 bound=0.9
+test spark_verify_tmp ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+

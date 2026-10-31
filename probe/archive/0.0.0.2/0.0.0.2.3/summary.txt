@@ -1,0 +1,6 @@
+Task 0.0.0.2.3 TOML voice configuration schema
+Tests: voice_config.rs 3 passed (default load, klatt load, reject bad hz)
+Files: config/default-voice.toml, config/klatt-voice.toml, crates/articul-config/
+Sections: sample_rate, source, cascade_formants, parallel_formants, prosody
+Validation ranges enforced, serde+toml 0.8 parsing
+Logs: logs/0.0.0.2.3/red.log (missing VoiceConfig), green.log (3 passed)

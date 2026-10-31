@@ -1,0 +1,9 @@
+samples-a: 8822
+bytes-a: 17688
+sha256-a: 3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93
+samples-b: 8822
+bytes-b: 17688
+sha256-b: 3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93
+deterministic: yes (a == b byte-identical)
+hash-change-vs-prior: unchanged (3d31..., identical to 0.0.0.19.6 and 0.0.0.20.2; expected 8822 samples and 3d31d08a... confirmed)
+lateral-check: verified, not assumed. TIs TIN symbol inventory = T, I, s, space, T, I, N. LateralApproximant manner maps only from l, retroflex-flap-adjacent lateral, palatal lateral, velar lateral (crates/articul-phon/src/lib.rs:272,281,289,296). None of T/I/s/space/N is a lateral, so the 0.0.0.20.2 zero cannot trigger on this input.

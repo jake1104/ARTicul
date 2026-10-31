@@ -1,0 +1,40 @@
+   Compiling articul-py v0.0.0 (E:\01_coding\ARTicul\crates\articul-py)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 27.78s
+     Running unittests src\lib.rs (target\debug\deps\articul_cli-55cb57f443750be1.exe)
+
+running 3 tests
+test synth::tests::final_fade_caps_at_150ms_for_long_final_unit ... ok
+test synth::tests::final_fade_confined_to_final_unit ... ok
+test synth::tests::final_fade_falls_back_without_unit_length ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\main.rs (target\debug\deps\articul-52988a17f5456c9f.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\balance.rs (target\debug\deps\balance-2b6ff1eef64abd6c.exe)
+
+running 3 tests
+test stressed_nucleus_holds_at_least_100ms ... ok
+test old_input_violates_word_balance ... FAILED
+test demo_meets_word_balance ... ok
+
+failures:
+
+---- old_input_violates_word_balance stdout ----
+
+thread 'old_input_violates_word_balance' (25808) panicked at crates\articul-cli\tests\balance.rs:105:5:
+old input must violate the gate, got -19.2dB vs -13.4dB
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    old_input_violates_word_balance
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-cli --test balance`

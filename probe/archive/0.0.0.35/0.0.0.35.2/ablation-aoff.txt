@@ -1,0 +1,44 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 8.11s
+     Running `target\debug\examples\dbg35.exe`
+len 5844
+nframes 15
+fr 0 f0=146.91 ph=-1.776 bin=146.7
+fr 1 f0=147.24 ph=2.829 bin=146.7
+fr 2 f0=147.11 ph=1.166 bin=146.7
+fr 3 f0=147.03 ph=-0.484 bin=146.7
+fr 4 f0=147.80 ph=-2.340 bin=148.0
+fr 5 f0=148.34 ph=2.297 bin=148.0
+fr 6 f0=149.11 ph=0.437 bin=149.4
+fr 7 f0=149.49 ph=-1.223 bin=149.4
+fr 8 f0=149.63 ph=-2.891 bin=149.4
+fr 9 f0=149.79 ph=1.714 bin=149.4
+fr 10 f0=149.98 ph=0.026 bin=149.4
+fr 11 f0=150.76 ph=-1.882 bin=150.7
+fr 12 f0=151.29 ph=2.692 bin=150.7
+fr 13 f0=151.53 ph=0.774 bin=152.1
+fr 14 f0=151.59 ph=-0.922 bin=152.1
+srcmax 1.000 peak0 68 t0 147.99
+dmax 45
+nper 17
+146.24 149.73 151.90 147.46 149.79 148.12 147.81 151.05 147.99 149.76 147.42 149.56 149.40 147.61 146.64 146.28 147.68 
+corr npers 12 jitter 0.009182
+rendcorr npers 12 jitter 0.012716
+adapt npers 14 jitter 0.011188
+cycdiff 0.0175
+shifts: -2.526 -2.238 -2.223 -2.182 -5.182 -6.146 -6.069 -4.611 -5.775 -7.076 -5.705 -4.910 -2.981
+k1 resid circstd 0.122
+trend k1 fl 441 hop 441 n 5 circstd 0.309
+trend k1 fl 330 hop 330 n 7 circstd 0.223
+src k1 fl 441 hop 441 n 5 circstd 0.159
+src k1 fl 330 hop 330 n 7 circstd 0.142
+src k1 fl 300 hop 300 n 7 circstd 0.114
+k1 fl 1102 hop 110 n 14 circstd 0.122
+k1 fl 441 hop 441 n 5 circstd 0.283
+k1 fl 330 hop 330 n 7 circstd 0.212
+k1 fl 441 hop 110 n 20 circstd 0.092
+win 661 hop 100 n 20 detrel 0.0033
+win 441 hop 100 n 23 detrel 0.0065
+win 330 hop 110 n 22 detrel 0.0085
+win 441 hop 90 n 25 detrel 0.0066

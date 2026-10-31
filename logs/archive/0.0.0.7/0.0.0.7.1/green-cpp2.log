@@ -1,0 +1,10 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.84s
+     Running tests\cpp_parity.rs (target\debug\deps\cpp_parity-4b11e5f649705130.exe)
+
+running 2 tests
+test cpp_flag_consistent ... ok
+test cpp_matches_rust_single_resonator ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

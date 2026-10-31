@@ -1,0 +1,7 @@
+    Checking articul-phon v0.0.0 (E:\01_coding\ARTicul\crates\articul-phon)
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Checking articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Checking articul-config v0.0.0 (E:\01_coding\ARTicul\crates\articul-config)
+    Checking articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Checking articul-py v0.0.0 (E:\01_coding\ARTicul\crates\articul-py)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 11.06s

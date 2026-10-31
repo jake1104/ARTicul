@@ -1,0 +1,24 @@
+REVISE-SPEC 0.0.0.34.1 (2026-10-30 UTC) - PowerShell 5.1 console record
+Dir: E:\01_coding\ARTicul | Mode: READ-ONLY on engine code; wrote ONLY probe/0.0.0.34.1/korean-facts.txt + this log.
+Step 1: Read probe/0.0.0.34.1/korean-facts.txt (187 lines). Confirmed defect: line 186 ends mid-sentence
+  "Korean V (ㅓ) 585 / 1085 / 2570* [S1 608/1121 + S2 560/1045; *F3 interim: back-mid interpola"
+  and line 187 is a literal "...[truncated 2087 chars]" marker written into the file. Only 2 vowel rows present.
+Step 2: Byte size before edit 15209 (Get-Item Length). Full TIs TIN hash recovered from repo logs
+  (logs/archive/0.0.0.28/0.0.0.28.2/cli-regression.log + probe/archive/0.0.0.33/0.0.0.33.2/summary.txt agree):
+  CFBA9EF28A1A17EEE0BA2626B64BB3877F66A51C93FCBDB9ECEA3BF99B5B455A. Hello baseline from todo.md:
+  demo/hello.wav input 'h@ "loU', 9219 samples. No engine files read or modified; research sections untouched.
+Step 3: Single edit replacing lines 186-187 (partial V row + truncation marker) with the COMPLETE spec tail:
+  V1 full 6-row table (a 690/1165/2930; V 585/1085/2707*; e 479/1919/2857*; o 441/740/2481; u 253/689/2415;
+  ɯ 369/1503/2674*; every * carries exact arithmetic, e.g. round((2932.5+2480.9)/2) = 2707);
+  P1-P7 AP prosody (stress ignored 1.0; no nucleus/downstep; THLH anchors +1.0/-1.0/+1.5/-0.5 with short-AP
+  mapping; Ha +2.0st >=3 syllables; L% -3.5st modal floor >=100Hz / H% +3.0st greeting default; CF0 kept;
+  durations stress 1.0, initial 1.1 kept, final 1.6 last syllable);
+  G1-G7 TDD gates (3 formant pins with windows/tolerances; flat-F0 <=3.5st excursion, peak <=+2.5st,
+  H% +3.0st +-0.5st; G5 TIs TIN CFBA hard pin; G6 hello 9219 byte-identical; G7 suite green);
+  S1-S4 scope (default voice, fricative shaping, leveler untouched; Korean-only branch).
+  Lines 1-185 preserved verbatim (reference tables, diff table, ranked mismatches, plan-values evidence).
+Step 4: Verification - read back lines 180-222 in full: 222 lines total, NO truncation marker anywhere,
+  file ends with complete sentence "End of 0.0.0.34.2 concrete spec; ... no open numbers."
+  Byte size after edit 19938 (python3 os.path.getsize). Tail section headers present: V1 table, P1-P7,
+  G1-G7, S1-S4.
+Result: DONE. Spec block complete.

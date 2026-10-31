@@ -1,0 +1,29 @@
+    Updating crates.io index
+     Locking 8 packages to latest compatible versions
+      Adding dasp v0.11.0
+      Adding dasp_frame v0.11.0
+      Adding dasp_sample v0.11.0
+      Adding num-complex v0.4.6
+      Adding primal-check v0.3.4
+      Adding rustfft v6.4.1
+      Adding strength_reduce v0.2.4
+      Adding transpose v0.2.3
+ Downloading crates ...
+  Downloaded dasp v0.11.0
+  Downloaded transpose v0.2.3
+  Downloaded dasp_frame v0.11.0
+  Downloaded strength_reduce v0.2.4
+  Downloaded primal-check v0.3.4
+  Downloaded dasp_sample v0.11.0
+  Downloaded num-complex v0.4.6
+  Downloaded rustfft v6.4.1
+   Compiling num-integer v0.1.47
+   Compiling dasp_sample v0.11.0
+error[E0554]: `#![feature]` may not be used on the stable release channel
+ --> C:\Users\jake1\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\dasp_sample-0.11.0\src\lib.rs:8:35
+  |
+8 | #![cfg_attr(not(feature = "std"), feature(core_intrinsics))]
+  |                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0554`.
+error: could not compile `dasp_sample` (lib) due to 1 previous error

@@ -1,0 +1,6 @@
+Task 0.0.0.1.6 articulatory feature types
+Tests: feature_types.rs 3 passed
+Gates: fmt clean, clippy clean, cargo test workspace green, release build ok
+Logs: logs/0.0.0.1.6/
+Types: Place(15), Manner(13), Voicing, Secondary(6 bool), VowelHeight(7), VowelBackness(3), LengthMark(4), Duration, SegmentKind, Phoneme
+APIs: place(), manner(), is_voiced(), is_nasal()

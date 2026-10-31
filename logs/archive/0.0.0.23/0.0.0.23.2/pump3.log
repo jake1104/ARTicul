@@ -1,0 +1,12 @@
+probe/0.0.0.23.2/gain-pre-hello.txt: windows=23 fs=50Hz detrend_slope=+0.258dB_per_window kept_bins=[2, 3, 4, 5, 27, 28, 29, 30]
+probe/0.0.0.23.2/gain-pre-hello.txt: detrended_two_sided_3_8Hz p95-p5=4.99dB peak_to_peak=5.71dB raw_swing=12.61dB
+probe/0.0.0.23.2/gain-pre-annyeong.txt: windows=40 fs=50Hz detrend_slope=+0.243dB_per_window kept_bins=[4, 5, 6, 7, 8, 9, 10, 54, 55, 56, 57, 58, 59, 60]
+probe/0.0.0.23.2/gain-pre-annyeong.txt: detrended_two_sided_3_8Hz p95-p5=6.11dB peak_to_peak=6.93dB raw_swing=16.42dB
+probe/0.0.0.23.2/gain-pre-yeobo.txt: windows=34 fs=50Hz detrend_slope=+0.400dB_per_window kept_bins=[4, 5, 6, 7, 8, 9, 10, 54, 55, 56, 57, 58, 59, 60]
+probe/0.0.0.23.2/gain-pre-yeobo.txt: detrended_two_sided_3_8Hz p95-p5=5.64dB peak_to_peak=6.73dB raw_swing=16.28dB
+probe/0.0.0.23.2/gain-post-hello.txt: windows=23 fs=50Hz detrend_slope=+0.185dB_per_window kept_bins=[2, 3, 4, 5, 27, 28, 29, 30]
+probe/0.0.0.23.2/gain-post-hello.txt: detrended_two_sided_3_8Hz p95-p5=2.53dB peak_to_peak=2.73dB raw_swing=7.99dB
+probe/0.0.0.23.2/gain-post-annyeong.txt: windows=40 fs=50Hz detrend_slope=+0.140dB_per_window kept_bins=[4, 5, 6, 7, 8, 9, 10, 54, 55, 56, 57, 58, 59, 60]
+probe/0.0.0.23.2/gain-post-annyeong.txt: detrended_two_sided_3_8Hz p95-p5=5.15dB peak_to_peak=5.71dB raw_swing=16.61dB
+probe/0.0.0.23.2/gain-post-yeobo.txt: windows=34 fs=50Hz detrend_slope=+0.384dB_per_window kept_bins=[4, 5, 6, 7, 8, 9, 10, 54, 55, 56, 57, 58, 59, 60]
+probe/0.0.0.23.2/gain-post-yeobo.txt: detrended_two_sided_3_8Hz p95-p5=3.74dB peak_to_peak=4.32dB raw_swing=16.41dB

@@ -1,0 +1,12 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.15s
+     Running tests\vowel_formants.rs (target\debug\deps\vowel_formants-14142bd07bf0abb6.exe)
+
+running 4 tests
+test all_vowels_have_targets_in_range ... ok
+test consonants_have_no_vowel_targets ... ok
+test openness_raises_f1_and_frontness_raises_f2 ... ok
+test pb_anchors_within_15_percent ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

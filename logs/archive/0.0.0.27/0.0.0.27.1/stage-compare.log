@@ -1,0 +1,72 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.18s
+     Running tests\stage_probe_tmp.rs (target\debug\deps\stage_probe_tmp-8c4ed97b4e83d04b.exe)
+
+running 1 test
+hE "loU s1 mixed: winpeak=0.5306 at d=10.0ms
+hE "loU s1 radiated: winpeak=0.1423 at d=3.1ms
+hE "loU s1 final: winpeak=0.9890 at d=1.8ms
+hE "loU s2 mixed: winpeak=0.3810 at d=0.4ms
+hE "loU s2 radiated: winpeak=0.3689 at d=0.0ms
+hE "loU s2 final: winpeak=0.9890 at d=0.0ms
+hE "loU s3 mixed: winpeak=0.8287 at d=9.5ms
+hE "loU s3 radiated: winpeak=0.3936 at d=0.0ms
+hE "loU s3 final: winpeak=0.9890 at d=0.0ms
+%an njVN "hasejo s1 mixed: winpeak=0.5107 at d=10.0ms
+%an njVN "hasejo s1 radiated: winpeak=0.4120 at d=0.0ms
+%an njVN "hasejo s1 final: winpeak=0.6028 at d=0.0ms
+%an njVN "hasejo s2 mixed: winpeak=0.3768 at d=2.1ms
+%an njVN "hasejo s2 radiated: winpeak=0.0521 at d=8.0ms
+%an njVN "hasejo s2 final: winpeak=0.2187 at d=8.0ms
+%an njVN "hasejo s3 mixed: winpeak=0.3374 at d=3.5ms
+%an njVN "hasejo s3 radiated: winpeak=0.0694 at d=0.0ms
+%an njVN "hasejo s3 final: winpeak=0.2308 at d=0.0ms
+%an njVN "hasejo s4 mixed: winpeak=0.3137 at d=0.1ms
+%an njVN "hasejo s4 radiated: winpeak=0.0318 at d=3.3ms
+%an njVN "hasejo s4 final: winpeak=0.2083 at d=3.3ms
+%an njVN "hasejo s5 mixed: winpeak=0.3856 at d=3.0ms
+%an njVN "hasejo s5 radiated: winpeak=0.0255 at d=2.3ms
+%an njVN "hasejo s5 final: winpeak=0.2105 at d=2.3ms
+%an njVN "hasejo s6 mixed: winpeak=0.1035 at d=5.4ms
+%an njVN "hasejo s6 radiated: winpeak=0.1488 at d=0.0ms
+%an njVN "hasejo s6 final: winpeak=0.4335 at d=0.0ms
+%an njVN "hasejo s7 mixed: winpeak=0.4674 at d=8.3ms
+%an njVN "hasejo s7 radiated: winpeak=0.1172 at d=3.5ms
+%an njVN "hasejo s7 final: winpeak=0.3452 at d=3.9ms
+%an njVN "hasejo s8 mixed: winpeak=0.3139 at d=2.0ms
+%an njVN "hasejo s8 radiated: winpeak=0.1096 at d=9.4ms
+%an njVN "hasejo s8 final: winpeak=0.2003 at d=9.4ms
+%an njVN "hasejo s9 mixed: winpeak=0.3037 at d=1.3ms
+%an njVN "hasejo s9 radiated: winpeak=0.4098 at d=1.3ms
+%an njVN "hasejo s9 final: winpeak=0.9890 at d=1.3ms
+%an njVN "hasejo s10 mixed: winpeak=0.1813 at d=4.6ms
+%an njVN "hasejo s10 radiated: winpeak=0.0279 at d=8.0ms
+%an njVN "hasejo s10 final: winpeak=0.2157 at d=8.0ms
+%an njVN "hasejo s11 mixed: winpeak=0.4857 at d=0.6ms
+%an njVN "hasejo s11 radiated: winpeak=0.2900 at d=0.0ms
+%an njVN "hasejo s11 final: winpeak=0.7608 at d=0.0ms
+%jV"bo%se%jo s1 mixed: winpeak=0.8559 at d=10.0ms
+%jV"bo%se%jo s1 radiated: winpeak=0.4360 at d=0.0ms
+%jV"bo%se%jo s1 final: winpeak=0.4577 at d=0.0ms
+%jV"bo%se%jo s2 mixed: winpeak=1.1113 at d=9.5ms
+%jV"bo%se%jo s2 radiated: winpeak=0.1716 at d=0.0ms
+%jV"bo%se%jo s2 final: winpeak=0.3803 at d=0.0ms
+%jV"bo%se%jo s3 mixed: winpeak=1.3488 at d=2.0ms
+%jV"bo%se%jo s3 radiated: winpeak=0.5947 at d=0.0ms
+%jV"bo%se%jo s3 final: winpeak=0.5632 at d=1.3ms
+%jV"bo%se%jo s4 mixed: winpeak=0.3184 at d=0.0ms
+%jV"bo%se%jo s4 radiated: winpeak=0.1559 at d=9.4ms
+%jV"bo%se%jo s4 final: winpeak=0.2242 at d=9.4ms
+%jV"bo%se%jo s5 mixed: winpeak=0.6263 at d=10.0ms
+%jV"bo%se%jo s5 radiated: winpeak=0.7341 at d=0.3ms
+%jV"bo%se%jo s5 final: winpeak=0.9890 at d=0.3ms
+%jV"bo%se%jo s6 mixed: winpeak=0.2736 at d=3.7ms
+%jV"bo%se%jo s6 radiated: winpeak=0.1544 at d=0.0ms
+%jV"bo%se%jo s6 final: winpeak=0.4840 at d=0.0ms
+%jV"bo%se%jo s7 mixed: winpeak=0.5535 at d=0.6ms
+%jV"bo%se%jo s7 radiated: winpeak=0.3486 at d=0.0ms
+%jV"bo%se%jo s7 final: winpeak=0.7264 at d=0.0ms
+test stage_compare ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+

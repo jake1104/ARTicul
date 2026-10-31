@@ -1,0 +1,15 @@
+symbol,codepoint,place,manner,notes
+p͆,U+0070+U+0346,Dentolabial,Plosive,dentolabial plosive voiceless
+b͆,U+0062+U+0346,Dentolabial,Plosive,dentolabial plosive voiced
+m͆,U+006D+U+0346,Dentolabial,Nasal,dentolabial nasal
+t̼,U+0074+U+033C,Linguolabial,Plosive,linguolabial plosive voiceless
+d̼,U+0064+U+033C,Linguolabial,Plosive,linguolabial plosive voiced
+n̼,U+006E+U+033C,Linguolabial,Nasal,linguolabial nasal
+θ̼,U+03B8+U+033C,Linguolabial,Fricative,linguolabial fricative voiceless
+ð̼,U+00F0+U+033C,Linguolabial,Fricative,linguolabial fricative voiced
+ʬ,U+02AC,Bilabial,Percussive,bilabial percussive
+ʭ,U+02AD,Bidental,Percussive,bidental percussive
+ʩ,U+02A9,Velopharyngeal,Fricative,velopharyngeal fricative voiceless
+ʪ,U+02AA,Velopharyngeal,Fricative,velopharyngeal fricative voiced
+͆,U+0346,DiacriticMark,Diacritic,dentolabial mark
+͇,U+0347,DiacriticMark,Diacritic,alveolar mark

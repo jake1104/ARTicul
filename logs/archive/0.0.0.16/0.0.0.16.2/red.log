@@ -1,0 +1,53 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.98s
+     Running tests\prosody.rs (target\debug\deps\prosody-794f4189c96b22bd.exe)
+
+running 20 tests
+test baseline_initial_holds_plus_2st ... ok
+test f0_declines_across_utterance ... ok
+test accent_tail_decays_after_nucleus ... FAILED
+test plan_length_matches_input ... ok
+test prenuclear_primary_adds_3st ... ok
+test faster_rate_shortens_durations ... ok
+test intrinsic_fricatives_longer_than_stops ... ok
+test long_vowel_gets_more_time ... ok
+test f0_end_matches_next_start ... ok
+test mindur_floor_holds ... ok
+test nuclear_accent_adds_5st_on_last_primary_vowel ... ok
+test downstep_lowers_each_following_accent_by_1_5st ... FAILED
+test post_nuclear_falls_to_minus_7st ... ok
+test phrase_reset_at_pipe_boundary ... FAILED
+test pre_voiceless_obstruent_shortens_sonorant ... ok
+test bare_input_defaults_nucleus_to_last_vowel ... ok
+test secondary_accent_adds_1_5st ... ok
+test sublinear_cap_limits_combined_shortening ... ok
+test space_keeps_single_phrase ... ok
+test unstressed_segments_shorten ... ok
+
+failures:
+
+---- accent_tail_decays_after_nucleus stdout ----
+
+thread 'accent_tail_decays_after_nucleus' (23104) panicked at crates\articul-front\tests\prosody.rs:334:5:
+tail f0=104.869125 want ~126.52508
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- downstep_lowers_each_following_accent_by_1_5st stdout ----
+
+thread 'downstep_lowers_each_following_accent_by_1_5st' (24324) panicked at crates\articul-front\tests\prosody.rs:264:5:
+downstep ratio=1.2240535 want ~1.1721576
+
+---- phrase_reset_at_pipe_boundary stdout ----
+
+thread 'phrase_reset_at_pipe_boundary' (26172) panicked at crates\articul-front\tests\prosody.rs:295:5:
+reset must lift word2 onset above word1 close: 120 vs 124.711105
+
+
+failures:
+    accent_tail_decays_after_nucleus
+    downstep_lowers_each_following_accent_by_1_5st
+    phrase_reset_at_pipe_boundary
+
+test result: FAILED. 17 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-front --test prosody`

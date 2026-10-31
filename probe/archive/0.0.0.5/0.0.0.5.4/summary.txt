@@ -1,0 +1,5 @@
+Task 0.0.0.5.4 front-end integration test (reworked: X-SAMPA sentences)
+Pipeline: normalize -> Xsampa::transcribe -> plan
+Tests: integration.rs 2 passed ("hi DEn" -> 5 phonemes with durations/f0, "a1 DEn" digit-tolerant)
+Gates: fmt clean, clippy clean, test workspace 29 suites ok, release build ok
+Logs: logs/0.0.0.5.4/

@@ -1,0 +1,10 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.20s
+     Running tests\leveling.rs (target\debug\deps\leveling-84ed11da9d3cc29e.exe)
+
+running 3 tests
+test tail_not_buried ... ok
+test intra_word_troughs_bounded ... ok
+test demo_rms_audible ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+

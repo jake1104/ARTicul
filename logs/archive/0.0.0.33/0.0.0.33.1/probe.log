@@ -1,0 +1,157 @@
+**********************
+PowerShell 기록 시작
+시작 시간: 20261030171159
+사용자 이름: JAKE-DESKTOP\jake1
+실행 사용자: JAKE-DESKTOP\jake1
+구성 이름: 
+컴퓨터: JAKE-DESKTOP (Microsoft Windows NT 10.0.26300.0)
+호스트 애플리케이션: C:\Program Files\PowerShell\7\pwsh.dll -NoLogo -NoProfile -NonInteractive -Command Start-Transcript logs/0.0.0.33.1/probe.log; echo "=== step1 re-render ==="; ./target/release/articul.exe synthesize --text 'hE \"loU' --voice config/default-voice.toml --out probe/0.0.0.33.1/hello.wav; ./target/release/articul.exe synthesize --text '%an njVN \"hasejo' --voice config/default-voice.toml --out probe/0.0.0.33.1/annyeong.wav; ./target/release/articul.exe synthesize --text '%jV\"bo%se%jo' --voice config/default-voice.toml --out probe/0.0.0.33.1/yeobo.wav; echo "=== sample counts + identity ==="; python3 -c "import hashlib; pairs=[('probe/0.0.0.33.1/hello.wav','demo/hello.wav',9792),('probe/0.0.0.33.1/annyeong.wav','demo/annyeonghaseyo.wav',17446),('probe/0.0.0.33.1/yeobo.wav','demo/yeoboseyo.wav',14666)]; [print('%s samples=%d expect=%d ok=%s ident=%s' % (a,(len(open(a,'rb').read())-44)//2,exp,((len(open(a,'rb').read())-44)//2)==exp,open(a,'rb').read()==open(b,'rb').read())) for a,b,exp in pairs]"; Stop-Transcript
+프로세스 ID: 8032
+PSVersion: 7.6.9
+PSEdition: Core
+GitCommitId: 7.6.9
+OS: Microsoft Windows 10.0.26300
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+대화 내용 기록이 시작되었습니다. 출력 파일은 logs/0.0.0.33.1/probe.log입니다.
+=== step1 re-render ===
+
+
+
+=== sample counts + identity ===
+
+**********************
+PowerShell 기록 끝
+종료 시간: 20261030171159
+**********************
+**********************
+PowerShell 기록 시작
+시작 시간: 20261030171450
+사용자 이름: JAKE-DESKTOP\jake1
+실행 사용자: JAKE-DESKTOP\jake1
+구성 이름: 
+컴퓨터: JAKE-DESKTOP (Microsoft Windows NT 10.0.26300.0)
+호스트 애플리케이션: C:\Program Files\PowerShell\7\pwsh.dll -NoLogo -NoProfile -NonInteractive -Command Start-Transcript logs/0.0.0.33.1/probe.log -Append; python3 probe/0.0.0.33.1/measure.py; Stop-Transcript
+프로세스 ID: 26764
+PSVersion: 7.6.9
+PSEdition: Core
+GitCommitId: 7.6.9
+OS: Microsoft Windows 10.0.26300
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+대화 내용 기록이 시작되었습니다. 출력 파일은 logs/0.0.0.33.1/probe.log입니다.
+
+**********************
+PowerShell 기록 끝
+종료 시간: 20261030171450
+**********************
+**********************
+PowerShell 기록 시작
+시작 시간: 20261030171456
+사용자 이름: JAKE-DESKTOP\jake1
+실행 사용자: JAKE-DESKTOP\jake1
+구성 이름: 
+컴퓨터: JAKE-DESKTOP (Microsoft Windows NT 10.0.26300.0)
+호스트 애플리케이션: C:\Program Files\PowerShell\7\pwsh.dll -NoLogo -NoProfile -NonInteractive -Command Start-Transcript logs/0.0.0.33.1/probe.log -Append; python3 probe/0.0.0.33.1/measure.py; Stop-Transcript
+프로세스 ID: 22932
+PSVersion: 7.6.9
+PSEdition: Core
+GitCommitId: 7.6.9
+OS: Microsoft Windows 10.0.26300
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+대화 내용 기록이 시작되었습니다. 출력 파일은 logs/0.0.0.33.1/probe.log입니다.
+
+**********************
+PowerShell 기록 끝
+종료 시간: 20261030171456
+**********************
+**********************
+PowerShell 기록 시작
+시작 시간: 20261030171555
+사용자 이름: JAKE-DESKTOP\jake1
+실행 사용자: JAKE-DESKTOP\jake1
+구성 이름: 
+컴퓨터: JAKE-DESKTOP (Microsoft Windows NT 10.0.26300.0)
+호스트 애플리케이션: C:\Program Files\PowerShell\7\pwsh.dll -NoLogo -NoProfile -NonInteractive -Command Start-Transcript logs/0.0.0.33.1/probe.log -Append; python3 probe/0.0.0.33.1/diag.py; Stop-Transcript
+프로세스 ID: 6364
+PSVersion: 7.6.9
+PSEdition: Core
+GitCommitId: 7.6.9
+OS: Microsoft Windows 10.0.26300
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+대화 내용 기록이 시작되었습니다. 출력 파일은 logs/0.0.0.33.1/probe.log입니다.
+
+**********************
+PowerShell 기록 끝
+종료 시간: 20261030171556
+**********************
+**********************
+PowerShell 기록 시작
+시작 시간: 20261030171756
+사용자 이름: JAKE-DESKTOP\jake1
+실행 사용자: JAKE-DESKTOP\jake1
+구성 이름: 
+컴퓨터: JAKE-DESKTOP (Microsoft Windows NT 10.0.26300.0)
+호스트 애플리케이션: C:\Program Files\PowerShell\7\pwsh.dll -NoLogo -NoProfile -NonInteractive -Command Start-Transcript logs/0.0.0.33.1/probe.log -Append; python3 probe/0.0.0.33.1/mid.py; Stop-Transcript
+프로세스 ID: 29724
+PSVersion: 7.6.9
+PSEdition: Core
+GitCommitId: 7.6.9
+OS: Microsoft Windows 10.0.26300
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+대화 내용 기록이 시작되었습니다. 출력 파일은 logs/0.0.0.33.1/probe.log입니다.
+
+**********************
+PowerShell 기록 끝
+종료 시간: 20261030171757
+**********************
+**********************
+PowerShell 기록 시작
+시작 시간: 20261030172103
+사용자 이름: JAKE-DESKTOP\jake1
+실행 사용자: JAKE-DESKTOP\jake1
+구성 이름: 
+컴퓨터: JAKE-DESKTOP (Microsoft Windows NT 10.0.26300.0)
+호스트 애플리케이션: C:\Program Files\PowerShell\7\pwsh.dll -NoLogo -NoProfile -NonInteractive -Command Start-Transcript logs/0.0.0.33.1/probe.log -Append; echo "=== final file inventory ==="; Get-ChildItem probe/0.0.0.33.1/ | Select-Object Name, Length; echo "=== re-verify identity after guard edits (no re-render) ==="; python3 -c "import hashlib; pairs=[('probe/0.0.0.33.1/hello.wav','demo/hello.wav'),('probe/0.0.0.33.1/annyeong.wav','demo/annyeonghaseyo.wav'),('probe/0.0.0.33.1/yeobo.wav','demo/yeoboseyo.wav')]; [print('%s ident=%s' % (a, open(a,'rb').read()==open(b,'rb').read())) for a,b in pairs]"; echo "=== audit head ==="; Get-Content probe/0.0.0.33.1/ipa-audit.txt -Head 12; Stop-Transcript
+프로세스 ID: 17624
+PSVersion: 7.6.9
+PSEdition: Core
+GitCommitId: 7.6.9
+OS: Microsoft Windows 10.0.26300
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+대화 내용 기록이 시작되었습니다. 출력 파일은 logs/0.0.0.33.1/probe.log입니다.
+=== final file inventory ===
+
+
+**********************
+PowerShell 기록 끝
+종료 시간: 20261030172103
+**********************

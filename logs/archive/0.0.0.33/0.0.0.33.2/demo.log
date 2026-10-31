@@ -1,0 +1,40 @@
+0.0.0.33.2 demo regeneration (measured with python3+numpy; trough bound >=-14dB per the 0.0.0.23.2 ruling; spark pins hello-s1 0.9606 / annyeong-s9 0.9220 / yeobo-s5 0.95)
+cmd hello:    articul synthesize --text 'h@ "loU' --voice config/default-voice.toml --out demo/hello.wav
+cmd annyeong: articul synthesize --text '%an "njVN "h\asejo' --voice config/default-voice.toml --out demo/annyeonghaseyo.wav
+cmd yeobo:    articul synthesize --text '%jV"bo%se%jo' --voice config/default-voice.toml --out probe/0.0.0.33.2/yeoboseyo.wav (re-render compare only; demo/yeoboseyo.wav NOT rewritten, byte-identical)
+== hello (demo/hello.wav): bytes=18482 sha256=0d45cc72d157177d63a29111ca6f290a1a9f05aedd3e7ffc0705fc4b8a1191b7
+   samples=9219 sr=22050 ch=1 dur=418.1ms
+   global rms=0.1680 (-15.49dBFS) peak=0.9890 gate: rms>=0.10 peak<=0.99 -> PASS
+   halves rms1=-14.83dBFS rms2=-16.28dBFS diff=-1.45dB (|diff|<=5.0 -> PASS; floor2>-32 -> PASS)
+   centroid=2133.0Hz
+   trough max depth=-1.40dB (gate >=-14 -> PASS)
+   thirds rms=-15.35/-14.07/-17.86dBFS
+   band energy: 0-300Hz=0.520 300-3400Hz=0.471 4k+Hz=0.009
+== annyeong (demo/annyeonghaseyo.wav): bytes=38246 sha256=717ef01df8cc195bd3bbe948a4beb9f8b9d917aaf71fbfb21bc64e55dd31506b
+   samples=19101 sr=22050 ch=1 dur=866.3ms
+   global rms=0.1170 (-18.63dBFS) peak=0.9890 gate: rms>=0.10 peak<=0.99 -> PASS
+   halves rms1=-19.74dBFS rms2=-17.75dBFS diff=+1.99dB (|diff|<=5.0 -> PASS; floor2>-32 -> PASS)
+   centroid=4199.5Hz
+   trough max depth=-12.29dB (gate >=-14 -> PASS)
+   thirds rms=-19.67/-20.49/-16.70dBFS
+   band energy: 0-300Hz=0.253 300-3400Hz=0.500 4k+Hz=0.240
+== yeobo (demo/yeoboseyo.wav): bytes=29376 sha256=2da3bc3044fb1da47f3d98e3aeab78bc683451b53c43dd395fcdfb1a1ef3a830
+   samples=14666 sr=22050 ch=1 dur=665.1ms
+   global rms=0.1146 (-18.82dBFS) peak=0.9890 gate: rms>=0.10 peak<=0.99 -> PASS
+   halves rms1=-17.53dBFS rms2=-20.65dBFS diff=-3.11dB (|diff|<=5.0 -> PASS; floor2>-32 -> PASS)
+   centroid=5676.7Hz
+   trough max depth=-10.40dB (gate >=-14 -> PASS)
+   thirds rms=-19.65/-15.84/-26.01dBFS
+   band energy: 0-300Hz=0.078 300-3400Hz=0.169 4k+Hz=0.742
+hello F2 trajectory [908.4, 936.0, 936.0, 1046.1, 1018.5, 1073.6]
+hello F2 rise overall 165.2 (gate >=100 -> PASS; monotonic 50Hz tol -> PASS)
+annyeong third0 rms=0.1039 (-19.67dBFS)
+annyeong third1 rms=0.0945 (-20.49dBFS)
+annyeong third2 rms=0.1462 (-16.70dBFS)
+yeobo third0 rms=0.1041 (-19.65dBFS)
+yeobo third1 rms=0.1614 (-15.84dBFS)
+yeobo third2 rms=0.0501 (-26.01dBFS)
+hello third0 rms=0.1708 (-15.35dBFS)
+hello third1 rms=0.1979 (-14.07dBFS)
+hello third2 rms=0.1279 (-17.86dBFS)
+tail linear: yeobo gate >=0.03

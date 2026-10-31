@@ -1,0 +1,4 @@
+PASS lookup-p
+PASS lookup-unknown
+PASS synthesize len=3132
+PASS vowel-a f2/f1=0.146

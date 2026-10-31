@@ -1,0 +1,126 @@
+Task 0.0.0.20.3 regression re-baseline with demo regeneration
+
+No production code change in this task. Work confirms the 0.0.0.20.2
+lateral zero landing (2500 Hz / 300 Hz antiformant via the nasal-zero
+reuse path, stressed-onset gated). All gates green on a clean re-run
+captured on disk.
+
+Gates (logs in logs/0.0.0.20.3/, all exit 0)
+- cargo fmt --check: clean, 0-byte log fmt-check.log (fresh re-run
+  captured on disk via shell redirection, so the empty output still
+  leaves the file in place).
+- cargo clippy --workspace --all-targets -- -D warnings: clean
+  (clippy.log).
+- cargo test --workspace: all suites ok, zero failures, including
+  lateral_zero 4/4 (solo notch, coda guard, vowel control, hello
+  170-210ms interior pin), clear_l 2/2, halves_gain, h_onset,
+  diphthong_glide, gain, synth fixed-sentence 8822 (test-workspace.log).
+- cargo build --release (full workspace): green (release.log).
+
+Fixed-sentence regression (TIs TIN, config/default-voice.toml)
+- probe/0.0.0.20.3/regression-a.wav and regression-b.wav.
+- 8822 samples each at 22050 Hz mono 16-bit, 17688 bytes each.
+- sha256 3D31D08A3BE49623FD05ABB1B1587A22A4F29B0E4B6F57AABFE3D32DC88F2F93
+  both runs, deterministic=True (cli-regression.log).
+- Hash MATCHES the expected 3d31d08a... (identical to 0.0.0.19.6 and
+  0.0.0.20.2: no code change since 20.2 round-2, verified not
+  assumed). Input verified by symbol inspection against
+  crates/articul-phon/src/lib.rs:272,281,289,296: LateralApproximant
+  manner maps only from l and the retroflex/palatal/velar laterals.
+  T I s space T I N contains none of these, so the 0.0.0.20.2 zero
+  cannot trigger on this input.
+
+Demo regeneration (X-SAMPA hE "loU, config/default-voice.toml)
+- demo/hello.wav regenerated: 9792 samples at 22050 Hz mono 16-bit
+  (19628 bytes), sha256
+  745258174f710e919c33470dd7842948bb8dc18dc731b93ed014f65b053c2446
+  (demo.log, demo-measure.log). Meter: probe/0.0.0.20.3/demo_measure.py
+  (the exact 0.0.0.19.6 method plus the 0.0.0.20.2 narrow-contrast
+  notch section, N_FFT 8192 raw periodogram, medians 2000-2300 vs
+  2470-2530 Hz).
+- Determinism: the spot render probe/0.0.0.20.3/spot/demo_hello.wav
+  from a separate CLI invocation is byte-identical to demo/hello.wav
+  (spot.log tail line).
+- Sample count vs 0.0.0.19.6 baseline 9792: identical (no duration,
+  pole, or gain change in 0.0.0.20.2, as pinned).
+- Halves: first-half RMS -24.1 dBFS, second-half RMS -27.7 dBFS, diff
+  -3.54 dB (first half louder from the audible /h/ onset), within the
+  |diff| <= 5.0 dB gate; second half -27.7 > -32.0 floor.
+- Per-window peaks: whole-file -0.92 dBFS (unchanged: still the o-to-U
+  glide junction transient, no clipping), h-interior [200:1344]
+  -12.93 dBFS, o-interior [5600:7000] -17.26 dBFS. RMS: h-interior
+  -24.86 dBFS, o-interior -26.47 dBFS.
+- Spectral centroid (whole-file Hann-windowed rFFT magnitude, the
+  exact 0.0.0.18.1 method): 3269.0 Hz vs the 19.6 baseline 3268.5 Hz
+  (+0.5 Hz). Power-weighted centroid 897.6 Hz (19.6: 909.3 Hz).
+  Numbers only; no threshold forced.
+- F2 trajectory across the o+U span (identical windows to 19.2/19.6):
+  [908.4, 936.0, 936.0, 1046.1, 1018.5, 1073.6], overall rise +165.2 Hz
+  (identical to baseline, monotonicity tolerance kept: largest step
+  down -27.5 Hz within 50 Hz). Final-80ms autocorr peak 0.7727
+  (identical to baseline, threshold 0.5).
+- l-interior notch (narrow-contrast, raw periodogram): pinned
+  170-210 ms window 15.86 dB, passing the >= 6 dB pin from 0.0.0.20.2
+  (round-3 Python profile read 16.35 dB on the same window; the 0.49 dB
+  gap is FFT-size/window-function method difference, both far above
+  the floor). Wide 182-222 ms window 2.63 dB, exactly reproducing the
+  0.0.0.20.2 reading (GOAT influx dilution, documented there).
+- Comparison vs 0.0.0.19.6 baseline (9792 samples / -3.56 dB /
+  3268.5 Hz / +165.2 rise): samples identical; halves diff -3.54 vs
+  -3.56 (delta 0.02 dB); centroid +0.5 Hz; F2 trajectory values and
+  rise identical; whole-file RMS -25.53 vs -25.71 (+0.18 dB second-order
+  shift from crossfade recombination after the spectral carve).
+  The demo file hash moved 34ef76e4... to 74525817... as intended:
+  the lateral zero carves the 2500 Hz band out of the l-window
+  (the 74525817... hash equals the 0.0.0.20.2 round-2 hello-r2.wav,
+  confirming no production change since 20.2).
+
+Eval self-test (non-gating, full eval owned by 0.0.0.17.4)
+- python python/validation/eval_reference.py --self-test (run with
+  `python`, which carries librosa): PASS (eval-selftest.log:
+  "SELF-TEST PASS: deterministic renders identical, distinct items
+  separated"). No full eval run.
+
+Python parity (python/validation/check_parity.py, PYTHONPATH=python)
+- 4/4 PASS: lookup-p, lookup-unknown, synthesize len=3242,
+  vowel-a f2/f1=0.120 (parity.log, identical numbers to 0.0.0.19.6).
+- Extension refreshed: target/release/articul_py.dll copied to
+  python/articul/_articul.pyd before the check (the checked-in .pyd
+  was stale: d35c... vs fresh 2fb3...); hashes equal after copy
+  (py-copy.log).
+
+Human-listening spot check (report-only, no thresholds)
+- Six eval corpus items rendered with the release CLI to
+  probe/0.0.0.20.3/spot/ (sample counts identical to 0.0.0.19.6:
+  fixed_sentence 8822, demo_hello 9792, creak_probe 6439, gain_probe
+  5072, cluster_probe 7785, pause_probe 8535). Meter:
+  probe/0.0.0.20.3/spot_measure.py, numbers in logs/0.0.0.20.3/spot.log.
+- Per-item RMS (dBFS) / centroid magnitude-weighted (Hz) /
+  notch in the middle-40ms window, same narrow-contrast metric (dB):
+  fixed_sentence -21.04 / 6522.6 / +2.08
+  demo_hello -25.53 / 3269.0 / +5.76 (mid window; pinned 170-210 ms
+  interior reads +15.86 -- see demo numbers above)
+  creak_probe -12.27 / 1231.1 / -8.54
+  gain_probe -29.08 / 4046.8 / -0.36
+  cluster_probe -19.56 / 6005.5 / -3.03
+  pause_probe -23.60 / 2794.7 / -13.60
+- Highlights: RMS and centroid reproduce the 19.6 table exactly except
+  demo_hello (-25.53 vs -25.71 dBFS, 3269.0 vs 3268.5 Hz -- the lateral
+  zero footprint, see above). The notch column confirms metric
+  specificity in the wild: only the lateral-bearing item scores
+  positive in its middle window (+5.76 dB, and +15.86 dB at the pinned
+  interior), while all five lateral-free items score at or below
+  +2.08 dB down to -13.60 dB (their 2.5 kHz core band runs hot without
+  a zero, exactly as the 0.0.0.20.2 coda control predicted).
+
+Archive note
+- Bundle 0.0.0.20 closed by this task. Live probe/0.0.0.20.1..0.0.0.20.3
+  moved under probe/archive/0.0.0.20/; live logs/0.0.0.20.1..0.0.0.20.3
+  moved under logs/archive/0.0.0.20/.
+
+Probe/log paths
+- Probe: probe/archive/0.0.0.20/0.0.0.20.3/ (regression-a.wav,
+  regression-b.wav, demo_measure.py, spot_measure.py, spot/, summary.txt)
+- Logs: logs/archive/0.0.0.20/0.0.0.20.3/ (fmt-check, clippy,
+  test-workspace, release, cli-regression, demo, demo-measure,
+  eval-selftest, py-copy, parity, spot)

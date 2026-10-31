@@ -1,0 +1,22 @@
+    Checking articul-phon v0.0.0 (E:\01_coding\ARTicul\crates\articul-phon)
+error: this `impl` can be derived
+  --> crates\articul-phon\src\lib.rs:50:1
+   |
+50 | / impl Default for Secondary {
+51 | |     fn default() -> Self {
+52 | |         Self {
+53 | |             labialized: false,
+...  |
+61 | | }
+   | |_^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.91.0/index.html#derivable_impls
+   = note: `-D clippy::derivable-impls` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::derivable_impls)]`
+help: replace the manual implementation with a derive attribute
+   |
+41 + #[derive(Default)]
+42 ~ pub struct Secondary {
+   |
+
+error: could not compile `articul-phon` (lib) due to 1 previous error

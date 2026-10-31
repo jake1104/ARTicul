@@ -1,0 +1,52 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+error[E0432]: unresolved import `articul_front::Stress`
+ --> crates\articul-front\tests\stress.rs:1:5
+  |
+1 | use articul_front::Stress;
+  |     ^^^^^^^^^^^^^^^^^^^^^ no `Stress` in the root
+
+error[E0061]: this function takes 4 arguments but 5 arguments were supplied
+  --> crates\articul-front\tests\stress.rs:86:15
+   |
+86 |     let out = plan(&seq, &marks, 1.0, 1.0, 120.0);
+   |               ^^^^       ------ unexpected argument #2
+   |
+note: function defined here
+  --> E:\01_coding\ARTicul\crates\articul-front\src\prosody.rs:20:8
+   |
+20 | pub fn plan(
+   |        ^^^^
+help: remove the extra argument
+   |
+86 -     let out = plan(&seq, &marks, 1.0, 1.0, 120.0);
+86 +     let out = plan(&seq, 1.0, 1.0, 120.0);
+   |
+
+error[E0061]: this function takes 4 arguments but 5 arguments were supplied
+  --> crates\articul-front\tests\stress.rs:96:15
+   |
+96 |     let out = plan(&seq, &[], 1.0, 1.0, 120.0);
+   |               ^^^^       --- unexpected argument #2 of type `&[_; 0]`
+   |
+note: function defined here
+  --> E:\01_coding\ARTicul\crates\articul-front\src\prosody.rs:20:8
+   |
+20 | pub fn plan(
+   |        ^^^^
+help: remove the extra argument
+   |
+96 -     let out = plan(&seq, &[], 1.0, 1.0, 120.0);
+96 +     let out = plan(&seq, 1.0, 1.0, 120.0);
+   |
+
+error[E0609]: no field `stress` on type `&ProsodicPhoneme`
+  --> crates\articul-front\tests\stress.rs:98:34
+   |
+98 |     assert!(out.iter().all(|u| u.stress == Stress::Unstressed));
+   |                                  ^^^^^^ unknown field
+   |
+   = note: available fields are: `phoneme`, `duration_ms`, `f0_hz`
+
+Some errors have detailed explanations: E0061, E0432, E0609.
+For more information about an error, try `rustc --explain E0061`.
+error: could not compile `articul-front` (test "stress") due to 4 previous errors

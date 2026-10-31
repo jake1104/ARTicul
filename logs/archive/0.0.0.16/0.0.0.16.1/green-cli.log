@@ -1,0 +1,31 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.93s
+     Running tests\cf0.rs (target\debug\deps\cf0-411ea725cfca2caf.exe)
+
+running 3 tests
+test cf0_threshold_selects_flat_or_decay ... ok
+test final_voiced_segment_runs_irregular ... FAILED
+test vowel_onset_after_voiceless_obstruent_runs_faster ... FAILED
+
+failures:
+
+---- final_voiced_segment_runs_irregular stdout ----
+
+thread 'final_voiced_segment_runs_irregular' (7812) panicked at crates\articul-cli\tests\cf0.rs:41:5:
+assertion failed: tail_iv.len() > 8 && early_iv.len() > 8
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- vowel_onset_after_voiceless_obstruent_runs_faster stdout ----
+
+thread 'vowel_onset_after_voiceless_obstruent_runs_faster' (28832) panicked at crates\articul-cli\tests\cf0.rs:82:5:
+f0 lift ratio=1.8156028
+
+
+failures:
+    final_voiced_segment_runs_irregular
+    vowel_onset_after_voiceless_obstruent_runs_faster
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p articul-cli --test cf0`

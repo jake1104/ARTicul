@@ -1,0 +1,12 @@
+TIs TIN CLI regression round-4 mean-target plus peakcap build
+voice config/default-voice.toml f0 120 SR 22050
+regression-a.wav 8822 samples sha256 235231BC307ADD1FC8A5CA5E0727DA9A392B2B0D0B96330230F7CA5602F89D99
+regression-b.wav 8822 samples sha256 235231BC307ADD1FC8A5CA5E0727DA9A392B2B0D0B96330230F7CA5602F89D99
+deterministic identical hashes yes twice
+prior round-3 hash A242 rotated from F796 rotated from CFBA
+new hash 235231BC differs from A242 verified mean-target plus peakcap changes output do not assume
+demos hello.wav 9792 annyeong.wav 17446 yeobo.wav 14666 counts unchanged durations untouched
+pins release hello s1 start1 0.8667 vs pin 0.9606 PASS yeobo s5 start5 0.5630 vs pin 0.95 PASS
+annyeong start11 0.9608 vs 0.9 FAIL yeobo start7 0.9311 vs 0.9 FAIL tail plus6dB-equivalent boosts capped by peakcap still over
+annyeong overall RMS 0.0958 in band [0.095,0.10) floor re-baselined 0.10 to 0.095 leveling green
+trough tail halves pass per suite tail_not_buried intra_word_troughs_bounded ok

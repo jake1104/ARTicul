@@ -1,0 +1,53 @@
+**********************
+PowerShell 기록 시작
+시작 시간: 20261028223942
+사용자 이름: JAKE-DESKTOP\jake1
+실행 사용자: JAKE-DESKTOP\jake1
+구성 이름: 
+컴퓨터: JAKE-DESKTOP (Microsoft Windows NT 10.0.26300.0)
+호스트 애플리케이션: C:\Program Files\PowerShell\7\pwsh.dll -NoLogo -NoProfile -NonInteractive -Command Start-Transcript -Path logs/0.0.0.22.1/probe.log -Append | Out-Null; Write-Output "=== 0.0.0.22.1 gap and loudness probe ==="; .\target\release\articul.exe synthesize --text '%an njVN "hasejo' --voice config/default-voice.toml --out probe/0.0.0.22.1/annyeong.wav; .\target\release\articul.exe synthesize --text '%jV"bo%se%jo' --voice config/default-voice.toml --out probe/0.0.0.22.1/yeobo.wav; Get-ChildItem probe/0.0.0.22.1, demo/annyeonghaseyo.wav, demo/yeoboseyo.wav | Select-Object Name, Length; Stop-Transcript | Out-Null; Get-Content logs/0.0.0.22.1/probe.log | Select-Object -Last 20
+프로세스 ID: 24412
+PSVersion: 7.6.8
+PSEdition: Core
+GitCommitId: 7.6.8
+OS: Microsoft Windows 10.0.26300
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+=== 0.0.0.22.1 gap and loudness probe ===
+
+
+
+**********************
+PowerShell 기록 끝
+종료 시간: 20261028223943
+**********************
+**********************
+PowerShell 기록 시작
+시작 시간: 20261028224127
+사용자 이름: JAKE-DESKTOP\jake1
+실행 사용자: JAKE-DESKTOP\jake1
+구성 이름: 
+컴퓨터: JAKE-DESKTOP (Microsoft Windows NT 10.0.26300.0)
+호스트 애플리케이션: C:\Program Files\PowerShell\7\pwsh.dll -NoLogo -NoProfile -NonInteractive -Command Start-Transcript -Path logs/0.0.0.22.1/probe.log -Append | Out-Null; Write-Output "=== 0.0.0.22.1 evidence segment ==="; Get-FileHash demo/annyeonghaseyo.wav -Algorithm SHA256 | Select-Object Hash; Get-FileHash probe/0.0.0.22.1/annyeong.wav -Algorithm SHA256 | Select-Object Hash; Get-FileHash demo/yeoboseyo.wav -Algorithm SHA256 | Select-Object Hash; Get-FileHash probe/0.0.0.22.1/yeobo.wav -Algorithm SHA256 | Select-Object Hash; python3 probe/0.0.0.22.1/analyze_gaps.py; Stop-Transcript | Out-Null; Write-Output transcript-done
+프로세스 ID: 22876
+PSVersion: 7.6.8
+PSEdition: Core
+GitCommitId: 7.6.8
+OS: Microsoft Windows 10.0.26300
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+=== 0.0.0.22.1 evidence segment ===
+
+
+**********************
+PowerShell 기록 끝
+종료 시간: 20261028224127
+**********************

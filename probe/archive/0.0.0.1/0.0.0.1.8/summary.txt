@@ -1,0 +1,6 @@
+Task 0.0.0.1.8 phonological rule adapter
+Tests: rules.rs 3 passed (devoice b, nasalize i, apply_rule shape)
+Rules read features only: place(), manner(), is_voiced(), kind match
+No base_symbol comparison in devoice_obstruent, nasalize_vowel, apply_rule
+Gates: fmt clean (empty fmt-check.log), clippy clean, cargo test workspace 13 passed, release build ok
+Logs: logs/0.0.0.1.8/

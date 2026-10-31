@@ -1,0 +1,6 @@
+Task 0.0.0.7.1 resonance inner-loop optimization
+Files: cpp/resonator/resonator.h, cpp/resonator/resonator.cpp, crates/articul-dsp/build.rs, crates/articul-dsp/src/cpp_bridge.rs
+Bridge: cc + extern C behind cargo feature cpp (Ruling: cxx replaced with cc to avoid codegen dependency; same parity guarantee. Cost if wrong: interface name differs from plan).
+Tests: cpp_parity.rs flag test always green; parity test cfg-gated, 2 passed with --features cpp, worst diff < 1e-5
+Default build needs no C++ compiler. cc auto-detected MSVC 14.44.
+Logs: logs/0.0.0.7.1/ (toolchain, red, green-default, green-cpp, green-cpp2)

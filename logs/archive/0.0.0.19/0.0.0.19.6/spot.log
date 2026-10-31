@@ -1,0 +1,6 @@
+fixed_sentence samples= 8822 rms= -21.04dBFS centroid=  6522.6Hz voiced_pyin=0.000 voiced_ac=0.194
+demo_hello     samples= 9792 rms= -25.71dBFS centroid=  3268.5Hz voiced_pyin=0.667 voiced_ac=0.486
+creak_probe    samples= 6439 rms= -12.27dBFS centroid=  1231.1Hz voiced_pyin=0.692 voiced_ac=0.682
+gain_probe     samples= 5072 rms= -29.08dBFS centroid=  4046.8Hz voiced_pyin=0.850 voiced_ac=0.562
+cluster_probe  samples= 7785 rms= -19.56dBFS centroid=  6005.5Hz voiced_pyin=0.516 voiced_ac=0.407
+pause_probe    samples= 8535 rms= -23.60dBFS centroid=  2794.7Hz voiced_pyin=0.735 voiced_ac=0.567

@@ -1,0 +1,12 @@
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\src\synth.rs:221:
+         g = g.max(-3.0);
+     }
+     g -= (index.min(12)) as f32;
+[31m-    if total > 0
+[0m[31m-        && index + 1 == total
+[0m[31m-        && !matches!(unit.phoneme.kind, SegmentKind::Vowel { .. })
+[0m[31m-    {
+[0m[32m+    if total > 0 && index + 1 == total && !matches!(unit.phoneme.kind, SegmentKind::Vowel { .. }) {
+[0m         g -= 4.0;
+     }
+     g = g.max(-12.0);

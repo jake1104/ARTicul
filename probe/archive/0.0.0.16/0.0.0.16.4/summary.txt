@@ -1,0 +1,8 @@
+Task 0.0.0.16.4 vowel reduction with nasal zeros
+TDD RED: new dsp vowel_reduction/nasal_branch tests failed to compile (no API); e2e nasal notch test failed on old code (m dip 0.304 == b dip 0.304: identical spectra confirmed).
+GREEN: reduced_vowel_targets (30% centralization toward schwa 520/1400 for unstressed; stressed unchanged) wired into spec_for; locus applied on reduced targets. nasal_parallel_branch replaced by true RBJ notch nasal_notch (fixed 1000Hz/150Hz zero) after measurement proved additive parallel resonators create a peak (+1.156) instead of a zero; NotchFilter added to dsp with step/process; synth applies it post-cascade for nasal/nasalized segments and in glide zones. Nasal consonants also get widened bandwidths via nasalize_bandwidths (murmur body).
+Rulings: additive parallel nasal branch rejected by measurement (creates +1 peak); fixed 1000Hz zero is a simplification (real zeros vary 500-1500Hz by context); fricative path exempts nasal handling; pause units pass through notch harmlessly (zeros).
+Gates: fmt clean, clippy -D warnings clean, test workspace green, release build green.
+Measured CLI regression: synthesize TIs TIN default voice: 8757 samples (unchanged: no duration change), sha256 5287a2fadae972a51eef95426394391d4b92b18a1e1e9f72c5f48adc67d5ab5a (was 7499...: reduction + nasal shaping), deterministic across runs. Python parity 4/4 PASS (synthesize len=3132, vowel-a f2/f1=0.120).
+Probe: probe/0.0.0.16.4/regression-a.wav, regression-b.wav (identical). No demo change.
+Logs: logs/0.0.0.16.4/ (red-*, green-*, fmt-check, clippy, test-workspace, release, cli-regression-a, cli-regression-b, cli-regression, py-build, py-copy, parity).

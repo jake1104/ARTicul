@@ -1,0 +1,8 @@
+=== Part D: spot table (six eval corpus items, report-only) ===
+fixed_sentence samples= 8822 rms= -20.59dBFS centroid=  6215.6Hz sha=9385ab30c7a9c46f
+demo_hello     samples= 9792 rms= -16.75dBFS centroid=  2289.6Hz sha=8d74b77f52e8bbef
+creak_probe    samples= 6439 rms= -10.03dBFS centroid=  1280.8Hz sha=1dadf81f42173e83
+gain_probe     samples= 5072 rms= -12.98dBFS centroid=  2027.9Hz sha=d5eff43fc9c9be01
+cluster_probe  samples= 7785 rms= -18.82dBFS centroid=  5161.1Hz sha=f3ac9931300ed5b9
+pause_probe    samples= 8535 rms= -13.68dBFS centroid=  1892.7Hz sha=dc2910ec61068d6a
+demo_hello spot-vs-live byte-identical: False (expected False: spot uses old input hE loU, live uses h@ loU)

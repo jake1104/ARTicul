@@ -1,0 +1,58 @@
+   Compiling articul-phon v0.0.0 (E:\01_coding\ARTicul\crates\articul-phon)
+error[E0432]: unresolved import `articul_phon::Phoneme`
+ --> crates\articul-phon\tests\feature_types.rs:1:5
+  |
+1 | use articul_phon::Phoneme;
+  |     ^^^^^^^^^^^^^^^^^^^^^ no `Phoneme` in the root
+
+error[E0433]: failed to resolve: could not find `Place` in `articul_phon`
+ --> crates\articul-phon\tests\feature_types.rs:7:23
+  |
+7 |         articul_phon::Place::Bilabial,
+  |                       ^^^^^ could not find `Place` in `articul_phon`
+
+error[E0433]: failed to resolve: could not find `Manner` in `articul_phon`
+ --> crates\articul-phon\tests\feature_types.rs:8:23
+  |
+8 |         articul_phon::Manner::Plosive,
+  |                       ^^^^^^ could not find `Manner` in `articul_phon`
+
+error[E0433]: failed to resolve: could not find `Place` in `articul_phon`
+  --> crates\articul-phon\tests\feature_types.rs:10:46
+   |
+10 |     assert_eq!(p.place(), Some(articul_phon::Place::Bilabial));
+   |                                              ^^^^^ could not find `Place` in `articul_phon`
+
+error[E0433]: failed to resolve: could not find `Manner` in `articul_phon`
+  --> crates\articul-phon\tests\feature_types.rs:11:47
+   |
+11 |     assert_eq!(p.manner(), Some(articul_phon::Manner::Plosive));
+   |                                               ^^^^^^ could not find `Manner` in `articul_phon`
+
+error[E0433]: failed to resolve: could not find `Place` in `articul_phon`
+  --> crates\articul-phon\tests\feature_types.rs:20:23
+   |
+20 |         articul_phon::Place::Bilabial,
+   |                       ^^^^^ could not find `Place` in `articul_phon`
+
+error[E0433]: failed to resolve: could not find `Manner` in `articul_phon`
+  --> crates\articul-phon\tests\feature_types.rs:21:23
+   |
+21 |         articul_phon::Manner::Nasal,
+   |                       ^^^^^^ could not find `Manner` in `articul_phon`
+
+error[E0433]: failed to resolve: could not find `VowelHeight` in `articul_phon`
+  --> crates\articul-phon\tests\feature_types.rs:31:23
+   |
+31 |         articul_phon::VowelHeight::Close,
+   |                       ^^^^^^^^^^^ could not find `VowelHeight` in `articul_phon`
+
+error[E0433]: failed to resolve: could not find `VowelBackness` in `articul_phon`
+  --> crates\articul-phon\tests\feature_types.rs:32:23
+   |
+32 |         articul_phon::VowelBackness::Front,
+   |                       ^^^^^^^^^^^^^ could not find `VowelBackness` in `articul_phon`
+
+Some errors have detailed explanations: E0432, E0433.
+For more information about an error, try `rustc --explain E0432`.
+error: could not compile `articul-phon` (test "feature_types") due to 9 previous errors

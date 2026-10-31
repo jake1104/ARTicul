@@ -1,0 +1,12 @@
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-phon\src\lib.rs:103:
+ 
+ #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+ pub enum SegmentKind {
+[31m-    Consonant { place: Place, manner: Manner },
+[0m[32m+    Consonant {
+[0m[32m+        place: Place,
+[0m[32m+        manner: Manner,
+[0m[32m+    },
+[0m     Vowel {
+         height: VowelHeight,
+         backness: VowelBackness,

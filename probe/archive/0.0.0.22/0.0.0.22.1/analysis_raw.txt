@@ -1,0 +1,38 @@
+== annyeong (probe/0.0.0.22.1/annyeong.wav): n=17446 sr=22050 dur=791.2ms peak=0.9000 rms=0.0715 ===
+-- silence runs (< -60dBFS, min 5ms): count=0
+-- 10ms-window RMS dips < -12dB vs preceding-100ms mean: count=10
+   pos=618.6ms depth=-18.6dB winlvl=-37.0dBFS
+   pos=628.6ms depth=-18.1dB winlvl=-36.7dBFS
+   pos=638.5ms depth=-18.2dB winlvl=-37.0dBFS
+   pos=648.5ms depth=-18.2dB winlvl=-37.1dBFS
+   pos=658.5ms depth=-18.3dB winlvl=-37.3dBFS
+   pos=668.5ms depth=-18.5dB winlvl=-37.9dBFS
+   pos=678.5ms depth=-18.6dB winlvl=-38.9dBFS
+   pos=758.3ms depth=-14.2dB winlvl=-51.8dBFS
+   pos=768.3ms depth=-20.3dB winlvl=-58.6dBFS
+   pos=778.2ms depth=-12.8dB winlvl=-51.9dBFS
+-- crest peak/RMS global=12.58
+   third0 crest=12.80 rms=0.0703
+   third1 crest=7.50 rms=0.0300
+   third2 crest=8.19 rms=0.0975
+-- band energy: 0-300Hz=0.066 300-3400Hz=0.245 4k+Hz=0.675 (rest 3.4-4k=0.014)
+-- halves=+2.95dB
+
+== yeobo (probe/0.0.0.22.1/yeobo.wav): n=14666 sr=22050 dur=665.1ms peak=0.9000 rms=0.0808 ===
+-- silence runs (< -60dBFS, min 5ms): count=1
+   start=647.4ms len=5.3ms (116 samples)
+-- 10ms-window RMS dips < -12dB vs preceding-100ms mean: count=7
+   pos=349.2ms depth=-15.1dB winlvl=-32.2dBFS
+   pos=359.2ms depth=-14.1dB winlvl=-31.3dBFS
+   pos=369.2ms depth=-14.4dB winlvl=-31.7dBFS
+   pos=379.1ms depth=-15.1dB winlvl=-32.5dBFS
+   pos=389.1ms depth=-14.5dB winlvl=-32.0dBFS
+   pos=399.1ms depth=-13.6dB winlvl=-31.4dBFS
+   pos=409.1ms depth=-13.6dB winlvl=-32.3dBFS
+-- crest peak/RMS global=11.14
+   third0 crest=12.64 rms=0.0619
+   third1 crest=7.22 rms=0.1246
+   third2 crest=25.99 rms=0.0144
+-- band energy: 0-300Hz=0.023 300-3400Hz=0.069 4k+Hz=0.895 (rest 3.4-4k=0.014)
+-- halves=-4.86dB
+

@@ -1,0 +1,40 @@
+Task 0.0.0.18.2 syllable-aware final fade
+
+Change: crates/articul-cli/src/synth.rs:326 apply_final_fade gains a third
+parameter final_unit_samples: Option<usize>; fade length is now
+k = min(150ms in samples, final-unit samples). None or 0 falls back to the
+previous 150ms-cap behavior. Floor -12dB and the 150ms cap are unchanged.
+Call site at synth.rs:537-542 computes the final unit length from
+units.last().duration_ms converted to samples and passes it in.
+Final -4dB in segment_gain_db and everything else are untouched.
+
+TDD: three unit tests in synth.rs:599-649
+(final_fade_confined_to_final_unit, final_fade_falls_back_without_unit_length,
+final_fade_caps_at_150ms_for_long_final_unit) build a flat synthetic buffer
+with a known final-unit boundary and assert pre-boundary samples are
+bit-identical post-fade, the fade starts at 1.0 at the boundary, and ends at
+the -12dB floor. RED: logs/0.0.0.18.2/red.log shows E0061 compile failure
+(old 2-arg function called with 3 args). GREEN: logs/0.0.0.18.2/green.log
+shows 3 passed, 0 failed.
+
+Gates: cargo fmt --check clean (logs/0.0.0.18.2/fmt-check.log, exit 0 after
+one auto-format pass on the call-site closure); cargo clippy --workspace
+--all-targets -- -D warnings clean (logs/0.0.0.18.2/clippy.log);
+cargo test --workspace all green, zero failures
+(logs/0.0.0.18.2/test-workspace.log), including the pre-existing balance.rs
+gate which stays green.
+
+Measured CLI regression: TIs TIN with config/default-voice.toml synthesized
+twice to probe/0.0.0.18.2/regression-a.wav and regression-b.wav: 8822
+samples each (count unchanged), sha256
+a790cf2bb809c3a483236c4a135140ca2fd5deabd14c0952a83628d6a54c2d82 for both,
+deterministic=True (logs/0.0.0.18.2/cli-regression.log). Hash changed vs
+edbf15c6... as expected: the final ng (~65ms) now gets a 65ms fade instead
+of the old 150ms fade reaching back into the stressed nucleus.
+
+Demo measurement (probe dir only, demo/hello.wav untouched): hE "loU with
+default voice to probe/0.0.0.18.2/hello-measure.wav, 8248 samples (count
+unchanged vs 8248 demo baseline); first-half RMS 803.0, second-half RMS
+1079.6, halves diff +2.57dB (second half louder). The stressed o nucleus now
+renders at full level with the fade confined to the final unit; halves sit
+within ~3dB, leaving the exact rebalance gate to task 0.0.0.18.4.

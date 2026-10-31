@@ -1,0 +1,47 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+   Compiling articul-py v0.0.0 (E:\01_coding\ARTicul\crates\articul-py)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 12.99s
+     Running unittests src\lib.rs (target\debug\deps\articul_cli-55cb57f443750be1.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\main.rs (target\debug\deps\articul-52988a17f5456c9f.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\glide.rs (target\debug\deps\glide-469a3e6cc7a240c0.exe)
+
+running 2 tests
+test vv_boundary_gets_long_glide_crossfade ... FAILED
+test consonant_boundary_keeps_short_crossfade ... FAILED
+
+failures:
+
+---- vv_boundary_gets_long_glide_crossfade stdout ----
+
+thread 'vv_boundary_gets_long_glide_crossfade' (28148) panicked at crates\articul-cli\tests\glide.rs:4:5:
+assertion `left == right` failed
+  left: 2359
+ right: 4190
+
+---- consonant_boundary_keeps_short_crossfade stdout ----
+
+thread 'consonant_boundary_keeps_short_crossfade' (24388) panicked at crates\articul-cli\tests\glide.rs:10:5:
+assertion `left == right` failed
+  left: 2691
+ right: 4234
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    consonant_boundary_keeps_short_crossfade
+    vv_boundary_gets_long_glide_crossfade
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-cli --test glide`

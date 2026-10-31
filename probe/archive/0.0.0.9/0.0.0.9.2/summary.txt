@@ -1,0 +1,6 @@
+Task 0.0.0.9.2 per-unit cascade rendering
+Change: synth renders each prosodic unit through its own CascadeFilter. Vowels use table F1-F3 (BW 80/100/120) plus voice F4-F6; consonants keep full voice cascade. 8ms linear crossfade at boundaries. default_pairs extended to 6 formants.
+Tests: synth_vowels.rs 1 passed (i high/low > 2, a low/high > 1.5 over 2000-2600 vs 600-900 Hz bands)
+Files: crates/articul-cli/src/synth.rs, tests/synth_vowels.rs (+rustfft dev-dep)
+Bugs during task: missing out.push (empty render), missing nasal/palatal suffix flags, test helper used truncated Hann window (n denominator over zero-padded buffer) which smeared spectra and masked the fix; fixed to full-length Hann. Diagnostic examples removed after use (probe discipline revert).
+Logs: logs/archive/0.0.0.9/0.0.0.9.2/ (red, green, clippy iterations)

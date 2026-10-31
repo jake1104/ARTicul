@@ -1,0 +1,6 @@
+Task 0.0.0.3.3 source spectrum validation
+Tests: spectrum.rs 1 passed (slope in -20..-4 dB/oct, near -12 target)
+Method: rustfft 8192 Hann FFT, log-log regression 100-4000Hz
+Python cross-check: probe/0.0.0.3.3/validate_spectrum.py slope -5.40 dB/oct in range True via scipy.signal.welch
+Gates: fmt clean, clippy clean (needless_range_loop fixed), test workspace 14 suites ok, release build ok
+Logs: logs/0.0.0.3.3/

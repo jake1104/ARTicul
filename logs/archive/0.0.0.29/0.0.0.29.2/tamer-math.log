@@ -1,0 +1,6 @@
+tamer math level_output synth.rs 1178-1198 hypothesis DEAD attenuation-only no code touched
+ring m sr*0.005 5ms sliding mean-square rsum local RMS r threshold t max(2.2*r,0.05*p0) p0 utterance peak
+only samples with abs above t are touched multiplier (t+(a-t)*0.08)/a = 0.08+0.92*(t/a) with t/a<1
+so gain in [0.08,1) strictly below 1 untouched samples gain exactly 1 nowhere above 1
+tamer can only attenuate spikes toward 0.08 floor it cannot amplify boundary transients into the clamp
+spark generator must be elsewhere makeup gains plus peak-pinning rescale already measured +4.6dB lifts STOP

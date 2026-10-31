@@ -1,0 +1,23 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.63s
+     Running tests\utterance.rs (target\debug\deps\utterance-0f2bba251dd69a70.exe)
+
+running 15 tests
+test comma_rhyme_uses_weak_tier ... ok
+test cluster_shortens_non_initial_consonants ... ok
+test comma_inserts_160ms_pause ... ok
+test durations_are_deterministic ... ok
+test final_rhyme_uses_strong_tier ... ok
+test disyllabic_word_gets_0_9 ... ok
+test function_word_shortens_unless_emphasized ... ok
+test no_lengthening_without_boundary ... ok
+test rate_compresses_sublinearly ... ok
+test single_onset_keeps_full_duration ... ok
+test slow_rate_compresses_sublinearly ... ok
+test trisyllabic_word_gets_0_8 ... ok
+test utterance_f0_matches_flat_plan ... ok
+test word_initial_consonant_lengthened ... ok
+test variance_stays_within_six_percent ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

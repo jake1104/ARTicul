@@ -1,0 +1,9 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+error[E0432]: unresolved import `articul_dsp::fricative_shaping`
+ --> crates\articul-dsp\tests\fricative_shaping.rs:1:5
+  |
+1 | use articul_dsp::fricative_shaping;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `fricative_shaping` in the root
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `articul-dsp` (test "fricative_shaping") due to 1 previous error

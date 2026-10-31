@@ -1,0 +1,71 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+error[E0061]: this function takes 2 arguments but 3 arguments were supplied
+   --> crates\articul-cli\src\synth.rs:599:9
+    |
+599 |         apply_final_fade(&mut buf, sr, Some(final_unit));
+    |         ^^^^^^^^^^^^^^^^               ---------------- unexpected argument #3 of type `Option<usize>`
+    |
+note: function defined here
+   --> crates\articul-cli\src\synth.rs:326:4
+    |
+326 | fn apply_final_fade(samples: &mut [f32], sample_rate: u32) {
+    |    ^^^^^^^^^^^^^^^^
+help: remove the extra argument
+    |
+599 -         apply_final_fade(&mut buf, sr, Some(final_unit));
+599 +         apply_final_fade(&mut buf, sr);
+    |
+
+error[E0061]: this function takes 2 arguments but 3 arguments were supplied
+   --> crates\articul-cli\src\synth.rs:616:9
+    |
+616 |         apply_final_fade(&mut a, sr, None);
+    |         ^^^^^^^^^^^^^^^^             ---- unexpected argument #3 of type `Option<_>`
+    |
+note: function defined here
+   --> crates\articul-cli\src\synth.rs:326:4
+    |
+326 | fn apply_final_fade(samples: &mut [f32], sample_rate: u32) {
+    |    ^^^^^^^^^^^^^^^^
+help: remove the extra argument
+    |
+616 -         apply_final_fade(&mut a, sr, None);
+616 +         apply_final_fade(&mut a, sr);
+    |
+
+error[E0061]: this function takes 2 arguments but 3 arguments were supplied
+   --> crates\articul-cli\src\synth.rs:617:9
+    |
+617 |         apply_final_fade(&mut b, sr, Some(0));
+    |         ^^^^^^^^^^^^^^^^             ------- unexpected argument #3 of type `Option<{integer}>`
+    |
+note: function defined here
+   --> crates\articul-cli\src\synth.rs:326:4
+    |
+326 | fn apply_final_fade(samples: &mut [f32], sample_rate: u32) {
+    |    ^^^^^^^^^^^^^^^^
+help: remove the extra argument
+    |
+617 -         apply_final_fade(&mut b, sr, Some(0));
+617 +         apply_final_fade(&mut b, sr);
+    |
+
+error[E0061]: this function takes 2 arguments but 3 arguments were supplied
+   --> crates\articul-cli\src\synth.rs:634:9
+    |
+634 |         apply_final_fade(&mut buf, sr, Some(n * 2));
+    |         ^^^^^^^^^^^^^^^^               ----------- unexpected argument #3 of type `Option<usize>`
+    |
+note: function defined here
+   --> crates\articul-cli\src\synth.rs:326:4
+    |
+326 | fn apply_final_fade(samples: &mut [f32], sample_rate: u32) {
+    |    ^^^^^^^^^^^^^^^^
+help: remove the extra argument
+    |
+634 -         apply_final_fade(&mut buf, sr, Some(n * 2));
+634 +         apply_final_fade(&mut buf, sr);
+    |
+
+For more information about this error, try `rustc --explain E0061`.
+error: could not compile `articul-cli` (lib test) due to 4 previous errors

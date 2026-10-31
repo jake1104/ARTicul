@@ -1,0 +1,27 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+error[E0425]: cannot find function `nasal_branch_needed` in crate `articul_dsp`
+  --> crates\articul-dsp\tests\nasal_frication.rs:26:26
+   |
+26 |     assert!(articul_dsp::nasal_branch_needed(&m));
+   |                          ^^^^^^^^^^^^^^^^^^^ not found in `articul_dsp`
+
+error[E0425]: cannot find function `nasal_branch_needed` in crate `articul_dsp`
+  --> crates\articul-dsp\tests\nasal_frication.rs:27:27
+   |
+27 |     assert!(!articul_dsp::nasal_branch_needed(&p));
+   |                           ^^^^^^^^^^^^^^^^^^^ not found in `articul_dsp`
+
+error[E0425]: cannot find function `frication_level_for` in crate `articul_dsp`
+  --> crates\articul-dsp\tests\nasal_frication.rs:34:26
+   |
+34 |     assert!(articul_dsp::frication_level_for(&s, 0.1) > articul_dsp::frication_level_for(&m, 0.1));
+   |                          ^^^^^^^^^^^^^^^^^^^ not found in `articul_dsp`
+
+error[E0425]: cannot find function `frication_level_for` in crate `articul_dsp`
+  --> crates\articul-dsp\tests\nasal_frication.rs:34:70
+   |
+34 |     assert!(articul_dsp::frication_level_for(&s, 0.1) > articul_dsp::frication_level_for(&m, 0.1));
+   |                                                                      ^^^^^^^^^^^^^^^^^^^ not found in `articul_dsp`
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `articul-dsp` (test "nasal_frication") due to 4 previous errors

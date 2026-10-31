@@ -1,0 +1,8 @@
+Task 0.0.0.17.2 Fujisaki command-response formalization
+TDD RED: new anticipation test (134.7 vs 146.9 expected) and convex-decay test (113.1 vs 115.6 expected) failed on the linear model; old baseline test needed re-derivation once nucleus anticipation lifted the utterance-initial segment.
+GREEN: phrase_st replaced with anchored exponential decay (+2st hold below pos 0.2, then -1+3*(e-e_end)/(1-e_end) with k=2, pinned at +2st start and -1st end); accent commands get 0.3*amp anticipatory lift on the preceding segment (nucleus included, uniform mechanism). Downstep amplitudes, nucleus +5 exactness, final -7 boundary tone, and 0.5^d tails unchanged.
+Rulings: anchor-preserving exponential keeps all old anchor exact values (pos 0/0.2/1.0 identical), so only genuinely new behavior needed new tests; anticipation is uniform across accent kinds including nucleus; final -7 stays absolute (deliberate step after long tails, as in 16.2).
+Gates: fmt clean, clippy -D warnings clean, test workspace green, release build green.
+Measured CLI regression: synthesize TIs TIN default voice: 8757 samples (unchanged: F0-only change), sha256 ca4b8921b0ce3a07c0d8ef6c2204fbb3a3608f12025769511489943dbd97b3b2 (was 02e79c...: convex phrase + anticipation), deterministic across runs. Python parity 4/4 PASS (synthesize len=3132, vowel-a f2/f1=0.120).
+Probe: probe/0.0.0.17.2/regression-a.wav, regression-b.wav (identical). No demo change.
+Logs: logs/0.0.0.17.2/ (red, green, green2, fmt-check, clippy, test-workspace, release, cli-regression-a, cli-regression-b, cli-regression, py-build, py-copy, parity).

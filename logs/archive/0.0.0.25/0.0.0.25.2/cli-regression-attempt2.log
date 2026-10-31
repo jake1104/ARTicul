@@ -1,0 +1,6 @@
+fixed sentence TIs TIN default voice 22050Hz (attempt-2 phase-continuity experiment)
+regression-attempt2-a: samples=8822 bytes=17688 sha256=983128093e89c303c516d1b31d6b57db14736924316d1eda4050bab736982211
+regression-attempt2-b: samples=8822 bytes=17688 sha256=983128093e89c303c516d1b31d6b57db14736924316d1eda4050bab736982211
+determinism byte-identical: True
+expected 8822 samples: True
+rotated vs 0.0.0.24.3 baseline 2AD4F841...: True (excitation phase paths changed as intended)

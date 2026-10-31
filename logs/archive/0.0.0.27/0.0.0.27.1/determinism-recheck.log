@@ -1,0 +1,10 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.23s
+     Running tests\determinism.rs (target\debug\deps\determinism-5ecc1cbbe32937b1.exe)
+
+running 2 tests
+test glide_regions_stay_finite ... ok
+test render_is_deterministic_across_runs ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+

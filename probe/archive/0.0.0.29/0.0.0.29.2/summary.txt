@@ -1,0 +1,96 @@
+0.0.0.29.2 cross-segment coherence normalization BLOCKED
+Status BLOCKED failing assert plus prior-gate breaks no further tuning.
+
+Half A formant interpolation across plus-minus 25 ms.
+Implementation crates/articul-cli/src/synth.rs.
+Helpers is_fricative_unit 821 is_fricative_work 828 cascade_f123 837 coherence_radius 844.
+DiphthongJob edge fields 535 to 551 render_diphthong edge morph 585 to 640 outer edges only GOAT internal glide untouched.
+Single coherent block 1204 to 1300 left right flags from neighbor Cascade specs fricative work excluded pauses excluded.
+filter_glide Cascade branch 215 to 230 retune subrange t0 0.5 minus n over 2204 t1 0.5 plus n over 2204 VV n 1102 gives 0 to 1 unchanged non-VV n 176 gives 0.42 to 0.58 continuous with per-segment ends.
+Fades lengths untouched fades_early reuse short 176 glide 1102.
+F0 durations gain-table leveler pause excitation envelope untouched.
+
+Half B RMS normalization toward utterance median.
+Implementation coherence_rms_normalize 848 to 930 call in render_units after level_output.
+Median over non-nuclear non-pause interior RMS edge 220 samples.
+Gains median over rms clamped plus-minus 6 dB nuclear Primary and pauses gain 1.
+Per-sample track exclusive regions plus linear blend interpolation then global peak rescale 0.989 clamp.
+Gain-table values untouched leveler code untouched.
+
+TDD red coherence.rs.
+Pre-fix nose-to-nose hello b2 231 vs cap 139 FAIL probe Table C match.
+Post-fix debug and release numbers below.
+Test asserts 13 caps copied from coherence.txt plus same-phoneme n to n 150 and RMS step 4 dB.
+Red ref logs 0.0.0.29.2 test-workspace.log coherence FAILED.
+Green ref none coherence still FAILED.
+
+Per-boundary nose F2 pre from probe 0.0.0.29.1 Table C vs post release measure-post.log vs caps.
+hello b2 pre 231 post 44 cap 139 PASS ratio 0.19.
+hello b3 pre 524 post 246 cap 314 PASS 0.47.
+annyeong b1 pre 699 post 701 cap 419 FAIL 1.00 no movement specs close 1475 vs 1500 harmonic flip artifact.
+annyeong b2 same-phoneme pre 27 post 27 cap 150 PASS.
+annyeong b3 pre 40 post 39 cap 24 FAIL 0.98 specs identical 1500 vs 1500 notch difference.
+annyeong b4 pre 257 post 96 cap 154 PASS 0.37.
+annyeong b5 pre 837 post 853 cap 502 FAIL 1.02 worse.
+annyeong b10 pre 723 post 859 cap 434 FAIL 1.19 worse peak flip to F3.
+annyeong b11 pre 1699 post 1232 cap 1019 FAIL 0.73 improved not enough.
+yeobo b1 pre 170 post 232 cap 102 FAIL 1.36 worse.
+yeobo b2 pre 502 post 209 cap 301 PASS 0.42.
+yeobo b3 pre 259 post 82 cap 155 PASS 0.32 release debug 687 flaky plosive tail.
+yeobo b6 pre 1232 post 163 cap 739 PASS 0.13.
+yeobo b7 pre 680 post 423 cap 408 FAIL 0.62 just over short-segment limit r 276.
+Fricative boundaries excluded b1 h-E b6 N-h b7 h-a b8 a-s b9 s-e yeobo b4 o-s b5 s-e stay as-is.
+GOAT outer edges only hello b3 l to merged o+U interpolated left edge never inside.
+
+RMS steps non-fricative pre vs post release.
+annyeong b11 pre minus 5.59 post minus 3.44 PASS.
+yeobo b6 pre minus 4.09 post minus 0.00 PASS.
+All other non-fricative already passing still passing max 3.42.
+Half B works fricative steps also compressed but gated out.
+
+Gates logs 0.0.0.29.2.
+fmt clean after fmt run fmt.log.
+clippy clean after clamp and allow attributes clippy.log.
+test workspace NO-FAIL-FAST test-workspace.log 4 failing targets.
+balance violator old input must violate got minus 4.2 vs minus 12.2 FAIL RMS norm fixes tail burial beyond 6 dB cap via filter gain side effect.
+clear_l coda must stay neutral got F1 306 FAIL morph leaks into word-final lateral.
+coherence 8 debug 7 release FAIL above.
+junction_nospark hello s1 unclamped 0.9625 vs pin 0.9606 FAIL rescale lifts spark.
+Passing leveling 3 3 halves diphthong h_onset clear_l onset lateral_zero 4 4 junction_smooth gain V2 voiced_fricative_mix click determinism.
+Release build ok build-release.log.
+CLI regression TIs TIN 8822 samples sha256 F79615A2A01DB54D86EE9A993207524DC5E405FCC2EC36FE4DCBE398A618F208 deterministic identical twice prior CFBA rotated.
+Demos 9792 17446 14666 counts unchanged hashes D751 D3F3 7DBA in cli-regression.log.
+
+Verdict BLOCKED.
+Formant lerp moves true-formant boundaries hello b2 b3 annyeong b4 yeobo b2 b3 b6 but cannot move artifact short-segment nasal harmonic boundaries 7 fails.
+Fixing balance violator clear_l coda and spark pins while keeping coherence would need new architecture outside single mechanism scope.
+No further tuning per fix-loop cap.
+
+Round-2 fix-round STOP at step 1 no code change.
+R1 recorded ruling quote: "balance violator gate is RETIRED as superseded (not weakened): utterance-median RMS normalization makes deliberately buried tail stays buried impossible BY DESIGN."
+R2 recorded ruling quote: "Formant interpolation is gated onset-only for laterals (mirror the existing !word_final clear-l condition): coda laterals keep their neutral targets."
+R1-R2 NOT applied implementation STOPPED per step-1 stop rule diagnosis in logs 0.0.0.29.2 diag-round2.log.
+NEEDS_CONTEXT path analysis b1-b5 nasal notch separate static NotchFilter no retune hook b10 base j target inverted F3 misassignment same-pattern lerp cannot reach.
+
+Round-3 PIVOT not a tune coordinator ruling quoted: nasal boundaries b1-b5 notch on-off plus F2 lowering into nasals is LINGUISTICALLY CORRECT coarticulation smoothing would make nasals less nasal; glide-to-vowel cliffs b11 j-to-o 1454Hz etc genuine phoneme contrast smoothing equals smearing 0.0.0.15.4 constraint; b3 same-phoneme 40Hz vs 24Hz cap below natural measurement floor over-tight; therefore cross-boundary formant interpolation mechanism DROPPED premise wrong RMS half stands b11 minus5.59 to minus3.44 b6 minus4.09 to 0.00 all LE 4dB.
+Removed formant half entirely is_fricative_unit is_fricative_work cascade_f123 coherence_radius DiphthongJob edge fields per-segment retune closures fades_early fric_work edge flags filter_glide subrange t0-t1 reverted to plain k over n VV-only behavior byte-identical pre-29.2 verified grep retune-lerp remain only filter_glide 223 234 plus GOAT diphthong 579.
+Kept RMS half exactly coherence_rms_normalize median non-nuclear plus-minus6dB nuclear Primary and pauses gain 1 per-sample track plus global 0.989 rescale.
+R1 STANDS violator test deleted from balance.rs pass gate untouched rationale tails must stay audible now enforced by coherence RMS LE4dB plus trough minus14dB plus tail 0.03 plus halves 5dB plus floor minus32dBFS. R2 MOOT interpolation gone coda keeps neutral targets by construction clear_l coda green.
+Gate replaced 13-cap nose asserts deleted same-phoneme only annyeong b2 n-to-n 27 LE 150 PASS exactly one same-phoneme pair pinned hello zero yeobo zero RMS LE4dB asserts unchanged all non-fricative PASS b11 minus3.36 b6 0.00.
+Post-revert release nose equals pre-29.2 Table C exactly b2 231 b1 699 b5 837 b10 723 b11 1699 yeobo b1 170 b2 502 b3 259 b6 1232 b7 680 filter path byte-identical behavior confirmed.
+Debug-vs-release yeobo b3 attempt-1 687 vs 82 consistent with time-varying per-sample filter retune coefficient recomputation plus state stepping order being sensitive to float reassociation vectorization between debug opt builds on near-silent plosive-tail spectra where peak-pick snaps between adjacent harmonics; seeded RNG excitation and same-binary determinism never implicated regression pairs byte-identical F796 twice A242 twice; no nondeterminism bug no fix mechanism dropped.
+STOP per step3 two other gates red coherence coda fmt clippy green. junction_nospark annyeong start11 0.9752 GE 0.9 yeobo start7 0.9402 GE 0.9 quiet-tail plus6dB boost lifts peaks over bound hello s1 0.8667 vs pin 0.9606 PASS yeobo s5 0.6346 vs pin 0.95 PASS. leveling demo_rms_audible annyeong 0.0994 LT 0.10 marginal 0.06dB peak-rescale after tail boost. No further tuning NEEDS_CONTEXT.
+Hash TIs TIN 8822 A24231FC1269851FB7A8B7086AC79D97AEC06A12B9756F3C67FB5CADD1EA1634 deterministic twice differs from F796 verified.
+
+Round-4 MEAN-target plus spark-safe peakcap coordinator ruling quoted: RMS step LE4dB gate and spark gate LT0.9 unclamped conflict under median-target normalization median sits below mean so total energy drops annyeong 0.1037 to 0.0994 gate floor 0.10 breached by 0.06dB while capped plus6dB boosts push tail peaks over 0.9 s11 0.9752 s7 0.9402.
+Rule change single mechanism normalization ONLY target utterance MEAN segment-RMS energy-preserving by construction gain_i min mean-rule-gain 0.9 over peak_i plus6dB cap minus6dB floor nuclear exclusion unchanged filtering gains leveler untouched.
+Floor re-baseline applied ONLY conditional band annyeong ENGINE RMS 0.0958 in [0.095,0.10) leveling floor 0.10 to 0.095 rationale still 1.9x above original 0.05 problem the gate was built for intent preserved file crates-articul-cli-tests-leveling.rs line 47.
+Results coherence same-phoneme annyeong b2 27 LE 150 PASS exactly one pair RMS non-fricative b11 minus4.32 FAIL 0.32dB over all others pass max minus3.14.
+Spark release s1 0.8667 vs pin 0.9606 PASS s5 0.5630 vs pin 0.95 PASS s11 0.9608 GE 0.9 FAIL s7 0.9311 GE 0.9 FAIL mean rule plus peakcap improved s11 0.9752 to 0.9608 but tail spike needs plus6dB for RMS while peakcap binds at plus5.3dB single scalar gain cannot satisfy both STOP no further tuning NEEDS_CONTEXT.
+Full suite plus fmt plus clippy green except coherence b11 and junction_nospark s11 s7 leveling green via re-baselined floor trough tail halves pass.
+Hash TIs TIN 8822 235231BC307ADD1FC8A5CA5E0727DA9A392B2B0D0B96330230F7CA5602F89D99 deterministic twice differs from A242 verified.
+
+Revert-2 tamer relocation reverted single move restored to pre-makeup position constants 2.2x 5ms 0.08 0.05peak byte-identical block grep single tamer site pre-wrms.
+Suite revert2-tests.log green except two known-red asserts coherence b11 RMS minus4.32 GT 4dB junction_nospark annyeong s11 0.9608 GE 0.9 clamped0 leveling 3-3 green re-baselined floor junction_smooth green fmt clippy clean.
+Exact failing asserts coherent_voice_quality RMS step annyeong b11 minus4.32dB no_fullscale_sparks_at_starts annyeong start11 unclamped 0.9608 bound 0.9 yeobo s7 unreached same cause class.
+TIs TIN hash continuity vs round-4 235231BC unverified no re-render per round instructions production code restored to round-4 state by construction.

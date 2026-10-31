@@ -1,0 +1,10 @@
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\tests\junction_nospark.rs:102:
+             };
+             if gi > 0 {
+                 pos -= fade.min(pos);
+[31m-                let (peak, clamped) =
+[0m[31m-                    window_unclamped_peak(&out, pos.min(out.len() - 1), win);
+[0m[32m+                let (peak, clamped) = window_unclamped_peak(&out, pos.min(out.len() - 1), win);
+[0m                 report.push_str(&format!(
+                     "{text} start{gi} pos={pos} unclamped={peak:.4} clamped={clamped}\n"
+                 ));

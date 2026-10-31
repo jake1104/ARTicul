@@ -1,0 +1,14 @@
+    Checking articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Checking articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Checking articul-py v0.0.0 (E:\01_coding\ARTicul\crates\articul-py)
+error: useless conversion to the same type: `pyo3::PyErr`
+ --> crates\articul-py\src\lib.rs:6:67
+  |
+6 | fn lookup_features<'py>(py: Python<'py>, symbol: &str) -> PyResult<Option<Bound<'py, PyDict>>> {
+  |                                                                   ^ help: consider removing
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.91.0/index.html#useless_conversion
+  = note: `-D clippy::useless-conversion` implied by `-D warnings`
+  = help: to override `-D warnings` add `#[allow(clippy::useless_conversion)]`
+
+error: could not compile `articul-py` (lib) due to 1 previous error

@@ -1,0 +1,12 @@
+Diff in \\?\E:\01_coding\ARTicul\crates\articul-cli\src\synth.rs:609:
+     }
+ }
+ 
+[31m-fn lateral_for_unit(
+[0m[31m-    unit: &ProsodicPhoneme,
+[0m[31m-    next: Option<&ProsodicPhoneme>,
+[0m[31m-) -> Option<(f32, f32)> {
+[0m[32m+fn lateral_for_unit(unit: &ProsodicPhoneme, next: Option<&ProsodicPhoneme>) -> Option<(f32, f32)> {
+[0m     let fricative = matches!(
+         unit.phoneme.manner(),
+         Some(Manner::Fricative | Manner::LateralFricative)

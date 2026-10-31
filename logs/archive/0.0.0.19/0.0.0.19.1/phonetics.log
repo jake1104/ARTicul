@@ -1,0 +1,49 @@
+=== 0.0.0.19.1 phonetics research transcript (PowerShell 5.1, read-only) ===
+2026-10-28T15:56:40+09:00 .. 2026-10-28T15:57:49+09:00
+
+$ Select-String -Path crates/articul-dsp/src/vowels.rs -Pattern 'OpenMid|CloseMid|NearClose|reduced_vowel|...'  (engine vowel table refs)
+Line 17: VowelHeight::NearClose => 400.0
+Line 18: VowelHeight::CloseMid => 480.0
+Line 20: VowelHeight::OpenMid => 600.0
+Line 37: (NearClose, Back, true) => 1000.0        # U F2 raw
+Line 43: (CloseMid, Back, true) => 950.0          # o F2 raw
+Line 44: (OpenMid, Front, false) => 1720.0        # E F2 raw
+Line 107: pub fn reduced_vowel_targets(...)
+Line 112: Some((f1 + 0.3 * (520.0 - f1), f2 + 0.3 * (1400.0 - f2), f3))
+
+$ python3 -c "..."  (engine hello segment values, computed from source tables)
+E (600.0, 1720.0, 2670.0) -> reduced (576.0, 1624.0, 2670.0)
+o (480.0, 950.0, 2300.0) -> stressed unchanged
+U (400.0, 1000.0, 2320.0) -> reduced (436.0, 1120.0, 2320.0)
+locus pull on E before alveolar l: F2 = 0.3*1624+1100 = 1587.2
+
+$ Select-String -Path crates/articul-front/src/prosody.rs -Pattern '...'  (duration/F0 refs)
+Line 45: NearClose => 125.0 | Line 46: CloseMid => 160.0 | Line 48: OpenMid => 155.0
+Line 60-61: Plosive|Ejective => 90.0; Nasal|Approximant|LateralApproximant => 90.0
+Line 156/404: Stress::Unstressed => 0.55
+Line 263: phrase_st(pos) + 5.0   (nucleus accent)
+Line 256/265: -7.0               (final fall)
+Line 272: tail += a.amp * 0.5f32.powf(...)  (accent decay tails)
+
+$ Select-String -Path probe/archive/0.0.0.18/0.0.0.18.1/frontend/plan.txt -Pattern hello rows
+utterance plan: h 78ms 134.70->131.94 | E 89ms 131.94->133.18 | l 50ms 133.18->155.55
+                o 148ms 155.55->80.09 | U 83ms 80.09->80.09 (total 448ms)
+
+$ Select-String -Path crates/articul-cli/src/synth.rs -Pattern gain/frication refs
+Line 199: Manner::Fricative => { ... } (-18 dB glottal vl base)
+Line 227: g = g.max(-12.0)   (gain floor => /h/ sits at -12 dB)
+Line 362: frication_noise(n, 0.3)  (/h/ raw excitation = white noise)
+
+$ h/l shaping + aspiration refs
+parallel.rs:100: vec![(1400.0, 400.0, 0.4), (2600.0, 600.0, 0.25)]  (non-sibilant /h/ shaping)
+source.rs:355: pub fn effective_aspiration(...)  (boosts only secondary.aspirated, not /h/)
+
+Web sources fetched 2026-10-28 (see hello-facts.md for full citations):
+- Praat manual "Create formant table (Peterson & Barney 1952)" (P&B design: 76 speakers, h_d context)
+- Wikipedia "Voiceless glottal fricative" (Ladefoged & Maddieson: [h] = vocal-tract shape of surrounding sounds)
+- EdUHK Phonetics & Phonology 2.2 (formants) and 3.2 (consonants: /h/ turbulence ~1000 Hz weakest; clear-l F1 200-400/F2 950-1500/F3 2700-3200; dark-l F1 350-550/F2 650-850/F3 2200-2700; approximants low F1, resonant, no turbulence)
+- UPenn Ling520 Lab5 (Hillenbrand 1995 male reference values) + Hillenbrand et-al-1995 dataset readme (formants at steady-state + 20/50/80%: vowels are dynamic)
+- Websearch: Rodrigues et al. 2019 (dark-l F2 ~1000 / light-l F2 >1500); Lee et al. 2014 (diphthong = formant movement, F2 dominant); P&B male grand-mean F0 ~132 Hz; Mackenzie 2018 (NA /l/ darkening/lightening); Gibbon 2017 (hello calling contour)
+
+$ Get-Item probe/0.0.0.19.1/phonetics/hello-facts.md  => 9153 bytes, written OK
+=== end transcript ===

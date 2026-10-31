@@ -1,0 +1,22 @@
+hello start1 pos=1544 unclamped=0.8667 clamped=0
+hello start2 pos=3330 unclamped=0.7835 clamped=0
+hello start3 pos=4698 unclamped=0.3893 clamped=1
+annyeong start1 pos=3771 unclamped=0.4077 clamped=0
+annyeong start2 pos=4742 unclamped=0.2341 clamped=0
+annyeong start3 pos=5558 unclamped=0.2344 clamped=0
+annyeong start4 pos=6286 unclamped=0.1958 clamped=0
+annyeong start5 pos=8050 unclamped=0.1779 clamped=0
+annyeong start6 pos=8866 unclamped=0.4060 clamped=0
+annyeong start7 pos=9837 unclamped=0.3370 clamped=0
+annyeong start8 pos=12263 unclamped=0.0881 clamped=0
+annyeong start9 pos=13366 unclamped=0.7124 clamped=0
+annyeong start10 pos=14645 unclamped=0.3056 clamped=0
+annyeong start11 pos=15373 unclamped=0.9608 clamped=1
+yeobo start1 pos=772 unclamped=0.5228 clamped=0
+yeobo start2 pos=3463 unclamped=0.2680 clamped=0
+yeobo start3 pos=4191 unclamped=0.4618 clamped=0
+yeobo start4 pos=6286 unclamped=0.0902 clamped=0
+yeobo start5 pos=7411 unclamped=0.5630 clamped=0
+yeobo start6 pos=10079 unclamped=0.3219 clamped=0
+yeobo start7 pos=10807 unclamped=0.9311 clamped=1
+annyeong overall RMS=0.0958

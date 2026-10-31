@@ -1,0 +1,88 @@
+Task 0.0.0.20.1 lateral cue probe (no code change)
+
+Render
+- Command: articul.exe synthesize --text 'hE "loU' --voice config/default-voice.toml
+  --out probe/0.0.0.20.1/hello.wav (default voice, sample rate 22050 Hz).
+- Output: 9792 samples = 444.08 ms, identical count to the 0.0.0.19.6 baseline.
+- l-window: nominal 167-237 ms (h 78 ms + E 89 ms per known plan, l 70 ms floor
+  from 0.0.0.19.4). No cheap fresh plan dump exists (plan lives behind the Rust
+  front-end API; no CLI dump flag), so the window is nominal AND cross-checked
+  against the measured 5 ms RMS envelope: loud E ~55-150 ms, quiet lateral
+  stretch ~155-210 ms, louder GOAT from ~210 ms. Interior analysis window
+  182-222 ms sits inside the quiet stretch in both frames. Glide smear
+  (8 ms consonant crossfade) explains the ~10 ms edge offsets.
+
+Interior steady-state spectrum (182-222 ms, N=882, Hann, 4096-pt DFT, 5.38 Hz bins)
+- F1 peak: 301.5 Hz at -25.79 dB (matches clear-l 300 Hz pole target).
+- F2 narrowband peak-pick in 900-1900 Hz: 915.2 Hz at -53.01 dB. ILL-DEFINED:
+  the 1-3 kHz envelope is flat, so any single-bin "F2" is arbitrary.
+- F3 narrowband peak-pick in 2200-3400 Hz: 2885.4 Hz at -54.04 dB. ILL-DEFINED
+  for the same reason (only ~1-3 dB above neighboring bins).
+- F1 bandwidth (-3 dB): 53.8 Hz (274.5-328.4 Hz).
+- 200 Hz-bin medians: 800-1000 -55.02, 1000-1200 -56.81, 1200-1400 -55.98,
+  1400-1600 -56.57, 1600-1800 -56.73, 1800-2000 -57.44, 2000-2200 -57.06,
+  2200-2400 -57.29, 2400-2600 -57.30, 2600-2800 -56.40, 2800-3000 -57.21,
+  3000-3200 -57.03, 3200-3400 -58.10, 3400-3600 -57.53 (dB).
+- Notch depth (median envelope, robust): F2-region (1.2-1.6 kHz) -56.35 dB,
+  valley (1.9-2.5 kHz) -57.16 dB, F3-region (2.5-2.9 kHz) -56.91 dB.
+  DEPTH = min(flanks) - valley = 0.25 dB.
+- Notch depth (raw narrowband, REJECTED): 2-3 kHz minimum -68.96 dB at
+  2842.4 Hz vs neighbor peaks -53.15 dB (1049.7 Hz) / -54.04 dB (2885.4 Hz)
+  gives 14.91 dB min-side. This is an artifact: the minimum sits 43 Hz from
+  the F3-bin maximum on the same peak skirt, and narrowband bins resolve
+  inter-harmonic gaps (F0 ~130 Hz vs 5.4 Hz bins), so raw min/max comparisons
+  are meaningless here. Verdict uses the 0.25 dB median-envelope number.
+
+Steady-state length (RMS plateau, 5 ms frames, l-window + 20 ms margins)
+- Interior median -26.54 dBFS; longest contiguous run within +/-1 dB: 3 frames
+  = 15.0 ms. The lateral never sits still: the 70 ms window is dominated by
+  the in-glide from E and the out-glide to GOAT (50 ms formant glide zones
+  overlap most of the window).
+
+Boundary slopes (2 ms RMS envelope, mean of 10 ms before vs 10 ms after)
+- E-l edge 167.0 ms: before -29.78 dB, after -30.07 dB, slope -0.29 dB/10 ms.
+- l-o edge 237.0 ms: before -24.43 dB, after -23.93 dB, slope +0.50 dB/10 ms.
+- Both boundaries are smeared nearly flat by the crossfade/glide overlap; no
+  sharp lateral onset/offset exists in the current render.
+
+Determinism
+- analyze_l.py run twice; logs/0.0.0.20.1/run1.log and run2.log byte-identical
+  (sha256 equal, 872 bytes each).
+
+Verdict
+- Median-envelope notch depth 0.25 dB < 3 dB threshold: antiformant zero ABSENT.
+  The cascade has clear-l poles (F1 300/1400/2800 per 0.0.0.19.4) but the
+  rendered lateral shows no valley between F2 and F3 regions, only a flat
+  ~-56 dB mid-band shelf ~30 dB below F1.
+- Proceed to 0.0.0.20.2 (lateral zero addition). No pivot to boundary
+  sharpening: boundaries are already maximally smeared by design (glide
+  overlap), and the missing cue is spectral (zero), not temporal.
+
+Nasal-zero reuse recipe for 0.0.0.20.2 (read-only inspection, no edits made)
+- Zero function: nasal_notch() in crates/articul-dsp/src/parallel.rs:54
+  (pub fn nasal_notch(phoneme: &articul_phon::Phoneme) -> Option<(f32, f32)>;
+  returns Some((1000.0, 150.0)) for nasals). New lateral_notch() goes beside
+  it with (2500.0, 300.0), or the 0.0.0.20.1 measured dip if different (it is
+  not: no dip measured, so keep the planned 2500/300).
+- Filter type: NotchFilter in crates/articul-dsp/src/cascade.rs:53-99, an RBJ
+  second-order IIR notch (NotchFilter::new(freq_hz, bw_hz, sample_rate),
+  step() per sample, process() per block). Reuse as-is.
+- Call-site shape in crates/articul-cli/src/synth.rs (mirror each one):
+  1. Import: lines 7 (nasal_notch) and 13 (NotchFilter) -- add lateral_notch
+     to the articul_dsp use list.
+  2. render_units Single branch: selection lines 768-772 (fricative/pause
+     guard yields None, else nasal_notch(&u.phoneme)) + application lines
+     799-802 (if let Some((f, b)) = nasal { let mut nf =
+     NotchFilter::new(f, b, sample_rate); s = nf.process(&s); }).
+  3. nasal_for_glide() lines 595-605 (same guard shape for glide zones) fed by
+     render_diphthong lines 579-582 and filter_glide nasal param lines
+     239-247 (warmup: nf.step over tail samples, then over output).
+  4. nasals vec (lines 729, 759, 805) threaded into concat_formant_glide,
+     picked up at line 625 (nasals[idx].or(nasals[idx-1])).
+- Condition difference vs nasal: nasal_notch keys on &Phoneme only, but the
+  lateral condition needs unit context -- mirror the clear-l gate in
+  spec_for lines 77-79: is_lateral_onset(unit) (synth.rs:50-52, matches
+  Manner::LateralApproximant on non-pause units) && !unit.word_final, plus
+  next-is-stressed-vowel (same neighbor routing as lines 720-722). Laterals
+  never reach the nasal path today (no lateral is nasal), so the new binding
+  can sit alongside the existing `nasal` binding without interaction.

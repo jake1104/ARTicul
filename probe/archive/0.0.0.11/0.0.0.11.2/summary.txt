@@ -1,0 +1,10 @@
+Task 0.0.0.11.2 intrinsic duration table with stress and voicing context
+TDD RED: 5 new prosody tests fail on old flat durations (e.g. fricative 80 vs expected 111).
+GREEN: intrinsic_ms table by kind (vowels 110-180 by height; fricatives 130/110 by voicing, plosives 90, nasals/approximants 90, trill 80, tap 30, others 80) + unstressed x0.55 + pre-voiceless-sonorant x0.78 with sublinear cap at 0.5 + MINDUR floor (vowels 40, fricatives 50, else 30); LengthMark multipliers and /rate scaling preserved; mismatched stress slices default to Unstressed.
+Tests: prosody.rs 9 passed (4 existing unchanged in intent, 5 new: intrinsic ordering incl. exact 111/77, unstressed shortening 99 vs 180, pre-voiceless with cap 90 vs 99, sublinear cap 80 steering check, MINDUR floor tap 30). Full workspace green, no warnings.
+Files: crates/articul-front/src/prosody.rs, crates/articul-front/tests/prosody.rs.
+Downstream impact (expected, re-baselined in 0.0.0.11.5): glide tests updated to compute segment lengths from plan() (fade constants 1102/176 pinned); synth/synth_vowels assertions hold (relative/shape-based).
+Measured CLI regression: synthesize 'TIs TIN' default voice: 7897 samples, sha256 99D0A3AF29887D1878AE5880A909E671C66E89938E6FEEC1AAB3CCB00D97927D, deterministic across runs (baseline 0.0.0.10.5 was 11468 samples: change is the intended shortening). Python parity 4/4 PASS on rebuilt bindings (synthesize len=3286, vowel-a f2/f1=0.118 in [0.05,0.5]).
+Gates: fmt clean, clippy -D warnings clean, test workspace green, release build green.
+Logs: logs/0.0.0.11.2/ (red, green, fmt-check, clippy, test-workspace, release, parity, cli-regression).
+Probe: probe/0.0.0.11.2/regression-a.wav, regression-b.wav (identical).

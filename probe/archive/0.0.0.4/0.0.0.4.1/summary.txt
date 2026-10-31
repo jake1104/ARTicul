@@ -1,0 +1,5 @@
+Task 0.0.0.4.1 cascade formant filter bank
+Tests: cascade.rs 3 passed (finite length, formant preference 500Hz over 1500Hz, decay tail<0.01)
+Bug found and fixed: resonator C coefficient sign, -(x).exp() vs (-x).exp() then negate. f32 gave C=-1.017 unstable, fixed to -0.983.
+Files: crates/articul-dsp/src/cascade.rs
+Logs: logs/0.0.0.4.1/

@@ -1,0 +1,41 @@
+mark,codepoint,category,effect
+̥,U+0325,Diacritic,voiceless
+̬,U+032C,Diacritic,voiced
+̪,U+032A,Diacritic,dental
+̺,U+033A,Diacritic,apical
+̻,U+033B,Diacritic,laminal
+̹,U+0339,Diacritic,more rounded
+̜,U+031C,Diacritic,less rounded
+̟,U+031F,Diacritic,advanced
+̠,U+0320,Diacritic,retracted
+̈,U+0308,Diacritic,centralized
+̽,U+033D,Diacritic,mid-centralized
+̩,U+0329,Diacritic,syllabic
+̯,U+032F,Diacritic,non-syllabic
+˞,U+02DE,Diacritic,rhoticity
+ʷ,U+02B7,Diacritic,labialized
+ʲ,U+02B2,Diacritic,palatalized
+ˠ,U+02E0,Diacritic,velarized
+ˤ,U+02E4,Diacritic,pharyngealized
+̴,U+0334,Diacritic,velarized or pharyngealized
+̝,U+031D,Diacritic,raised
+̞,U+031E,Diacritic,lowered
+̘,U+0318,Diacritic,advanced tongue root
+̙,U+0319,Diacritic,retracted tongue root
+̃,U+0303,Diacritic,nasalized
+̳,U+0333,Diacritic,interrupted release
+ʰ,U+02B0,Diacritic,aspirated
+̚,U+031A,Diacritic,no audible release
+ˈ,U+02C8,Suprasegmental,primary stress
+ˌ,U+02CC,Suprasegmental,secondary stress
+ː,U+02D0,Suprasegmental,long
+ˑ,U+02D1,Suprasegmental,half-long
+.,U+002E,Suprasegmental,syllable break
+|,U+007C,Suprasegmental,minor group
+‖,U+2016,Suprasegmental,major group
+‿,U+203F,Suprasegmental,l linking
+˥,U+02E5,Tone,extra-high
+˦,U+02E6,Tone,high
+˧,U+02E7,Tone,mid
+˨,U+02E8,Tone,low
+˩,U+02E9,Tone,extra-low

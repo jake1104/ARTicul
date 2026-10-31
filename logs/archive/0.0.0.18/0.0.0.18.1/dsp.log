@@ -1,0 +1,5 @@
+0.0.0.18.1 dsp gain-path audit
+probe wavs (read-only wave parse):
+0.0.0.16.1 regression-a.wav: sr=22050 ch=1 bits=16 peak=0.9 rms=0.08836 zc_rate=0.2443
+0.0.0.15.4 regression-a.wav: peak=0.9 rms=0.08839 zc_rate=0.2527 n=8536
+conclusion: final WAV peak is exactly 0.9 in both archives, normalize_peak is the peak-setter; no wraparound signature

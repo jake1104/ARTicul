@@ -1,0 +1,12 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.26s
+     Running tests\cf0.rs (target\debug\deps\cf0-51ae5f1fd637ba29.exe)
+
+running 4 tests
+test onset_factor_decays_exponentially ... ok
+test onset_factor_starts_at_plus_ten_percent ... ok
+test cf0_onset_keeps_length_and_stays_finite ... ok
+test cf0_onset_adds_periods_up_front ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

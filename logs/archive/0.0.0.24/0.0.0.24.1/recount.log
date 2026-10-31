@@ -1,0 +1,31 @@
+== recount run ==
+== hello wavlen=9792
+   interior-control n=7 median=2.176 max=8.445
+   b1 h->E pos=70.0ms type=CASCADE-SHORT-GLIDE gain=5.5dB realised=-1.1dB f0=+0.000st mfcc=8.869
+   b2 E->l pos=151.0ms type=CASCADE-SHORT-GLIDE gain=4.5dB realised=-2.9dB f0=+0.000st mfcc=9.678
+   b3 l->o pos=213.1ms type=GOAT-EDGE gain=6.0dB realised=+3.4dB f0=+0.000st mfcc=5.559
+== annyeong wavlen=17446
+   interior-control n=7 median=1.624 max=7.756
+   b1 a->n pos=171.0ms type=CASCADE-SHORT-GLIDE gain=9.0dB realised=-5.2dB f0=+0.000st mfcc=3.244
+   b2 n->n pos=215.1ms type=CASCADE-SHORT-GLIDE gain=1.0dB realised=+0.1dB f0=+0.000st mfcc=1.695
+   b3 n->j pos=252.1ms type=CASCADE-SHORT-GLIDE gain=0.0dB realised=+0.8dB f0=+0.000st mfcc=2.758
+   b4 j->V pos=285.1ms type=CASCADE-SHORT-GLIDE gain=2.5dB realised=-0.1dB f0=+0.000st mfcc=3.249
+   b5 V->N pos=365.1ms type=CASCADE-SHORT-GLIDE gain=4.5dB realised=-2.3dB f0=+0.000st mfcc=3.334
+   b6 N->h pos=402.1ms type=CASCADE-SHORT-GLIDE gain=0.0dB realised=-2.4dB f0=+0.000st mfcc=11.456
+   b7 h->a pos=446.1ms type=CASCADE-SHORT-GLIDE gain=5.0dB realised=+1.3dB f0=+0.000st mfcc=10.131
+   b8 a->s pos=556.1ms type=MIXED-LINEAR gain=5.0dB realised=+5.9dB f0=+0.000st mfcc=21.676
+   b9 s->e pos=606.2ms type=MIXED-LINEAR gain=0.0dB realised=-17.5dB f0=+0.000st mfcc=20.810
+   b10 e->j pos=664.2ms type=CASCADE-SHORT-GLIDE gain=0.0dB realised=-2.8dB f0=+0.000st mfcc=7.819
+   b11 j->o pos=697.2ms type=CASCADE-SHORT-GLIDE gain=0.0dB realised=-0.3dB f0=+0.000st mfcc=9.873
+== yeobo wavlen=14666
+   interior-control n=8 median=4.914 max=12.679
+   b1 j->V pos=35.0ms type=CASCADE-SHORT-GLIDE gain=6.0dB realised=+5.0dB f0=+0.000st mfcc=4.991
+   b2 V->b pos=157.1ms type=CASCADE-SHORT-GLIDE gain=1.0dB realised=-2.6dB f0=+0.000st mfcc=4.619
+   b3 b->o pos=190.1ms type=CASCADE-SHORT-GLIDE gain=1.0dB realised=+0.2dB f0=+0.000st mfcc=4.323
+   b4 o->s pos=285.1ms type=MIXED-LINEAR gain=6.0dB realised=+6.6dB f0=+0.000st mfcc=19.205
+   b5 s->e pos=336.1ms type=MIXED-LINEAR gain=4.0dB realised=-14.6dB f0=+0.000st mfcc=18.584
+   b6 e->j pos=457.1ms type=CASCADE-SHORT-GLIDE gain=7.0dB realised=-7.3dB f0=+0.000st mfcc=4.140
+   b7 j->o pos=490.1ms type=CASCADE-SHORT-GLIDE gain=5.0dB realised=+3.9dB f0=+0.000st mfcc=8.182
+SUMMARY total=21 CASCADE-SHORT-GLIDE=16 GOAT-EDGE=1 MIXED-LINEAR=4
+SUMMARY cascade-short n=16 mean_mfcc=6.148
+SUMMARY mixed-linear n=4 mean_mfcc=20.069

@@ -1,0 +1,134 @@
+2026-10-30T16:13:26.4992497+09:00
+== task 0.0.0.31.1 background texture probe ==
+hello rc=0 samples=9792 sha=cfe3b42cfd194fd4
+annyeong rc=0 samples=17446 sha=7dcef8d8b6275cfa
+yeobo rc=0 samples=14666 sha=2da3bc3044fb1da4
+identity hello.wav vs demo/hello.wav: True samples=9792
+identity annyeong.wav vs demo/annyeonghaseyo.wav: True samples=17446
+identity yeobo.wav vs demo/yeoboseyo.wav: True samples=14666
+done
+--- texture.py (whole-segment, glide-confounded baseline) ---
+== hello wav=9792 predicted=9792 OK
+seg sym cls creak interior_n depth lag noise_floor hp_rms rms hf_frac tilt_db
+u0  h   F    False 1280      0.4093 91   0.191506 0.019857 0.213470 0.00865    4.98
+u1  E   V    False 1522      0.7652 154  0.067542 0.003282 0.210612 0.00023   36.12
+u2  l   S    False 1104      0.7892 153  0.028676 0.004611 0.186097 0.00059   32.28
+u3  o   V    False 2823      0.2043 233  0.165311 0.002169 0.166055 0.00016   37.94
+u4  U   V    False 1391      0.8008 266  0.015684 0.001842 0.116095 0.00022   36.50
+VOICED depth: mean=0.639854 std=0.251797 CV=0.3935 min=0.204296 max=0.800788
+VOICED noise_floor: mean=0.069303 std=0.058622 CV=0.8459 min=0.015684 max=0.165311
+VOICED hp_rms: mean=0.002976 std=0.001085 CV=0.3645 min=0.001842 max=0.004611
+VOICED hf_frac: mean=0.000302 std=0.000168 CV=0.5582 min=0.000160 max=0.000589
+VOICED tilt_db: mean=35.71 std=2.09 min=32.28 max=37.94 range=5.66
+FRIC-REF hf_frac: 0.00865
+FRIC-REF noise_floor: 0.19151
+FRIC-REF tilt: 4.97950
+FRIC-REF depth: 0.40934
+== annyeong wav=17446 predicted=17446 OK
+seg sym cls creak interior_n depth lag noise_floor hp_rms rms hf_frac tilt_db
+u0  a   V    False 3507      0.8450 153  0.022690 0.001523 0.094215 0.00025   35.64
+u1  n   S    False 707       0.7720 158  0.008227 0.002467 0.078822 0.00094   30.18
+u2  n   S    False 552       0.7023 163  0.010038 0.000843 0.076054 0.00012   39.21
+u3  j   S    False 464       0.6215 169  0.012487 0.001817 0.085313 0.00044   33.49
+u4  V   V    False 1500      0.8034 175  0.028366 0.002135 0.081195 0.00065   31.47
+u5  N   S    False 552       0.6766 173  0.015471 0.001330 0.071403 0.00032   34.88
+u6  h   F    False 707       0.3703 91   0.067288 0.006563 0.077841 0.00711   14.67
+u7  a   V    False 2162      0.3570 127  0.081233 0.001171 0.086189 0.00018   37.04
+u8  s   F    False 839       0.1169 208  0.263554 0.252527 0.256248 0.97114  -31.31
+u9  e   V    False 1015      0.7721 167  0.015707 0.000509 0.057425 0.00007   41.19
+u10 j   S    False 464       0.4788 218  0.023237 0.000461 0.050397 0.00008   41.15
+u11 o   V    True  1633      0.6699 276  0.010379 0.000546 0.026487 0.00037   34.30
+VOICED depth: mean=0.669862 std=0.143947 CV=0.2149 min=0.356964 max=0.844980
+VOICED noise_floor: mean=0.022784 std=0.020458 CV=0.8979 min=0.008227 max=0.081233
+VOICED hp_rms: mean=0.001280 std=0.000671 CV=0.5238 min=0.000461 max=0.002467
+VOICED hf_frac: mean=0.000341 std=0.000262 CV=0.7675 min=0.000073 max=0.000938
+VOICED tilt_db: mean=35.86 std=3.60 min=30.18 max=41.19 range=11.01
+FRIC-REF hf_frac: 0.00711 0.97114
+FRIC-REF noise_floor: 0.06729 0.26355
+FRIC-REF tilt: 14.67032 -31.31176
+FRIC-REF depth: 0.37031 0.11689
+== yeobo wav=14666 predicted=14666 OK
+seg sym cls creak interior_n depth lag noise_floor hp_rms rms hf_frac tilt_db
+u0  j   S    False 508       0.6852 155  0.012406 0.001743 0.075474 0.00052   32.74
+u1  V   V    False 2427      0.9244 149  0.008022 0.002018 0.109591 0.00033   34.61
+u2  b   P    False 464       0.6294 141  0.025696 0.004497 0.095624 0.00218   26.50
+u3  o   V    False 1831      0.7063 141  0.039371 0.002947 0.098742 0.00086   30.59
+u4  s   F    False 861       0.1199 126  0.298493 0.284610 0.288106 0.97587  -35.26
+u5  e   V    False 2404      0.5874 174  0.047500 0.001541 0.077510 0.00037   34.04
+u6  j   S    False 464       0.4864 218  0.023508 0.000578 0.048390 0.00013   38.82
+u7  o   V    True  3419      0.7909 276  0.014061 0.000545 0.033709 0.00023   36.36
+VOICED depth: mean=0.696767 std=0.139739 CV=0.2006 min=0.486374 max=0.924440
+VOICED noise_floor: mean=0.024145 std=0.014590 CV=0.6043 min=0.008022 max=0.047500
+VOICED hp_rms: mean=0.001562 std=0.000833 CV=0.5333 min=0.000545 max=0.002947
+VOICED hf_frac: mean=0.000407 std=0.000236 CV=0.5798 min=0.000129 max=0.000861
+VOICED tilt_db: mean=34.53 std=2.60 min=30.59 max=38.82 range=8.23
+FRIC-REF hf_frac: 0.97587
+FRIC-REF noise_floor: 0.29849
+FRIC-REF tilt: -35.25955
+FRIC-REF depth: 0.11991
+--- texture_frames.py (40ms frames, verdict numbers) ---
+== hello (ranges sample-exact, total=9792)
+seg sym cls creak nfr depth noise_floor hp_rms hp_depth hf_frac tilt_db rms
+u0  h   F    False 1   0.3748 0.137843 0.017754 0.3744 0.01063    3.66 0.172229
+u1  E   V    False 2   0.7706 0.048472 0.004143 0.2903 0.00036   34.30 0.215590
+u2  l   S    False 1   0.7818 0.025125 0.003422 0.0321 0.00034   34.67 0.182520
+u3  o   V    False 5   0.5427 0.081417 0.003163 0.0757 0.00066   36.91 0.164528
+u4  U   V    False 2   0.6939 0.015895 0.001222 0.0771 0.00011   40.83 0.117961
+VOICED depth: mean=0.697273 std=0.095452 CV=0.1369 min=0.542683 max=0.781849 x=1.44
+VOICED noise_floor: mean=0.042728 std=0.025297 CV=0.5920 min=0.015895 max=0.081417 x=5.12
+VOICED hp_rms: mean=0.002987 std=0.001081 CV=0.3617 min=0.001222 max=0.004143 x=3.39
+VOICED hp_depth: mean=0.118823 std=0.100647 CV=0.8470 min=0.032144 max=0.290313 x=9.03
+VOICED hf_frac: mean=0.000367 std=0.000197 CV=0.5359 min=0.000108 max=0.000663 x=6.13
+VOICED tilt_db: mean=36.68 std=2.60 min=34.30 max=40.83 range=6.53
+FRIC-REF hf_frac: 0.01063
+FRIC-REF hp_depth: 0.37443
+FRIC-REF noise_floor: 0.13784
+FRIC-REF tilt: 3.66368
+FRIC-REF depth: 0.37475
+== annyeong (ranges sample-exact, total=17446)
+seg sym cls creak nfr depth noise_floor hp_rms hp_depth hf_frac tilt_db rms
+u0  a   V    False 6   0.8031 0.016855 0.002625 0.2316 0.00087   31.11 0.092594
+u1  n   S    False 1   0.7720 0.008227 0.002467 0.0354 0.00094   30.18 0.078822
+u2  n   S    False 1   0.7023 0.010038 0.000843 0.1126 0.00012   39.21 0.076054
+u3  j   S    False 1   0.6215 0.012487 0.001817 0.1611 0.00044   33.49 0.085313
+u4  V   V    False 2   0.7394 0.028935 0.001569 0.2728 0.00041   34.72 0.080229
+u5  N   S    False 1   0.6766 0.015471 0.001330 0.0586 0.00032   34.88 0.071403
+u6  h   F    False 1   0.3703 0.067288 0.006563 0.3879 0.00711   14.67 0.077841
+u7  a   V    False 3   0.5831 0.039022 0.002399 0.1280 0.00088   31.35 0.086407
+u8  s   F    False 1   0.1169 0.263554 0.252527 0.1192 0.97114  -31.31 0.256248
+u9  e   V    False 1   0.7591 0.015254 0.000960 0.3137 0.00028   35.42 0.056481
+u10 j   S    False 1   0.4788 0.023237 0.000461 0.3744 0.00008   41.15 0.050397
+u11 o   V    True  2   0.5493 0.008341 0.000586 0.0528 0.00044   34.32 0.028670
+VOICED depth: mean=0.668524 std=0.101448 CV=0.1517 min=0.478840 max=0.803051 x=1.68
+VOICED noise_floor: mean=0.017787 std=0.009414 CV=0.5293 min=0.008227 max=0.039022 x=4.74
+VOICED hp_rms: mean=0.001506 std=0.000760 CV=0.5049 min=0.000461 max=0.002625 x=5.70
+VOICED hp_depth: mean=0.174101 std=0.112250 CV=0.6447 min=0.035390 max=0.374401 x=10.58
+VOICED hf_frac: mean=0.000476 std=0.000299 CV=0.6271 min=0.000075 max=0.000938 x=12.42
+VOICED tilt_db: mean=34.58 std=3.29 min=30.18 max=41.15 range=10.97
+FRIC-REF hf_frac: 0.00711 0.97114
+FRIC-REF hp_depth: 0.38789 0.11918
+FRIC-REF noise_floor: 0.06729 0.26355
+FRIC-REF tilt: 14.67032 -31.31176
+FRIC-REF depth: 0.37031 0.11689
+== yeobo (ranges sample-exact, total=14666)
+seg sym cls creak nfr depth noise_floor hp_rms hp_depth hf_frac tilt_db rms
+u0  j   S    False 1   0.6852 0.012406 0.001743 0.0420 0.00052   32.74 0.075474
+u1  V   V    False 4   0.8280 0.007776 0.001438 0.0783 0.00019   37.80 0.108487
+u2  b   P    False 1   0.6294 0.025696 0.004497 0.0318 0.00218   26.50 0.095624
+u3  o   V    False 3   0.7827 0.016633 0.003604 0.0398 0.00125   29.38 0.102535
+u4  s   F    False 1   0.1199 0.298493 0.284610 0.1217 0.97587  -35.26 0.288106
+u5  e   V    False 4   0.7332 0.023896 0.002043 0.2794 0.00071   31.92 0.078644
+u6  j   S    False 1   0.4864 0.023508 0.000578 0.3386 0.00013   38.82 0.048390
+u7  o   V    True  6   0.5084 0.011696 0.001017 0.0657 0.00096   34.35 0.033763
+VOICED depth: mean=0.670652 std=0.130212 CV=0.1942 min=0.486374 max=0.828038 x=1.70
+VOICED noise_floor: mean=0.015986 std=0.006031 CV=0.3772 min=0.007776 max=0.023896 x=3.07
+VOICED hp_rms: mean=0.001737 std=0.000960 CV=0.5527 min=0.000578 max=0.003604 x=6.24
+VOICED hp_depth: mean=0.140621 std=0.121014 CV=0.8606 min=0.039803 max=0.338626 x=8.51
+VOICED hf_frac: mean=0.000626 std=0.000398 CV=0.6369 min=0.000129 max=0.001246 x=9.67
+VOICED tilt_db: mean=34.17 std=3.29 min=29.38 max=38.82 range=9.43
+FRIC-REF hf_frac: 0.97587
+FRIC-REF hp_depth: 0.12168
+FRIC-REF noise_floor: 0.29849
+FRIC-REF tilt: -35.25955
+FRIC-REF depth: 0.11991
+--- done ---

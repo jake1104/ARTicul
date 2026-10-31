@@ -1,0 +1,21 @@
+   Compiling articul-config v0.0.0 (E:\01_coding\ARTicul\crates\articul-config)
+error[E0433]: failed to resolve: could not find `VoiceConfig` in `articul_config`
+  --> crates\articul-config\tests\voice_config.rs:11:31
+   |
+11 |     let cfg = articul_config::VoiceConfig::load(&config_path("default-voice.toml"))
+   |                               ^^^^^^^^^^^ could not find `VoiceConfig` in `articul_config`
+
+error[E0433]: failed to resolve: could not find `VoiceConfig` in `articul_config`
+  --> crates\articul-config\tests\voice_config.rs:20:31
+   |
+20 |     let cfg = articul_config::VoiceConfig::load(&config_path("klatt-voice.toml"))
+   |                               ^^^^^^^^^^^ could not find `VoiceConfig` in `articul_config`
+
+error[E0433]: failed to resolve: could not find `VoiceConfig` in `articul_config`
+  --> crates\articul-config\tests\voice_config.rs:29:31
+   |
+29 |     let err = articul_config::VoiceConfig::parse_str(bad).unwrap_err();
+   |                               ^^^^^^^^^^^ could not find `VoiceConfig` in `articul_config`
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `articul-config` (test "voice_config") due to 3 previous errors

@@ -1,0 +1,34 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.79s
+     Running tests\locus.rs (target\debug\deps\locus-b7d16302cf350291.exe)
+
+running 7 tests
+test alveolar_pulls_f2_up ... ok
+test alveolar_slope_is_flat ... FAILED
+test non_neighbor_leaves_targets_alone ... ok
+test velar_raises_f2_and_pinches_f3 ... ok
+test labial_slope_is_steep ... ok
+test velar_slope_is_middle ... FAILED
+test labial_pulls_f2_down ... ok
+
+failures:
+
+---- alveolar_slope_is_flat stdout ----
+
+thread 'alveolar_slope_is_flat' (24232) panicked at crates\articul-dsp\tests\locus.rs:59:5:
+k=0.7
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- velar_slope_is_middle stdout ----
+
+thread 'velar_slope_is_middle' (10924) panicked at crates\articul-dsp\tests\locus.rs:66:5:
+k=0.7
+
+
+failures:
+    alveolar_slope_is_flat
+    velar_slope_is_middle
+
+test result: FAILED. 5 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-dsp --test locus`

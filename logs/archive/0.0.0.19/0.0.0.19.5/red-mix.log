@@ -1,0 +1,22 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.30s
+     Running tests\voiced_fricative_mix.rs (target\debug\deps\voiced_fricative_mix-a7be44936707dd8f.exe)
+
+running 1 test
+test voiced_fricative_keeps_periodicity ... FAILED
+
+failures:
+
+---- voiced_fricative_keeps_periodicity stdout ----
+
+thread 'voiced_fricative_keeps_periodicity' (6172) panicked at crates\articul-cli\tests\voiced_fricative_mix.rs:72:5:
+solo z must keep genuine frication energy above 4kHz, fraction 0.6292
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    voiced_fricative_keeps_periodicity
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+error: test failed, to rerun pass `-p articul-cli --test voiced_fricative_mix`

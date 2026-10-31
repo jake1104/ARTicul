@@ -1,0 +1,9 @@
+0.0.0.35.2 CLI regression (release build, measured)
+cmd1: target/release/articul.exe synthesize --text 'TIs TIN' --voice config/default-voice.toml --out probe/0.0.0.35.2/regression-a.wav
+cmd2: target/release/articul.exe synthesize --text 'TIs TIN' --voice config/default-voice.toml --out probe/0.0.0.35.2/regression-b.wav
+regression-a.wav samples 8822 sr 22050 ch 1 width 2 sha256 9385AB30C7A9C46F0DE2BA533E40B2A94BD9D163732F438BB47C5825DFAC41D4
+regression-b.wav samples 8822 sr 22050 ch 1 width 2 sha256 9385AB30C7A9C46F0DE2BA533E40B2A94BD9D163732F438BB47C5825DFAC41D4
+determinism: byte-identical (sha256 equal), two consecutive runs
+prior hash CFBA9EF2 (0.0.0.34 tree) rotated to 9385AB30 by 0.0.0.35.2 source change (expected; sample count unchanged 8822)
+tis_tin pin in korean_voice.rs re-derived to 9385ab30 (test green)
+hello_unchanged_default_voice red (render vs demo/hello.wav byte mismatch from mandated sound change; demo regen owned by 0.0.0.35.3, file untouched here)

@@ -1,0 +1,6 @@
+probe/0.0.0.23.2/gain-r3-post-hello.txt: windows=23 fs=50Hz detrend_slope=+0.234dB_per_window kept_bins=[2, 3, 4, 5, 27, 28, 29, 30]
+probe/0.0.0.23.2/gain-r3-post-hello.txt: detrended_two_sided_3_8Hz p95-p5=4.90dB peak_to_peak=5.47dB raw_swing=12.42dB
+probe/0.0.0.23.2/gain-r3-post-annyeong.txt: windows=40 fs=50Hz detrend_slope=+0.237dB_per_window kept_bins=[4, 5, 6, 7, 8, 9, 10, 54, 55, 56, 57, 58, 59, 60]
+probe/0.0.0.23.2/gain-r3-post-annyeong.txt: detrended_two_sided_3_8Hz p95-p5=6.42dB peak_to_peak=6.83dB raw_swing=16.86dB
+probe/0.0.0.23.2/gain-r3-post-yeobo.txt: windows=34 fs=50Hz detrend_slope=+0.394dB_per_window kept_bins=[4, 5, 6, 7, 8, 9, 10, 54, 55, 56, 57, 58, 59, 60]
+probe/0.0.0.23.2/gain-r3-post-yeobo.txt: detrended_two_sided_3_8Hz p95-p5=6.22dB peak_to_peak=7.07dB raw_swing=16.40dB

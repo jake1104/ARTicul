@@ -1,0 +1,114 @@
+0.0.0.28.3 regression re-baseline with demo regeneration - summary
+
+No production code change in this task. The 0.0.0.28.2 V2 source rebalance
+(halved table arms except h-fric, declination -0.5/seg, final -2, floor -6,
+leveler cap +12dB, prescale 1.10x, two spark pins) is re-baselined:
+fixed-sentence hash re-verified, all three demos regenerated, numbers
+recorded vs 0.0.0.24.3 baselines.
+
+Gates (logs in logs/0.0.0.28.3/, all exit 0):
+- cargo fmt --check -> fmt-check.log, clean (empty file captured on disk).
+- cargo clippy --workspace --all-targets -- -D warnings -> clippy.log, clean.
+- cargo test --workspace -> test-workspace.log, all suites green, zero failures
+  (incl. junction_nospark with the two evidence-backed pins, gain 19/19 V2
+  values; test names still carry pre-V2 dB labels, bodies re-derived in 0.0.0.28.2).
+- cargo build --release -> release.log, Finished release profile.
+- Post-revert check: temp spark/balance probe test created, run, then deleted;
+  no *tmp* files remain, zero references in crates/, fmt clean after revert
+  (fmt-clean-after-revert.log, spark-report.log keeps the measured output).
+
+Fixed sentence `TIs TIN` (default voice, 22050 Hz):
+- probe/0.0.0.28.3/regression-a.wav and regression-b.wav: 8822 samples
+  each (17688 bytes), sha256
+  cfba9ef28a1a17eee0ba2626b64bb3877f66a51c93fcbdb9ecea3bf99b5b455a both.
+- Determinism: identical hashes, byte-identical renders.
+- Expected hash CFBA9EF2... from 0.0.0.28.2: MATCH (no code change, as assumed).
+  Sample count 8822 unchanged. Recorded in cli-regression.log.
+
+Demo regeneration (all default voice; commands in demo.log header;
+measured with python3+numpy, trough bound >=-14dB per the 0.0.0.23.2 ruling):
+- `hE "loU` -> demo/hello.wav, 9792 samples (444.1 ms), sha
+  cfe3b42cfd194fd4bd63944ee0761cc9e7a984ece9ab777b2bb0449e62a5689b.
+- `%an njVN "hasejo` -> demo/annyeonghaseyo.wav, 17446 samples (791.2 ms), sha
+  7dcef8d8b6275cfa5be00060db407dea6f005a60b034c076e8c38d6371f50fde.
+- `%jV"bo%se%jo` -> demo/yeoboseyo.wav, 14666 samples (665.1 ms), sha
+  2da3bc3044fb1da47f3d98e3aeab78bc683451b53c43dd395fcdfb1a1ef3a830.
+Sample counts identical to the 0.0.0.24.3 baselines (rebalance never changes length).
+
+Per-demo numbers (demo_measure.py; baselines = measured 0.0.0.24.3 file values
+samples/halves-diff/RMS/centroid/trough; trough gate >= -14 dB):
+- hello: halves -2.28 -> -3.16 dB (|diff| <= 5.0 PASS, second half -16.61 dBFS
+  > -32 floor PASS); global RMS 0.2186 -> 0.1831 (-14.75 dBFS, >= 0.10 PASS,
+  -1.54 dB from rebalanced gains), peak 0.9890 (<= 0.99 PASS);
+  centroid 2009.4 -> 2127.1 Hz (+117.7 Hz); trough -3.76 -> -2.76 dB
+  (reported, no gate for this input; 1.00 dB shallower);
+  F2 rise +165.2 overall, identical trajectory [908.4 ... 1073.6]
+  (>= 100 Hz PASS, monotonic within 50 Hz PASS).
+  Thirds RMS -11.63/-12.81/-16.51 -> -13.02/-14.51/-18.17 dBFS.
+  Task-text baseline centroid 1955 Hz differs from the measured 0.0.0.24.3
+  file value 2009.4 Hz; the file value is used here.
+- annyeong: halves +1.40 -> +2.99 dB (PASS, floor PASS); global RMS
+  0.1288 -> 0.1037 (-19.69 dBFS, PASS, margin only +0.31 dB over 0.10 --
+  thinnest gate in the set, matches the 0.0.0.28.2 engine prediction 0.1037
+  exactly); peak 0.9890 (PASS); centroid 4339.8 -> 4431.3 Hz (+91.5 Hz);
+  trough -12.21 -> -12.31 dB (PASS vs the >= -14 dB bound, margin 1.69 dB;
+  deepened 0.10 dB).
+  Thirds RMS -17.87/-20.17/-16.23 -> -21.13/-21.72/-17.49 dBFS.
+- yeobo: halves -2.24 -> -3.11 dB (PASS, floor PASS; task-text baseline
+  -2.35 differs from the measured 0.0.0.24.3 file value -2.24, file value used);
+  global RMS 0.1378 -> 0.1146 (-18.82 dBFS, PASS), peak 0.9890 (PASS);
+  centroid 5520.9 -> 5676.7 Hz (+155.8 Hz); trough -9.73 -> -10.40 dB
+  (PASS vs -14, deepened 0.67 dB); tail third RMS 0.0826 -> 0.0501
+  (-26.01 dBFS, >= 0.03 PASS, margin 0.0201).
+  Thirds RMS -17.97/-14.66/-21.66 -> -19.65/-15.84/-26.01 dBFS.
+
+Spark peaks vs pins (gate geometry replica: 10 ms windows at segment starts,
+unclamped = max below 0.985, clamped = count at/above; temp test output kept
+in spark-report.log, file deleted after):
+- hello worst start1 0.9448 clamped=1 <= 0.9606 pin PASS (predicted 0.9406);
+  start2 0.8868 clamped=0; start3 0.4255 clamped=1; windows clamped total 2.
+- annyeong worst start9 0.8627 clamped=1 (0.0.0.28.2 prediction 0.8628, exact);
+  all other windows <= 0.5639, all < 0.9; windows clamped total 1.
+- yeobo worst start5 0.9336 clamped=1 <= 0.95 pin PASS; all other windows
+  <= 0.5377 (s6 0.2601, s7 0.5377 newly recorded, assert previously stopped
+  at s5); windows clamped total 1.
+All window values bit-identical to the 0.0.0.28.2 post-pin table, confirming
+no production drift in this task. RMS fell on all three demos (-1.5 to -1.9 dB)
+while troughs moved only -0.1 to -0.7 dB deeper (hello 1.0 dB shallower):
+the V2 gain compression reads as level, not choppiness.
+
+Balance margin note: old-input-violates diff re-recorded on final code via
+the temporary probe test (printed PIN, file deleted, fmt clean after):
+word0=-13.33dB word1=-19.67dB diff=-6.34dB (was -6.95dB in 0.0.0.24.3).
+Margin over the -6.0 must-violate bound is now 0.34 dB (was 0.95 dB); the
+erosion watch moves 0.61 dB toward the bound under the rebalance but the
+pin still violates as required. Log: balance-pin.log.
+
+Eval self-test (non-gating): python python/validation/eval_reference.py
+--self-test -> eval-selftest.log, exit 0,
+"SELF-TEST PASS: deterministic renders identical, distinct items separated".
+
+Python parity: target/release/articul_py.dll copied to
+python/articul/_articul.pyd; check_parity.py (PYTHONPATH=python)
+4/4 PASS (lookup-p, lookup-unknown, synthesize len=3242, vowel-a f2/f1=0.110)
+-> parity.log.
+
+Spot table (probe/0.0.0.28.3/spot/, six eval corpus items, report-only,
+per-item RMS + magnitude-weighted centroid, script spot_measure.py -> spot.log):
+- fixed_sentence 8822 samples, -20.62 dBFS, 6217.7 Hz, sha cfba9ef28a1a17ee
+  (was -19.35 dBFS / 6175.4 Hz on 2AD4; hash rotated with rebalance as expected)
+- demo_hello 9792 samples, -14.75 dBFS, 2127.1 Hz, sha cfe3b42cfd194fd
+- creak_probe 6439 samples, -9.16 dBFS, 1227.7 Hz, sha 16bf176e9aecf911
+  (was -8.34 dBFS / 1234.9 Hz; stays loudest)
+- gain_probe 5072 samples, -18.12 dBFS, 2297.3 Hz, sha 370c663c8cc7b275
+- cluster_probe 7785 samples, -18.79 dBFS, 5124.9 Hz, sha 147020aa0c1a744b
+- pause_probe 8535 samples, -13.78 dBFS, 1851.9 Hz, sha 8bc11a4293f88790
+- demo_hello spot-vs-live byte-identical: True.
+Sample counts identical to the 0.0.0.24.3 spot table; all items 0.6-1.2 dB
+quieter with centroids shifted up, consistent with the compressed table.
+No thresholds, no new gate test.
+
+Archive note: live probe/0.0.0.28.1, probe/0.0.0.28.2, probe/0.0.0.28.3 moved
+to probe/archive/0.0.0.28/; logs/0.0.0.28.1, logs/0.0.0.28.2, logs/0.0.0.28.3
+moved to logs/archive/0.0.0.28/. todo.md marks 0.0.0.28.3 Done and closes
+0.0.0.28; CHANGELOG Unreleased gains the re-baseline lines.

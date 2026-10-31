@@ -1,0 +1,39 @@
+Task 0.0.0.19.4 clear-[l] targets with lateral structure
+
+Lateral branch
+- crates/articul-cli/src/synth.rs:50 is_lateral_onset matches Manner::LateralApproximant on non-pause units.
+- crates/articul-cli/src/synth.rs:77-90 spec_for branch: lateral before a stressed vowel returns cascade (300.0, 80.0), (1400.0, 100.0), (2800.0, 120.0) plus unchanged upper three from the voice config. Non-stressed neighbors fall through to the previous default_pairs path.
+- crates/articul-cli/src/synth.rs:702 neighbor routing: lateral units take the next vowel as neighbor (same pattern as the h_onset branch), otherwise vowel neighbors are excluded and the branch cannot trigger.
+
+Duration floor
+- crates/articul-front/src/prosody.rs:121 is_lateral_approx plus next_is_stressed_vowel helper.
+- crates/articul-front/src/prosody.rs:187-188 plan floor duration_ms = max(duration_ms, 70) for lateral before stressed vowel.
+- crates/articul-front/src/prosody.rs:482-483 plan_utterance same floor on the flat fi index. Unstressed contexts keep the old path.
+
+Red-green
+- New gate crates/articul-cli/tests/clear_l.rs lateral_has_low_f1_mid_f2 renders "la (l plus stressed a) and asserts F1 300 +-100 Hz, F2 1400 +-200 Hz, and planned plus rendered lateral span at least 70 ms.
+- Red: logs/0.0.0.19.4/red-test.log fails with planned lateral 54 ms before the fix.
+- Green: logs/0.0.0.19.4/green-test.log and workspace-test-final.log pass. Measured stressed lateral: planned 70 ms, window F1 296.1 Hz, F2 1343.1 Hz, F3 2807.4 Hz (probe-measure.log).
+- Stressed-onset-only check: unstressed la keeps lateral 54 ms with F1 444.1 Hz and F2 1477.7 Hz, i.e. old neutral behavior.
+
+Gates
+- cargo fmt --check clean (logs/0.0.0.19.4/fmt-final.log).
+- cargo clippy --workspace --all-targets -- -D warnings clean (logs/0.0.0.19.4/clippy.log).
+- cargo test --workspace green, all suites pass including balance, bandlimit, halves, diphthong, h_onset, gain (logs/0.0.0.19.4/workspace-test-final.log).
+- cargo build --release green (logs/0.0.0.19.4/release-build.log).
+
+TIs TIN hash
+- probe/0.0.0.19.4/regression-a.wav and regression-b.wav, 8822 samples each, sha256 3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93, byte-identical. Unchanged from 0.0.0.18.5 and 0.0.0.19.2 and 0.0.0.19.3 because TIs TIN has no laterals. Full record in logs/0.0.0.19.4/cli-regression.log.
+
+Hello l-window vs 0.0.0.18-era neutral defaults
+- 0.0.0.18-era lateral used default_pairs F1 500, F2 1500, F3 2500.
+- Now hello hE "loU lateral plans 70 ms with window peaks F1 293.4 Hz, F2 1340.4 Hz, F3 2858.5 Hz, matching the new 300/1400/2800 clear-l targets. Hello render is 9792 samples (was 9351 after the GOAT merge; the extra 441 samples come from the 70 ms lateral floor).
+
+Round-2 coda gate (reviewer Important: pal "art over-application)
+- Word-boundary source: no word info existed in the plan structures, so one additive bool field was threaded instead of a refactor. ProsodicPhoneme gains pub word_final (crates/articul-front/src/prosody.rs:8-16 struct). plan sets word_final = (i + 1 == n) reading the flat sequence as one word; plan_utterance sets word_final = (k + 1 == w.phonemes.len()) from the existing word loop indices plus true for pause units; synth.rs GOAT Merged literal sets word_final false. WordProsody and all parse types untouched.
+- Duration floor now gated on the lateral NOT being word-final: plan (prosody.rs floor condition adds !word_final; behavior identical there since a lateral with a following vowel is never sequence-final) and plan_utterance (same gate with true word-final from k index; coda pal lateral drops 70 ms back to its planned ~54 ms).
+- spec_for clear-l branch now requires !unit.word_final (synth.rs lateral branch condition). Word-final coda laterals fall through to the previous default_pairs path even before a stressed vowel.
+- New coda test crates/articul-cli/tests/clear_l.rs coda_lateral_keeps_neutral_targets on pal "art asserts planned coda lateral below 70 ms, no F1 peak near 300 +-100 Hz, and neutral F1 near 500 +-150 Hz.
+- Red: logs/0.0.0.19.4/coda-red.log fails pre-fix with coda lateral at 70 ms. Green: logs/0.0.0.19.4/coda-green.log passes both clear_l tests; onset lateral_has_low_f1_mid_f2 still green.
+- Gates round-2: cargo fmt --check clean (logs/0.0.0.19.4/fmt-r2.log), cargo clippy --workspace --all-targets -- -D warnings clean (logs/0.0.0.19.4/clippy-r2.log), cargo test --workspace green all suites (logs/0.0.0.19.4/workspace-test-r2.log), release rebuild green (logs/0.0.0.19.4/release-build-r2.log).
+- TIs TIN round-2: probe/0.0.0.19.4/regression-r2-a.wav and regression-r2-b.wav, 8822 samples each, sha256 3d31d08a3be49623fd05abb1b1587a22a4f29b0e4b6f57aabfe3d32dc88f2f93, byte-identical, unchanged from round-1. Record in logs/0.0.0.19.4/cli-regression-r2.log.

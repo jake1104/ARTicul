@@ -1,0 +1,18 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+    Checking articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+error: the loop variable `k` is used to index `seg`
+  --> crates\articul-cli\src\synth.rs:85:18
+   |
+85 |         for k in 0..n {
+   |                  ^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.91.0/index.html#needless_range_loop
+   = note: `-D clippy::needless-range-loop` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::needless_range_loop)]`
+help: consider using an iterator and enumerate()
+   |
+85 -         for k in 0..n {
+85 +         for (k, <item>) in seg.iter().enumerate().take(n) {
+   |
+
+error: could not compile `articul-cli` (lib) due to 1 previous error

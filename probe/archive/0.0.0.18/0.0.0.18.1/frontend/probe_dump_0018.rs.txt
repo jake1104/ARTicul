@@ -1,0 +1,66 @@
+use articul_front::Stress;
+use articul_front::Xsampa;
+use articul_front::plan;
+use articul_front::parse_utterance;
+use articul_front::plan_utterance;
+
+fn dump_word(word: &str) {
+    let t = Xsampa::new();
+    let (ph, st) = t.transcribe(word);
+    println!("WORD {:?}", word);
+    for (i, (p, s)) in ph.iter().zip(st.iter()).enumerate() {
+        println!("  [{}] base={:?} kind={:?} voicing={:?} stress={:?}", i, p.base_symbol, p.kind, p.voicing, s);
+    }
+    println!("  len={} stress_len={}", ph.len(), st.len());
+}
+
+fn dump_plan(label: &str, seq: &[articul_phon::Phoneme], stress: &[Stress]) {
+    let out = plan(seq, stress, 1.0, 1.0, 120.0);
+    println!("PLAN {}", label);
+    for (i, u) in out.iter().enumerate() {
+        println!("  [{}] {} stress={:?} dur={}ms f0={:.2} f0end={:.2} pause={}", i, u.phoneme.base_symbol, u.stress, u.duration_ms, u.f0_hz, u.f0_end_hz, u.is_pause);
+    }
+    let total_ms: u32 = out.iter().map(|u| u.duration_ms).sum();
+    println!("  total_ms={}", total_ms);
+}
+
+fn dump_utterance(label: &str, text: &str) {
+    let words = articul_front::normalize(text);
+    println!("UTTERANCE {:?} words={:?}", label, words);
+    let parsed = parse_utterance(&words);
+    for (wi, w) in parsed.iter().enumerate() {
+        let syms: Vec<String> = w.phonemes.iter().map(|p| p.base_symbol.clone()).collect();
+        println!("  word{} syms={:?} stress={:?} boundary={} func={} emph={}", wi, syms, w.stress, w.boundary_after, w.function_word, w.emphasized);
+    }
+    let planned = plan_utterance(&parsed, 1.0, 1.0, 120.0);
+    println!("PLAN_UTTERANCE {}", label);
+    for (i, u) in planned.iter().enumerate() {
+        println!("  [{}] {} stress={:?} dur={}ms f0={:.2} f0end={:.2} pause={}", i, u.phoneme.base_symbol, u.stress, u.duration_ms, u.f0_hz, u.f0_end_hz, u.is_pause);
+    }
+    let total_ms: u32 = planned.iter().map(|u| u.duration_ms).sum();
+    println!("  total_ms={} nseg={}", total_ms, planned.len());
+}
+
+fn main() {
+    dump_word("hE");
+    dump_word("\"loU");
+    dump_word("TIs");
+    dump_word("TIN");
+    let t = Xsampa::new();
+    let (a_ph, a_st) = t.transcribe("hE");
+    let (b_ph, b_st) = t.transcribe("\"loU");
+    let mut seq = a_ph.clone();
+    let mut st = a_st.clone();
+    seq.extend(b_ph.clone());
+    st.extend(b_st.clone());
+    dump_plan("hE+\"loU flat", &seq, &st);
+    let (c_ph, c_st) = t.transcribe("TIs");
+    let (d_ph, d_st) = t.transcribe("TIN");
+    let mut seq2 = c_ph.clone();
+    let mut st2 = c_st.clone();
+    seq2.extend(d_ph.clone());
+    st2.extend(d_st.clone());
+    dump_plan("TIs+TIN flat", &seq2, &st2);
+    dump_utterance("hello", "hE \"loU");
+    dump_utterance("tistin", "TIs TIN");
+}

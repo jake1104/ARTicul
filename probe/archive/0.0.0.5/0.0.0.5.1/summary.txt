@@ -1,0 +1,5 @@
+Task 0.0.0.5.1 text normalizer (reworked: phonetic input)
+Design: input is X-SAMPA phonetic symbols, not English orthography. No case folding (X-SAMPA is case-sensitive), no abbreviation expansion. Split on whitespace, drop empties; punctuation rides along and is skipped by the transcriber.
+Tests: normalize.rs 4 passed (whitespace split, case preserved, empty input, punctuation passed through)
+Files: crates/articul-front/src/normalize.rs
+Logs: logs/0.0.0.5.4/retest4.log (workspace run)

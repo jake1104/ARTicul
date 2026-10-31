@@ -1,0 +1,24 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.77s
+     Running tests\dbg_vals.rs (target\debug\deps\dbg_vals-da15661013bcd31e.exe)
+
+running 1 test
+s=71 t=49 z=60 d=49
+aU=98 aP=179
+a|t=89 a|d=98
+sublin=79
+tap=30
+tU=49 tP=89
+pan@1=[89, 246, 139]
+pan@0.4=[89, 212, 122]
+pan@0=[89, 189, 93]
+split@0=[129, 76, 74, 124, 93]
+pana@0=[80, 170, 83, 167]
+panana@0=[71, 151, 74, 148, 74, 145]
+D@k{t=[50, 46, 51, 110, 77]
+tu-plain=[39, 72]
+tu-loud=[49, 163]
+test dbg_vals ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

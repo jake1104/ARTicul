@@ -1,0 +1,56 @@
+   Compiling articul-front v0.0.0 (E:\01_coding\ARTicul\crates\articul-front)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.91s
+     Running tests\prosody.rs (target\debug\deps\prosody-794f4189c96b22bd.exe)
+
+running 17 tests
+test baseline_initial_holds_plus_2st ... ok
+test pre_voiceless_obstruent_shortens_sonorant ... ok
+test bare_input_defaults_nucleus_to_last_vowel ... ok
+test downstep_lowers_each_following_accent_by_1_5st ... FAILED
+test f0_declines_across_utterance ... ok
+test faster_rate_shortens_durations ... ok
+test long_vowel_gets_more_time ... ok
+test nuclear_accent_adds_5st_on_last_primary_vowel ... ok
+test plan_length_matches_input ... ok
+test mindur_floor_holds ... ok
+test baseline_resets_every_eight_syllables ... FAILED
+test prenuclear_primary_adds_3st ... FAILED
+test sublinear_cap_limits_combined_shortening ... ok
+test intrinsic_fricatives_longer_than_stops ... ok
+test secondary_accent_adds_1_5st ... FAILED
+test unstressed_segments_shorten ... ok
+test post_nuclear_falls_to_minus_7st ... ok
+
+failures:
+
+---- downstep_lowers_each_following_accent_by_1_5st stdout ----
+
+thread 'downstep_lowers_each_following_accent_by_1_5st' (29620) panicked at crates\articul-front\tests\prosody.rs:262:5:
+downstep ratio=1.122462 want ~1.2240535
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- baseline_resets_every_eight_syllables stdout ----
+
+thread 'baseline_resets_every_eight_syllables' (27216) panicked at crates\articul-front\tests\prosody.rs:293:5:
+reset must lift syllable 8 above syllable 7: 113.264915 vs 114.91239
+
+---- prenuclear_primary_adds_3st stdout ----
+
+thread 'prenuclear_primary_adds_3st' (24136) panicked at crates\articul-front\tests\prosody.rs:245:5:
+first accent f0=134.69545 want ~160.18079
+
+---- secondary_accent_adds_1_5st stdout ----
+
+thread 'secondary_accent_adds_1_5st' (18324) panicked at crates\articul-front\tests\prosody.rs:280:5:
+secondary f0=134.69545 want ~146.88641
+
+
+failures:
+    baseline_resets_every_eight_syllables
+    downstep_lowers_each_following_accent_by_1_5st
+    prenuclear_primary_adds_3st
+    secondary_accent_adds_1_5st
+
+test result: FAILED. 13 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p articul-front --test prosody`

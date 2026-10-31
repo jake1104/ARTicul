@@ -1,0 +1,11 @@
+self_MCD_mean 0.0
+duration_corr 1.0
+diag {'cluster_probe': 0.0, 'creak_probe': 0.0, 'demo_hello': 0.0, 'fixed_sentence': 0.0, 'gain_probe': 0.0, 'pause_probe': 0.0}
+vs_reference no reference pack supplied
+cluster_probe 7785 7785 0.0 0.0 1.0
+creak_probe 6439 6439 0.0 0.0 1.0
+demo_hello 8248 8248 0.0 0.0 1.0
+fixed_sentence 8822 8822 0.0 0.0 1.0
+gain_probe 5072 5072 0.0 0.0 1.0
+pause_probe 8535 8535 0.0 0.0 1.0
+min_offdiag 247.15372583434595

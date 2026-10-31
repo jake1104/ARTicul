@@ -1,0 +1,10 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.22s
+     Running tests\halves_gain.rs (target\debug\deps\halves_gain-0d073e0f9d968b94.exe)
+
+running 2 tests
+test hello_halves_within_3db ... ok
+test lateral_window_within_8db_of_stressed_vowel ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

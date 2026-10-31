@@ -1,0 +1,29 @@
+tail-decomp 0.0.0.29.2 diagnostic round MEASUREMENT ONLY no code touched
+pre source demo/annyeonghaseyo.wav demo/yeoboseyo.wav 0.0.0.28.3 era pre-normalization
+post source probe/0.0.0.29.2/annyeong.wav yeobo.wav round-4 rule same binary
+lengths identical 17446 14666 sample positions identical durations untouched
+window junction gate definition [start,start+10ms] WIN 220 sr 22050
+blend zone first 176 samples of each window fades short
+clamp cutoff 0.985 unclamped bound 0.9 pins s1 0.9606 s5 0.95
+harmonicity normalized autocorrelation max lag 74-275 80-300Hz context peak +-15ms +-330
+phonetic voiced gate 0.5 control s1 scores 0.21 burst noise so harmonicity INCONCLUSIVE here
+
+table per window pre then post d samples ms peak unclamped clamped harm
+annyeong s11 pos15373 pre d0 0.00ms peak0.5639 uncl0.5639 cl0 harm0.233
+annyeong s11 pos15373 post d0 0.00ms peak0.9890 uncl0.9608 cl1 harm0.251
+annyeong s11 delta uncl +4.63dB d 0to0 harm 0.23to0.25
+yeobo s7 pos10807 pre d0 0.00ms peak0.5376 uncl0.5376 cl0 harm0.244
+yeobo s7 pos10807 post d0 0.00ms peak0.9890 uncl0.9311 cl1 harm0.244
+yeobo s7 delta uncl +4.77dB d 0to0 harm 0.24to0.24
+control hello s1 pos1544 pre d68 3.08ms peak0.9890 uncl0.9448 cl1 harm0.213
+control hello s1 pos1544 post d68 3.08ms peak0.8667 uncl0.8667 cl0 harm0.214
+
+verdict annyeong s11 JOIN do-not-pin
+verdict yeobo s7 JOIN do-not-pin
+mechanism crossfade blend-start arithmetic overshoot lifted by normalization
+discriminators one d0 first blend sample both eras both windows vs phonetic d68
+two preLTpost same d makeup created violation pre safe 0.54-0.56 post over 0.9
+three peakcap arithmetic reconciles annyeong 0.9over0.5639 +4.06dB plus rescale +0.57dB equals +4.63dB observed yeobo +4.48dB plus +0.29dB equals +4.77dB global 0.989 peak-pinning rescale undoes per-segment 0.9 cap
+four single-sample spike at blend edge not +-20ms leveler-edge width gain-track interpolation linear across 176 smooth filter-state reset plus phase-0 restart summed in blend 0.0.0.26 residual class
+leveler edge excluded rescale is complicit but edge shape is blend arithmetic
+proposed no pin pinning would enshrine blend artifact s1-s5 pins were phonetic bursts d deep pre-existing clamp fix needs blend-overshoot prevention not gain tweaks

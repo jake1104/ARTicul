@@ -1,0 +1,4 @@
+Task 0.0.0.8.2 SciPy cross-validation suite
+Checks: lookup-p features, lookup-unknown None, synthesize ndarray finite energetic len=4410, welch slope -8.70 in [-20,-4]
+Result: 4 PASS via PYTHONPATH=python
+Logs: logs/0.0.0.8.2/ (green.log, green2.log after API fix)

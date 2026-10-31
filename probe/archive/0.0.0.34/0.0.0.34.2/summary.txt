@@ -1,0 +1,129 @@
+0.0.0.34.2 Korean voice config + flat prosody - summary (DONE)
+
+Mechanism (new files + branch points; default path untouched)
+--------------------------------------------------------------
+New voice config config/korean-voice.toml: byte-copy of config/default-voice.toml
+(sample rate / source / cascade / parallel / prosody identical) plus a [korean]
+section (lines 48-50): enabled = true, final_boundary = "H" (greeting default).
+Selection is by voice: render_with_voice branches on cfg.korean.enabled
+(crates/articul-cli/src/synth.rs:1062-1089).
+
+Config schema (crates/articul-config/src/lib.rs:51-77): new KoreanBoundary enum
+{H, L} (default H) and KoreanVoice { enabled (default false), final_boundary }
+added with #[serde(default)]; VoiceConfig gains #[serde(default)] korean field.
+default-voice.toml and klatt-voice.toml parse unchanged (no [korean] section).
+
+Vowel targets (crates/articul-dsp/src/vowels.rs:119-139): korean_vowel_formants
+maps base symbols to the V1 table literally: a 690/1165/2930, ʌ 585/1085/2707,
+e 479/1919/2857, o 441/740/2481, u 253/689/2415, ɯ 369/1503/2674; other symbols
+fall back to the GA table. No 30% reduction on the Korean path.
+
+Locus (vowels.rs:141-170): korean_locus_pull keeps bilabial/alveolar gains,
+returns unmodified for velar neighbors of back vowels, and halves the F2/F3
+shift for /a/ before nasals. Wired in spec_for (synth.rs:57-137): h-onset
+transparency uses Korean targets, vowel branch uses Korean targets + Korean
+locus with the same lateral-guard condition as English.
+
+Prosody (crates/articul-front/src/prosody.rs:316-560): BoundaryTone enum
+(316), korean_anchors (329: T +-1.0 by tense onset s/h/ɦ, H +1.5, L -0.5,
+Ha +1.5 absolute, 1-syll [0.0], 2-syll [T,+1.5], 3-syll [T,H,Ha], >=4 with
+linear mid fill; utterance-final anchor replaced by +3.0 H% / -3.5 L%),
+korean_word_st (355: vowels held flat at anchors, linear interpolation across
+consonants between syllable spans), plan_utterance_korean (380: stress parsed
+then forced Unstressed for every unit, stress duration factor 1.0, initial 1.1
+kept, final 1.6 on the utterance-final syllable only, ctx/poly/cluster/variance
+unchanged, L% clamped to >=100 Hz, pause logic kept).
+
+Synth wiring (synth.rs): spec_for takes korean flag (57); render_unit takes
+UnitPos { index, total, korean } (365, 486) and skips creak when korean
+(525-530, modal voicing required); render_units threads the flag (818);
+render_sentence/render_planned/render_gain_track pass false, so the default
+path is bit-identical. GOAT merge cannot fire on the Korean path (needs a
+stressed o; Korean units are all Unstressed), which is correct for monophthong
+ㅗ. CF0 is unchanged (P6).
+
+Red/green refs
+--------------
+RED: crates/articul-cli/tests/korean_voice.rs created first against
+nonexistent APIs; cargo test --test korean_voice failed to compile
+(logs/0.0.0.34.2/red-test.log, exit 101, E0433 BoundaryTone not found).
+GREEN: after implementation all 8 tests pass; full suite green (below).
+Two green-phase fixes are recorded honestly: (1) final-unit f0_end never
+reached the boundary anchor and interior vowels ramped instead of holding
+anchors - fixed by korean_word_st flat-vowel evaluation; (2) test window math
+ignored crossfade overlap (render shorter by 176 samples per boundary) - test
+bounds now subtract fade overlap; (3) clippy derivable_impls / nonminimal_bool
+/ too_many_arguments fixed (derive Default, split creak condition, UnitPos).
+
+Gates (logs in logs/0.0.0.34.2/)
+--------------------------------
+- cargo fmt --check -> fmt-check.log, clean (exit 0).
+- cargo clippy --workspace --all-targets -- -D warnings -> clippy.log, clean.
+- cargo test --workspace -> test-workspace.log, exit 0, 63 suites ok, 0 failed,
+  incl. korean_voice 8/8 (G1-G6 + sha self-check).
+- cargo build --release -> release.log, Finished release profile.
+- CLI regression -> cli-regression.log: TIs TIN default voice twice to
+  probe/0.0.0.34.2/regression-a.wav and -b.wav: 8822 samples each,
+  sha256 CFBA9EF28A1A17EEE0BA2626B64BB3877F66A51C93FCBDB9ECEA3BF99B5B455A
+  both, determinism True, expected-hash MATCH. New hash: none (unchanged).
+- G5/G6 in-test proofs: TIs TIN default-voice render is 8822 samples with
+  embedded-SHA256-verified (abc-vector self-checked) CFBA hash of the exact
+  CLI WAV bytes; hello `h@ "loU` default-voice render is 9219 samples whose
+  i16 samples equal demo/hello.wav sample-for-sample. No existing gate bound
+  edited; no demo/*.wav touched.
+
+Korean demo renders (Korean voice, probe/0.0.0.34.2/, NOT demo/)
+------------------------------------------------------------------
+Shipped strings and de-stressed strings render byte-identical:
+annyeonghaseyo-korean.wav == *-destressed.wav, 28693 samples, sha256
+96F9352836F044CDB2701361B962BEF1948B4F6E7DB4FE38AEFF1A902F148254;
+yeoboseyo-korean.wav == *-destressed.wav, 18878 samples, sha256
+86390F85FBFE160C54FB6FF8DDF990F56B3B2081D695720E452D7B5AD20D6D08.
+Stress-mark byte-identity proves P1 (marks parsed but ignored).
+
+Per-demo numbers (probe/0.0.0.34.2/measure.log via measure_korean.py;
+windows from a Python port of the Korean durations, verified sample-exact vs
+engine plan: annyeong drift 0, yeobo drift -1):
+annyeong Korean voice (baseline 0.0.0.33.2 default voice in parens):
+ samples 28693 (19101); halves -26.33/-22.05 diff +4.28 (+1.99);
+ RMS 0.0654/−23.69dBFS (0.1170); peak 0.9890; clamp>=0.985: 3 isolated
+ samples at 911ms inside /s/ (phonetic sibilant body, cf. s5-pin precedent);
+ centroid 5551.5Hz (4199.5); trough -16.09dB (-12.29).
+yeobo Korean voice (baseline in parens):
+ samples 18878 (14666); halves -24.78/-22.42 diff +2.36 (-3.11);
+ RMS 0.0673/−23.44dBFS (0.1146); peak 0.9890; clamp>=0.985: 3 isolated
+ samples at 451ms inside /s/ (same note); centroid 6118.7Hz (5676.7);
+ trough -16.03dB (-10.40).
+RMS is lower because every Korean vowel carries the unstressed -1.75dB gain
+(no stress accents by design) and durations are longer (no x0.55 reduction,
+final x1.6); report-only, no gate applies.
+
+F0 centers (autocorr, audit convention; anchors in parens):
+annyeong: a +0.07 (0.0), V -0.02 (0.0), a +1.04 (+1.0), e +2.18 (+1.5, CF0
+ Decay +10% onset kept per P6: +3.7% residual at center is expected physics),
+ o +3.06 (+3.0 H%). Non-final excursion 2.20st (<=3.5), max +2.18 (<=+2.5).
+yeobo: V -1.03 (-1.0), o +1.55 (+1.5), e +0.07 (-0.5 anchor; +0.57st above it
+ from CF0 Decay after prev s, same P6 physics as annyeong e),
+ o +3.06 (+3.0 H%). Non-final excursion 2.58st, max +1.55. G4-style bounds
+ hold on both inputs.
+
+Formant distances to V1 norms (mid-50% window, avg-spectrum peak-pick;
+F2 bands centered on spec-predicted pulled targets; * = band argmax, no
+qualified peak; old 0.0.0.34.1 GA-render distances in parens):
+annyeong: a F1 721* +4.5% / F2 1314 +12.7% pred 1307 +0.5% (was +2-+8%/+25%);
+ V 603 +3.1% / 1077 -0.8% pred -0.8% (was -4--12%/+58-+70% velar overshoot,
+ FIXED by back-vowel velar exemption); a 700 +1.4% / 1400 +20.1% pred 1450
+ -3.4% (was broad~1400; residual pre-s fronting is spec-kept alveolar pull);
+ e 474 -1.1% / 1916 -0.1% (was MATCH, kept); o 468 +6.2% / 727 -1.8%
+ (was +46% F2, FIXED by 740 backer).
+yeobo: V 571 -2.5% / 1012 -6.7% pred 1060 -4.5% (was +0-+7%/-1.5%, kept);
+ o 398* -9.7% / 1281 +73.1% pred 1322 -3.1% (was +86%; backer target removes
+ 12pp, residual pre-s fronting is spec-kept alveolar pull, still the worst
+ cell); e 474 -1.1% / 1916 -0.1% (kept); o 468 +6.2% / 727 -1.8%
+ (was +25-27%, FIXED).
+All rendered F2 sit within 3.5% of the spec-predicted (pulled) targets.
+
+Scope compliance: default-voice path behaviorally identical (G5/G6 + full
+suite); GA table, English prosody, fricative shaping, leveler untouched; no
+existing bound edited; no source-code comments; todo/CHANGELOG/README/docs/
+demo untouched; eval_reference.py not run (per-task constraint).

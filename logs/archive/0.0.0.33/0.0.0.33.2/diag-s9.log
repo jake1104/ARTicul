@@ -1,0 +1,29 @@
+lengths: new=19101 old=17446 win=220
+== NEW s9 s->e pos=15021
+   peak_all=0.9890 d_all=29 (1.32 ms)
+   peak_unclamped=0.9120 d_uc=54 clamped_idx=[29]
+   top5 offsets=[29, 54, 14, 43, 33] vals=[0.989, 0.912, 0.8105, 0.7743, 0.7597]
+   rms pre10ms=0.4751 win_h1=0.3994 win_h2=0.1389 (h2/h1=-9.17dB pre/win=+4.02dB)
+   autocorr 80-300Hz: lag=97 f=227.3Hz r=0.165
+   hf_frac(4k+): pre=0.980 h1=0.984 h2=0.929
+== OLD s9 s->e pos=13366
+   peak_all=0.9890 d_all=29 (1.32 ms)
+   peak_unclamped=0.8627 d_uc=54 clamped_idx=[29]
+   top5 offsets=[29, 54, 14, 43, 33] vals=[0.989, 0.8627, 0.7946, 0.7392, 0.7316]
+   rms pre10ms=0.4256 win_h1=0.3811 win_h2=0.1246 (h2/h1=-9.71dB pre/win=+3.53dB)
+   autocorr 80-300Hz: lag=97 f=227.3Hz r=0.161
+   hf_frac(4k+): pre=0.978 h1=0.983 h2=0.930
+== NEW s8 h\-a->s onset (control: /s/ attack) pos=13918
+   peak_all=0.1994 d_all=207 (9.39 ms)
+   peak_unclamped=0.1994 d_uc=207 clamped_idx=[]
+   top5 offsets=[207, 209, 210, 202, 197] vals=[0.1994, 0.1968, 0.1837, 0.1824, 0.1725]
+   rms pre10ms=0.0726 win_h1=0.0452 win_h2=0.0877 (h2/h1=+5.76dB pre/win=+0.35dB)
+   autocorr 80-300Hz: lag=92 f=239.7Hz r=0.123
+   hf_frac(4k+): pre=0.001 h1=0.089 h2=0.965
+== OLD s8 h-a->s onset (control) pos=12263
+   peak_all=0.1727 d_all=207 (9.39 ms)
+   peak_unclamped=0.1727 d_uc=207 clamped_idx=[]
+   top5 offsets=[207, 209, 210, 202, 197] vals=[0.1727, 0.1703, 0.1587, 0.158, 0.1492]
+   rms pre10ms=0.0543 win_h1=0.0330 win_h2=0.0736 (h2/h1=+6.97dB pre/win=-0.43dB)
+   autocorr 80-300Hz: lag=79 f=279.1Hz r=0.113
+   hf_frac(4k+): pre=0.000 h1=0.141 h2=0.965

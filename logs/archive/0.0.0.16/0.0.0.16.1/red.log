@@ -1,0 +1,15 @@
+   Compiling articul-dsp v0.0.0 (E:\01_coding\ARTicul\crates\articul-dsp)
+error[E0599]: no method named `generate_creak` found for struct `GlottalSource` in the current scope
+   --> crates\articul-dsp\tests\voice_quality.rs:117:21
+    |
+117 |     let out = src().generate_creak(0.3, 22050);
+    |                     ^^^^^^^^^^^^^^
+    |
+help: there is a method `generate` with a similar name
+    |
+117 -     let out = src().generate_creak(0.3, 22050);
+117 +     let out = src().generate(0.3, 22050);
+    |
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `articul-dsp` (test "voice_quality") due to 1 previous error

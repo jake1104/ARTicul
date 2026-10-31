@@ -1,0 +1,7 @@
+windows=23 fs=50Hz detrend_slope=0.258dB_per_window
+kept_bins=[2, 3, 4, 5, 27, 28, 29, 30]
+detrended_two_sided_3_8Hz p95-p5=4.99dB peak_to_peak=5.71dB
+raw_gain_swing=12.61dB
+baseline_pre_leveler_constant_gain=0.00dB
+trough_benefit_annyeong=-18.6dB_to_-10.5dB
+verdict_6dB=KEEP

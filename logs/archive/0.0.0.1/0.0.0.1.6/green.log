@@ -1,0 +1,11 @@
+   Compiling articul-phon v0.0.0 (E:\01_coding\ARTicul\crates\articul-phon)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.21s
+     Running tests\feature_types.rs (target\debug\deps\feature_types-4485b0012c15a9f0.exe)
+
+running 3 tests
+test vowel_i_has_close_front_unrounded ... ok
+test nasal_m_is_voiced_nasal ... ok
+test pulmonic_p_is_voiceless_bilabial_plosive ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

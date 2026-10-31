@@ -1,0 +1,17 @@
+== annyeong: bytes=57430 sha256=96f9352836f044cdb2701361b962bef1948b4f6e7db4fe38aeff1a902f148254
+   samples=28693 (1301.3ms) rms=0.0654 (-23.69dBFS) peak=0.9890 clamp>=0.985: 3
+   halves -26.33/-22.05dBFS diff=+4.28 centroid=5551.5Hz trough=-16.09dB
+   planned_bounds_total=28693 render_len=28693 drift=0
+   vowel0 a: F1=721* (norm 690, +4.5%) F2=1314 (norm 1165, +12.7%; pred 1307, +0.5%) f0=120.5Hz (+0.07st)
+   vowel1 V: F1=603 (norm 585, +3.1%) F2=1077 (norm 1085, -0.8%; pred 1085, -0.8%) f0=119.8Hz (-0.02st)
+   vowel2 a: F1=700 (norm 690, +1.4%) F2=1400 (norm 1165, +20.1%; pred 1450, -3.4%) f0=127.5Hz (+1.04st)
+   vowel3 e: F1=474 (norm 479, -1.1%) F2=1916 (norm 1919, -0.1%; pred 1919, -0.1%) f0=136.1Hz (+2.18st)
+   vowel4 o: F1=468 (norm 441, +6.2%) F2=727 (norm 740, -1.8%; pred 740, -1.8%) f0=143.2Hz (+3.06st)
+== yeobo: bytes=37800 sha256=86390f85fbfe160c54fb6ff8ddf990f56b3b2081d695720e452d7b5ad20d6d08
+   samples=18878 (856.1ms) rms=0.0673 (-23.44dBFS) peak=0.9890 clamp>=0.985: 3
+   halves -24.78/-22.42dBFS diff=+2.36 centroid=6118.7Hz trough=-16.03dB
+   planned_bounds_total=18877 render_len=18878 drift=-1
+   vowel0 V: F1=571 (norm 585, -2.5%) F2=1012 (norm 1085, -6.7%; pred 1060, -4.5%) f0=113.1Hz (-1.03st)
+   vowel1 o: F1=398* (norm 441, -9.7%) F2=1281 (norm 740, +73.1%; pred 1322, -3.1%) f0=131.2Hz (+1.55st)
+   vowel2 e: F1=474 (norm 479, -1.1%) F2=1916 (norm 1919, -0.1%; pred 1919, -0.1%) f0=120.5Hz (+0.07st)
+   vowel3 o: F1=468 (norm 441, +6.2%) F2=727 (norm 740, -1.8%; pred 740, -1.8%) f0=143.2Hz (+3.06st)

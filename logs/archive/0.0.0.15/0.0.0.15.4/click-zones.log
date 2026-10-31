@@ -1,0 +1,6 @@
+T1           maxjump=0.015 @1390
+I1           maxjump=0.021 @1964
+s            maxjump=1.074 @3568
+s-T boundary maxjump=1.428 @3974
+T2           maxjump=0.090 @4203
+I2-N         maxjump=0.015 @5472

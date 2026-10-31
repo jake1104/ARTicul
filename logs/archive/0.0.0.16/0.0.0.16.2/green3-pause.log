@@ -1,0 +1,10 @@
+   Compiling articul-cli v0.0.0 (E:\01_coding\ARTicul\crates\articul-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.15s
+     Running tests\pause.rs (target\debug\deps\pause-9b600c2a93927d0c.exe)
+
+running 2 tests
+test pause_region_renders_silence ... ok
+test pause_extends_utterance_by_its_own_length ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

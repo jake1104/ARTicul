@@ -1,0 +1,19 @@
+initial voicing onset (h->E) (20 ms windows, t = win*20 ms):
+win t_ms   wrms      pre_gdb  post_gdb delta(pre-post)
+ 0    0  0.006200    4.646    5.195  -0.549
+ 1   20  0.018221    1.904    2.147  -0.243
+ 2   40  0.032402    0.203    0.530  -0.327
+ 3   60  0.039050   -1.012   -0.950  -0.062
+ 4   80  0.030273   -0.119   -0.180  +0.061
+stressed lateral onset (l->oU) (20 ms windows, t = win*20 ms):
+win t_ms   wrms      pre_gdb  post_gdb delta(pre-post)
+ 7  140  0.023944    0.840    0.782  +0.058
+ 8  160  0.017353    1.302    1.278  +0.024
+ 9  180  0.019231    1.240    1.256  -0.016
+10  200  0.021511    1.054    1.100  -0.046
+11  220  0.032125    0.155    0.240  -0.085
+12  240  0.026949    0.602    0.577  +0.025
+13  260  0.022186    0.943    0.901  +0.042
+initial onset: energy jump w0->w1; pre gain at w0 (t=0-20ms, before voicing) sits -0.549 dB vs causal -> PRE-DUCK (lead 20ms)
+initial onset k=1: post gain fall across k-1..k+1 = 4.665 dB (causal tracking, lag 0ms vs first energy rise)
+stressed onset k=11: post gain fall across k-1..k+1 = 0.860 dB (causal tracking, lag 0ms vs first energy rise)

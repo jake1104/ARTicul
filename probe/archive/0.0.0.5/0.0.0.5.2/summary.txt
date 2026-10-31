@@ -1,0 +1,6 @@
+Task 0.0.0.5.2 X-SAMPA transcription engine (reworked from English G2P)
+Design: Xsampa table maps 94 X-SAMPA tokens to IPA lookup symbols (60 pulmonic + 28 vowels + 5 clicks + velarized-lateral 5). Greedy longest match (4..1). Diacritic suffixes drive features only: _h aspirated, ~/_~ nasalized, _w/_j/_G/_e/_?\, _d Dental, _N Linguolabial, _0/_v voicing, : Long, :\ HalfLong, _< implosive, _> ejective, tone/stress groups skipped. No X-SAMPA for labiodental flap (w skipped, documented); w/H/s\/z\/x\/l\/I\/U\/@` not in inventory and skipped.
+Source: X-SAMPA mappings verified against the X-SAMPA specification (B=beta, B\=bilabial trill, T=theta, S=esh, 4=flap, K=voiceless lateral fricative).
+Tests: xsampa.rs 12 passed (case sensitivity, glottal-stop ?, retroflex/click backslash forms, aspirated/nasal/long/implosive/ejective/dental suffixes, replaceable table, unknown skip)
+Files: crates/articul-front/src/xsampa.rs, probe/0.0.0.5.2/inventory-xsampa.csv
+Bugs fixed during rework: missing out.push (empty output), bare ~/apostrophe dropped flags, clippy identical-branch merges

@@ -1,0 +1,7 @@
+# build outputs (Rust, Python, C++)
+/target/
+**/target/
+*.pyd
+*.pyc
+__pycache__/
+*.pdb
